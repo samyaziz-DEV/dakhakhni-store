@@ -238,6 +238,7 @@
 
     .notice.ok { display: block; color: #126b4b; background: #e9f7f0; }
     .notice.error { display: block; color: #a7353c; background: #fff0f0; }
+
     .trash-count {
       display: inline-grid;
       place-items: center;
@@ -508,13 +509,21 @@
     const DEFAULT_COLOR = "#f5f7fb";
 
     const branches = ["ڤيب ستور", "الدخاخني", "المول", "اسواق المدينه", "طوخ"];
-    const accounts = [
+
+    const mainSafes = [
       "الخزنة الرئيسية - الدخاخني",
-      "الخزنة الرئيسية - طوخ",
-      "خزنة باسم",
-      "إنستا باي الأهلي",
-      "الجمعية"
+      "الخزنة الرئيسية - طوخ"
     ];
+
+    const banks = [
+      "إنستا باي الأهلي"
+    ];
+
+    const otherSafes = [
+      "خزنة باسم"
+    ];
+
+    const transferAccounts = [...mainSafes, ...otherSafes, ...banks];
 
     const words = {
       ar: {
@@ -720,13 +729,13 @@
         isIncome ? t("incomeAccount") : t("paymentAccount");
 
       if (isIncome) {
-        fillSelect(accountInput, [...branches, ...accounts]);
+        fillSelect(accountInput, [...branches, ...banks, ...mainSafes]);
       } else if (isExpense) {
-        fillSelect(accountInput, accounts);
+        fillSelect(accountInput, mainSafes);
       }
 
-      fillSelect(transferFromInput, accounts);
-      fillSelect(transferToInput, accounts);
+      fillSelect(transferFromInput, transferAccounts);
+      fillSelect(transferToInput, transferAccounts);
     }
 
     function money(value) {
