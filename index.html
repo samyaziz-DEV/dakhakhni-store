@@ -1,97 +1,363 @@
-create extension if not exists pgcrypto;
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>الدخاخني ستور | الحسابات</title>
+  <style>
+    :root {
+      --navy: #172554;
+      --blue: #3158d5;
+      --bg: #f4f6fb;
+      --text: #182230;
+      --muted: #697586;
+      --line: #e7eaf0;
+      --green: #138a5b;
+      --red: #d64045;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Tahoma, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      background: linear-gradient(120deg, #172554, #263f83);
+      color: white;
+      padding: 22px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    header h1 { font-size: 23px; margin: 0 0 6px; }
+    header p { margin: 0; color: #dbe5ff; font-size: 13px; }
+    .badge {
+      border: 1px solid #ffffff55;
+      border-radius: 20px;
+      padding: 8px 12px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    main { width: min(1100px, 92%); margin: 25px auto; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .card, .panel {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 4px 18px #17255408;
+    }
+    .card { padding: 18px; }
+    .card span { color: var(--muted); font-size: 13px; }
+    .card strong { display: block; font-size: 23px; margin-top: 10px; }
+    .income { color: var(--green); }
+    .expenses { color: var(--red); }
+    .panel { padding: 20px; margin-bottom: 18px; }
+    .panel h2 { font-size: 17px; margin: 0 0 18px; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 13px;
+    }
+    label { font-size: 13px; color: #394150; display: block; }
+    input, select {
+      width: 100%;
+      margin-top: 7px;
+      padding: 11px;
+      border: 1px solid #d9dee8;
+      border-radius: 9px;
+      background: white;
+      font: inherit;
+      color: var(--text);
+    }
+    input:focus, select:focus { outline: 2px solid #3158d533; border-color: var(--blue); }
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 18px;
+      font: inherit;
+      cursor: pointer;
+    }
+    .submit {
+      background: var(--blue);
+      color: white;
+      margin-top: 16px;
+      font-weight: bold;
+    }
+    .submit:hover { background: #2446b3; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 650px; }
+    th, td {
+      text-align: right;
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+    th { color: var(--muted); font-weight: normal; }
+    .type-income { color: var(--green); font-weight: bold; }
+    .type-expense { color: var(--red); font-weight: bold; }
+    .delete {
+      background: #fff0f0;
+      color: var(--red);
+      padding: 7px 10px;
+    }
+    .empty { color: var(--muted); text-align: center; padding: 25px; }
+    footer { text-align: center; padding: 18px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 700px) {
+      header { align-items: flex-start; flex-direction: column; }
+      .cards { grid-template-columns: 1fr; gap: 9px; }
+      .card { padding: 14px; }
+      .card strong { font-size: 20px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .panel { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>الدخاخني ستور</h1>
+      <p>لوحة متابعة الإيرادات والمصروفات</p>
+    </div>
+    <span class="badge">نسخة تجريبية للعرض</span>
+  </header>
 
-create type public.transaction_type as enum ('income', 'expense');
+  <main>
+    <section class="cards">
+      <div class="card">
+        <span>إجمالي الإيرادات</span>
+        <strong class="income" id="totalIncome">0.00 ج.م</strong>
+      </div>
+      <div class="card">
+        <span>إجمالي المصروفات</span>
+        <strong class="expenses" id="totalExpenses">0.00 ج.م</strong>
+      </div>
+      <div class="card">
+        <span>صافي الرصيد</span>
+        <strong id="netTotal">0.00 ج.م</strong>
+      </div>
+    </section>
 
-create table public.branches (
-  id uuid primary key default gen_random_uuid(),
-  name text not null unique,
-  created_at timestamptz not null default now()
-);
+    <section class="panel">
+      <h2>إضافة حركة مالية</h2>
+      <form id="transactionForm">
+        <div class="form-grid">
+          <label>نوع الحركة
+            <select id="type" required>
+              <option value="income">إيراد</option>
+              <option value="expense">مصروف</option>
+            </select>
+          </label>
 
-create table public.shifts (
-  id uuid primary key default gen_random_uuid(),
-  branch_id uuid not null references public.branches(id),
-  name text not null,
-  created_at timestamptz not null default now(),
-  unique (branch_id, name)
-);
+          <label>المبلغ بالجنيه
+            <input id="amount" type="number" min="0.01" step="0.01"
+                   placeholder="مثال: 1500" required>
+          </label>
 
-create table public.expense_categories (
-  id uuid primary key default gen_random_uuid(),
-  name text not null unique
-);
+          <label>التاريخ
+            <input id="date" type="date" required>
+          </label>
 
-create table public.transactions (
-  id uuid primary key default gen_random_uuid(),
-  branch_id uuid not null references public.branches(id),
-  shift_id uuid not null references public.shifts(id),
-  type public.transaction_type not null,
-  amount numeric(12, 2) not null check (amount > 0),
-  category_id uuid references public.expense_categories(id),
-  destination text,
-  description text,
-  transaction_date date not null default current_date,
-  created_at timestamptz not null default now(),
-  check (
-    (type = 'income' and category_id is null)
-    or
-    (type = 'expense' and category_id is not null)
-  )
-);
+          <label>الفرع
+            <select id="branch" required>
+              <option>الفرع الأول</option>
+              <option>الفرع الثاني</option>
+              <option>الفرع الثالث</option>
+              <option>الفرع الرابع</option>
+              <option>الفرع الخامس</option>
+            </select>
+          </label>
 
--- الفروع الخمسة: غيّر أسماءها للأسماء الفعلية عندك
-insert into public.branches (name) values
-  ('الفرع الأول'),
-  ('الفرع الثاني'),
-  ('الفرع الثالث'),
-  ('الفرع الرابع'),
-  ('الفرع الخامس')
-on conflict (name) do nothing;
+          <label>الشيفت
+            <select id="shift" required>
+              <option>صباحي</option>
+              <option>مسائي</option>
+              <option>ليلي</option>
+            </select>
+          </label>
 
-insert into public.expense_categories (name) values
-  ('إيجار'),
-  ('رواتب'),
-  ('مشتريات'),
-  ('كهرباء ومياه'),
-  ('نقل'),
-  ('صيانة'),
-  ('مصروفات أخرى')
-on conflict (name) do nothing;
+          <label id="categoryLabel">تصنيف المصروف
+            <select id="category">
+              <option value="">اختر التصنيف</option>
+              <option>إيجار</option>
+              <option>رواتب</option>
+              <option>مشتريات</option>
+              <option>كهرباء ومياه</option>
+              <option>نقل</option>
+              <option>صيانة</option>
+              <option>مصروفات أخرى</option>
+            </select>
+          </label>
 
--- يمنع اختيار شيفت تابع لفرع مختلف عن الفرع المسجل في الحركة
-create or replace function public.validate_transaction_shift()
-returns trigger
-language plpgsql
-as $$
-begin
-  if not exists (
-    select 1
-    from public.shifts s
-    where s.id = new.shift_id
-      and s.branch_id = new.branch_id
-  ) then
-    raise exception 'الشيفت لا يتبع الفرع المحدد';
-  end if;
+          <label id="destinationLabel">المصروف رايح فين؟
+            <input id="destination" type="text" placeholder="مثال: دفع فاتورة الكهرباء">
+          </label>
 
-  return new;
-end;
-$$;
+          <label>ملاحظات
+            <input id="description" type="text" placeholder="ملاحظات اختيارية">
+          </label>
+        </div>
+        <button class="submit" type="submit">إضافة الحركة</button>
+      </form>
+    </section>
 
-create trigger check_transaction_shift
-before insert or update on public.transactions
-for each row execute function public.validate_transaction_shift();
+    <section class="panel">
+      <h2>آخر الحركات</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>التاريخ</th>
+              <th>الفرع</th>
+              <th>الشيفت</th>
+              <th>النوع</th>
+              <th>التصنيف / الجهة</th>
+              <th>المبلغ</th>
+              <th>حذف</th>
+            </tr>
+          </thead>
+          <tbody id="transactions"></tbody>
+        </table>
+        <div id="emptyMessage" class="empty">لسه مفيش حركات مالية. أضف أول حركة من النموذج.</div>
+      </div>
+    </section>
+  </main>
 
--- تقرير يومي حسب الفرع والشيفت
-create view public.daily_branch_shift_summary as
-select
-  t.transaction_date,
-  b.name as branch_name,
-  s.name as shift_name,
-  coalesce(sum(t.amount) filter (where t.type = 'income'), 0) as total_income,
-  coalesce(sum(t.amount) filter (where t.type = 'expense'), 0) as total_expenses,
-  coalesce(sum(t.amount) filter (where t.type = 'income'), 0)
-    - coalesce(sum(t.amount) filter (where t.type = 'expense'), 0) as net_total
-from public.transactions t
-join public.branches b on b.id = t.branch_id
-join public.shifts s on s.id = t.shift_id
-group by t.transaction_date, b.name, s.name;
+  <footer>Powered by Samy Aziz</footer>
+
+  <script>
+    const form = document.getElementById("transactionForm");
+    const typeInput = document.getElementById("type");
+    const categoryLabel = document.getElementById("categoryLabel");
+    const destinationLabel = document.getElementById("destinationLabel");
+    const categoryInput = document.getElementById("category");
+    const destinationInput = document.getElementById("destination");
+    const tbody = document.getElementById("transactions");
+    const emptyMessage = document.getElementById("emptyMessage");
+
+    document.getElementById("date").value =
+      new Date().toLocaleDateString("en-CA");
+
+    let entries = [];
+    try {
+      entries = JSON.parse(localStorage.getItem("dakhakhni-demo-transactions")) || [];
+    } catch {
+      entries = [];
+    }
+
+    function updateFormFields() {
+      const isExpense = typeInput.value === "expense";
+      categoryLabel.style.display = isExpense ? "block" : "none";
+      destinationLabel.style.display = isExpense ? "block" : "none";
+      categoryInput.required = isExpense;
+    }
+
+    function save() {
+      localStorage.setItem("dakhakhni-demo-transactions", JSON.stringify(entries));
+    }
+
+    function render() {
+      tbody.innerHTML = "";
+      let income = 0;
+      let expenses = 0;
+
+      entries.forEach((entry, index) => {
+        if (entry.type === "income") income += entry.amount;
+        else expenses += entry.amount;
+
+        const row = document.createElement("tr");
+        const typeText = entry.type === "income" ? "إيراد" : "مصروف";
+        const typeClass = entry.type === "income" ? "type-income" : "type-expense";
+        const detail = entry.type === "expense"
+          ? [entry.category, entry.destination].filter(Boolean).join(" — ")
+          : (entry.description || "—");
+
+        [
+          entry.date,
+          entry.branch,
+          entry.shift,
+          typeText,
+          detail || "—",
+          entry.amount.toLocaleString("ar-EG", { minimumFractionDigits: 2 }) + " ج.م"
+        ].forEach((value, cellIndex) => {
+          const cell = document.createElement("td");
+          cell.textContent = value;
+          if (cellIndex === 3) cell.className = typeClass;
+          row.appendChild(cell);
+        });
+
+        const actionCell = document.createElement("td");
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "حذف";
+        deleteButton.className = "delete";
+        deleteButton.type = "button";
+        deleteButton.addEventListener("click", () => {
+          entries.splice(index, 1);
+          save();
+          render();
+        });
+        actionCell.appendChild(deleteButton);
+        row.appendChild(actionCell);
+        tbody.appendChild(row);
+      });
+
+      document.getElementById("totalIncome").textContent =
+        income.toLocaleString("ar-EG", { minimumFractionDigits: 2 }) + " ج.م";
+      document.getElementById("totalExpenses").textContent =
+        expenses.toLocaleString("ar-EG", { minimumFractionDigits: 2 }) + " ج.م";
+
+      const net = income - expenses;
+      const netElement = document.getElementById("netTotal");
+      netElement.textContent =
+        net.toLocaleString("ar-EG", { minimumFractionDigits: 2 }) + " ج.م";
+      netElement.className = net >= 0 ? "income" : "expenses";
+      emptyMessage.style.display = entries.length ? "none" : "block";
+    }
+
+    typeInput.addEventListener("change", updateFormFields);
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const type = typeInput.value;
+      const amount = Number(document.getElementById("amount").value);
+
+      if (!Number.isFinite(amount) || amount <= 0) {
+        alert("اكتب مبلغًا صحيحًا أكبر من صفر.");
+        return;
+      }
+
+      if (type === "expense" && !categoryInput.value) {
+        alert("اختار تصنيف المصروف.");
+        return;
+      }
+
+      entries.unshift({
+        type,
+        amount,
+        date: document.getElementById("date").value,
+        branch: document.getElementById("branch").value,
+        shift: document.getElementById("shift").value,
+        category: type === "expense" ? categoryInput.value : "",
+        destination: type === "expense" ? destinationInput.value.trim() : "",
+        description: document.getElementById("description").value.trim()
+      });
+
+      save();
+      render();
+      form.reset();
+      document.getElementById("date").value = new Date().toLocaleDateString("en-CA");
+      updateFormFields();
+    });
+
+    updateFormFields();
+    render();
+  </script>
+</body>
+</html>
