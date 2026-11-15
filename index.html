@@ -1,0 +1,97 @@
+create extension if not exists pgcrypto;
+
+create type public.transaction_type as enum ('income', 'expense');
+
+create table public.branches (
+  id uuid primary key default gen_random_uuid(),
+  name text not null unique,
+  created_at timestamptz not null default now()
+);
+
+create table public.shifts (
+  id uuid primary key default gen_random_uuid(),
+  branch_id uuid not null references public.branches(id),
+  name text not null,
+  created_at timestamptz not null default now(),
+  unique (branch_id, name)
+);
+
+create table public.expense_categories (
+  id uuid primary key default gen_random_uuid(),
+  name text not null unique
+);
+
+create table public.transactions (
+  id uuid primary key default gen_random_uuid(),
+  branch_id uuid not null references public.branches(id),
+  shift_id uuid not null references public.shifts(id),
+  type public.transaction_type not null,
+  amount numeric(12, 2) not null check (amount > 0),
+  category_id uuid references public.expense_categories(id),
+  destination text,
+  description text,
+  transaction_date date not null default current_date,
+  created_at timestamptz not null default now(),
+  check (
+    (type = 'income' and category_id is null)
+    or
+    (type = 'expense' and category_id is not null)
+  )
+);
+
+-- الفروع الخمسة: غيّر أسماءها للأسماء الفعلية عندك
+insert into public.branches (name) values
+  ('الفرع الأول'),
+  ('الفرع الثاني'),
+  ('الفرع الثالث'),
+  ('الفرع الرابع'),
+  ('الفرع الخامس')
+on conflict (name) do nothing;
+
+insert into public.expense_categories (name) values
+  ('إيجار'),
+  ('رواتب'),
+  ('مشتريات'),
+  ('كهرباء ومياه'),
+  ('نقل'),
+  ('صيانة'),
+  ('مصروفات أخرى')
+on conflict (name) do nothing;
+
+-- يمنع اختيار شيفت تابع لفرع مختلف عن الفرع المسجل في الحركة
+create or replace function public.validate_transaction_shift()
+returns trigger
+language plpgsql
+as $$
+begin
+  if not exists (
+    select 1
+    from public.shifts s
+    where s.id = new.shift_id
+      and s.branch_id = new.branch_id
+  ) then
+    raise exception 'الشيفت لا يتبع الفرع المحدد';
+  end if;
+
+  return new;
+end;
+$$;
+
+create trigger check_transaction_shift
+before insert or update on public.transactions
+for each row execute function public.validate_transaction_shift();
+
+-- تقرير يومي حسب الفرع والشيفت
+create view public.daily_branch_shift_summary as
+select
+  t.transaction_date,
+  b.name as branch_name,
+  s.name as shift_name,
+  coalesce(sum(t.amount) filter (where t.type = 'income'), 0) as total_income,
+  coalesce(sum(t.amount) filter (where t.type = 'expense'), 0) as total_expenses,
+  coalesce(sum(t.amount) filter (where t.type = 'income'), 0)
+    - coalesce(sum(t.amount) filter (where t.type = 'expense'), 0) as net_total
+from public.transactions t
+join public.branches b on b.id = t.branch_id
+join public.shifts s on s.id = t.shift_id
+group by t.transaction_date, b.name, s.name;
