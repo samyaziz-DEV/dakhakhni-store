@@ -8,7 +8,6 @@
 
   <style>
     :root {
-      --navy: #14213d;
       --blue: #3158d5;
       --page-color: #f5f7fb;
       --text: #182230;
@@ -33,28 +32,15 @@
         radial-gradient(ellipse at 95% 35%, color-mix(in srgb, var(--page-color) 70%, #f3d9ff) 0, transparent 40%),
         linear-gradient(135deg, var(--page-color), #fff 72%);
       background-attachment: fixed;
-      transition: background-color .35s ease, color .35s ease;
-      animation: pageAppear .65s ease both;
+      animation: appear .5s ease both;
     }
 
-    @keyframes pageAppear {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes riseIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes softPulse {
-      0%, 100% { box-shadow: 0 0 0 0 #3158d522; }
-      50% { box-shadow: 0 0 0 7px #3158d500; }
-    }
+    @keyframes appear { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     .topbar {
       color: white;
-      padding: 24px max(4%, calc((100% - 1180px) / 2));
+      padding: 20px max(4%, calc((100% - 1180px) / 2));
       background: linear-gradient(125deg, #14213d, #243d79, #3158d5);
       background-size: 180% 180%;
       animation: headerGlow 9s ease infinite;
@@ -66,15 +52,13 @@
       50% { background-position: 100% 50%; }
     }
 
-    .topbar-inner {
+    .topbar-inner, .brand, .top-actions {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 16px;
+      gap: 13px;
     }
 
-    .brand { display: flex; align-items: center; gap: 13px; }
-
+    .topbar-inner { justify-content: space-between; }
     .brand-mark {
       width: 46px;
       height: 46px;
@@ -83,40 +67,48 @@
       border-radius: 15px;
       background: #ffffff1c;
       font-size: 24px;
-      box-shadow: inset 0 0 0 1px #ffffff25;
     }
 
     h1 { margin: 0 0 6px; font-size: 22px; }
     .subtitle { margin: 0; font-size: 13px; color: #d5def4; }
-    main { width: min(1180px, 92%); margin: 25px auto 40px; }
+    .top-actions { flex-wrap: wrap; justify-content: flex-end; }
+    .language-select { width: auto; margin: 0; padding: 9px 12px; }
 
-    .summary {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+    main { width: min(1180px, 92%); margin: 24px auto 38px; }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
       margin-bottom: 18px;
+      padding: 14px 16px;
+      background: #ffffffc9;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 6px 20px #18284b0a;
     }
 
+    .color-control { display: flex; align-items: center; gap: 10px; color: #465166; font-size: 12px; }
+    input[type="color"] { width: 42px; height: 36px; margin: 0; padding: 3px; cursor: pointer; }
+
+    .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
     .summary-card, .panel {
-      background: color-mix(in srgb, var(--white) 94%, var(--page-color));
+      background: color-mix(in srgb, var(--white) 95%, var(--page-color));
       border: 1px solid color-mix(in srgb, var(--line) 75%, var(--page-color));
       border-radius: 16px;
       box-shadow: var(--shadow);
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-      animation: riseIn .45s ease both;
+      transition: transform .22s ease, box-shadow .22s ease;
+      animation: rise .4s ease both;
     }
 
-    .summary-card:hover, .panel:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 38px #18284b18;
-    }
-
+    .summary-card:hover, .panel:hover { transform: translateY(-2px); box-shadow: 0 16px 38px #18284b18; }
     .summary-card { padding: 18px; }
     .summary-label { color: var(--muted); font-size: 13px; }
     .summary-value { display: block; margin-top: 13px; font-size: 23px; font-weight: 700; }
     .green { color: var(--green); }
     .red { color: var(--red); }
-    .purple { color: var(--purple); }
     .panel { padding: 21px; margin-bottom: 18px; }
 
     .panel-heading {
@@ -129,13 +121,7 @@
 
     h2 { margin: 0; font-size: 17px; }
     .hint { color: var(--muted); font-size: 12px; }
-
-    .form-grid, .filter-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
+    .form-grid, .filter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
     label { display: block; color: #465166; font-size: 12px; }
 
     input, select {
@@ -158,88 +144,39 @@
       transform: translateY(-1px);
     }
 
-    .actions, .toolbar-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 16px;
-    }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
 
     button {
       border: 0;
       border-radius: 10px;
-      padding: 11px 17px;
+      padding: 11px 16px;
       font: inherit;
       font-size: 13px;
       cursor: pointer;
       transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
     }
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 14px #18284b18;
-    }
-
+    button:hover { transform: translateY(-2px); box-shadow: 0 6px 14px #18284b18; }
     button:active { transform: scale(.96); }
-
     .primary { background: var(--blue); color: white; font-weight: 700; }
     .primary:hover { background: #2448bc; }
     .secondary { background: #eef1f7; color: #39445a; }
     .filters { background: #fbfcfe; }
-
-    .toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 18px;
-      padding: 14px 16px;
-      background: #ffffffc9;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      box-shadow: 0 6px 20px #18284b0a;
-    }
-
-    .color-control {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #465166;
-      font-size: 12px;
-    }
-
-    input[type="color"] {
-      width: 42px;
-      height: 36px;
-      margin: 0;
-      padding: 3px;
-      cursor: pointer;
-    }
-
     .table-wrap { overflow-x: auto; }
-    table { width: 100%; min-width: 770px; border-collapse: collapse; }
+    table { width: 100%; min-width: 790px; border-collapse: collapse; }
 
     th, td {
       padding: 13px 10px;
-      text-align: right;
+      text-align: start;
       border-bottom: 1px solid var(--line);
       font-size: 12px;
     }
 
     th { color: var(--muted); font-weight: 600; background: #fbfcfe; }
-
-    tbody tr { animation: riseIn .28s ease both; }
+    tbody tr { animation: rise .25s ease both; }
     tbody tr:hover { background: #f8faff; }
 
-    .type-tag {
-      display: inline-block;
-      border-radius: 20px;
-      padding: 5px 9px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
+    .type-tag { display: inline-block; border-radius: 20px; padding: 5px 9px; font-size: 11px; font-weight: 700; }
     .tag-income { color: var(--green); background: #e9f7f0; }
     .tag-expense { color: var(--red); background: #fff0f0; }
     .tag-transfer { color: var(--purple); background: #f1edff; }
@@ -248,48 +185,19 @@
     .permanent-delete { padding: 7px 10px; background: #fff0f0; color: var(--red); }
     .empty { padding: 28px; text-align: center; color: var(--muted); font-size: 13px; }
 
-    .notice {
-      display: none;
-      padding: 11px 13px;
-      margin-top: 14px;
-      border-radius: 10px;
-      font-size: 12px;
-    }
-
+    .notice { display: none; padding: 11px 13px; margin-top: 14px; border-radius: 10px; font-size: 12px; }
     .notice.ok { display: block; color: #126b4b; background: #e9f7f0; }
     .notice.error { display: block; color: #a7353c; background: #fff0f0; }
+    .trash-count { display: inline-grid; place-items: center; min-width: 22px; height: 22px; margin-inline-start: 5px; padding: 0 6px; border-radius: 20px; color: #a7353c; background: #fff0f0; font-size: 11px; }
 
-    .trash-count {
-      display: inline-grid;
-      place-items: center;
-      min-width: 22px;
-      height: 22px;
-      margin-right: 5px;
-      padding: 0 6px;
-      border-radius: 20px;
-      color: #a7353c;
-      background: #fff0f0;
-      font-size: 11px;
-    }
+    footer { padding: 22px 16px; text-align: center; color: var(--muted); font-size: 12px; }
+    footer span { display: inline-block; padding: 9px 16px; background: #ffffffa6; border: 1px solid var(--line); border-radius: 30px; box-shadow: 0 5px 18px #18284b0a; }
 
-    footer {
-      padding: 24px 16px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    footer span {
-      display: inline-block;
-      padding: 9px 16px;
-      background: #ffffffa6;
-      border: 1px solid var(--line);
-      border-radius: 30px;
-      box-shadow: 0 5px 18px #18284b0a;
-    }
+    html[dir="ltr"] th, html[dir="ltr"] td { text-align: left; }
 
     @media (max-width: 760px) {
       .topbar-inner { align-items: flex-start; flex-direction: column; }
+      .top-actions { justify-content: flex-start; }
       .summary { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .summary-card { padding: 15px; }
       .summary-value { font-size: 19px; }
@@ -301,16 +209,10 @@
       .form-grid, .filter-grid { grid-template-columns: 1fr; }
       .summary-value { font-size: 17px; }
       .panel-heading { align-items: flex-start; flex-direction: column; }
-      .toolbar { align-items: flex-start; flex-direction: column; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important;
-      }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
     }
   </style>
 </head>
@@ -321,9 +223,16 @@
       <div class="brand">
         <div class="brand-mark">د</div>
         <div>
-          <h1>الدخاخني ستور</h1>
-          <p class="subtitle">لوحة الإدارة المالية للفروع</p>
+          <h1 data-i18n="title">الدخاخني ستور</h1>
+          <p class="subtitle" data-i18n="subtitle">لوحة الإدارة المالية للفروع</p>
         </div>
+      </div>
+      <div class="top-actions">
+        <label for="languageSelect" style="color:#fff" data-i18n="languageLabel">اللغة</label>
+        <select class="language-select" id="languageSelect" aria-label="Language">
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+        </select>
       </div>
     </div>
   </header>
@@ -331,110 +240,107 @@
   <main>
     <div class="toolbar">
       <div class="color-control">
-        <label for="pageColor">لون الصفحة</label>
-        <input id="pageColor" type="color" value="#f5f7fb" aria-label="اختيار لون الصفحة">
-        <button class="secondary" id="resetColor" type="button">اللون الافتراضي</button>
+        <label for="pageColor" data-i18n="pageColor">لون الصفحة</label>
+        <input id="pageColor" type="color" value="#f5f7fb">
+        <button class="secondary" id="resetColor" type="button" data-i18n="defaultColor">اللون الافتراضي</button>
       </div>
-      <button class="secondary" id="showTrash" type="button">
-        🗑️ سلة المحذوفات <span class="trash-count" id="trashCount">0</span>
-      </button>
+      <button class="secondary" id="showTrash" type="button"></button>
     </div>
 
     <section class="summary">
       <article class="summary-card">
-        <span class="summary-label">إجمالي الإيرادات</span>
+        <span class="summary-label" data-i18n="totalIncome">إجمالي الإيرادات</span>
         <strong class="summary-value green" id="totalIncome">0.00 ج.م</strong>
       </article>
       <article class="summary-card">
-        <span class="summary-label">إجمالي المصروفات</span>
+        <span class="summary-label" data-i18n="totalExpenses">إجمالي المصروفات</span>
         <strong class="summary-value red" id="totalExpenses">0.00 ج.م</strong>
       </article>
       <article class="summary-card">
-        <span class="summary-label">صافي الحساب</span>
+        <span class="summary-label" data-i18n="netTotal">صافي الحساب</span>
         <strong class="summary-value" id="netTotal">0.00 ج.م</strong>
-      </article>
-      <article class="summary-card">
-        <span class="summary-label">التحويلات النقدية</span>
-        <strong class="summary-value purple" id="totalTransfers">0.00 ج.م</strong>
       </article>
     </section>
 
     <section class="panel">
       <div class="panel-heading">
-        <h2>إضافة حركة مالية</h2>
-        <span class="hint">إيراد أو مصروف أو تحويل نقدي</span>
+        <h2 data-i18n="addMovement">إضافة حركة مالية</h2>
+        <span class="hint" data-i18n="movementHint">إيراد أو مصروف أو تحويل نقدي</span>
       </div>
 
       <form id="transactionForm">
         <div class="form-grid">
-          <label>نوع الحركة
+          <label><span data-i18n="movementType">نوع الحركة</span>
             <select id="type">
-              <option value="income">إيراد</option>
-              <option value="expense">مصروف</option>
-              <option value="transfer">تحويل نقدي</option>
+              <option value="income" data-i18n="income">إيراد</option>
+              <option value="expense" data-i18n="expense">مصروف</option>
+              <option value="transfer" data-i18n="transfer">تحويل نقدي</option>
             </select>
           </label>
 
-          <label>المبلغ بالجنيه
+          <label><span data-i18n="amount">المبلغ بالجنيه</span>
             <input id="amount" type="number" min="0.01" step="0.01" placeholder="مثال: 1500" required>
           </label>
 
-          <label>التاريخ
+          <label><span data-i18n="date">التاريخ</span>
             <input id="date" type="date" required>
           </label>
 
-          <label>الفرع
+          <label><span data-i18n="branch">الفرع</span>
             <select id="branch" required>
-              <option>ڤيب ستور</option>
-              <option>الدخاخني</option>
-              <option>المول</option>
-              <option>اسواق المدينه</option>
-              <option>طوخ</option>
+              <option value="ڤيب ستور" data-i18n="b_vape">ڤيب ستور</option>
+              <option value="الدخاخني" data-i18n="b_dakh">الدخاخني</option>
+              <option value="المول" data-i18n="b_mall">المول</option>
+              <option value="اسواق المدينه" data-i18n="b_market">اسواق المدينه</option>
+              <option value="طوخ" data-i18n="b_tukh">طوخ</option>
             </select>
           </label>
 
-          <label>الشيفت
+          <label><span data-i18n="shift">الشيفت</span>
             <select id="shift" required>
-              <option>صباحي</option>
-              <option>مسائي</option>
+              <option value="صباحي" data-i18n="morning">صباحي</option>
+              <option value="مسائي" data-i18n="evening">مسائي</option>
             </select>
           </label>
 
-          <label id="categoryField">تصنيف المصروف
+          <label id="accountField"><span data-i18n="account">الحساب</span>
+            <select id="account"></select>
+          </label>
+
+          <label id="categoryField"><span data-i18n="expenseCategory">تصنيف المصروف</span>
             <select id="category">
-              <option value="">اختر التصنيف</option>
-              <option>إيجار</option>
-              <option>رواتب</option>
-              <option>مشتريات</option>
-              <option>كهرباء ومياه</option>
-              <option>نقل</option>
-              <option>صيانة</option>
-              <option>مصروفات أخرى</option>
+              <option value="" data-i18n="chooseCategory">اختر التصنيف</option>
+              <option value="إيجار" data-i18n="cat_rent">إيجار</option>
+              <option value="رواتب" data-i18n="cat_salaries">رواتب</option>
+              <option value="مشتريات" data-i18n="cat_purchases">مشتريات</option>
+              <option value="كهرباء ومياه" data-i18n="cat_bills">كهرباء ومياه</option>
+              <option value="نقل" data-i18n="cat_transport">نقل</option>
+              <option value="صيانة" data-i18n="cat_maintenance">صيانة</option>
+              <option value="جمعية" data-i18n="cat_association">جمعية</option>
+              <option value="مصروفات أخرى" data-i18n="cat_other">مصروفات أخرى</option>
             </select>
           </label>
 
-          <label id="destinationField">المصروف رايح فين؟
+          <label id="destinationField"><span data-i18n="expenseDestination">المصروف رايح فين؟</span>
             <input id="destination" placeholder="مثال: دفع فاتورة الكهرباء">
           </label>
 
-          <label id="transferToField" style="display:none">التحويل إلى فرع
-            <select id="transferTo">
-              <option>الدخاخني</option>
-              <option>ڤيب ستور</option>
-              <option>المول</option>
-              <option>اسواق المدينه</option>
-              <option>طوخ</option>
-            </select>
+          <label id="transferFromField" style="display:none"><span data-i18n="transferFrom">التحويل من حساب</span>
+            <select id="transferFrom"></select>
           </label>
 
-          <label id="descriptionField">ملاحظات
-            <input id="description" placeholder="ملاحظات اختيارية">
+          <label id="transferToField" style="display:none"><span data-i18n="transferTo">التحويل إلى حساب</span>
+            <select id="transferTo"></select>
+          </label>
+
+          <label id="descriptionField"><span data-i18n="notes">ملاحظات</span>
+            <input id="description" data-i18n-placeholder="notesPlaceholder" placeholder="ملاحظات اختيارية">
           </label>
         </div>
 
         <div class="actions">
-          <button class="primary" type="submit">إضافة الحركة</button>
-          <button class="secondary" type="reset">مسح الحقول</button>
+          <button class="primary" type="submit" data-i18n="addButton">إضافة الحركة</button>
+          <button class="secondary" type="reset" data-i18n="clearFields">مسح الحقول</button>
         </div>
         <div id="notice" class="notice" role="status"></div>
       </form>
@@ -442,73 +348,70 @@
 
     <section class="panel filters">
       <div class="panel-heading">
-        <h2>تصفية الحركات</h2>
-        <span class="hint">اختار الفرع أو الشيفت أو الفترة</span>
+        <h2 data-i18n="filterMovements">تصفية الحركات</h2>
+        <span class="hint" data-i18n="filterHint">اختار الفرع أو الشيفت أو الفترة</span>
       </div>
       <div class="filter-grid">
-        <label>الفرع
+        <label><span data-i18n="branch">الفرع</span>
           <select id="filterBranch">
-            <option value="">كل الفروع</option>
-            <option>ڤيب ستور</option>
-            <option>الدخاخني</option>
-            <option>المول</option>
-            <option>اسواق المدينه</option>
-            <option>طوخ</option>
+            <option value="" data-i18n="allBranches">كل الفروع</option>
+            <option value="ڤيب ستور" data-i18n="b_vape">ڤيب ستور</option>
+            <option value="الدخاخني" data-i18n="b_dakh">الدخاخني</option>
+            <option value="المول" data-i18n="b_mall">المول</option>
+            <option value="اسواق المدينه" data-i18n="b_market">اسواق المدينه</option>
+            <option value="طوخ" data-i18n="b_tukh">طوخ</option>
           </select>
         </label>
-        <label>الشيفت
+
+        <label><span data-i18n="shift">الشيفت</span>
           <select id="filterShift">
-            <option value="">كل الشيفتات</option>
-            <option>صباحي</option>
-            <option>مسائي</option>
+            <option value="" data-i18n="allShifts">كل الشيفتات</option>
+            <option value="صباحي" data-i18n="morning">صباحي</option>
+            <option value="مسائي" data-i18n="evening">مسائي</option>
           </select>
         </label>
-        <label>نوع الحركة
+
+        <label><span data-i18n="movementType">نوع الحركة</span>
           <select id="filterType">
-            <option value="">كل الحركات</option>
-            <option value="income">إيراد</option>
-            <option value="expense">مصروف</option>
-            <option value="transfer">تحويل نقدي</option>
+            <option value="" data-i18n="allMovements">كل الحركات</option>
+            <option value="income" data-i18n="income">إيراد</option>
+            <option value="expense" data-i18n="expense">مصروف</option>
+            <option value="transfer" data-i18n="transfer">تحويل نقدي</option>
           </select>
         </label>
-        <label>من تاريخ
-          <input id="filterFrom" type="date">
-        </label>
-        <label>إلى تاريخ
-          <input id="filterTo" type="date">
-        </label>
-        <label style="align-self:end">
-          <button class="secondary" id="clearFilters" type="button">مسح الفلاتر</button>
-        </label>
+
+        <label><span data-i18n="fromDate">من تاريخ</span><input id="filterFrom" type="date"></label>
+        <label><span data-i18n="toDate">إلى تاريخ</span><input id="filterTo" type="date"></label>
+        <label style="align-self:end"><button class="secondary" id="clearFilters" type="button" data-i18n="clearFilters">مسح الفلاتر</button></label>
       </div>
     </section>
 
     <section class="panel">
       <div class="panel-heading">
-        <h2 id="tableTitle">سجل الحركات</h2>
+        <h2 id="tableTitle" data-i18n="movementLog">سجل الحركات</h2>
         <span class="hint" id="visibleCount">0 حركة</span>
       </div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>التاريخ</th>
-              <th>الفرع</th>
-              <th>الشيفت</th>
-              <th>نوع الحركة</th>
-              <th>التفاصيل</th>
-              <th>المبلغ</th>
-              <th>إجراء</th>
+              <th data-i18n="date">التاريخ</th>
+              <th data-i18n="branch">الفرع</th>
+              <th data-i18n="shift">الشيفت</th>
+              <th data-i18n="movementType">نوع الحركة</th>
+              <th data-i18n="details">التفاصيل</th>
+              <th data-i18n="amount">المبلغ</th>
+              <th data-i18n="action">إجراء</th>
             </tr>
           </thead>
           <tbody id="transactions"></tbody>
         </table>
-        <div id="emptyMessage" class="empty">لا توجد حركات مطابقة.</div>
+        <div id="emptyMessage" class="empty" data-i18n="noMovements">لا توجد حركات مطابقة.</div>
       </div>
     </section>
   </main>
 
-  <footer><span>تصميم وتطوير Samy Aziz</span></footer>
+  <footer><span data-i18n="footer">تصميم وتطوير Samy Aziz</span></footer>
 
   <script>
     const SHEET_URL = "https://script.google.com/macros/s/AKfycbyJNLbIkc1iKxqrw6RbSoeUstK-UhrK9Hu_GtrTqtdWjXRXrhrEQEvci5QIfvI5MQFjRA/exec";
@@ -516,44 +419,96 @@
     const TRASH_KEY = "dakhakhni-store-trash";
     const DEFAULT_COLOR = "#f5f7fb";
 
+    const accounts = [
+      "الخزنة الرئيسية - الدخاخني",
+      "الخزنة الرئيسية - طوخ",
+      "خزنة باسم",
+      "إنستا باي الأهلي",
+      "الجمعية"
+    ];
+
+    const words = {
+      ar: {
+        title:"الدخاخني ستور", subtitle:"لوحة الإدارة المالية للفروع", languageLabel:"اللغة",
+        pageColor:"لون الصفحة", defaultColor:"اللون الافتراضي", totalIncome:"إجمالي الإيرادات",
+        totalExpenses:"إجمالي المصروفات", netTotal:"صافي الحساب", addMovement:"إضافة حركة مالية",
+        movementHint:"إيراد أو مصروف أو تحويل نقدي", movementType:"نوع الحركة", income:"إيراد",
+        expense:"مصروف", transfer:"تحويل نقدي", amount:"المبلغ بالجنيه", date:"التاريخ",
+        branch:"الفرع", shift:"الشيفت", account:"الحساب", expenseCategory:"تصنيف المصروف",
+        chooseCategory:"اختر التصنيف", cat_rent:"إيجار", cat_salaries:"رواتب",
+        cat_purchases:"مشتريات", cat_bills:"كهرباء ومياه", cat_transport:"نقل",
+        cat_maintenance:"صيانة", cat_association:"جمعية", cat_other:"مصروفات أخرى",
+        expenseDestination:"المصروف رايح فين؟", transferFrom:"التحويل من حساب",
+        transferTo:"التحويل إلى حساب", notes:"ملاحظات", notesPlaceholder:"ملاحظات اختيارية",
+        addButton:"إضافة الحركة", clearFields:"مسح الحقول", filterMovements:"تصفية الحركات",
+        filterHint:"اختار الفرع أو الشيفت أو الفترة", allBranches:"كل الفروع",
+        allShifts:"كل الشيفتات", allMovements:"كل الحركات", fromDate:"من تاريخ",
+        toDate:"إلى تاريخ", clearFilters:"مسح الفلاتر", movementLog:"سجل الحركات",
+        details:"التفاصيل", action:"إجراء", noMovements:"لا توجد حركات مطابقة.",
+        b_vape:"ڤيب ستور", b_dakh:"الدخاخني", b_mall:"المول",
+        b_market:"اسواق المدينه", b_tukh:"طوخ", morning:"صباحي", evening:"مسائي",
+        footer:"تصميم وتطوير Samy Aziz", trash:"🗑️ سلة المحذوفات", backToLog:"↩️ العودة للسجل",
+        count:"حركة", delete:"حذف", restore:"استعادة", permanentDelete:"حذف نهائي",
+        confirmDelete:"هل تريد حذف هذه الحركة نهائيًا؟", deletedNotice:"تم نقل الحركة إلى سلة المحذوفات. يمكنك استعادتها من زر السلة.",
+        restoredNotice:"تمت استعادة الحركة.", savedSending:"تم حفظ الحركة في الموقع. جارٍ إرسالها إلى Google Sheets…",
+        sentNotice:"تم حفظ الحركة محليًا وإرسال الطلب إلى الشيت. راجع الشيت للتأكد من وصول الصف.",
+        sendError:"تم حفظ الحركة في الموقع، لكن تعذّر إرسال الطلب. راجع رابط Apps Script وإعدادات النشر.",
+        invalidAmount:"اكتب مبلغًا صحيحًا أكبر من صفر.", chooseCategoryAlert:"اختار تصنيف المصروف.",
+        chooseDifferent:"اختار حسابًا مختلفًا للتحويل إليه.", chooseAccount:"اختار حسابًا.",
+        expenseTo:"المصروف", transferFromText:"من", transferToText:"إلى"
+      },
+      en: {
+        title:"Al-Dakhakhni Store", subtitle:"Branch Financial Dashboard", languageLabel:"Language",
+        pageColor:"Page color", defaultColor:"Default color", totalIncome:"Total income",
+        totalExpenses:"Total expenses", netTotal:"Net balance", addMovement:"Add transaction",
+        movementHint:"Income, expense, or cash transfer", movementType:"Transaction type",
+        income:"Income", expense:"Expense", transfer:"Cash transfer", amount:"Amount (EGP)",
+        date:"Date", branch:"Branch", shift:"Shift", account:"Account",
+        expenseCategory:"Expense category", chooseCategory:"Choose a category",
+        cat_rent:"Rent", cat_salaries:"Salaries", cat_purchases:"Purchases",
+        cat_bills:"Electricity and water", cat_transport:"Transport", cat_maintenance:"Maintenance",
+        cat_association:"Association", cat_other:"Other expenses",
+        expenseDestination:"Expense destination", transferFrom:"Transfer from account",
+        transferTo:"Transfer to account", notes:"Notes", notesPlaceholder:"Optional notes",
+        addButton:"Add transaction", clearFields:"Clear fields", filterMovements:"Filter transactions",
+        filterHint:"Filter by branch, shift, or period", allBranches:"All branches",
+        allShifts:"All shifts", allMovements:"All transactions", fromDate:"From date",
+        toDate:"To date", clearFilters:"Clear filters", movementLog:"Transaction log",
+        details:"Details", action:"Action", noMovements:"No matching transactions.",
+        b_vape:"Vape Store", b_dakh:"Al-Dakhakhni", b_mall:"The Mall",
+        b_market:"City Markets", b_tukh:"Toukh", morning:"Morning", evening:"Evening",
+        footer:"Designed & Developed by Samy Aziz", trash:"🗑️ Trash", backToLog:"↩️ Back to log",
+        count:"transactions", delete:"Delete", restore:"Restore", permanentDelete:"Delete permanently",
+        confirmDelete:"Delete this transaction permanently?", deletedNotice:"Moved to Trash. You can restore it from the Trash button.",
+        restoredNotice:"Transaction restored.", savedSending:"Saved locally. Sending to Google Sheets…",
+        sentNotice:"Saved locally and request sent to the sheet. Check the sheet to confirm the row arrived.",
+        sendError:"Saved locally, but sending failed. Check the Apps Script URL and deployment settings.",
+        invalidAmount:"Enter a valid amount greater than zero.", chooseCategoryAlert:"Choose an expense category.",
+        chooseDifferent:"Choose a different account for the transfer.", chooseAccount:"Choose an account.",
+        expenseTo:"Expense", transferFromText:"From", transferToText:"To"
+      }
+    };
+
     const form = document.getElementById("transactionForm");
     const typeInput = document.getElementById("type");
-    const categoryField = document.getElementById("categoryField");
-    const destinationField = document.getElementById("destinationField");
-    const transferToField = document.getElementById("transferToField");
-    const descriptionField = document.getElementById("descriptionField");
     const categoryInput = document.getElementById("category");
+    const accountInput = document.getElementById("account");
+    const transferFromInput = document.getElementById("transferFrom");
     const transferToInput = document.getElementById("transferTo");
     const notice = document.getElementById("notice");
 
     let entries = readStorage(STORAGE_KEY);
     let deletedEntries = readStorage(TRASH_KEY);
     let trashView = false;
+    let language = localStorage.getItem("dakhakhni-language") || "ar";
 
     function readStorage(key) {
       try {
-        const data = JSON.parse(localStorage.getItem(key));
-        return Array.isArray(data) ? data : [];
+        const value = JSON.parse(localStorage.getItem(key));
+        return Array.isArray(value) ? value : [];
       } catch {
         return [];
       }
-    }
-
-    function todayString() {
-      const now = new Date();
-      const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
-      return local.toISOString().slice(0, 10);
-    }
-
-    document.getElementById("date").value = todayString();
-
-    function updateFields() {
-      const type = typeInput.value;
-      categoryField.style.display = type === "expense" ? "" : "none";
-      destinationField.style.display = type === "expense" ? "" : "none";
-      transferToField.style.display = type === "transfer" ? "" : "none";
-      descriptionField.style.display = type === "transfer" ? "none" : "";
-      categoryInput.required = type === "expense";
     }
 
     function saveEntries() {
@@ -561,11 +516,91 @@
       localStorage.setItem(TRASH_KEY, JSON.stringify(deletedEntries));
     }
 
+    function todayString() {
+      const now = new Date();
+      return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    }
+
+    document.getElementById("date").value = todayString();
+
+    function t(key) { return words[language][key] || key; }
+
+    function accountName(account) {
+      if (language === "en") {
+        return {
+          "الخزنة الرئيسية - الدخاخني":"Main Safe - Al-Dakhakhni",
+          "الخزنة الرئيسية - طوخ":"Main Safe - Toukh",
+          "خزنة باسم":"Bassem's Safe",
+          "إنستا باي الأهلي":"Instapay - Ahly",
+          "الجمعية":"Association"
+        }[account] || account;
+      }
+      return account || "";
+    }
+
+    function fillAccountSelect(select, includeEmpty = false) {
+      const previous = select.value;
+      select.innerHTML = "";
+      if (includeEmpty) {
+        const blank = document.createElement("option");
+        blank.value = "";
+        blank.textContent = t("chooseCategory");
+        select.appendChild(blank);
+      }
+      accounts.forEach(account => {
+        const option = document.createElement("option");
+        option.value = account;
+        option.textContent = accountName(account);
+        select.appendChild(option);
+      });
+      if ([...select.options].some(option => option.value === previous)) select.value = previous;
+    }
+
+    function setLanguage(nextLanguage) {
+      language = nextLanguage === "en" ? "en" : "ar";
+      localStorage.setItem("dakhakhni-language", language);
+      document.documentElement.lang = language;
+      document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+      document.getElementById("languageSelect").value = language;
+
+      document.querySelectorAll("[data-i18n]").forEach(element => {
+        const key = element.dataset.i18n;
+        if (words[language][key]) element.textContent = words[language][key];
+      });
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(element => {
+        element.placeholder = t(element.dataset.i18nPlaceholder);
+      });
+
+      fillAccountSelect(accountInput);
+      fillAccountSelect(transferFromInput);
+      fillAccountSelect(transferToInput);
+      document.getElementById("amount").placeholder = language === "ar" ? "مثال: 1500" : "Example: 1500";
+      render();
+      updateFields();
+    }
+
+    function updateFields() {
+      const type = typeInput.value;
+      const expense = type === "expense";
+      const transfer = type === "transfer";
+
+      document.getElementById("accountField").style.display = expense || transfer ? "none" : "";
+      document.getElementById("categoryField").style.display = expense ? "" : "none";
+      document.getElementById("destinationField").style.display = expense ? "" : "none";
+      document.getElementById("transferFromField").style.display = transfer ? "" : "none";
+      document.getElementById("transferToField").style.display = transfer ? "" : "none";
+      document.getElementById("descriptionField").style.display = transfer ? "none" : "";
+
+      categoryInput.required = expense;
+      accountInput.required = type === "income";
+    }
+
     function money(value) {
-      return Number(value).toLocaleString("ar-EG", {
+      const currency = language === "ar" ? "ج.م" : "EGP";
+      return Number(value || 0).toLocaleString(language === "ar" ? "ar-EG" : "en-EG", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-      }) + " ج.م";
+      }) + " " + currency;
     }
 
     function getFilteredEntries(list) {
@@ -584,125 +619,135 @@
       );
     }
 
-    function makeCell(row, value) {
-      const cell = document.createElement("td");
-      cell.textContent = value;
-      row.appendChild(cell);
-      return cell;
+    function branchName(value) {
+      if (language === "ar") return value || "—";
+      return ({
+        "ڤيب ستور":"Vape Store",
+        "الدخاخني":"Al-Dakhakhni",
+        "المول":"The Mall",
+        "اسواق المدينه":"City Markets",
+        "طوخ":"Toukh"
+      })[value] || value || "—";
+    }
+
+    function shiftName(value) {
+      if (language === "ar") return value || "—";
+      return value === "صباحي" ? "Morning" : value === "مسائي" ? "Evening" : value || "—";
     }
 
     function render() {
-      const list = trashView ? deletedEntries : entries;
-      const shown = trashView ? list : getFilteredEntries(list);
+      const shown = trashView ? deletedEntries : getFilteredEntries(entries);
       const tbody = document.getElementById("transactions");
       tbody.innerHTML = "";
 
       let income = 0;
       let expenses = 0;
-      let transfers = 0;
 
       shown.forEach(item => {
         if (!trashView) {
           if (item.type === "income") income += Number(item.amount) || 0;
           if (item.type === "expense") expenses += Number(item.amount) || 0;
-          if (item.type === "transfer") transfers += Number(item.amount) || 0;
-        }
-
-        const typeNames = {
-          income: ["إيراد", "tag-income"],
-          expense: ["مصروف", "tag-expense"],
-          transfer: ["تحويل نقدي", "tag-transfer"]
-        };
-
-        let details = item.description || "—";
-        if (item.type === "expense") {
-          details = [item.category, item.destination, item.description]
-            .filter(Boolean).join(" — ") || "—";
-        }
-        if (item.type === "transfer") {
-          details = "إلى " + (item.transferTo || "—");
         }
 
         const row = document.createElement("tr");
-        makeCell(row, item.date || "—");
-        makeCell(row, item.branch || "—");
-        makeCell(row, item.shift || "—");
+        const addCell = value => {
+          const cell = document.createElement("td");
+          cell.textContent = value;
+          row.appendChild(cell);
+          return cell;
+        };
 
-        const typeCell = document.createElement("td");
+        addCell(item.date || "—");
+        addCell(branchName(item.branch));
+        addCell(shiftName(item.shift));
+
+        const typeCell = addCell("");
         const tag = document.createElement("span");
-        tag.className = "type-tag " + (typeNames[item.type]?.[1] || "");
-        tag.textContent = typeNames[item.type]?.[0] || "—";
+        tag.className = "type-tag " + (
+          item.type === "income" ? "tag-income" :
+          item.type === "expense" ? "tag-expense" : "tag-transfer"
+        );
+        tag.textContent = item.type === "income" ? t("income") :
+          item.type === "expense" ? t("expense") : t("transfer");
         typeCell.appendChild(tag);
-        row.appendChild(typeCell);
 
-        makeCell(row, details);
-        makeCell(row, money(item.amount || 0));
+        let details = item.description || "—";
+        if (item.type === "income") details = accountName(item.account) || details;
+        if (item.type === "expense") {
+          details = [
+            item.category,
+            item.destination,
+            item.description,
+            item.account ? accountName(item.account) : ""
+          ].filter(Boolean).join(" — ") || "—";
+        }
+        if (item.type === "transfer") {
+          details = t("transferFromText") + ": " + accountName(item.transferFrom) +
+            " — " + t("transferToText") + ": " + accountName(item.transferTo);
+        }
+
+        addCell(details);
+        addCell(money(item.amount));
 
         const actionCell = document.createElement("td");
-
         if (trashView) {
-          const restoreButton = document.createElement("button");
-          restoreButton.type = "button";
-          restoreButton.className = "restore";
-          restoreButton.textContent = "استعادة";
-          restoreButton.addEventListener("click", () => {
+          const restore = document.createElement("button");
+          restore.type = "button";
+          restore.className = "restore";
+          restore.textContent = t("restore");
+          restore.onclick = () => {
             deletedEntries = deletedEntries.filter(entry => entry.id !== item.id);
             entries.unshift(item);
             saveEntries();
             render();
-            showNotice("تمت استعادة الحركة.", "ok");
-          });
+            showNotice(t("restoredNotice"), "ok");
+          };
 
-          const permanentButton = document.createElement("button");
-          permanentButton.type = "button";
-          permanentButton.className = "permanent-delete";
-          permanentButton.textContent = "حذف نهائي";
-          permanentButton.style.marginRight = "6px";
-          permanentButton.addEventListener("click", () => {
-            if (!confirm("هل تريد حذف هذه الحركة نهائيًا؟")) return;
+          const permanent = document.createElement("button");
+          permanent.type = "button";
+          permanent.className = "permanent-delete";
+          permanent.style.marginInlineStart = "6px";
+          permanent.textContent = t("permanentDelete");
+          permanent.onclick = () => {
+            if (!confirm(t("confirmDelete"))) return;
             deletedEntries = deletedEntries.filter(entry => entry.id !== item.id);
             saveEntries();
             render();
-          });
-
-          actionCell.append(restoreButton, permanentButton);
+          };
+          actionCell.append(restore, permanent);
         } else {
-          const deleteButton = document.createElement("button");
-          deleteButton.type = "button";
-          deleteButton.className = "delete";
-          deleteButton.textContent = "حذف";
-          deleteButton.addEventListener("click", () => {
+          const remove = document.createElement("button");
+          remove.type = "button";
+          remove.className = "delete";
+          remove.textContent = t("delete");
+          remove.onclick = () => {
             entries = entries.filter(entry => entry.id !== item.id);
             deletedEntries.unshift({ ...item, deletedAt: new Date().toISOString() });
             saveEntries();
             render();
-            showNotice("تم نقل الحركة إلى سلة المحذوفات. يمكنك استعادتها من زر السلة.", "ok");
-          });
-          actionCell.appendChild(deleteButton);
+            showNotice(t("deletedNotice"), "ok");
+          };
+          actionCell.appendChild(remove);
         }
-
         row.appendChild(actionCell);
         tbody.appendChild(row);
       });
 
       document.getElementById("totalIncome").textContent = money(income);
       document.getElementById("totalExpenses").textContent = money(expenses);
-      document.getElementById("totalTransfers").textContent = money(transfers);
-
       const net = income - expenses;
       const netElement = document.getElementById("netTotal");
       netElement.textContent = money(net);
       netElement.className = "summary-value " + (net >= 0 ? "green" : "red");
 
-      document.getElementById("visibleCount").textContent = shown.length + " حركة";
-      document.getElementById("emptyMessage").style.display =
-        shown.length ? "none" : "block";
+      document.getElementById("visibleCount").textContent =
+        shown.length + " " + t("count");
+      document.getElementById("emptyMessage").style.display = shown.length ? "none" : "block";
       document.getElementById("tableTitle").textContent =
-        trashView ? "سلة المحذوفات" : "سجل الحركات";
-      document.getElementById("trashCount").textContent = deletedEntries.length;
+        trashView ? t("trash").replace("🗑️ ", "") : t("movementLog");
       document.getElementById("showTrash").innerHTML =
-        (trashView ? "↩️ العودة للسجل" : "🗑️ سلة المحذوفات") +
-        ' <span class="trash-count" id="trashCount">' + deletedEntries.length + "</span>";
+        (trashView ? t("backToLog") : t("trash")) +
+        ' <span class="trash-count">' + deletedEntries.length + "</span>";
     }
 
     function showNotice(message, status) {
@@ -718,39 +763,35 @@
       const type = typeInput.value;
       const amount = Number(document.getElementById("amount").value);
       const branch = document.getElementById("branch").value;
-      const date = document.getElementById("date").value;
 
       if (!Number.isFinite(amount) || amount <= 0) {
-        alert("اكتب مبلغًا صحيحًا أكبر من صفر.");
+        alert(t("invalidAmount"));
         return;
       }
-
-      if (!date) {
-        alert("اختار تاريخ الحركة.");
-        return;
-      }
-
       if (type === "expense" && !categoryInput.value) {
-        alert("اختار تصنيف المصروف.");
+        alert(t("chooseCategoryAlert"));
         return;
       }
-
-      if (type === "transfer" && transferToInput.value === branch) {
-        alert("اختار فرعًا مختلفًا للتحويل إليه.");
+      if (type === "transfer" && transferFromInput.value === transferToInput.value) {
+        alert(t("chooseDifferent"));
+        return;
+      }
+      if (type === "income" && !accountInput.value) {
+        alert(t("chooseAccount"));
         return;
       }
 
       const entry = {
-        id: (crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random())),
+        id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()),
         type,
         amount,
-        date,
+        date: document.getElementById("date").value,
         branch,
         shift: document.getElementById("shift").value,
+        account: type === "income" ? accountInput.value : "",
         category: type === "expense" ? categoryInput.value : "",
-        destination: type === "expense"
-          ? document.getElementById("destination").value.trim()
-          : "",
+        destination: type === "expense" ? document.getElementById("destination").value.trim() : "",
+        transferFrom: type === "transfer" ? transferFromInput.value : "",
         transferTo: type === "transfer" ? transferToInput.value : "",
         description: document.getElementById("description").value.trim()
       };
@@ -758,7 +799,7 @@
       entries.unshift(entry);
       saveEntries();
       render();
-      showNotice("تم حفظ الحركة في الموقع. جارٍ إرسالها إلى Google Sheets…", "ok");
+      showNotice(t("savedSending"), "ok");
 
       fetch(SHEET_URL, {
         method: "POST",
@@ -769,30 +810,29 @@
           branch: entry.branch,
           shift: entry.shift,
           type: entry.type,
+          account: entry.account,
           category: entry.category,
-          details: entry.type === "expense"
-            ? [entry.category, entry.destination, entry.description].filter(Boolean).join(" — ")
-            : entry.type === "transfer"
-              ? "تحويل إلى " + entry.transferTo
-              : entry.description,
+          details: entry.type === "transfer"
+            ? "من " + entry.transferFrom + " إلى " + entry.transferTo
+            : [entry.category, entry.destination, entry.account, entry.description].filter(Boolean).join(" — "),
           amount: entry.amount,
+          transferFrom: entry.transferFrom,
           transferTo: entry.transferTo
         })
       }).then(() => {
-        showNotice(
-          "تم حفظ الحركة محليًا وإرسال الطلب إلى الشيت. مع no-cors لا يمكن للموقع تأكيد وصول الصف؛ راجع Google Sheets للتأكد.",
-          "ok"
-        );
+        showNotice(t("sentNotice"), "ok");
       }).catch(() => {
-        showNotice(
-          "تم حفظ الحركة في الموقع، لكن تعذّر إرسال الطلب. راجع رابط Apps Script وإعدادات النشر.",
-          "error"
-        );
+        showNotice(t("sendError"), "error");
       });
 
       form.reset();
       document.getElementById("date").value = todayString();
       updateFields();
+    });
+
+    document.getElementById("showTrash").addEventListener("click", () => {
+      trashView = !trashView;
+      render();
     });
 
     ["filterBranch", "filterShift", "filterType", "filterFrom", "filterTo"]
@@ -804,11 +844,6 @@
       render();
     });
 
-    document.getElementById("showTrash").addEventListener("click", () => {
-      trashView = !trashView;
-      render();
-    });
-
     form.addEventListener("reset", () => {
       setTimeout(() => {
         document.getElementById("date").value = todayString();
@@ -816,9 +851,12 @@
       }, 0);
     });
 
+    document.getElementById("languageSelect").addEventListener("change", event => {
+      setLanguage(event.target.value);
+    });
+
     const colorPicker = document.getElementById("pageColor");
     const savedColor = localStorage.getItem("dakhakhni-page-color");
-
     if (savedColor && /^#[0-9a-f]{6}$/i.test(savedColor)) {
       document.documentElement.style.setProperty("--page-color", savedColor);
       colorPicker.value = savedColor;
@@ -835,6 +873,10 @@
       localStorage.setItem("dakhakhni-page-color", DEFAULT_COLOR);
     });
 
+    fillAccountSelect(accountInput);
+    fillAccountSelect(transferFromInput);
+    fillAccountSelect(transferToInput);
+    setLanguage(language);
     updateFields();
     render();
   </script>
