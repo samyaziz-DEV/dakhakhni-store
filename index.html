@@ -3,155 +3,209 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>الدخاخني ستور </title>
+  <title>الدخاخني ستور | الإدارة المالية</title>
   <style>
     :root {
-      --navy: #172554;
+      --navy: #14213d;
       --blue: #3158d5;
-      --bg: #f4f6fb;
+      --bg: #f5f7fb;
       --text: #182230;
-      --muted: #697586;
-      --line: #e7eaf0;
-      --green: #138a5b;
-      --red: #d64045;
+      --muted: #748096;
+      --line: #e8ecf3;
+      --green: #12845b;
+      --red: #d24650;
+      --purple: #7357c8;
+      --white: #fff;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Tahoma, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
+      font-family: Tahoma, Arial, sans-serif;
     }
-    header {
-      background: linear-gradient(120deg, #172554, #263f83);
-      color: white;
-      padding: 22px 5%;
+    .topbar {
+      background: linear-gradient(125deg, #14213d, #243d79);
+      color: #fff;
+      padding: 24px max(4%, calc((100% - 1180px) / 2));
+    }
+    .topbar-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 13px; }
+    .brand-mark {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: #ffffff1c;
+      font-size: 24px;
+    }
+    h1 { margin: 0 0 6px; font-size: 22px; }
+    .subtitle { margin: 0; font-size: 13px; color: #d5def4; }
+    .demo-pill {
+      border: 1px solid #ffffff50;
+      color: #e5ebff;
+      border-radius: 30px;
+      padding: 8px 13px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    main { width: min(1180px, 92%); margin: 25px auto 40px; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .summary-card, .panel {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 8px 25px #18284b08;
+    }
+    .summary-card { padding: 18px; }
+    .summary-label { color: var(--muted); font-size: 13px; }
+    .summary-value { display: block; margin-top: 13px; font-size: 23px; font-weight: 700; }
+    .green { color: var(--green); }
+    .red { color: var(--red); }
+    .purple { color: var(--purple); }
+    .panel { padding: 21px; margin-bottom: 18px; }
+    .panel-heading {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      margin-bottom: 17px;
     }
-    header h1 { font-size: 23px; margin: 0 0 6px; }
-    header p { margin: 0; color: #dbe5ff; font-size: 13px; }
-    .badge {
-      border: 1px solid #ffffff55;
-      border-radius: 20px;
-      padding: 8px 12px;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-    main { width: min(1100px, 92%); margin: 25px auto; }
-    .cards {
+    h2 { margin: 0; font-size: 17px; }
+    .hint { color: var(--muted); font-size: 12px; }
+    .form-grid, .filter-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
-      margin-bottom: 18px;
     }
-    .card, .panel {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      box-shadow: 0 4px 18px #17255408;
-    }
-    .card { padding: 18px; }
-    .card span { color: var(--muted); font-size: 13px; }
-    .card strong { display: block; font-size: 23px; margin-top: 10px; }
-    .income { color: var(--green); }
-    .expenses { color: var(--red); }
-    .panel { padding: 20px; margin-bottom: 18px; }
-    .panel h2 { font-size: 17px; margin: 0 0 18px; }
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 13px;
-    }
-    label { font-size: 13px; color: #394150; display: block; }
+    label { display: block; color: #465166; font-size: 12px; }
     input, select {
       width: 100%;
       margin-top: 7px;
-      padding: 11px;
-      border: 1px solid #d9dee8;
-      border-radius: 9px;
-      background: white;
-      font: inherit;
+      padding: 11px 12px;
+      border: 1px solid #dfe4ed;
+      border-radius: 10px;
+      background: #fff;
       color: var(--text);
-    }
-    input:focus, select:focus { outline: 2px solid #3158d533; border-color: var(--blue); }
-    button {
-      border: 0;
-      border-radius: 9px;
-      padding: 12px 18px;
       font: inherit;
-      cursor: pointer;
-    }
-    .submit {
-      background: var(--blue);
-      color: white;
-      margin-top: 16px;
-      font-weight: bold;
-    }
-    .submit:hover { background: #2446b3; }
-    .table-wrap { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; min-width: 650px; }
-    th, td {
-      text-align: right;
-      padding: 12px 10px;
-      border-bottom: 1px solid var(--line);
       font-size: 13px;
     }
-    th { color: var(--muted); font-weight: normal; }
-    .type-income { color: var(--green); font-weight: bold; }
-    .type-expense { color: var(--red); font-weight: bold; }
+    input:focus, select:focus {
+      outline: 3px solid #3158d51c;
+      border-color: var(--blue);
+    }
+    .actions { display: flex; gap: 10px; margin-top: 16px; }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 17px;
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .primary { background: var(--blue); color: white; font-weight: 700; }
+    .primary:hover { background: #2448bc; }
+    .secondary { background: #eef1f7; color: #39445a; }
+    .filters { background: #fbfcfe; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; min-width: 770px; border-collapse: collapse; }
+    th, td {
+      padding: 13px 10px;
+      text-align: right;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+    }
+    th { color: var(--muted); font-weight: 600; background: #fbfcfe; }
+    .type-tag {
+      display: inline-block;
+      border-radius: 20px;
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .tag-income { color: var(--green); background: #e9f7f0; }
+    .tag-expense { color: var(--red); background: #fff0f0; }
+    .tag-transfer { color: var(--purple); background: #f1edff; }
     .delete {
+      padding: 7px 10px;
       background: #fff0f0;
       color: var(--red);
-      padding: 7px 10px;
     }
-    .empty { color: var(--muted); text-align: center; padding: 25px; }
-    footer { text-align: center; padding: 18px; color: var(--muted); font-size: 12px; }
-    @media (max-width: 700px) {
-      header { align-items: flex-start; flex-direction: column; }
-      .cards { grid-template-columns: 1fr; gap: 9px; }
-      .card { padding: 14px; }
-      .card strong { font-size: 20px; }
-      .form-grid { grid-template-columns: 1fr; }
+    .empty { padding: 28px; text-align: center; color: var(--muted); font-size: 13px; }
+    footer { padding: 20px; text-align: center; color: var(--muted); font-size: 12px; }
+    @media (max-width: 760px) {
+      .topbar-inner { align-items: flex-start; flex-direction: column; }
+      .summary { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .summary-card { padding: 15px; }
+      .summary-value { font-size: 19px; }
+      .form-grid, .filter-grid { grid-template-columns: 1fr 1fr; }
       .panel { padding: 16px; }
+    }
+    @media (max-width: 470px) {
+      .form-grid, .filter-grid { grid-template-columns: 1fr; }
+      .summary-value { font-size: 17px; }
+      .panel-heading { align-items: flex-start; flex-direction: column; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div>
-      <h1>الدخاخني ستور</h1>
-      <p>لوحة متابعة الإيرادات والمصروفات</p>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">د</div>
+        <div>
+          <h1>الدخاخني ستور</h1>
+          <p class="subtitle">لوحة الإدارة المالية للفروع</p>
+        </div>
+      </div>
+      <span class="demo-pill">نسخة تجريبية للعرض</span>
     </div>
-    <span class="badge">نسخة تجريبية للعرض</span>
   </header>
 
   <main>
-    <section class="cards">
-      <div class="card">
-        <span>إجمالي الإيرادات</span>
-        <strong class="income" id="totalIncome">0.00 ج.م</strong>
-      </div>
-      <div class="card">
-        <span>إجمالي المصروفات</span>
-        <strong class="expenses" id="totalExpenses">0.00 ج.م</strong>
-      </div>
-      <div class="card">
-        <span>صافي الرصيد</span>
-        <strong id="netTotal">0.00 ج.م</strong>
-      </div>
+    <section class="summary">
+      <article class="summary-card">
+        <span class="summary-label">إجمالي الإيرادات</span>
+        <strong class="summary-value green" id="totalIncome">0.00 ج.م</strong>
+      </article>
+      <article class="summary-card">
+        <span class="summary-label">إجمالي المصروفات</span>
+        <strong class="summary-value red" id="totalExpenses">0.00 ج.م</strong>
+      </article>
+      <article class="summary-card">
+        <span class="summary-label">صافي الحساب</span>
+        <strong class="summary-value" id="netTotal">0.00 ج.م</strong>
+      </article>
+      <article class="summary-card">
+        <span class="summary-label">التحويلات النقدية</span>
+        <strong class="summary-value purple" id="totalTransfers">0.00 ج.م</strong>
+      </article>
     </section>
 
     <section class="panel">
-      <h2>إضافة حركة مالية</h2>
+      <div class="panel-heading">
+        <h2>إضافة حركة مالية</h2>
+        <span class="hint">سجّل إيرادًا أو مصروفًا أو تحويلًا نقديًا</span>
+      </div>
+
       <form id="transactionForm">
         <div class="form-grid">
           <label>نوع الحركة
-            <select id="type" required>
+            <select id="type">
               <option value="income">إيراد</option>
               <option value="expense">مصروف</option>
+              <option value="transfer">تحويل نقدي</option>
             </select>
           </label>
 
@@ -166,11 +220,11 @@
 
           <label>الفرع
             <select id="branch" required>
-              <option>الفرع الأول</option>
-              <option>الفرع الثاني</option>
-              <option>الفرع الثالث</option>
-              <option>الفرع الرابع</option>
-              <option>الفرع الخامس</option>
+              <option>ڤيب ستور</option>
+              <option>الدخاخني</option>
+              <option>المول</option>
+              <option>اسواق المدينه</option>
+              <option>طوخ</option>
             </select>
           </label>
 
@@ -178,11 +232,10 @@
             <select id="shift" required>
               <option>صباحي</option>
               <option>مسائي</option>
-              <option>ليلي</option>
             </select>
           </label>
 
-          <label id="categoryLabel">تصنيف المصروف
+          <label id="categoryField">تصنيف المصروف
             <select id="category">
               <option value="">اختر التصنيف</option>
               <option>إيجار</option>
@@ -195,20 +248,79 @@
             </select>
           </label>
 
-          <label id="destinationLabel">المصروف رايح فين؟
-            <input id="destination" type="text" placeholder="مثال: دفع فاتورة الكهرباء">
+          <label id="destinationField">المصروف رايح فين؟
+            <input id="destination" placeholder="مثال: دفع فاتورة الكهرباء">
           </label>
 
-          <label>ملاحظات
-            <input id="description" type="text" placeholder="ملاحظات اختيارية">
+          <label id="transferToField" style="display:none">التحويل إلى فرع
+            <select id="transferTo">
+              <option>الدخاخني</option>
+              <option>ڤيب ستور</option>
+              <option>المول</option>
+              <option>اسواق المدينه</option>
+              <option>طوخ</option>
+            </select>
+          </label>
+
+          <label id="descriptionField">ملاحظات
+            <input id="description" placeholder="ملاحظات اختيارية">
           </label>
         </div>
-        <button class="submit" type="submit">إضافة الحركة</button>
+        <div class="actions">
+          <button class="primary" type="submit">إضافة الحركة</button>
+          <button class="secondary" type="reset">مسح الحقول</button>
+        </div>
       </form>
     </section>
 
+    <section class="panel filters">
+      <div class="panel-heading">
+        <h2>تصفية الحركات</h2>
+        <span class="hint">اختار الفرع أو الشيفت أو الفترة</span>
+      </div>
+      <div class="filter-grid">
+        <label>الفرع
+          <select id="filterBranch">
+            <option value="">كل الفروع</option>
+            <option>ڤيب ستور</option>
+            <option>الدخاخني</option>
+            <option>المول</option>
+            <option>اسواق المدينه</option>
+            <option>طوخ</option>
+          </select>
+        </label>
+        <label>الشيفت
+          <select id="filterShift">
+            <option value="">كل الشيفتات</option>
+            <option>صباحي</option>
+            <option>مسائي</option>
+          </select>
+        </label>
+        <label>نوع الحركة
+          <select id="filterType">
+            <option value="">كل الحركات</option>
+            <option value="income">إيراد</option>
+            <option value="expense">مصروف</option>
+            <option value="transfer">تحويل نقدي</option>
+          </select>
+        </label>
+        <label>من تاريخ
+          <input id="filterFrom" type="date">
+        </label>
+        <label>إلى تاريخ
+          <input id="filterTo" type="date">
+        </label>
+        <label style="align-self:end">
+          <button class="secondary" id="clearFilters" type="button">مسح الفلاتر</button>
+        </label>
+      </div>
+    </section>
+
     <section class="panel">
-      <h2>آخر الحركات</h2>
+      <div class="panel-heading">
+        <h2>سجل الحركات</h2>
+        <span class="hint" id="visibleCount">0 حركة</span>
+      </div>
       <div class="table-wrap">
         <table>
           <thead>
@@ -216,15 +328,15 @@
               <th>التاريخ</th>
               <th>الفرع</th>
               <th>الشيفت</th>
-              <th>النوع</th>
-              <th>التصنيف / الجهة</th>
+              <th>نوع الحركة</th>
+              <th>التفاصيل</th>
               <th>المبلغ</th>
-              <th>حذف</th>
+              <th>إجراء</th>
             </tr>
           </thead>
           <tbody id="transactions"></tbody>
         </table>
-        <div id="emptyMessage" class="empty">لسه مفيش حركات مالية. أضف أول حركة من النموذج.</div>
+        <div id="emptyMessage" class="empty">لا توجد حركات مطابقة. أضف حركة أو غيّر الفلاتر.</div>
       </div>
     </section>
   </main>
@@ -232,74 +344,118 @@
   <footer>Powered by Samy Aziz</footer>
 
   <script>
+    const branches = ["ڤيب ستور", "الدخاخني", "المول", "اسواق المدينه", "طوخ"];
     const form = document.getElementById("transactionForm");
     const typeInput = document.getElementById("type");
-    const categoryLabel = document.getElementById("categoryLabel");
-    const destinationLabel = document.getElementById("destinationLabel");
+    const categoryField = document.getElementById("categoryField");
+    const destinationField = document.getElementById("destinationField");
+    const transferToField = document.getElementById("transferToField");
+    const descriptionField = document.getElementById("descriptionField");
     const categoryInput = document.getElementById("category");
-    const destinationInput = document.getElementById("destination");
+    const transferToInput = document.getElementById("transferTo");
     const tbody = document.getElementById("transactions");
-    const emptyMessage = document.getElementById("emptyMessage");
-
-    document.getElementById("date").value =
-      new Date().toLocaleDateString("en-CA");
 
     let entries = [];
     try {
-      entries = JSON.parse(localStorage.getItem("dakhakhni-demo-transactions")) || [];
+      entries = JSON.parse(localStorage.getItem("dakhakhni-store-demo")) || [];
     } catch {
       entries = [];
     }
 
-    function updateFormFields() {
-      const isExpense = typeInput.value === "expense";
-      categoryLabel.style.display = isExpense ? "block" : "none";
-      destinationLabel.style.display = isExpense ? "block" : "none";
-      categoryInput.required = isExpense;
+    document.getElementById("date").value = new Date().toLocaleDateString("en-CA");
+
+    function updateFields() {
+      const type = typeInput.value;
+      categoryField.style.display = type === "expense" ? "" : "none";
+      destinationField.style.display = type === "expense" ? "" : "none";
+      transferToField.style.display = type === "transfer" ? "" : "none";
+      descriptionField.style.display = type === "transfer" ? "none" : "";
+      categoryInput.required = type === "expense";
     }
 
-    function save() {
-      localStorage.setItem("dakhakhni-demo-transactions", JSON.stringify(entries));
+    function saveEntries() {
+      localStorage.setItem("dakhakhni-store-demo", JSON.stringify(entries));
+    }
+
+    function money(value) {
+      return Number(value).toLocaleString("ar-EG", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }) + " ج.م";
+    }
+
+    function getFilteredEntries() {
+      const branch = document.getElementById("filterBranch").value;
+      const shift = document.getElementById("filterShift").value;
+      const type = document.getElementById("filterType").value;
+      const from = document.getElementById("filterFrom").value;
+      const to = document.getElementById("filterTo").value;
+
+      return entries.filter(item =>
+        (!branch || item.branch === branch) &&
+        (!shift || item.shift === shift) &&
+        (!type || item.type === type) &&
+        (!from || item.date >= from) &&
+        (!to || item.date <= to)
+      );
     }
 
     function render() {
+      const shown = getFilteredEntries();
       tbody.innerHTML = "";
-      let income = 0;
-      let expenses = 0;
 
-      entries.forEach((entry, index) => {
-        if (entry.type === "income") income += entry.amount;
-        else expenses += entry.amount;
+      let income = 0, expenses = 0, transfers = 0;
+
+      shown.forEach(item => {
+        if (item.type === "income") income += item.amount;
+        if (item.type === "expense") expenses += item.amount;
+        if (item.type === "transfer") transfers += item.amount;
 
         const row = document.createElement("tr");
-        const typeText = entry.type === "income" ? "إيراد" : "مصروف";
-        const typeClass = entry.type === "income" ? "type-income" : "type-expense";
-        const detail = entry.type === "expense"
-          ? [entry.category, entry.destination].filter(Boolean).join(" — ")
-          : (entry.description || "—");
+        const typeNames = {
+          income: ["إيراد", "tag-income"],
+          expense: ["مصروف", "tag-expense"],
+          transfer: ["تحويل نقدي", "tag-transfer"]
+        };
 
-        [
-          entry.date,
-          entry.branch,
-          entry.shift,
-          typeText,
-          detail || "—",
-          entry.amount.toLocaleString("ar-EG", { minimumFractionDigits: 2 }) + " ج.م"
-        ].forEach((value, cellIndex) => {
+        let details = item.description || "—";
+        if (item.type === "expense") {
+          details = [item.category, item.destination].filter(Boolean).join(" — ") || "—";
+        }
+        if (item.type === "transfer") {
+          details = "من " + item.branch + " إلى " + item.transferTo;
+        }
+
+        const values = [
+          item.date,
+          item.branch,
+          item.shift,
+          typeNames[item.type][0],
+          details,
+          money(item.amount)
+        ];
+
+        values.forEach((value, i) => {
           const cell = document.createElement("td");
-          cell.textContent = value;
-          if (cellIndex === 3) cell.className = typeClass;
+          if (i === 3) {
+            const tag = document.createElement("span");
+            tag.className = "type-tag " + typeNames[item.type][1];
+            tag.textContent = value;
+            cell.appendChild(tag);
+          } else {
+            cell.textContent = value;
+          }
           row.appendChild(cell);
         });
 
         const actionCell = document.createElement("td");
         const deleteButton = document.createElement("button");
-        deleteButton.textContent = "حذف";
-        deleteButton.className = "delete";
         deleteButton.type = "button";
+        deleteButton.className = "delete";
+        deleteButton.textContent = "حذف";
         deleteButton.addEventListener("click", () => {
-          entries.splice(index, 1);
-          save();
+          entries = entries.filter(entry => entry.id !== item.id);
+          saveEntries();
           render();
         });
         actionCell.appendChild(deleteButton);
@@ -307,56 +463,73 @@
         tbody.appendChild(row);
       });
 
-      document.getElementById("totalIncome").textContent =
-        income.toLocaleString("ar-EG", { minimumFractionDigits: 2 }) + " ج.م";
-      document.getElementById("totalExpenses").textContent =
-        expenses.toLocaleString("ar-EG", { minimumFractionDigits: 2 }) + " ج.م";
+      document.getElementById("totalIncome").textContent = money(income);
+      document.getElementById("totalExpenses").textContent = money(expenses);
+      document.getElementById("totalTransfers").textContent = money(transfers);
 
       const net = income - expenses;
       const netElement = document.getElementById("netTotal");
-      netElement.textContent =
-        net.toLocaleString("ar-EG", { minimumFractionDigits: 2 }) + " ج.م";
-      netElement.className = net >= 0 ? "income" : "expenses";
-      emptyMessage.style.display = entries.length ? "none" : "block";
+      netElement.textContent = money(net);
+      netElement.className = "summary-value " + (net >= 0 ? "green" : "red");
+
+      document.getElementById("visibleCount").textContent = shown.length + " حركة";
+      document.getElementById("emptyMessage").style.display = shown.length ? "none" : "block";
     }
 
-    typeInput.addEventListener("change", updateFormFields);
+    typeInput.addEventListener("change", updateFields);
 
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", event => {
       event.preventDefault();
 
       const type = typeInput.value;
       const amount = Number(document.getElementById("amount").value);
+      const branch = document.getElementById("branch").value;
 
       if (!Number.isFinite(amount) || amount <= 0) {
         alert("اكتب مبلغًا صحيحًا أكبر من صفر.");
         return;
       }
-
       if (type === "expense" && !categoryInput.value) {
         alert("اختار تصنيف المصروف.");
         return;
       }
+      if (type === "transfer" && transferToInput.value === branch) {
+        alert("اختار فرعًا مختلفًا للتحويل إليه.");
+        return;
+      }
 
       entries.unshift({
+        id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
         type,
         amount,
         date: document.getElementById("date").value,
-        branch: document.getElementById("branch").value,
+        branch,
         shift: document.getElementById("shift").value,
         category: type === "expense" ? categoryInput.value : "",
-        destination: type === "expense" ? destinationInput.value.trim() : "",
+        destination: type === "expense"
+          ? document.getElementById("destination").value.trim()
+          : "",
+        transferTo: type === "transfer" ? transferToInput.value : "",
         description: document.getElementById("description").value.trim()
       });
 
-      save();
-      render();
+      saveEntries();
       form.reset();
       document.getElementById("date").value = new Date().toLocaleDateString("en-CA");
-      updateFormFields();
+      updateFields();
+      render();
     });
 
-    updateFormFields();
+    ["filterBranch", "filterShift", "filterType", "filterFrom", "filterTo"]
+      .forEach(id => document.getElementById(id).addEventListener("input", render));
+
+    document.getElementById("clearFilters").addEventListener("click", () => {
+      ["filterBranch", "filterShift", "filterType", "filterFrom", "filterTo"]
+        .forEach(id => document.getElementById(id).value = "");
+      render();
+    });
+
+    updateFields();
     render();
   </script>
 </body>
