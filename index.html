@@ -26,7 +26,7 @@
     }
     .topbar {
       background: linear-gradient(125deg, #14213d, #243d79);
-      color: #fff;
+      color: white;
       padding: 24px max(4%, calc((100% - 1180px) / 2));
     }
     .topbar-inner {
@@ -137,12 +137,17 @@
     .tag-income { color: var(--green); background: #e9f7f0; }
     .tag-expense { color: var(--red); background: #fff0f0; }
     .tag-transfer { color: var(--purple); background: #f1edff; }
-    .delete {
-      padding: 7px 10px;
-      background: #fff0f0;
-      color: var(--red);
-    }
+    .delete { padding: 7px 10px; background: #fff0f0; color: var(--red); }
     .empty { padding: 28px; text-align: center; color: var(--muted); font-size: 13px; }
+    .notice {
+      display: none;
+      padding: 11px 13px;
+      margin-top: 14px;
+      border-radius: 10px;
+      font-size: 12px;
+    }
+    .notice.ok { display: block; color: #126b4b; background: #e9f7f0; }
+    .notice.error { display: block; color: #a7353c; background: #fff0f0; }
     footer { padding: 20px; text-align: center; color: var(--muted); font-size: 12px; }
     @media (max-width: 760px) {
       .topbar-inner { align-items: flex-start; flex-direction: column; }
@@ -169,7 +174,7 @@
           <p class="subtitle">لوحة الإدارة المالية للفروع</p>
         </div>
       </div>
-      <span class="demo-pill">نسخة تجريبية للعرض</span>
+      <span class="demo-pill">نسخة تجريبية</span>
     </div>
   </header>
 
@@ -196,7 +201,7 @@
     <section class="panel">
       <div class="panel-heading">
         <h2>إضافة حركة مالية</h2>
-        <span class="hint">سجّل إيرادًا أو مصروفًا أو تحويلًا نقديًا</span>
+        <span class="hint">إيراد أو مصروف أو تحويل نقدي</span>
       </div>
 
       <form id="transactionForm">
@@ -266,10 +271,12 @@
             <input id="description" placeholder="ملاحظات اختيارية">
           </label>
         </div>
+
         <div class="actions">
           <button class="primary" type="submit">إضافة الحركة</button>
           <button class="secondary" type="reset">مسح الحقول</button>
         </div>
+        <div id="notice" class="notice"></div>
       </form>
     </section>
 
@@ -336,7 +343,7 @@
           </thead>
           <tbody id="transactions"></tbody>
         </table>
-        <div id="emptyMessage" class="empty">لا توجد حركات مطابقة. أضف حركة أو غيّر الفلاتر.</div>
+        <div id="emptyMessage" class="empty">لا توجد حركات مطابقة.</div>
       </div>
     </section>
   </main>
@@ -344,7 +351,8 @@
   <footer>Powered by Samy Aziz</footer>
 
   <script>
-    const branches = ["ڤيب ستور", "الدخاخني", "المول", "اسواق المدينه", "طوخ"];
+    const SHEET_URL = "https://script.google.com/macros/s/AKfycbyJNLbIkc1iKxqrw6RbSoeUstK-UhrK9Hu_GtrTqtdWjXRXrhrEQEvci5QIfvI5MQFjRA/exec";
+
     const form = document.getElementById("transactionForm");
     const typeInput = document.getElementById("type");
     const categoryField = document.getElementById("categoryField");
@@ -353,7 +361,8 @@
     const descriptionField = document.getElementById("descriptionField");
     const categoryInput = document.getElementById("category");
     const transferToInput = document.getElementById("transferTo");
-    const tbody = document.getElementById("transactions");
+    const notice = document.getElementById("notice");
+    const branches = ["ڤيب ستور", "الدخاخني", "المول", "اسواق المدينه", "طوخ"];
 
     let entries = [];
     try {
@@ -402,16 +411,18 @@
 
     function render() {
       const shown = getFilteredEntries();
+      const tbody = document.getElementById("transactions");
       tbody.innerHTML = "";
 
-      let income = 0, expenses = 0, transfers = 0;
+      let income = 0;
+      let expenses = 0;
+      let transfers = 0;
 
       shown.forEach(item => {
         if (item.type === "income") income += item.amount;
         if (item.type === "expense") expenses += item.amount;
         if (item.type === "transfer") transfers += item.amount;
 
-        const row = document.createElement("tr");
         const typeNames = {
           income: ["إيراد", "tag-income"],
           expense: ["مصروف", "tag-expense"],
@@ -420,12 +431,14 @@
 
         let details = item.description || "—";
         if (item.type === "expense") {
-          details = [item.category, item.destination].filter(Boolean).join(" — ") || "—";
+          details = [item.category, item.destination, item.description]
+            .filter(Boolean).join(" — ") || "—";
         }
         if (item.type === "transfer") {
-          details = "من " + item.branch + " إلى " + item.transferTo;
+          details = "إلى " + (item.transferTo || "—");
         }
 
+        const row = document.createElement("tr");
         const values = [
           item.date,
           item.branch,
@@ -435,9 +448,9 @@
           money(item.amount)
         ];
 
-        values.forEach((value, i) => {
+        values.forEach((value, index) => {
           const cell = document.createElement("td");
-          if (i === 3) {
+          if (index === 3) {
             const tag = document.createElement("span");
             tag.className = "type-tag " + typeNames[item.type][1];
             tag.textContent = value;
@@ -473,7 +486,8 @@
       netElement.className = "summary-value " + (net >= 0 ? "green" : "red");
 
       document.getElementById("visibleCount").textContent = shown.length + " حركة";
-      document.getElementById("emptyMessage").style.display = shown.length ? "none" : "block";
+      document.getElementById("emptyMessage").style.display =
+        shown.length ? "none" : "block";
     }
 
     typeInput.addEventListener("change", updateFields);
@@ -489,16 +503,18 @@
         alert("اكتب مبلغًا صحيحًا أكبر من صفر.");
         return;
       }
+
       if (type === "expense" && !categoryInput.value) {
         alert("اختار تصنيف المصروف.");
         return;
       }
+
       if (type === "transfer" && transferToInput.value === branch) {
         alert("اختار فرعًا مختلفًا للتحويل إليه.");
         return;
       }
 
-      entries.unshift({
+      const entry = {
         id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
         type,
         amount,
@@ -511,13 +527,47 @@
           : "",
         transferTo: type === "transfer" ? transferToInput.value : "",
         description: document.getElementById("description").value.trim()
+      };
+
+      entries.unshift(entry);
+      saveEntries();
+      render();
+
+      notice.className = "notice";
+      notice.textContent = "تمت إضافة الحركة للموقع. جارٍ إرسالها للشيت…";
+
+      fetch(SHEET_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({
+          date: entry.date,
+          branch: entry.branch,
+          shift: entry.shift,
+          type: entry.type,
+          category: entry.category,
+          details: entry.type === "expense"
+            ? [entry.category, entry.destination, entry.description]
+                .filter(Boolean).join(" — ")
+            : entry.type === "transfer"
+              ? "تحويل إلى " + entry.transferTo
+              : entry.description,
+          amount: entry.amount,
+          transferTo: entry.transferTo
+        })
+      }).then(() => {
+        notice.className = "notice ok";
+        notice.textContent =
+          "تم تسجيل الحركة في الموقع وإرسال طلب للشيت. راجع الشيت للتأكد من وصول الصف.";
+      }).catch(() => {
+        notice.className = "notice error";
+        notice.textContent =
+          "تم تسجيل الحركة في الموقع، لكن تعذّر إرسالها. راجع رابط Apps Script وإعدادات النشر.";
       });
 
-      saveEntries();
       form.reset();
       document.getElementById("date").value = new Date().toLocaleDateString("en-CA");
       updateFields();
-      render();
     });
 
     ["filterBranch", "filterShift", "filterType", "filterFrom", "filterTo"]
@@ -527,6 +577,13 @@
       ["filterBranch", "filterShift", "filterType", "filterFrom", "filterTo"]
         .forEach(id => document.getElementById(id).value = "");
       render();
+    });
+
+    form.addEventListener("reset", () => {
+      setTimeout(() => {
+        document.getElementById("date").value = new Date().toLocaleDateString("en-CA");
+        updateFields();
+      }, 0);
     });
 
     updateFields();
