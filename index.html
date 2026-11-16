@@ -9,6 +9,7 @@
   <style>
     :root {
       --blue: #3158d5;
+      --blue-hover: #2448bc;
       --page-color: #f5f7fb;
       --text: #182230;
       --muted: #748096;
@@ -17,7 +18,101 @@
       --red: #d24650;
       --purple: #7357c8;
       --white: #fff;
-      --shadow: 0 12px 32px #18284b12;
+      --soft: #fbfcfe;
+      --hover: #f8faff;
+      --input-bg: #fff;
+      --input-line: #dfe4ed;
+      --label: #465166;
+      --btn-soft: #eef1f7;
+      --btn-soft-text: #39445a;
+      --toolbar-bg: #ffffffc9;
+      --green-soft: #e9f7f0;
+      --red-soft: #fff0f0;
+      --purple-soft: #f1edff;
+      --blue-soft: #eaf0ff;
+      --ok-text: #126b4b;
+      --err-text: #a7353c;
+      --warn-bg: #fff5dd;
+      --warn-text: #a86a00;
+      --focus-ring: #3158d51c;
+      --top-gradient: linear-gradient(125deg, #14213d, #243d79, #3158d5);
+      --bg-end: #fff;
+      --tint1: #c9d8ff;
+      --tint2: #f3d9ff;
+      --shadow: 0 14px 34px #18284b2e, 0 2px 6px #18284b1a;
+      --shadow-hover: 0 22px 48px #18284b42, 0 4px 10px #18284b22;
+      --shadow-soft: 0 8px 22px #18284b26;
+      --btn-shadow: 0 4px 10px #18284b26;
+      --btn-shadow-hover: 0 9px 20px #18284b40;
+      --bg-image:
+        radial-gradient(ellipse at 5% 10%, color-mix(in srgb, var(--page-color) 72%, var(--tint1)) 0, transparent 42%),
+        radial-gradient(ellipse at 95% 35%, color-mix(in srgb, var(--page-color) 70%, var(--tint2)) 0, transparent 40%),
+        linear-gradient(135deg, var(--page-color), var(--bg-end) 72%);
+      --bg-size: auto;
+    }
+
+    /* ===== الثيمات ===== */
+    html[data-theme="ocean"] {
+      --blue: #0e7c9b; --blue-hover: #0a6580; --page-color: #eef8fb;
+      --tint1: #bfe7f2; --tint2: #d6f5ee; --blue-soft: #e0f3f8; --focus-ring: #0e7c9b2a;
+      --top-gradient: linear-gradient(125deg, #06293a, #0b5470, #0e7c9b);
+    }
+    html[data-theme="sunset"] {
+      --blue: #e0592a; --blue-hover: #c2481c; --page-color: #fff6ef;
+      --tint1: #ffd9c2; --tint2: #ffe3f0; --blue-soft: #ffece3; --focus-ring: #e0592a2a;
+      --top-gradient: linear-gradient(125deg, #3b1d2e, #9b3d3d, #e0592a);
+    }
+    html[data-theme="forest"] {
+      --blue: #2f8f4e; --blue-hover: #247a40; --page-color: #f1f9f3;
+      --tint1: #cdeed6; --tint2: #e6f4c9; --blue-soft: #e4f5e9; --focus-ring: #2f8f4e2a;
+      --top-gradient: linear-gradient(125deg, #0f2a1a, #1d5a34, #2f8f4e);
+    }
+    html[data-theme="rose"] {
+      --blue: #c2447a; --blue-hover: #a63665; --page-color: #fff1f6;
+      --tint1: #ffd3e4; --tint2: #e9dcff; --blue-soft: #ffe4ee; --focus-ring: #c2447a2a;
+      --top-gradient: linear-gradient(125deg, #3a1230, #8a2c5e, #c2447a);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --blue: #5b82ff; --blue-hover: #4a6fe8; --page-color: #0f1424;
+      --text: #e8ecf6; --muted: #94a0ba; --line: #27304a; --white: #1a2238;
+      --soft: #151c30; --hover: #1f2842; --input-bg: #121a2e; --input-line: #2e3858;
+      --label: #b4bed6; --btn-soft: #252f4d; --btn-soft-text: #d6ddf0; --toolbar-bg: #1a2238cc;
+      --green: #3ecf8e; --red: #ff6b75; --purple: #a78bfa;
+      --green-soft: #12392c; --red-soft: #3c1a22; --purple-soft: #2a2350; --blue-soft: #1d2a55;
+      --ok-text: #6fe3b0; --err-text: #ff9aa1; --warn-bg: #3d3112; --warn-text: #ffc861;
+      --focus-ring: #5b82ff33; --bg-end: #0a0e1b; --tint1: #1b2750; --tint2: #2a1b47;
+      --top-gradient: linear-gradient(125deg, #080c18, #141f42, #2a4bb8);
+      --shadow: 0 14px 34px #00000080, 0 2px 6px #00000060;
+      --shadow-hover: 0 22px 48px #000000a0, 0 4px 10px #00000070;
+      --shadow-soft: 0 8px 22px #00000070;
+      --btn-shadow: 0 4px 10px #00000070;
+      --btn-shadow-hover: 0 9px 20px #000000a0;
+    }
+
+    /* ===== أشكال الخلفية ===== */
+    html[data-bg="dots"] {
+      --bg-image:
+        radial-gradient(color-mix(in srgb, var(--blue) 30%, transparent) 1.6px, transparent 1.9px),
+        linear-gradient(135deg, var(--page-color), var(--bg-end) 80%);
+      --bg-size: 24px 24px, auto;
+    }
+    html[data-bg="grid"] {
+      --bg-image:
+        linear-gradient(color-mix(in srgb, var(--blue) 12%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--blue) 12%, transparent) 1px, transparent 1px),
+        linear-gradient(135deg, var(--page-color), var(--bg-end) 80%);
+      --bg-size: 30px 30px, 30px 30px, auto;
+    }
+    html[data-bg="stripes"] {
+      --bg-image:
+        repeating-linear-gradient(45deg, color-mix(in srgb, var(--blue) 10%, transparent) 0 2px, transparent 2px 16px),
+        linear-gradient(135deg, var(--page-color), var(--bg-end) 80%);
+      --bg-size: auto, auto;
+    }
+    html[data-bg="plain"] {
+      --bg-image: none;
+      --bg-size: auto;
     }
 
     * { box-sizing: border-box; }
@@ -27,13 +122,15 @@
       margin: 0;
       color: var(--text);
       font-family: Tahoma, Arial, sans-serif;
-      background:
-        radial-gradient(ellipse at 5% 10%, color-mix(in srgb, var(--page-color) 72%, #c9d8ff) 0, transparent 42%),
-        radial-gradient(ellipse at 95% 35%, color-mix(in srgb, var(--page-color) 70%, #f3d9ff) 0, transparent 40%),
-        linear-gradient(135deg, var(--page-color), #fff 72%);
+      background-color: var(--page-color);
+      background-image: var(--bg-image);
+      background-size: var(--bg-size);
       background-attachment: fixed;
       animation: appear .5s ease both;
     }
+
+    /* الإيموجي والنقط جنب كل عنصر */
+    [data-emoji]::before { content: attr(data-emoji) "\00a0"; }
 
     @keyframes appear {
       from { opacity: 0; }
@@ -45,13 +142,23 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(18px) scale(.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes fillBar {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
     .topbar {
       color: white;
       padding: 20px max(4%, calc((100% - 1180px) / 2));
-      background: linear-gradient(125deg, #14213d, #243d79, #3158d5);
+      background: var(--top-gradient);
       background-size: 180% 180%;
       animation: headerGlow 9s ease infinite;
-      box-shadow: 0 8px 26px #14213d30;
+      box-shadow: 0 10px 30px #14213d55;
     }
 
     @keyframes headerGlow {
@@ -73,8 +180,9 @@
       display: grid;
       place-items: center;
       border-radius: 15px;
-      background: #ffffff1c;
+      background: #ffffff2e;
       font-size: 24px;
+      box-shadow: 0 8px 18px #00000050, inset 0 0 0 1px #ffffff30;
     }
 
     h1 { margin: 0 0 6px; font-size: 22px; }
@@ -92,17 +200,19 @@
       gap: 12px;
       margin-bottom: 18px;
       padding: 14px 16px;
-      background: #ffffffc9;
+      background: var(--toolbar-bg);
       border: 1px solid var(--line);
       border-radius: 14px;
-      box-shadow: 0 6px 20px #18284b0a;
+      box-shadow: var(--shadow-soft);
     }
+
+    .toolbar-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 
     .color-control {
       display: flex;
       align-items: center;
       gap: 10px;
-      color: #465166;
+      color: var(--label);
       font-size: 12px;
     }
 
@@ -132,7 +242,7 @@
 
     .summary-card:hover, .panel:hover {
       transform: translateY(-2px);
-      box-shadow: 0 16px 38px #18284b18;
+      box-shadow: var(--shadow-hover);
     }
 
     .summary-card { padding: 18px; }
@@ -159,15 +269,15 @@
       gap: 14px;
     }
 
-    label { display: block; color: #465166; font-size: 12px; }
+    label { display: block; color: var(--label); font-size: 12px; }
 
     input, select {
       width: 100%;
       margin-top: 7px;
       padding: 11px 12px;
-      border: 1px solid #dfe4ed;
+      border: 1px solid var(--input-line);
       border-radius: 10px;
-      background: #fff;
+      background: var(--input-bg);
       color: var(--text);
       font: inherit;
       font-size: 13px;
@@ -177,7 +287,7 @@
     input:focus, select:focus {
       outline: none;
       border-color: var(--blue);
-      box-shadow: 0 0 0 4px #3158d51c;
+      box-shadow: 0 0 0 4px var(--focus-ring);
       transform: translateY(-1px);
     }
 
@@ -190,15 +300,21 @@
       font: inherit;
       font-size: 13px;
       cursor: pointer;
+      box-shadow: var(--btn-shadow);
       transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
     }
 
-    button:hover { transform: translateY(-2px); box-shadow: 0 6px 14px #18284b18; }
+    button:hover { transform: translateY(-2px); box-shadow: var(--btn-shadow-hover); }
     button:active { transform: scale(.96); }
-    .primary { background: var(--blue); color: white; font-weight: 700; }
-    .primary:hover { background: #2448bc; }
-    .secondary { background: #eef1f7; color: #39445a; }
-    .filters { background: #fbfcfe; }
+    .primary {
+      background: var(--blue);
+      color: white;
+      font-weight: 700;
+      box-shadow: 0 6px 14px color-mix(in srgb, var(--blue) 45%, transparent);
+    }
+    .primary:hover { background: var(--blue-hover); }
+    .secondary { background: var(--btn-soft); color: var(--btn-soft-text); }
+    .filters { background: var(--soft); }
     .table-wrap { overflow-x: auto; }
     table { width: 100%; min-width: 790px; border-collapse: collapse; }
 
@@ -209,9 +325,9 @@
       font-size: 12px;
     }
 
-    th { color: var(--muted); font-weight: 600; background: #fbfcfe; }
+    th { color: var(--muted); font-weight: 600; background: var(--soft); }
     tbody tr { animation: rise .25s ease both; }
-    tbody tr:hover { background: #f8faff; }
+    tbody tr:hover { background: var(--hover); }
 
     .type-tag {
       display: inline-block;
@@ -221,19 +337,19 @@
       font-weight: 700;
     }
 
-    .tag-income { color: var(--green); background: #e9f7f0; }
-    .tag-expense { color: var(--red); background: #fff0f0; }
-    .tag-transfer { color: var(--purple); background: #f1edff; }
-    .delete, .permanent-delete { padding: 7px 10px; background: #fff0f0; color: var(--red); }
-    .restore { padding: 7px 10px; background: #e9f7f0; color: var(--green); }
-    .edit { padding: 7px 10px; background: #eaf0ff; color: var(--blue); margin-inline-end: 6px; }
+    .tag-income { color: var(--green); background: var(--green-soft); }
+    .tag-expense { color: var(--red); background: var(--red-soft); }
+    .tag-transfer { color: var(--purple); background: var(--purple-soft); }
+    .delete, .permanent-delete { padding: 7px 10px; background: var(--red-soft); color: var(--red); }
+    .restore { padding: 7px 10px; background: var(--green-soft); color: var(--green); }
+    .edit { padding: 7px 10px; background: var(--blue-soft); color: var(--blue); margin-inline-end: 6px; }
     .edited-tag {
       display: inline-block;
       margin-inline-start: 8px;
       padding: 3px 8px;
       border-radius: 20px;
-      color: #a86a00;
-      background: #fff5dd;
+      color: var(--warn-text);
+      background: var(--warn-bg);
       font-size: 10px;
       font-weight: 700;
     }
@@ -247,8 +363,8 @@
       font-size: 12px;
     }
 
-    .notice.ok { display: block; color: #126b4b; background: #e9f7f0; }
-    .notice.error { display: block; color: #a7353c; background: #fff0f0; }
+    .notice.ok { display: block; color: var(--ok-text); background: var(--green-soft); }
+    .notice.error { display: block; color: var(--err-text); background: var(--red-soft); }
 
     .trash-count {
       display: inline-grid;
@@ -258,19 +374,145 @@
       margin-inline-start: 5px;
       padding: 0 6px;
       border-radius: 20px;
-      color: #a7353c;
-      background: #fff0f0;
+      color: var(--err-text);
+      background: var(--red-soft);
       font-size: 11px;
     }
+
+    /* ===== الأرصدة ===== */
+    .balance-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .bal-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 15px;
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .bal-name { display: flex; align-items: center; gap: 7px; color: var(--label); font-size: 12px; font-weight: 700; }
+    .bal-value { font-size: 20px; font-weight: 700; }
+    .bal-card small { color: var(--muted); font-size: 11px; }
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex: none;
+    }
+    .dot-green { background: var(--green); box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 25%, transparent); }
+    .dot-red { background: var(--red); box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 25%, transparent); }
+
+    .balance-hint { display: block; margin-top: 6px; color: var(--muted); font-size: 11px; }
+    .balance-hint:empty { display: none; }
+    .balance-hint.low { color: var(--red); font-weight: 700; }
+
+    .opening-editor {
+      margin-top: 16px;
+      padding: 16px;
+      background: var(--soft);
+      border: 1px dashed var(--input-line);
+      border-radius: 14px;
+    }
+    .opening-editor[hidden] { display: none; }
+
+    .close-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .close-row label input { width: auto; }
+
+    details.history { margin-top: 14px; font-size: 12px; color: var(--label); }
+    details.history summary { cursor: pointer; font-weight: 700; }
+    .history-item { padding: 8px 0; border-bottom: 1px solid var(--line); line-height: 1.8; }
+
+    /* ===== لوحة تغيير الشكل ===== */
+    .style-panel { display: grid; gap: 16px; }
+    .style-panel[hidden] { display: none; }
+    .chip-group strong { display: block; margin-bottom: 10px; font-size: 13px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 9px; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 13px;
+      background: var(--btn-soft);
+      color: var(--btn-soft-text);
+      border: 2px solid transparent;
+    }
+    .chip.active { border-color: var(--blue); font-weight: 700; }
+    .swatch { width: 14px; height: 14px; border-radius: 50%; box-shadow: 0 0 0 2px #ffffff80, 0 1px 4px #00000050; }
+
+    /* ===== شاشة المقدمة ===== */
+    .splash {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: color-mix(in srgb, var(--page-color) 55%, #0b1020cc);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: opacity .45s ease, visibility .45s ease;
+    }
+    .splash.hide { opacity: 0; visibility: hidden; }
+    .splash-card {
+      width: min(440px, 100%);
+      padding: 30px 26px 22px;
+      text-align: center;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: 0 30px 70px #00000055;
+      animation: pop .5s ease both;
+    }
+    .splash-logo {
+      width: 66px;
+      height: 66px;
+      margin: 0 auto 14px;
+      display: grid;
+      place-items: center;
+      border-radius: 20px;
+      color: #fff;
+      font-size: 32px;
+      font-weight: 700;
+      background: var(--top-gradient);
+      box-shadow: 0 12px 26px color-mix(in srgb, var(--blue) 45%, transparent);
+    }
+    .splash-card h2 { font-size: 22px; margin-bottom: 10px; }
+    .splash-card p { margin: 0 0 12px; color: var(--muted); font-size: 13px; line-height: 1.9; }
+    .splash-by { color: var(--text) !important; font-size: 14px !important; }
+    .splash-by strong { color: var(--blue); }
+    .splash-bar { height: 4px; margin-top: 16px; overflow: hidden; background: var(--btn-soft); border-radius: 4px; }
+    .splash-bar span {
+      display: block;
+      height: 100%;
+      background: var(--blue);
+      transform-origin: right center;
+      animation: fillBar 4.5s linear both;
+    }
+    html[dir="ltr"] .splash-bar span { transform-origin: left center; }
 
     footer { padding: 22px 16px; text-align: center; color: var(--muted); font-size: 12px; }
     footer span {
       display: inline-block;
       padding: 9px 16px;
-      background: #ffffffa6;
+      background: var(--toolbar-bg);
       border: 1px solid var(--line);
       border-radius: 30px;
-      box-shadow: 0 5px 18px #18284b0a;
+      box-shadow: var(--shadow-soft);
     }
 
     html[dir="ltr"] th, html[dir="ltr"] td { text-align: left; }
@@ -301,6 +543,18 @@
 </head>
 
 <body>
+  <!-- شاشة المقدمة -->
+  <div class="splash" id="splash" role="dialog" aria-modal="true">
+    <div class="splash-card">
+      <div class="splash-logo">د</div>
+      <h2 data-i18n="splashTitle">الدخاخني ستور</h2>
+      <p data-i18n="splashAbout">نظام لإدارة الحسابات المالية لفروع الدخاخني ستور: تسجيل الإيرادات والمصروفات والتحويلات بين الخزن، ومتابعة الأرصدة وغلق اليوم، مع ربط الحركات بـ Google Sheets.</p>
+      <p class="splash-by">✨ <span data-i18n="splashBy">تصميم وتطوير</span> <strong>Samy Aziz</strong></p>
+      <button class="primary" id="splashEnter" type="button" data-i18n="splashEnter" data-emoji="🚀">دخول</button>
+      <div class="splash-bar"><span></span></div>
+    </div>
+  </div>
+
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
@@ -311,7 +565,7 @@
         </div>
       </div>
       <div class="top-actions">
-        <label for="languageSelect" style="color:#fff" data-i18n="languageLabel">اللغة</label>
+        <label for="languageSelect" style="color:#fff" data-i18n="languageLabel" data-emoji="🌐">اللغة</label>
         <select class="language-select" id="languageSelect" aria-label="Language">
           <option value="ar">العربية</option>
           <option value="en">English</option>
@@ -323,57 +577,104 @@
   <main>
     <div class="toolbar">
       <div class="color-control">
-        <label for="pageColor" data-i18n="pageColor">لون الصفحة</label>
+        <label for="pageColor" data-i18n="pageColor" data-emoji="🎨">لون الصفحة</label>
         <input id="pageColor" type="color" value="#f5f7fb">
-        <button class="secondary" id="resetColor" type="button" data-i18n="defaultColor">اللون الافتراضي</button>
+        <button class="secondary" id="resetColor" type="button" data-i18n="defaultColor" data-emoji="↩️">اللون الافتراضي</button>
       </div>
-      <button class="secondary" id="showTrash" type="button"></button>
+      <div class="toolbar-actions">
+        <button class="secondary" id="styleBtn" type="button" data-i18n="styleBtn" data-emoji="🎭">تغيير الشكل</button>
+        <button class="secondary" id="showTrash" type="button"></button>
+      </div>
     </div>
+
+    <section class="panel style-panel" id="stylePanel" hidden>
+      <div class="chip-group">
+        <strong data-i18n="themeTitle" data-emoji="🎨">الألوان والتصميم</strong>
+        <div class="chips" id="themeChips"></div>
+      </div>
+      <div class="chip-group">
+        <strong data-i18n="bgTitle" data-emoji="🖼️">شكل الخلفية</strong>
+        <div class="chips" id="bgChips"></div>
+      </div>
+    </section>
+
+    <section class="panel" id="balancesPanel">
+      <div class="panel-heading">
+        <h2 data-i18n="balancesTitle" data-emoji="🏦">أرصدة الحسابات</h2>
+        <span class="hint" id="balancesHint"></span>
+      </div>
+
+      <div class="balance-grid" id="balanceGrid"></div>
+
+      <div class="opening-editor" id="openingEditor" hidden>
+        <div class="form-grid" id="openingInputs"></div>
+        <div class="actions">
+          <button class="primary" id="saveOpening" type="button" data-i18n="saveOpening" data-emoji="💾">حفظ الرصيد الأول</button>
+          <button class="secondary" id="cancelOpening" type="button" data-i18n="cancel" data-emoji="✖️">إلغاء</button>
+        </div>
+      </div>
+
+      <div class="close-row">
+        <button class="secondary" id="editOpeningBtn" type="button" data-i18n="editOpening" data-emoji="✏️">تعديل الرصيد الأول</button>
+        <label>
+          <span data-i18n="closeDate" data-emoji="📅">تاريخ الغلق</span>
+          <input id="closeDate" type="date">
+        </label>
+        <button class="primary" id="closeDayBtn" type="button" data-i18n="closeDay" data-emoji="🔒">غلق اليوم</button>
+      </div>
+
+      <div id="balanceNotice" class="notice" role="status"></div>
+
+      <details class="history">
+        <summary data-i18n="closeHistory" data-emoji="📚">سجل الغلق</summary>
+        <div id="closeHistoryList"></div>
+      </details>
+    </section>
 
     <section class="summary">
       <article class="summary-card">
-        <span class="summary-label" data-i18n="totalIncome">إجمالي الإيرادات</span>
+        <span class="summary-label" data-i18n="totalIncome" data-emoji="🟢">إجمالي الإيرادات</span>
         <strong class="summary-value green" id="totalIncome">0.00 ج.م</strong>
       </article>
       <article class="summary-card">
-        <span class="summary-label" data-i18n="totalExpenses">إجمالي المصروفات</span>
+        <span class="summary-label" data-i18n="totalExpenses" data-emoji="🔴">إجمالي المصروفات</span>
         <strong class="summary-value red" id="totalExpenses">0.00 ج.م</strong>
       </article>
       <article class="summary-card">
-        <span class="summary-label" data-i18n="netTotal">صافي الحساب</span>
+        <span class="summary-label" data-i18n="netTotal" data-emoji="⚖️">صافي الحساب</span>
         <strong class="summary-value" id="netTotal">0.00 ج.م</strong>
       </article>
     </section>
 
     <section class="panel">
       <div class="panel-heading">
-        <h2 data-i18n="addMovement">إضافة حركة مالية</h2>
+        <h2 data-i18n="addMovement" data-emoji="➕">إضافة حركة مالية</h2>
         <span class="hint" data-i18n="movementHint">إيراد أو مصروف أو تحويل نقدي</span>
       </div>
 
       <form id="transactionForm">
         <div class="form-grid">
           <label>
-            <span data-i18n="movementType">نوع الحركة</span>
+            <span data-i18n="movementType" data-emoji="🔄">نوع الحركة</span>
             <select id="type">
-              <option value="income" data-i18n="income">إيراد</option>
-              <option value="expense" data-i18n="expense">مصروف</option>
-              <option value="transfer" data-i18n="transfer">تحويل نقدي</option>
+              <option value="income" data-i18n="income">🟢 إيراد</option>
+              <option value="expense" data-i18n="expense">🔴 مصروف</option>
+              <option value="transfer" data-i18n="transfer">🟣 تحويل نقدي</option>
             </select>
           </label>
 
           <label>
-            <span data-i18n="amount">المبلغ بالجنيه</span>
+            <span data-i18n="amount" data-emoji="💰">المبلغ بالجنيه</span>
             <input id="amount" type="number" min="0.01" step="0.01" placeholder="مثال: 1500" required>
           </label>
 
           <label>
-            <span data-i18n="date">التاريخ</span>
+            <span data-i18n="date" data-emoji="📅">التاريخ</span>
             <input id="date" type="date" required>
           </label>
 
           <label id="branchField">
-            <span data-i18n="branch">الفرع</span>
+            <span data-i18n="branch" data-emoji="🏬">الفرع</span>
             <select id="branch">
               <option value="ڤيب ستور" data-i18n="b_vape">ڤيب ستور</option>
               <option value="الدخاخني" data-i18n="b_dakh">الدخاخني</option>
@@ -384,57 +685,60 @@
           </label>
 
           <label id="shiftField">
-            <span data-i18n="shift">رقم الشيفت</span>
+            <span data-i18n="shift" data-emoji="⏱️">رقم الشيفت</span>
             <input id="shift" type="text" inputmode="numeric" autocomplete="off"
                    data-i18n-placeholder="shiftPlaceholder" placeholder="اكتب رقم الشيفت">
           </label>
 
           <label id="accountField">
-            <span id="accountLabel" data-i18n="account">الحساب</span>
+            <span id="accountLabel" data-i18n="account" data-emoji="🏦">الحساب</span>
             <select id="account"></select>
+            <small class="balance-hint" id="accountHint"></small>
           </label>
 
           <label id="categoryField">
-            <span data-i18n="expenseCategory">تصنيف المصروف</span>
+            <span data-i18n="expenseCategory" data-emoji="🏷️">تصنيف المصروف</span>
             <select id="category">
               <option value="" data-i18n="chooseCategory">اختر التصنيف</option>
-              <option value="إيجار" data-i18n="cat_rent">إيجار</option>
-              <option value="رواتب" data-i18n="cat_salaries">رواتب</option>
-              <option value="مشتريات" data-i18n="cat_purchases">مشتريات</option>
-              <option value="كهرباء ومياه" data-i18n="cat_bills">كهرباء ومياه</option>
-              <option value="نقل" data-i18n="cat_transport">نقل</option>
-              <option value="صيانة" data-i18n="cat_maintenance">صيانة</option>
-              <option value="جمعية" data-i18n="cat_association">جمعية</option>
-              <option value="تحويل" data-i18n="cat_transfer">تحويل</option>
-              <option value="مصروفات أخرى" data-i18n="cat_other">مصروفات أخرى</option>
+              <option value="إيجار" data-i18n="cat_rent">🏠 إيجار</option>
+              <option value="رواتب" data-i18n="cat_salaries">👥 رواتب</option>
+              <option value="مشتريات" data-i18n="cat_purchases">🛒 مشتريات</option>
+              <option value="كهرباء ومياه" data-i18n="cat_bills">💡 كهرباء ومياه</option>
+              <option value="نقل" data-i18n="cat_transport">🚚 نقل</option>
+              <option value="صيانة" data-i18n="cat_maintenance">🔧 صيانة</option>
+              <option value="جمعية" data-i18n="cat_association">🤝 جمعية</option>
+              <option value="تحويل" data-i18n="cat_transfer">🔁 تحويل</option>
+              <option value="مصروفات أخرى" data-i18n="cat_other">📦 مصروفات أخرى</option>
             </select>
           </label>
 
           <label id="destinationField">
-            <span data-i18n="expenseDestination">المصروف رايح فين؟</span>
+            <span data-i18n="expenseDestination" data-emoji="📍">المصروف رايح فين؟</span>
             <input id="destination" placeholder="مثال: دفع فاتورة الكهرباء">
           </label>
 
           <label id="transferFromField">
-            <span data-i18n="transferFrom">التحويل من حساب</span>
+            <span data-i18n="transferFrom" data-emoji="📤">التحويل من حساب</span>
             <select id="transferFrom"></select>
+            <small class="balance-hint" id="fromHint"></small>
           </label>
 
           <label id="transferToField">
-            <span data-i18n="transferTo">التحويل إلى حساب</span>
+            <span data-i18n="transferTo" data-emoji="📥">التحويل إلى حساب</span>
             <select id="transferTo"></select>
+            <small class="balance-hint" id="toHint"></small>
           </label>
 
           <label id="descriptionField">
-            <span data-i18n="notes">ملاحظات</span>
+            <span data-i18n="notes" data-emoji="📝">ملاحظات</span>
             <input id="description" data-i18n-placeholder="notesPlaceholder" placeholder="ملاحظات اختيارية">
           </label>
         </div>
 
         <div class="actions">
-          <button class="primary" id="submitBtn" type="submit" data-i18n="addButton">إضافة الحركة</button>
-          <button class="secondary" id="cancelEdit" type="button" data-i18n="cancelEdit" style="display:none">إلغاء التعديل</button>
-          <button class="secondary" type="reset" data-i18n="clearFields">مسح الحقول</button>
+          <button class="primary" id="submitBtn" type="submit" data-i18n="addButton" data-emoji="➕">إضافة الحركة</button>
+          <button class="secondary" id="cancelEdit" type="button" data-i18n="cancelEdit" data-emoji="✖️" style="display:none">إلغاء التعديل</button>
+          <button class="secondary" type="reset" data-i18n="clearFields" data-emoji="🧹">مسح الحقول</button>
         </div>
         <div id="notice" class="notice" role="status"></div>
       </form>
@@ -442,13 +746,13 @@
 
     <section class="panel filters">
       <div class="panel-heading">
-        <h2 data-i18n="filterMovements">تصفية الحركات</h2>
+        <h2 data-i18n="filterMovements" data-emoji="🔎">تصفية الحركات</h2>
         <span class="hint" data-i18n="filterHint">اختار الفرع أو الشيفت أو الفترة</span>
       </div>
 
       <div class="filter-grid">
         <label>
-          <span data-i18n="branch">الفرع</span>
+          <span data-i18n="branch" data-emoji="🏬">الفرع</span>
           <select id="filterBranch">
             <option value="" data-i18n="allBranches">كل الفروع</option>
             <option value="ڤيب ستور" data-i18n="b_vape">ڤيب ستور</option>
@@ -460,45 +764,45 @@
         </label>
 
         <label>
-          <span data-i18n="shift">رقم الشيفت</span>
+          <span data-i18n="shift" data-emoji="⏱️">رقم الشيفت</span>
           <input id="filterShift" type="text" inputmode="numeric" autocomplete="off"
                  data-i18n-placeholder="filterShiftPlaceholder" placeholder="كل الشيفتات">
         </label>
 
         <label>
-          <span data-i18n="movementType">نوع الحركة</span>
+          <span data-i18n="movementType" data-emoji="🔄">نوع الحركة</span>
           <select id="filterType">
             <option value="" data-i18n="allMovements">كل الحركات</option>
-            <option value="income" data-i18n="income">إيراد</option>
-            <option value="expense" data-i18n="expense">مصروف</option>
-            <option value="transfer" data-i18n="transfer">تحويل نقدي</option>
+            <option value="income" data-i18n="income">🟢 إيراد</option>
+            <option value="expense" data-i18n="expense">🔴 مصروف</option>
+            <option value="transfer" data-i18n="transfer">🟣 تحويل نقدي</option>
           </select>
         </label>
 
-        <label><span data-i18n="fromDate">من تاريخ</span><input id="filterFrom" type="date"></label>
-        <label><span data-i18n="toDate">إلى تاريخ</span><input id="filterTo" type="date"></label>
+        <label><span data-i18n="fromDate" data-emoji="📅">من تاريخ</span><input id="filterFrom" type="date"></label>
+        <label><span data-i18n="toDate" data-emoji="📅">إلى تاريخ</span><input id="filterTo" type="date"></label>
         <label style="align-self:end">
-          <button class="secondary" id="clearFilters" type="button" data-i18n="clearFilters">مسح الفلاتر</button>
+          <button class="secondary" id="clearFilters" type="button" data-i18n="clearFilters" data-emoji="🧼">مسح الفلاتر</button>
         </label>
       </div>
     </section>
 
     <section class="panel">
       <div class="panel-heading">
-        <h2 id="tableTitle" data-i18n="movementLog">سجل الحركات</h2>
+        <h2 id="tableTitle" data-i18n="movementLog" data-emoji="📒">سجل الحركات</h2>
         <span class="hint" id="visibleCount">0 حركة</span>
       </div>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th data-i18n="date">التاريخ</th>
-              <th data-i18n="branch">الفرع</th>
-              <th data-i18n="shift">رقم الشيفت</th>
-              <th data-i18n="movementType">نوع الحركة</th>
-              <th data-i18n="details">التفاصيل</th>
-              <th data-i18n="amount">المبلغ</th>
-              <th data-i18n="action">إجراء</th>
+              <th data-i18n="date" data-emoji="📅">التاريخ</th>
+              <th data-i18n="branch" data-emoji="🏬">الفرع</th>
+              <th data-i18n="shift" data-emoji="⏱️">رقم الشيفت</th>
+              <th data-i18n="movementType" data-emoji="🔄">نوع الحركة</th>
+              <th data-i18n="details" data-emoji="📄">التفاصيل</th>
+              <th data-i18n="amount" data-emoji="💰">المبلغ</th>
+              <th data-i18n="action" data-emoji="⚙️">إجراء</th>
             </tr>
           </thead>
           <tbody id="transactions"></tbody>
@@ -508,12 +812,13 @@
     </section>
   </main>
 
-  <footer><span data-i18n="footer">تصميم وتطوير Samy Aziz</span></footer>
+  <footer><span data-i18n="footer" data-emoji="✨">تصميم وتطوير Samy Aziz</span></footer>
 
   <script>
     const SHEET_URL = "https://script.google.com/macros/s/AKfycbyJNLbIkc1iKxqrw6RbSoeUstK-UhrK9Hu_GtrTqtdWjXRXrhrEQEvci5QIfvI5MQFjRA/exec";
     const STORAGE_KEY = "dakhakhni-store-demo";
     const TRASH_KEY = "dakhakhni-store-trash";
+    const LEDGER_KEY = "dakhakhni-ledger";
     const DEFAULT_COLOR = "#f5f7fb";
 
     const branches = ["ڤيب ستور", "الدخاخني", "المول", "اسواق المدينه", "طوخ"];
@@ -536,20 +841,44 @@
 
     const transferAccounts = [...mainSafes, ...otherSafes, ...banks];
 
+    const accountEmoji = {
+      "الخزنة الرئيسية - الدخاخني": "🏦",
+      "الخزنة الرئيسية - طوخ": "🏦",
+      "خزنة باسم": "👤",
+      "إنستا باي الأهلي": "📱"
+    };
+
+    const themes = [
+      { id: "classic", emoji: "💙", ar: "كلاسيك", en: "Classic", sw: "#3158d5" },
+      { id: "ocean", emoji: "🌊", ar: "بحري", en: "Ocean", sw: "#0e7c9b" },
+      { id: "sunset", emoji: "🌇", ar: "غروب", en: "Sunset", sw: "#e0592a" },
+      { id: "forest", emoji: "🌿", ar: "أخضر", en: "Forest", sw: "#2f8f4e" },
+      { id: "rose", emoji: "🌸", ar: "وردي", en: "Rose", sw: "#c2447a" },
+      { id: "dark", emoji: "🌙", ar: "داكن", en: "Dark", sw: "#1a2238" }
+    ];
+
+    const backgrounds = [
+      { id: "gradient", emoji: "🌈", ar: "تدرج", en: "Gradient" },
+      { id: "dots", emoji: "⚪", ar: "نقط", en: "Dots" },
+      { id: "grid", emoji: "▦", ar: "شبكة", en: "Grid" },
+      { id: "stripes", emoji: "〰️", ar: "خطوط", en: "Stripes" },
+      { id: "plain", emoji: "⬜", ar: "سادة", en: "Plain" }
+    ];
+
     const words = {
       ar: {
         title: "الدخاخني ستور", subtitle: "لوحة الإدارة المالية للفروع", languageLabel: "اللغة",
         pageColor: "لون الصفحة", defaultColor: "اللون الافتراضي", totalIncome: "إجمالي الإيرادات",
         totalExpenses: "إجمالي المصروفات", netTotal: "صافي الحساب", addMovement: "إضافة حركة مالية",
         movementHint: "إيراد أو مصروف أو تحويل نقدي", movementType: "نوع الحركة",
-        income: "إيراد", expense: "مصروف", transfer: "تحويل نقدي", amount: "المبلغ بالجنيه",
+        income: "🟢 إيراد", expense: "🔴 مصروف", transfer: "🟣 تحويل نقدي", amount: "المبلغ بالجنيه",
         date: "التاريخ", branch: "الفرع", shift: "رقم الشيفت", account: "الحساب",
         shiftPlaceholder: "اكتب رقم الشيفت", filterShiftPlaceholder: "كل الشيفتات",
         incomeAccount: "حساب الإيراد", paymentAccount: "حساب الدفع",
         expenseCategory: "تصنيف المصروف", chooseCategory: "اختر التصنيف",
-        cat_rent: "إيجار", cat_salaries: "رواتب", cat_purchases: "مشتريات",
-        cat_bills: "كهرباء ومياه", cat_transport: "نقل", cat_maintenance: "صيانة",
-        cat_association: "جمعية", cat_transfer: "تحويل", cat_other: "مصروفات أخرى",
+        cat_rent: "🏠 إيجار", cat_salaries: "👥 رواتب", cat_purchases: "🛒 مشتريات",
+        cat_bills: "💡 كهرباء ومياه", cat_transport: "🚚 نقل", cat_maintenance: "🔧 صيانة",
+        cat_association: "🤝 جمعية", cat_transfer: "🔁 تحويل", cat_other: "📦 مصروفات أخرى",
         expenseDestination: "المصروف رايح فين؟", transferFrom: "التحويل من حساب",
         transferTo: "التحويل إلى حساب", notes: "ملاحظات",
         notesPlaceholder: "ملاحظات اختيارية", addButton: "إضافة الحركة",
@@ -580,23 +909,42 @@
         chooseCategoryAlert: "اختار تصنيف المصروف.",
         chooseDifferent: "اختار حسابًا مختلفًا للتحويل إليه.",
         chooseAccount: "اختار حسابًا.", expenseTo: "المصروف",
-        transferFromText: "من", transferToText: "إلى", branchIncome: "دخل الفرع"
+        transferFromText: "من", transferToText: "إلى", branchIncome: "دخل الفرع",
+
+        balancesTitle: "أرصدة الحسابات", openingBalance: "رصيد أول",
+        currentBalance: "الرصيد الحالي", insufficient: "المبلغ أكبر من الرصيد",
+        editOpening: "تعديل الرصيد الأول", saveOpening: "حفظ الرصيد الأول", cancel: "إلغاء",
+        effectiveFrom: "ساري من تاريخ", closeDate: "تاريخ الغلق", closeDay: "غلق اليوم",
+        confirmClose: "هل تريد غلق يوم {date}؟ الأرصدة الحالية هتبقى هي الرصيد الأول لليوم اللي بعده.",
+        closedNotice: "تم غلق يوم {date}. الرصيد الأول ساري من {next}.",
+        openingSaved: "تم حفظ الرصيد الأول.",
+        openingNotSet: "لم يتم تسجيل رصيد أول بعد — اضغط «تعديل الرصيد الأول» واكتب اللي في الخزنة.",
+        openingFrom: "الرصيد الأول ساري من",
+        lastClose: "آخر غلق", closeHistory: "سجل الغلق", noClosings: "لا يوجد غلق سابق.",
+        closeBeforeOpening: "تاريخ الغلق قبل بداية الرصيد الأول.",
+        chooseCloseDate: "اختار تاريخ الغلق.",
+        invalidOpening: "اكتب أرقامًا صحيحة في الأرصدة وحدد التاريخ.",
+        beforeOpeningWarn: "تاريخ الحركة قبل بداية الرصيد الأول فلن تؤثر على الأرصدة.",
+        styleBtn: "تغيير الشكل", themeTitle: "الألوان والتصميم", bgTitle: "شكل الخلفية",
+        splashTitle: "الدخاخني ستور",
+        splashAbout: "نظام لإدارة الحسابات المالية لفروع الدخاخني ستور: تسجيل الإيرادات والمصروفات والتحويلات بين الخزن، ومتابعة الأرصدة وغلق اليوم، مع ربط الحركات بـ Google Sheets.",
+        splashBy: "تصميم وتطوير", splashEnter: "دخول"
       },
       en: {
         title: "Al-Dakhakhni Store", subtitle: "Branch Financial Dashboard",
         languageLabel: "Language", pageColor: "Page color", defaultColor: "Default color",
         totalIncome: "Total income", totalExpenses: "Total expenses", netTotal: "Net balance",
         addMovement: "Add transaction", movementHint: "Income, expense, or cash transfer",
-        movementType: "Transaction type", income: "Income", expense: "Expense",
-        transfer: "Cash transfer", amount: "Amount (EGP)", date: "Date", branch: "Branch",
+        movementType: "Transaction type", income: "🟢 Income", expense: "🔴 Expense",
+        transfer: "🟣 Cash transfer", amount: "Amount (EGP)", date: "Date", branch: "Branch",
         shift: "Shift number", account: "Account",
         shiftPlaceholder: "Enter shift number", filterShiftPlaceholder: "All shifts",
         incomeAccount: "Income account",
         paymentAccount: "Payment account", expenseCategory: "Expense category",
-        chooseCategory: "Choose a category", cat_rent: "Rent", cat_salaries: "Salaries",
-        cat_purchases: "Purchases", cat_bills: "Electricity and water",
-        cat_transport: "Transport", cat_maintenance: "Maintenance",
-        cat_association: "Association", cat_transfer: "Transfer", cat_other: "Other expenses",
+        chooseCategory: "Choose a category", cat_rent: "🏠 Rent", cat_salaries: "👥 Salaries",
+        cat_purchases: "🛒 Purchases", cat_bills: "💡 Electricity and water",
+        cat_transport: "🚚 Transport", cat_maintenance: "🔧 Maintenance",
+        cat_association: "🤝 Association", cat_transfer: "🔁 Transfer", cat_other: "📦 Other expenses",
         expenseDestination: "Expense destination", transferFrom: "Transfer from account",
         transferTo: "Transfer to account", notes: "Notes", notesPlaceholder: "Optional notes",
         addButton: "Add transaction", clearFields: "Clear fields",
@@ -626,10 +974,30 @@
         chooseCategoryAlert: "Choose an expense category.",
         chooseDifferent: "Choose a different account for the transfer.",
         chooseAccount: "Choose an account.", expenseTo: "Expense",
-        transferFromText: "From", transferToText: "To", branchIncome: "Branch income"
+        transferFromText: "From", transferToText: "To", branchIncome: "Branch income",
+
+        balancesTitle: "Account balances", openingBalance: "Opening",
+        currentBalance: "Current balance", insufficient: "Amount exceeds balance",
+        editOpening: "Edit opening balance", saveOpening: "Save opening balance", cancel: "Cancel",
+        effectiveFrom: "Effective from", closeDate: "Closing date", closeDay: "Close the day",
+        confirmClose: "Close {date}? Current balances will become the opening balances for the next day.",
+        closedNotice: "{date} closed. Opening balances are effective from {next}.",
+        openingSaved: "Opening balance saved.",
+        openingNotSet: "No opening balance yet — press “Edit opening balance” and enter what is in the safes.",
+        openingFrom: "Opening balance effective from",
+        lastClose: "Last close", closeHistory: "Closing history", noClosings: "No previous closings.",
+        closeBeforeOpening: "The closing date is before the opening balance date.",
+        chooseCloseDate: "Choose the closing date.",
+        invalidOpening: "Enter valid numbers for the balances and choose a date.",
+        beforeOpeningWarn: "The transaction date is before the opening balance date, so it won't affect balances.",
+        styleBtn: "Change look", themeTitle: "Colors & design", bgTitle: "Background style",
+        splashTitle: "Al-Dakhakhni Store",
+        splashAbout: "A financial management system for Al-Dakhakhni Store branches: record income, expenses and transfers between safes, track balances and close the day, with transactions synced to Google Sheets.",
+        splashBy: "Designed & developed by", splashEnter: "Enter"
       }
     };
 
+    const root = document.documentElement;
     const form = document.getElementById("transactionForm");
     const typeInput = document.getElementById("type");
     const categoryInput = document.getElementById("category");
@@ -639,9 +1007,12 @@
     const notice = document.getElementById("notice");
     const submitBtn = document.getElementById("submitBtn");
     const cancelEditBtn = document.getElementById("cancelEdit");
+    const colorPicker = document.getElementById("pageColor");
+    const closeDateInput = document.getElementById("closeDate");
 
     let entries = readStorage(STORAGE_KEY);
     let deletedEntries = readStorage(TRASH_KEY);
+    let ledger = readLedger();
     let trashView = false;
     let editingId = null;
     let language = localStorage.getItem("dakhakhni-language") || "ar";
@@ -655,15 +1026,41 @@
       }
     }
 
+    function readLedger() {
+      const empty = { configured: false, openingDate: "", opening: {}, closings: [], openingEditedAt: "" };
+      try {
+        const v = JSON.parse(localStorage.getItem(LEDGER_KEY));
+        if (v && typeof v === "object" && !Array.isArray(v)) {
+          return {
+            configured: !!v.configured,
+            openingDate: v.openingDate || "",
+            opening: v.opening && typeof v.opening === "object" ? v.opening : {},
+            closings: Array.isArray(v.closings) ? v.closings : [],
+            openingEditedAt: v.openingEditedAt || ""
+          };
+        }
+      } catch {}
+      return empty;
+    }
+
     function saveEntries() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
       localStorage.setItem(TRASH_KEY, JSON.stringify(deletedEntries));
+    }
+
+    function saveLedger() {
+      localStorage.setItem(LEDGER_KEY, JSON.stringify(ledger));
     }
 
     function todayString() {
       const now = new Date();
       return new Date(now.getTime() - now.getTimezoneOffset() * 60000)
         .toISOString().slice(0, 10);
+    }
+
+    function addDays(dateStr, days) {
+      const [y, m, d] = dateStr.split("-").map(Number);
+      return new Date(Date.UTC(y, m - 1, d + days)).toISOString().slice(0, 10);
     }
 
     function t(key) {
@@ -719,6 +1116,7 @@
     function updateSubmitLabel() {
       const key = editingId ? "saveEdit" : "addButton";
       submitBtn.dataset.i18n = key;
+      submitBtn.dataset.emoji = editingId ? "💾" : "➕";
       submitBtn.textContent = t(key);
       cancelEditBtn.style.display = editingId ? "" : "none";
     }
@@ -742,6 +1140,7 @@
       document.getElementById("amount").placeholder =
         language === "ar" ? "مثال: 1500" : "Example: 1500";
 
+      renderStyleChips();
       updateFields();
       render();
     }
@@ -779,6 +1178,7 @@
 
       fillSelect(transferFromInput, transferAccounts);
       fillSelect(transferToInput, transferAccounts);
+      updateBalanceHints();
     }
 
     function money(value) {
@@ -787,6 +1187,161 @@
         language === "ar" ? "ar-EG" : "en-EG",
         { minimumFractionDigits: 2, maximumFractionDigits: 2 }
       ) + " " + currency;
+    }
+
+    /* ===== حساب الأرصدة ===== */
+    function computeBalances(options = {}) {
+      const { excludeId = null, upTo = "" } = options;
+      const balances = {};
+      transferAccounts.forEach(account => {
+        balances[account] = Number(ledger.opening[account]) || 0;
+      });
+
+      entries.forEach(entry => {
+        if (excludeId && entry.id === excludeId) return;
+        if (ledger.openingDate && entry.date < ledger.openingDate) return;
+        if (upTo && entry.date > upTo) return;
+        const amount = Number(entry.amount) || 0;
+
+        if (entry.type === "income" && entry.account in balances) {
+          balances[entry.account] += amount;
+        } else if (entry.type === "expense" && entry.account in balances) {
+          balances[entry.account] -= amount;
+        } else if (entry.type === "transfer") {
+          if (entry.transferFrom in balances) balances[entry.transferFrom] -= amount;
+          if (entry.transferTo in balances) balances[entry.transferTo] += amount;
+        }
+      });
+
+      return balances;
+    }
+
+    function updateBalanceHints() {
+      const type = typeInput.value;
+      const amount = Number(document.getElementById("amount").value) || 0;
+      const balances = computeBalances({ excludeId: editingId });
+
+      const setHint = (element, account, checkAmount) => {
+        if (!account || !(account in balances)) {
+          element.textContent = "";
+          element.className = "balance-hint";
+          return;
+        }
+        const value = balances[account];
+        const tooMuch = checkAmount && amount > value;
+        let text = "💰 " + t("currentBalance") + ": " + money(value);
+        if (tooMuch) text += " — ⚠️ " + t("insufficient");
+        element.textContent = text;
+        element.className = "balance-hint" + (value < 0 || tooMuch ? " low" : "");
+      };
+
+      setHint(document.getElementById("accountHint"), accountInput.value, type === "expense");
+      setHint(document.getElementById("fromHint"), transferFromInput.value, true);
+      setHint(document.getElementById("toHint"), transferToInput.value, false);
+    }
+
+    function showBalanceNotice(message, status) {
+      const element = document.getElementById("balanceNotice");
+      element.className = "notice " + status;
+      element.textContent = message;
+    }
+
+    function renderBalances() {
+      const balances = computeBalances();
+      const grid = document.getElementById("balanceGrid");
+      grid.innerHTML = "";
+
+      transferAccounts.forEach(account => {
+        const value = balances[account];
+        const card = document.createElement("div");
+        card.className = "bal-card";
+
+        const name = document.createElement("div");
+        name.className = "bal-name";
+        const dot = document.createElement("span");
+        dot.className = "dot " + (value >= 0 ? "dot-green" : "dot-red");
+        name.append(dot, (accountEmoji[account] || "💼") + " " + accountName(account));
+
+        const amount = document.createElement("strong");
+        amount.className = "bal-value " + (value >= 0 ? "green" : "red");
+        amount.textContent = money(value);
+
+        const opening = document.createElement("small");
+        opening.textContent = "🌅 " + t("openingBalance") + ": " + money(ledger.opening[account] || 0);
+
+        card.append(name, amount, opening);
+        grid.appendChild(card);
+      });
+
+      const hint = document.getElementById("balancesHint");
+      hint.textContent = ledger.configured
+        ? "📅 " + t("openingFrom") + ": " + ledger.openingDate
+        : "⚠️ " + t("openingNotSet");
+
+      if (ledger.configured && ledger.openingEditedAt) {
+        const tag = document.createElement("span");
+        tag.className = "edited-tag";
+        tag.textContent = "✏️ " + t("edited");
+        tag.title = new Date(ledger.openingEditedAt).toLocaleString(
+          language === "ar" ? "ar-EG" : "en-EG"
+        );
+        hint.appendChild(tag);
+      }
+
+      if (!closeDateInput.value) closeDateInput.value = todayString();
+
+      const list = document.getElementById("closeHistoryList");
+      list.innerHTML = "";
+      if (!ledger.closings.length) {
+        const empty = document.createElement("div");
+        empty.className = "history-item";
+        empty.textContent = t("noClosings");
+        list.appendChild(empty);
+      } else {
+        ledger.closings.slice(0, 30).forEach((closing, index) => {
+          const item = document.createElement("div");
+          item.className = "history-item";
+          const parts = transferAccounts.map(account =>
+            accountName(account) + ": " + money((closing.balances || {})[account] || 0)
+          );
+          item.textContent = (index === 0 ? "🔒 " + t("lastClose") + " — " : "📅 ") +
+            closing.date + " — " + parts.join(" | ");
+          list.appendChild(item);
+        });
+      }
+    }
+
+    function openOpeningEditor() {
+      const container = document.getElementById("openingInputs");
+      container.innerHTML = "";
+
+      transferAccounts.forEach(account => {
+        const label = document.createElement("label");
+        const caption = document.createElement("span");
+        caption.textContent = (accountEmoji[account] || "💼") + " " +
+          t("openingBalance") + " — " + accountName(account);
+        const input = document.createElement("input");
+        input.type = "number";
+        input.step = "0.01";
+        input.placeholder = "0";
+        input.dataset.account = account;
+        const current = ledger.opening[account];
+        input.value = current === undefined ? "" : current;
+        label.append(caption, input);
+        container.appendChild(label);
+      });
+
+      const dateLabel = document.createElement("label");
+      const dateCaption = document.createElement("span");
+      dateCaption.textContent = "📅 " + t("effectiveFrom");
+      const dateInput = document.createElement("input");
+      dateInput.type = "date";
+      dateInput.id = "openingDateInput";
+      dateInput.value = ledger.openingDate || todayString();
+      dateLabel.append(dateCaption, dateInput);
+      container.appendChild(dateLabel);
+
+      document.getElementById("openingEditor").hidden = false;
     }
 
     function getFilteredEntries(list) {
@@ -837,6 +1392,7 @@
       }
 
       updateSubmitLabel();
+      updateBalanceHints();
       showNotice(t("editingNotice"), "ok");
       form.scrollIntoView({ behavior: "smooth", block: "center" });
     }
@@ -900,7 +1456,7 @@
         if (item.edited) {
           const editedTag = document.createElement("span");
           editedTag.className = "edited-tag";
-          editedTag.textContent = t("edited");
+          editedTag.textContent = "✏️ " + t("edited");
           if (item.editedAt) {
             editedTag.title = new Date(item.editedAt).toLocaleString(
               language === "ar" ? "ar-EG" : "en-EG"
@@ -917,7 +1473,7 @@
           const restore = document.createElement("button");
           restore.type = "button";
           restore.className = "restore";
-          restore.textContent = t("restore");
+          restore.textContent = "♻️ " + t("restore");
           restore.onclick = () => {
             deletedEntries = deletedEntries.filter(entry => entry.id !== item.id);
             entries.unshift(item);
@@ -930,7 +1486,7 @@
           permanent.type = "button";
           permanent.className = "permanent-delete";
           permanent.style.marginInlineStart = "6px";
-          permanent.textContent = t("permanentDelete");
+          permanent.textContent = "❌ " + t("permanentDelete");
           permanent.onclick = () => {
             if (!confirm(t("confirmDelete"))) return;
             deletedEntries = deletedEntries.filter(entry => entry.id !== item.id);
@@ -943,13 +1499,13 @@
           const editButton = document.createElement("button");
           editButton.type = "button";
           editButton.className = "edit";
-          editButton.textContent = t("edit");
+          editButton.textContent = "✏️ " + t("edit");
           editButton.onclick = () => startEdit(item);
 
           const remove = document.createElement("button");
           remove.type = "button";
           remove.className = "delete";
-          remove.textContent = t("delete");
+          remove.textContent = "🗑️ " + t("delete");
           remove.onclick = () => {
             if (editingId === item.id) {
               exitEdit();
@@ -985,6 +1541,9 @@
       document.getElementById("showTrash").innerHTML =
         (trashView ? t("backToLog") : t("trash")) +
         ' <span class="trash-count">' + deletedEntries.length + "</span>";
+
+      renderBalances();
+      updateBalanceHints();
     }
 
     function showNotice(message, status) {
@@ -1021,7 +1580,81 @@
       });
     }
 
+    function beforeOpeningWarning(dateValue) {
+      return ledger.openingDate && dateValue < ledger.openingDate
+        ? " ⚠️ " + t("beforeOpeningWarn")
+        : "";
+    }
+
+    /* ===== الثيمات والخلفيات ===== */
+    function setMetaColor(color) {
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta && color) meta.setAttribute("content", color);
+    }
+
+    function syncPicker() {
+      const value = getComputedStyle(root).getPropertyValue("--page-color").trim();
+      if (/^#[0-9a-f]{6}$/i.test(value)) {
+        colorPicker.value = value;
+        setMetaColor(value);
+      } else {
+        colorPicker.value = DEFAULT_COLOR;
+      }
+    }
+
+    function renderStyleChips() {
+      const themeBox = document.getElementById("themeChips");
+      const bgBox = document.getElementById("bgChips");
+      themeBox.innerHTML = "";
+      bgBox.innerHTML = "";
+
+      themes.forEach(theme => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip" + (root.dataset.theme === theme.id ? " active" : "");
+        const swatch = document.createElement("span");
+        swatch.className = "swatch";
+        swatch.style.background = theme.sw;
+        chip.append(swatch, theme.emoji + " " + theme[language]);
+        chip.onclick = () => applyTheme(theme.id, true);
+        themeBox.appendChild(chip);
+      });
+
+      backgrounds.forEach(bg => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip" + (root.dataset.bg === bg.id ? " active" : "");
+        chip.textContent = bg.emoji + " " + bg[language];
+        chip.onclick = () => applyBackground(bg.id);
+        bgBox.appendChild(chip);
+      });
+    }
+
+    function applyTheme(id, fromUser) {
+      if (!themes.some(theme => theme.id === id)) id = "classic";
+      root.dataset.theme = id;
+      localStorage.setItem("dakhakhni-theme", id);
+      if (fromUser) {
+        root.style.removeProperty("--page-color");
+        localStorage.removeItem("dakhakhni-page-color");
+      }
+      syncPicker();
+      renderStyleChips();
+    }
+
+    function applyBackground(id) {
+      if (!backgrounds.some(bg => bg.id === id)) id = "gradient";
+      root.dataset.bg = id;
+      localStorage.setItem("dakhakhni-bg", id);
+      renderStyleChips();
+    }
+
+    /* ===== الأحداث ===== */
     typeInput.addEventListener("change", updateFields);
+    document.getElementById("amount").addEventListener("input", updateBalanceHints);
+    accountInput.addEventListener("change", updateBalanceHints);
+    transferFromInput.addEventListener("change", updateBalanceHints);
+    transferToInput.addEventListener("change", updateBalanceHints);
 
     form.addEventListener("submit", event => {
       event.preventDefault();
@@ -1087,6 +1720,8 @@
           ? "" : document.getElementById("description").value.trim()
       };
 
+      const warning = beforeOpeningWarning(dateValue);
+
       const editIndex = editingId
         ? entries.findIndex(entry => entry.id === editingId)
         : -1;
@@ -1101,7 +1736,7 @@
         saveEntries();
         exitEdit();
         render();
-        showNotice(t("editedNotice"), "ok");
+        showNotice(t("editedNotice") + warning, "ok");
         form.reset();
         document.getElementById("date").value = todayString();
         updateFields();
@@ -1120,11 +1755,11 @@
       entries.unshift(entry);
       saveEntries();
       render();
-      showNotice(t("savedSending"), "ok");
+      showNotice(t("savedSending") + warning, "ok");
 
       sendToSheet(entry)
-        .then(() => showNotice(t("sentNotice"), "ok"))
-        .catch(() => showNotice(t("sendError"), "error"));
+        .then(() => showNotice(t("sentNotice") + warning, "ok"))
+        .catch(() => showNotice(t("sendError") + warning, "error"));
 
       form.reset();
       document.getElementById("date").value = todayString();
@@ -1163,24 +1798,120 @@
       setLanguage(event.target.value);
     });
 
-    const colorPicker = document.getElementById("pageColor");
-    const savedColor = localStorage.getItem("dakhakhni-page-color");
+    /* الرصيد الأول وغلق اليوم */
+    document.getElementById("editOpeningBtn").addEventListener("click", openOpeningEditor);
 
-    if (savedColor && /^#[0-9a-f]{6}$/i.test(savedColor)) {
-      document.documentElement.style.setProperty("--page-color", savedColor);
-      colorPicker.value = savedColor;
-    }
+    document.getElementById("cancelOpening").addEventListener("click", () => {
+      document.getElementById("openingEditor").hidden = true;
+    });
 
+    document.getElementById("saveOpening").addEventListener("click", () => {
+      const inputs = [...document.querySelectorAll("#openingInputs input[data-account]")];
+      const dateValue = document.getElementById("openingDateInput").value;
+      const nextOpening = {};
+      let valid = !!dateValue;
+
+      inputs.forEach(input => {
+        const raw = input.value.trim();
+        const number = raw === "" ? 0 : Number(raw);
+        if (!Number.isFinite(number)) valid = false;
+        nextOpening[input.dataset.account] = number;
+      });
+
+      if (!valid) {
+        showBalanceNotice(t("invalidOpening"), "error");
+        return;
+      }
+
+      if (ledger.configured) ledger.openingEditedAt = new Date().toISOString();
+      ledger.opening = nextOpening;
+      ledger.openingDate = dateValue;
+      ledger.configured = true;
+      saveLedger();
+
+      document.getElementById("openingEditor").hidden = true;
+      render();
+      showBalanceNotice(t("openingSaved"), "ok");
+    });
+
+    document.getElementById("closeDayBtn").addEventListener("click", () => {
+      const closeDate = closeDateInput.value;
+
+      if (!closeDate) {
+        showBalanceNotice(t("chooseCloseDate"), "error");
+        return;
+      }
+
+      if (ledger.openingDate && closeDate < ledger.openingDate) {
+        showBalanceNotice(t("closeBeforeOpening"), "error");
+        return;
+      }
+
+      if (!confirm(t("confirmClose").replace("{date}", closeDate))) return;
+
+      const balances = computeBalances({ upTo: closeDate });
+      const nextDay = addDays(closeDate, 1);
+
+      ledger.closings.unshift({
+        date: closeDate,
+        balances,
+        closedAt: new Date().toISOString()
+      });
+      ledger.opening = balances;
+      ledger.openingDate = nextDay;
+      ledger.configured = true;
+      ledger.openingEditedAt = "";
+      saveLedger();
+
+      closeDateInput.value = nextDay;
+      render();
+      showBalanceNotice(
+        t("closedNotice").replace("{date}", closeDate).replace("{next}", nextDay),
+        "ok"
+      );
+    });
+
+    /* تغيير الشكل */
+    document.getElementById("styleBtn").addEventListener("click", () => {
+      const panel = document.getElementById("stylePanel");
+      panel.hidden = !panel.hidden;
+    });
+
+    /* لون الصفحة */
     colorPicker.addEventListener("input", () => {
-      document.documentElement.style.setProperty("--page-color", colorPicker.value);
+      root.style.setProperty("--page-color", colorPicker.value);
       localStorage.setItem("dakhakhni-page-color", colorPicker.value);
+      setMetaColor(colorPicker.value);
     });
 
     document.getElementById("resetColor").addEventListener("click", () => {
-      colorPicker.value = DEFAULT_COLOR;
-      document.documentElement.style.setProperty("--page-color", DEFAULT_COLOR);
-      localStorage.setItem("dakhakhni-page-color", DEFAULT_COLOR);
+      root.style.removeProperty("--page-color");
+      localStorage.removeItem("dakhakhni-page-color");
+      syncPicker();
     });
+
+    /* شاشة المقدمة */
+    const splash = document.getElementById("splash");
+    function hideSplash() {
+      if (!splash || splash.classList.contains("hide")) return;
+      splash.classList.add("hide");
+      setTimeout(() => splash.remove(), 600);
+    }
+    document.getElementById("splashEnter").addEventListener("click", hideSplash);
+    splash.addEventListener("click", event => { if (event.target === splash) hideSplash(); });
+    document.addEventListener("keydown", event => { if (event.key === "Escape") hideSplash(); });
+    setTimeout(hideSplash, 4500);
+
+    /* التشغيل الأول */
+    applyTheme(localStorage.getItem("dakhakhni-theme") || "classic", false);
+    applyBackground(localStorage.getItem("dakhakhni-bg") || "gradient");
+
+    const savedColor = localStorage.getItem("dakhakhni-page-color");
+    if (savedColor && /^#[0-9a-f]{6}$/i.test(savedColor)) {
+      root.style.setProperty("--page-color", savedColor);
+      colorPicker.value = savedColor;
+      setMetaColor(savedColor);
+    }
 
     document.getElementById("date").value = todayString();
     setLanguage(language);
