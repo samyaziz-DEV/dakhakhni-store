@@ -226,6 +226,17 @@
     .tag-transfer { color: var(--purple); background: #f1edff; }
     .delete, .permanent-delete { padding: 7px 10px; background: #fff0f0; color: var(--red); }
     .restore { padding: 7px 10px; background: #e9f7f0; color: var(--green); }
+    .edit { padding: 7px 10px; background: #eaf0ff; color: var(--blue); margin-inline-end: 6px; }
+    .edited-tag {
+      display: inline-block;
+      margin-inline-start: 8px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      color: #a86a00;
+      background: #fff5dd;
+      font-size: 10px;
+      font-weight: 700;
+    }
     .empty { padding: 28px; text-align: center; color: var(--muted); font-size: 13px; }
 
     .notice {
@@ -373,11 +384,9 @@
           </label>
 
           <label id="shiftField">
-            <span data-i18n="shift">الشيفت</span>
-            <select id="shift">
-              <option value="صباحي" data-i18n="morning">صباحي</option>
-              <option value="مسائي" data-i18n="evening">مسائي</option>
-            </select>
+            <span data-i18n="shift">رقم الشيفت</span>
+            <input id="shift" type="text" inputmode="numeric" autocomplete="off"
+                   data-i18n-placeholder="shiftPlaceholder" placeholder="اكتب رقم الشيفت">
           </label>
 
           <label id="accountField">
@@ -396,6 +405,7 @@
               <option value="نقل" data-i18n="cat_transport">نقل</option>
               <option value="صيانة" data-i18n="cat_maintenance">صيانة</option>
               <option value="جمعية" data-i18n="cat_association">جمعية</option>
+              <option value="تحويل" data-i18n="cat_transfer">تحويل</option>
               <option value="مصروفات أخرى" data-i18n="cat_other">مصروفات أخرى</option>
             </select>
           </label>
@@ -422,7 +432,8 @@
         </div>
 
         <div class="actions">
-          <button class="primary" type="submit" data-i18n="addButton">إضافة الحركة</button>
+          <button class="primary" id="submitBtn" type="submit" data-i18n="addButton">إضافة الحركة</button>
+          <button class="secondary" id="cancelEdit" type="button" data-i18n="cancelEdit" style="display:none">إلغاء التعديل</button>
           <button class="secondary" type="reset" data-i18n="clearFields">مسح الحقول</button>
         </div>
         <div id="notice" class="notice" role="status"></div>
@@ -449,12 +460,9 @@
         </label>
 
         <label>
-          <span data-i18n="shift">الشيفت</span>
-          <select id="filterShift">
-            <option value="" data-i18n="allShifts">كل الشيفتات</option>
-            <option value="صباحي" data-i18n="morning">صباحي</option>
-            <option value="مسائي" data-i18n="evening">مسائي</option>
-          </select>
+          <span data-i18n="shift">رقم الشيفت</span>
+          <input id="filterShift" type="text" inputmode="numeric" autocomplete="off"
+                 data-i18n-placeholder="filterShiftPlaceholder" placeholder="كل الشيفتات">
         </label>
 
         <label>
@@ -486,7 +494,7 @@
             <tr>
               <th data-i18n="date">التاريخ</th>
               <th data-i18n="branch">الفرع</th>
-              <th data-i18n="shift">الشيفت</th>
+              <th data-i18n="shift">رقم الشيفت</th>
               <th data-i18n="movementType">نوع الحركة</th>
               <th data-i18n="details">التفاصيل</th>
               <th data-i18n="amount">المبلغ</th>
@@ -515,6 +523,9 @@
       "الخزنة الرئيسية - طوخ"
     ];
 
+    // الحساب الثابت للإيراد والمصروف
+    const DAKH_SAFE = mainSafes[0];
+
     const banks = [
       "إنستا باي الأهلي"
     ];
@@ -532,15 +543,23 @@
         totalExpenses: "إجمالي المصروفات", netTotal: "صافي الحساب", addMovement: "إضافة حركة مالية",
         movementHint: "إيراد أو مصروف أو تحويل نقدي", movementType: "نوع الحركة",
         income: "إيراد", expense: "مصروف", transfer: "تحويل نقدي", amount: "المبلغ بالجنيه",
-        date: "التاريخ", branch: "الفرع", shift: "الشيفت", account: "الحساب",
+        date: "التاريخ", branch: "الفرع", shift: "رقم الشيفت", account: "الحساب",
+        shiftPlaceholder: "اكتب رقم الشيفت", filterShiftPlaceholder: "كل الشيفتات",
         incomeAccount: "حساب الإيراد", paymentAccount: "حساب الدفع",
         expenseCategory: "تصنيف المصروف", chooseCategory: "اختر التصنيف",
         cat_rent: "إيجار", cat_salaries: "رواتب", cat_purchases: "مشتريات",
         cat_bills: "كهرباء ومياه", cat_transport: "نقل", cat_maintenance: "صيانة",
-        cat_association: "جمعية", cat_other: "مصروفات أخرى",
+        cat_association: "جمعية", cat_transfer: "تحويل", cat_other: "مصروفات أخرى",
         expenseDestination: "المصروف رايح فين؟", transferFrom: "التحويل من حساب",
         transferTo: "التحويل إلى حساب", notes: "ملاحظات",
         notesPlaceholder: "ملاحظات اختيارية", addButton: "إضافة الحركة",
+        saveEdit: "حفظ التعديل", cancelEdit: "إلغاء التعديل",
+        edit: "تعديل", edited: "تم التعديل",
+        editingNotice: "أنت الآن تعدّل حركة. غيّر البيانات ثم اضغط «حفظ التعديل».",
+        editedNotice: "تم تعديل الحركة وحفظها. (التعديل تم داخل الموقع فقط ولم يُرسل للشيت)",
+        enterShift: "اكتب رقم الشيفت.",
+        enterDestination: "اكتب المصروف رايح فين.",
+        fillAll: "املأ كل البيانات المطلوبة أولًا.",
         clearFields: "مسح الحقول", filterMovements: "تصفية الحركات",
         filterHint: "اختار الفرع أو الشيفت أو الفترة", allBranches: "كل الفروع",
         allShifts: "كل الشيفتات", allMovements: "كل الحركات",
@@ -570,15 +589,24 @@
         addMovement: "Add transaction", movementHint: "Income, expense, or cash transfer",
         movementType: "Transaction type", income: "Income", expense: "Expense",
         transfer: "Cash transfer", amount: "Amount (EGP)", date: "Date", branch: "Branch",
-        shift: "Shift", account: "Account", incomeAccount: "Income account",
+        shift: "Shift number", account: "Account",
+        shiftPlaceholder: "Enter shift number", filterShiftPlaceholder: "All shifts",
+        incomeAccount: "Income account",
         paymentAccount: "Payment account", expenseCategory: "Expense category",
         chooseCategory: "Choose a category", cat_rent: "Rent", cat_salaries: "Salaries",
         cat_purchases: "Purchases", cat_bills: "Electricity and water",
         cat_transport: "Transport", cat_maintenance: "Maintenance",
-        cat_association: "Association", cat_other: "Other expenses",
+        cat_association: "Association", cat_transfer: "Transfer", cat_other: "Other expenses",
         expenseDestination: "Expense destination", transferFrom: "Transfer from account",
         transferTo: "Transfer to account", notes: "Notes", notesPlaceholder: "Optional notes",
         addButton: "Add transaction", clearFields: "Clear fields",
+        saveEdit: "Save changes", cancelEdit: "Cancel edit",
+        edit: "Edit", edited: "Edited",
+        editingNotice: "You are editing a transaction. Change the data then press “Save changes”.",
+        editedNotice: "Transaction updated. (Edited on the site only, not sent to the sheet)",
+        enterShift: "Enter the shift number.",
+        enterDestination: "Enter the expense destination.",
+        fillAll: "Please fill in all required fields first.",
         filterMovements: "Filter transactions", filterHint: "Filter by branch, shift, or period",
         allBranches: "All branches", allShifts: "All shifts", allMovements: "All transactions",
         fromDate: "From date", toDate: "To date", clearFilters: "Clear filters",
@@ -609,10 +637,13 @@
     const transferFromInput = document.getElementById("transferFrom");
     const transferToInput = document.getElementById("transferTo");
     const notice = document.getElementById("notice");
+    const submitBtn = document.getElementById("submitBtn");
+    const cancelEditBtn = document.getElementById("cancelEdit");
 
     let entries = readStorage(STORAGE_KEY);
     let deletedEntries = readStorage(TRASH_KEY);
     let trashView = false;
+    let editingId = null;
     let language = localStorage.getItem("dakhakhni-language") || "ar";
 
     function readStorage(key) {
@@ -679,6 +710,19 @@
       }
     }
 
+    function setSelectValue(select, value) {
+      if (value && [...select.options].some(option => option.value === value)) {
+        select.value = value;
+      }
+    }
+
+    function updateSubmitLabel() {
+      const key = editingId ? "saveEdit" : "addButton";
+      submitBtn.dataset.i18n = key;
+      submitBtn.textContent = t(key);
+      cancelEditBtn.style.display = editingId ? "" : "none";
+    }
+
     function setLanguage(nextLanguage) {
       language = nextLanguage === "en" ? "en" : "ar";
       localStorage.setItem("dakhakhni-language", language);
@@ -722,16 +766,15 @@
       document.getElementById("shift").required = isIncome;
       accountInput.required = isIncome || isExpense;
       categoryInput.required = isExpense;
+      document.getElementById("destination").required = isExpense;
       transferFromInput.required = isTransfer;
       transferToInput.required = isTransfer;
 
       document.getElementById("accountLabel").textContent =
         isIncome ? t("incomeAccount") : t("paymentAccount");
 
-      if (isIncome) {
-        fillSelect(accountInput, [...branches, ...banks, ...mainSafes]);
-      } else if (isExpense) {
-        fillSelect(accountInput, mainSafes);
+      if (isIncome || isExpense) {
+        fillSelect(accountInput, [DAKH_SAFE]);
       }
 
       fillSelect(transferFromInput, transferAccounts);
@@ -748,14 +791,14 @@
 
     function getFilteredEntries(list) {
       const branch = document.getElementById("filterBranch").value;
-      const shift = document.getElementById("filterShift").value;
+      const shift = document.getElementById("filterShift").value.trim();
       const type = document.getElementById("filterType").value;
       const from = document.getElementById("filterFrom").value;
       const to = document.getElementById("filterTo").value;
 
       return list.filter(item =>
         (!branch || item.branch === branch) &&
-        (!shift || item.shift === shift) &&
+        (!shift || String(item.shift || "").trim() === shift) &&
         (!type || item.type === type) &&
         (!from || item.date >= from) &&
         (!to || item.date <= to)
@@ -765,7 +808,42 @@
     function shiftName(value) {
       if (!value) return "—";
       if (language === "ar") return value;
-      return value === "صباحي" ? "Morning" : "Evening";
+      if (value === "صباحي") return "Morning";
+      if (value === "مسائي") return "Evening";
+      return value;
+    }
+
+    function startEdit(item) {
+      editingId = item.id;
+      typeInput.value = item.type;
+      updateFields();
+
+      document.getElementById("amount").value = item.amount;
+      document.getElementById("date").value = item.date || todayString();
+
+      if (item.type === "income") {
+        setSelectValue(document.getElementById("branch"), item.branch);
+        document.getElementById("shift").value = item.shift || "";
+        setSelectValue(accountInput, item.account);
+        document.getElementById("description").value = item.description || "";
+      } else if (item.type === "expense") {
+        setSelectValue(accountInput, item.account);
+        setSelectValue(categoryInput, item.category);
+        document.getElementById("destination").value = item.destination || "";
+        document.getElementById("description").value = item.description || "";
+      } else if (item.type === "transfer") {
+        setSelectValue(transferFromInput, item.transferFrom);
+        setSelectValue(transferToInput, item.transferTo);
+      }
+
+      updateSubmitLabel();
+      showNotice(t("editingNotice"), "ok");
+      form.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function exitEdit() {
+      editingId = null;
+      updateSubmitLabel();
     }
 
     function render() {
@@ -818,7 +896,19 @@
             " — " + t("transferToText") + ": " + accountName(item.transferTo);
         }
 
-        addCell(details);
+        const detailsCell = addCell(details);
+        if (item.edited) {
+          const editedTag = document.createElement("span");
+          editedTag.className = "edited-tag";
+          editedTag.textContent = t("edited");
+          if (item.editedAt) {
+            editedTag.title = new Date(item.editedAt).toLocaleString(
+              language === "ar" ? "ar-EG" : "en-EG"
+            );
+          }
+          detailsCell.appendChild(editedTag);
+        }
+
         addCell(money(item.amount));
 
         const actionCell = document.createElement("td");
@@ -850,18 +940,28 @@
 
           actionCell.append(restore, permanent);
         } else {
+          const editButton = document.createElement("button");
+          editButton.type = "button";
+          editButton.className = "edit";
+          editButton.textContent = t("edit");
+          editButton.onclick = () => startEdit(item);
+
           const remove = document.createElement("button");
           remove.type = "button";
           remove.className = "delete";
           remove.textContent = t("delete");
           remove.onclick = () => {
+            if (editingId === item.id) {
+              exitEdit();
+              form.reset();
+            }
             entries = entries.filter(entry => entry.id !== item.id);
             deletedEntries.unshift({ ...item, deletedAt: new Date().toISOString() });
             saveEntries();
             render();
             showNotice(t("deletedNotice"), "ok");
           };
-          actionCell.appendChild(remove);
+          actionCell.append(editButton, remove);
         }
 
         row.appendChild(actionCell);
@@ -928,9 +1028,22 @@
 
       const type = typeInput.value;
       const amount = Number(document.getElementById("amount").value);
+      const dateValue = document.getElementById("date").value;
+      const shiftValue = document.getElementById("shift").value.trim();
+      const destinationValue = document.getElementById("destination").value.trim();
 
       if (!Number.isFinite(amount) || amount <= 0) {
         alert(t("invalidAmount"));
+        return;
+      }
+
+      if (!dateValue) {
+        alert(t("fillAll"));
+        return;
+      }
+
+      if (type === "income" && !shiftValue) {
+        alert(t("enterShift"));
         return;
       }
 
@@ -944,28 +1057,64 @@
         return;
       }
 
+      if (type === "expense" && !destinationValue) {
+        alert(t("enterDestination"));
+        return;
+      }
+
+      if (type === "transfer" && (!transferFromInput.value || !transferToInput.value)) {
+        alert(t("fillAll"));
+        return;
+      }
+
       if (type === "transfer" && transferFromInput.value === transferToInput.value) {
         alert(t("chooseDifferent"));
         return;
       }
 
-      const entry = {
-        id: crypto.randomUUID
-          ? crypto.randomUUID()
-          : String(Date.now() + Math.random()),
+      const data = {
         type,
         amount,
-        date: document.getElementById("date").value,
+        date: dateValue,
         branch: type === "income" ? document.getElementById("branch").value : "",
-        shift: type === "income" ? document.getElementById("shift").value : "",
+        shift: type === "income" ? shiftValue : "",
         account: type === "income" || type === "expense" ? accountInput.value : "",
         category: type === "expense" ? categoryInput.value : "",
-        destination: type === "expense"
-          ? document.getElementById("destination").value.trim() : "",
+        destination: type === "expense" ? destinationValue : "",
         transferFrom: type === "transfer" ? transferFromInput.value : "",
         transferTo: type === "transfer" ? transferToInput.value : "",
         description: type === "transfer"
           ? "" : document.getElementById("description").value.trim()
+      };
+
+      const editIndex = editingId
+        ? entries.findIndex(entry => entry.id === editingId)
+        : -1;
+
+      if (editIndex >= 0) {
+        entries[editIndex] = {
+          ...entries[editIndex],
+          ...data,
+          edited: true,
+          editedAt: new Date().toISOString()
+        };
+        saveEntries();
+        exitEdit();
+        render();
+        showNotice(t("editedNotice"), "ok");
+        form.reset();
+        document.getElementById("date").value = todayString();
+        updateFields();
+        return;
+      }
+
+      exitEdit();
+
+      const entry = {
+        id: crypto.randomUUID
+          ? crypto.randomUUID()
+          : String(Date.now() + Math.random()),
+        ...data
       };
 
       entries.unshift(entry);
@@ -980,6 +1129,13 @@
       form.reset();
       document.getElementById("date").value = todayString();
       updateFields();
+    });
+
+    cancelEditBtn.addEventListener("click", () => {
+      exitEdit();
+      form.reset();
+      notice.className = "notice";
+      notice.textContent = "";
     });
 
     document.getElementById("showTrash").addEventListener("click", () => {
