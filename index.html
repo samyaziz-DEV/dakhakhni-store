@@ -261,6 +261,7 @@
         </div>
       </div>
       <div class="top-actions">
+        <!-- زر الخروج -->
         <button class="secondary" id="logoutBtn" type="button" data-i18n="logout" data-emoji="🚪" style="color: var(--red); font-weight:bold;">خروج</button>
         <label for="languageSelect" style="color:#fff" data-i18n="languageLabel" data-emoji="🌐">اللغة</label>
         <select class="language-select" id="languageSelect" aria-label="Language">
@@ -279,6 +280,7 @@
         <button class="secondary" id="resetColor" type="button" data-i18n="defaultColor" data-emoji="↩️">اللون الافتراضي</button>
       </div>
       <div class="toolbar-actions">
+        <!-- أزرار الإدارة والطباعة -->
         <button class="secondary admin-only" id="settingsMenuBtn" type="button" data-i18n="settings" data-emoji="⚙️">الإعدادات</button>
         <button class="secondary admin-only" id="exportCsvBtn" type="button" data-i18n="exportCSV" data-emoji="📊">تصدير CSV</button>
         <button class="secondary admin-only" id="printBtn" type="button" data-i18n="printBtn" data-emoji="🖨️">طباعة</button>
@@ -652,34 +654,37 @@
         const response = await fetch(SHEET_URL);
         const data = await response.json();
         
-        if (data && Array.isArray(data) && data.length > 0) {
-          entries = data.map((row, index) => {
-            let details = row.details || "";
-            let addedBy = "";
-            if(details.includes(" | بواسطة: ")) {
-                let parts = details.split(" | بواسطة: ");
-                details = parts[0];
-                addedBy = parts[1];
-            }
-            return {
-              id: "sheet_" + index, // أيدي وهمي عشان مفيش أيدي في الشيت
-              date: row.date,
-              branch: row.branch,
-              shift: row.shift,
-              type: row.type,
-              amount: Number(row.amount),
-              account: row.account,
-              category: row.category,
-              destination: row.type === 'expense' ? (details.split(" — ")[1] || details) : "", 
-              transferFrom: row.transferFrom,
-              transferTo: row.transferTo,
-              description: details,
-              addedBy: addedBy
-            };
-          });
-          entries.reverse(); // الترتيب من الأحدث للأقدم
-          saveEntries();
-          render();
+        // تعديل مهم: يتأكد الأول إن الشيت مش فاضي وفي نفس الوقت يقفل الرسالة الخضراء
+        if (data && Array.isArray(data)) {
+          if (data.length > 0) {
+            entries = data.map((row, index) => {
+              let details = row.details || "";
+              let addedBy = "";
+              if(details.includes(" | بواسطة: ")) {
+                  let parts = details.split(" | بواسطة: ");
+                  details = parts[0];
+                  addedBy = parts[1];
+              }
+              return {
+                id: "sheet_" + index, 
+                date: row.date,
+                branch: row.branch,
+                shift: row.shift,
+                type: row.type,
+                amount: Number(row.amount),
+                account: row.account,
+                category: row.category,
+                destination: row.type === 'expense' ? (details.split(" — ")[1] || details) : "", 
+                transferFrom: row.transferFrom,
+                transferTo: row.transferTo,
+                description: details,
+                addedBy: addedBy
+              };
+            });
+            entries.reverse(); 
+            saveEntries();
+            render();
+          }
           showNotice(t("syncSuccess"), "ok");
           setTimeout(() => { notice.style.display = 'none'; }, 3000);
         }
@@ -893,7 +898,6 @@
             permanent.onclick = () => { if (!confirm(t("confirmDelete"))) return; deletedEntries = deletedEntries.filter(entry => entry.id !== item.id); saveEntries(); render(); };
             actionCell.append(restore, permanent);
           } else {
-            // نخفي زرار التعديل والحذف للحركات اللي مسحوبة من الشيت عشان متعملش لخبطة
             if (item.id && !item.id.includes("sheet_")) {
               const editButton = document.createElement("button"); editButton.type = "button"; editButton.className = "edit"; editButton.textContent = "✏️ " + t("edit"); editButton.onclick = () => startEdit(item);
               const remove = document.createElement("button"); remove.type = "button"; remove.className = "delete"; remove.textContent = "🗑️ " + t("delete");
@@ -918,6 +922,7 @@
 
     function showNotice(message, status) { notice.className = "notice " + status; notice.textContent = message; }
 
+    /* ===== الإرسال (تم إزالة التكرار) ===== */
     form.addEventListener("submit", event => {
       event.preventDefault();
       const type = typeInput.value, amount = Number(document.getElementById("amount").value), dateValue = document.getElementById("date").value, shiftValue = document.getElementById("shift").value.trim(), destinationValue = document.getElementById("destination").value.trim();
@@ -949,9 +954,9 @@
       exitEdit(); const entry = { id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()), ...data };
       entries.unshift(entry); saveEntries(); render(); showNotice(t("savedSending") + warning, "ok");
       
-      // الإرسال لجوجل شيت
       const detailsSheet = entry.type === "transfer" ? "من " + entry.transferFrom + " إلى " + entry.transferTo : [ entry.type === "income" ? "حساب الإيراد: " + entry.account : "", entry.category, entry.destination, entry.description ].filter(Boolean).join(" — ");
       const sheetDetails = detailsSheet + (entry.addedBy ? ` | بواسطة: ${entry.addedBy.split('@')[0]}` : "");
+      
       fetch(SHEET_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ date: entry.date, branch: entry.branch, shift: entry.shift, type: entry.type, account: entry.account, category: entry.category, details: sheetDetails, amount: entry.amount, transferFrom: entry.transferFrom, transferTo: entry.transferTo }) })
       .then(() => showNotice(t("sentNotice") + warning, "ok")).catch(() => showNotice(t("sendError") + warning, "error"));
       
