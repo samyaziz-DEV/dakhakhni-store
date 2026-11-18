@@ -42,9 +42,22 @@
     @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes pop { from { opacity: 0; transform: translateY(18px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes fillBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
     .overlay-screen { position: fixed; inset: 0; z-index: 1000; background: var(--page-color); background-image: var(--bg-image); background-size: var(--bg-size); display: grid; place-items: center; padding: 20px; transition: opacity .4s ease, visibility .4s ease; }
     .overlay-screen[hidden] { opacity: 0; visibility: hidden; pointer-events: none; }
+    
+    /* شاشة الترحيب (Splash) */
+    .splash-screen { z-index: 2000; background: color-mix(in srgb, var(--page-color) 65%, #0b1020cc); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .splash-card { width: min(440px, 100%); padding: 34px 28px 24px; background: var(--white); border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 30px 70px #00000055; text-align: center; animation: pop .5s ease both; }
+    .splash-card h2 { font-size: 22px; margin: 0 0 12px; color: var(--text); }
+    .splash-card p { margin: 0 0 14px; color: var(--muted); font-size: 13px; line-height: 1.9; }
+    .powered-by { font-size: 14px !important; color: var(--text) !important; font-weight: 700; letter-spacing: .3px; }
+    .powered-by strong { color: var(--blue); }
+    .splash-bar { height: 4px; margin-top: 18px; overflow: hidden; background: var(--btn-soft); border-radius: 4px; }
+    .splash-bar span { display: block; height: 100%; background: var(--blue); transform-origin: right center; animation: fillBar 3.5s linear both; }
+    html[dir="ltr"] .splash-bar span { transform-origin: left center; }
+
     .auth-card { width: min(400px, 100%); padding: 35px 30px; background: var(--white); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); text-align: center; animation: pop .5s ease both; }
     .auth-logo { width: 70px; height: 70px; margin: 0 auto 20px; display: grid; place-items: center; border-radius: 20px; color: #fff; font-size: 32px; font-weight: 700; background: var(--top-gradient); box-shadow: 0 12px 26px color-mix(in srgb, var(--blue) 45%, transparent); }
     .auth-card h2 { font-size: 22px; margin-bottom: 25px; color: var(--text); }
@@ -58,6 +71,7 @@
     h1 { margin: 0 0 6px; font-size: 22px; }
     .subtitle { margin: 0; font-size: 13px; color: #d5def4; }
     .top-actions { flex-wrap: wrap; justify-content: flex-end; }
+    .language-select { width: auto; margin: 0; padding: 9px 12px; }
 
     main { width: min(1180px, 92%); margin: 24px auto 38px; display: none; }
 
@@ -136,7 +150,6 @@
     .checkbox-group label { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; background: var(--soft); padding: 5px 10px; border-radius: 8px; border: 1px solid var(--line); cursor: pointer; }
     .checkbox-group input { width: auto; margin: 0; }
 
-    /* كارت تقفيل شيفت الكاشير */
     .cashier-box { max-width: 560px; margin: 20px auto; }
     .cashier-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 20px; background: var(--blue-soft); color: var(--blue); font-size: 13px; font-weight: 700; margin-bottom: 18px; }
     .cashier-fields { display: flex; flex-direction: column; gap: 16px; }
@@ -146,15 +159,19 @@
 
     footer { padding: 22px 16px; text-align: center; color: var(--muted); font-size: 12px; }
     footer span { display: inline-block; padding: 9px 16px; background: var(--toolbar-bg); border: 1px solid var(--line); border-radius: 30px; box-shadow: var(--shadow-soft); }
+    html[dir="ltr"] th, html[dir="ltr"] td { text-align: left; }
 
+    /* ===== إعدادات الطباعة الشاملة ===== */
     @media print {
       body { background: #fff !important; color: #000 !important; }
-      body * { visibility: hidden; }
-      #printArea, #printArea * { visibility: visible; }
-      #printArea { position: absolute; left: 0; top: 0; width: 100%; }
-      th:last-child, td:last-child { display: none; }
-      .panel { border: none; box-shadow: none; margin: 0; padding: 0; }
-      .toolbar, .summary, .filters, form, .topbar { display: none !important; }
+      .overlay-screen, .toolbar, .filters, #transactionFormPanel, #settingsPanel, #stylePanel, #balancesPanel, .topbar button, .topbar select, footer { display: none !important; }
+      main { display: block !important; width: 100% !important; margin: 0 !important; }
+      .topbar { background: #14213d !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 12px 16px; margin-bottom: 14px; }
+      .summary { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; margin-bottom: 14px !important; }
+      .summary-card, .panel { box-shadow: none !important; border: 1px solid #ccc !important; background: #fff !important; }
+      table { min-width: 100% !important; font-size: 11px !important; }
+      th, td { border: 1px solid #ddd !important; padding: 8px 6px !important; }
+      .edit, .delete, .restore { display: none !important; }
     }
 
     @media (max-width: 760px) { .topbar-inner { align-items: flex-start; flex-direction: column; } .top-actions { justify-content: flex-start; } .summary { grid-template-columns: repeat(2, 1fr); gap: 10px; } .form-grid, .filter-grid { grid-template-columns: 1fr 1fr; } }
@@ -164,12 +181,24 @@
 
 <body>
 
+  <!-- شاشة الترحيب (Splash Screen) -->
+  <div class="overlay-screen splash-screen" id="splashScreen">
+    <div class="splash-card">
+      <div class="auth-logo">د</div>
+      <h2 data-i18n="splashWelcome">أهلاً بك في نظام الدخاخني ستور</h2>
+      <p data-i18n="splashDesc">نظام الإدارة المالية المتكامل للفروع والخزن ومتابعة الإيرادات والمصروفات لحظياً عبر السحابة.</p>
+      <p class="powered-by">✨ Powered by <strong>Samy Aziz</strong></p>
+      <button class="primary" id="splashEnterBtn" type="button" style="width:100%; margin-top:8px;" data-i18n="enterSystem" data-emoji="🚀">دخول النظام</button>
+      <div class="splash-bar"><span></span></div>
+    </div>
+  </div>
+
   <!-- شاشة التحميل والمزامنة -->
-  <div class="overlay-screen" id="loadingScreen">
+  <div class="overlay-screen" id="loadingScreen" hidden>
     <div class="auth-card" style="box-shadow:none; border:none; background:transparent;">
       <div class="loader"></div>
-      <h2 style="color:var(--blue)">جارِ مزامنة النظام...</h2>
-      <p style="color:var(--muted); font-size:13px;">يتم جلب البيانات من السحابة</p>
+      <h2 style="color:var(--blue)" data-i18n="syncingTitle">جارِ مزامنة النظام...</h2>
+      <p style="color:var(--muted); font-size:13px;" data-i18n="syncingDesc">يتم جلب البيانات من السحابة</p>
     </div>
   </div>
 
@@ -177,36 +206,36 @@
   <div class="overlay-screen" id="loginScreen" hidden>
     <div class="auth-card">
       <div class="auth-logo">د</div>
-      <h2>تسجيل الدخول</h2>
+      <h2 data-i18n="loginTitle">تسجيل الدخول</h2>
       <form class="auth-form" id="loginForm">
         <label>
-          <span data-emoji="👤">اسم المستخدم</span>
-          <input type="text" id="loginUsername" required placeholder="أدخل اسم المستخدم">
+          <span data-i18n="username" data-emoji="👤">اسم المستخدم</span>
+          <input type="text" id="loginUsername" required data-i18n-placeholder="userPlaceholder" placeholder="أدخل اسم المستخدم">
         </label>
         <label>
-          <span data-emoji="🔒">كلمة المرور</span>
-          <input type="password" id="loginPassword" required placeholder="أدخل كلمة المرور">
+          <span data-i18n="password" data-emoji="🔒">كلمة المرور</span>
+          <input type="password" id="loginPassword" required data-i18n-placeholder="passPlaceholder" placeholder="أدخل كلمة المرور">
         </label>
-        <button class="primary" type="submit" style="width: 100%; margin-top: 10px;">دخول</button>
+        <button class="primary" type="submit" style="width: 100%; margin-top: 10px;" data-i18n="loginBtn">دخول</button>
         <div id="loginNotice" class="notice error"></div>
       </form>
     </div>
   </div>
 
-  <!-- شاشة بداية الشيفت (للمستخدمين / الكاشير فقط - لا تظهر للأدمن) -->
+  <!-- شاشة بداية الشيفت (للكاشير فقط) -->
   <div class="overlay-screen" id="shiftScreen" hidden>
     <div class="auth-card">
-      <h2 data-emoji="⏱️">بيانات الشيفت</h2>
+      <h2 data-i18n="shiftDataTitle" data-emoji="⏱️">بيانات الشيفت</h2>
       <form class="auth-form" id="shiftForm">
         <label>
-          <span data-emoji="🏬">اختر الفرع</span>
+          <span data-i18n="chooseBranch" data-emoji="🏬">اختر الفرع</span>
           <select id="shiftBranch" required></select>
         </label>
         <label>
-          <span data-emoji="🔢">رقم الشيفت</span>
-          <input type="text" id="shiftNumberEntry" required placeholder="اكتب رقم الشيفت الحالي">
+          <span data-i18n="shiftNumber" data-emoji="🔢">رقم الشيفت</span>
+          <input type="text" id="shiftNumberEntry" required data-i18n-placeholder="shiftPlaceholder" placeholder="اكتب رقم الشيفت الحالي">
         </label>
-        <button class="primary" type="submit" style="width: 100%; margin-top: 10px;">ابدأ العمل</button>
+        <button class="primary" type="submit" style="width: 100%; margin-top: 10px;" data-i18n="startWorkBtn">ابدأ العمل</button>
       </form>
     </div>
   </div>
@@ -216,12 +245,16 @@
       <div class="brand">
         <div class="brand-mark">د</div>
         <div>
-          <h1>الدخاخني ستور</h1>
-          <p class="subtitle" id="userSubtitle">لوحة الإدارة المالية</p>
+          <h1 data-i18n="storeTitle">الدخاخني ستور</h1>
+          <p class="subtitle" id="userSubtitle" data-i18n="dashboardSub">لوحة الإدارة المالية</p>
         </div>
       </div>
       <div class="top-actions">
-        <button class="secondary" id="logoutBtn" type="button" data-emoji="🚪" style="color: var(--red); font-weight:bold;">تسجيل خروج</button>
+        <button class="secondary" id="logoutBtn" type="button" data-i18n="logout" data-emoji="🚪" style="color: var(--red); font-weight:bold;">تسجيل خروج</button>
+        <select class="language-select" id="languageSelect" aria-label="Language">
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+        </select>
       </div>
     </div>
   </header>
@@ -230,25 +263,23 @@
     <!-- شريط الأدوات (للأدمن فقط) -->
     <div class="toolbar admin-only">
       <div class="color-control">
-        <label data-emoji="🎨">لون الصفحة</label>
+        <label data-i18n="pageColor" data-emoji="🎨">لون الصفحة</label>
         <input id="pageColor" type="color" value="#f5f7fb">
-        <button class="secondary" id="resetColor" type="button" data-emoji="↩️">الافتراضي</button>
+        <button class="secondary" id="resetColor" type="button" data-i18n="defaultColor" data-emoji="↩️">الافتراضي</button>
       </div>
       <div class="toolbar-actions">
-        <button class="secondary" id="settingsMenuBtn" type="button" data-emoji="⚙️">الإعدادات والمستخدمين</button>
-        <button class="secondary" id="exportCsvBtn" type="button" data-emoji="📊">تصدير CSV</button>
-        <button class="secondary" id="printBtn" type="button" data-emoji="🖨️">طباعة</button>
-        <button class="secondary" id="styleBtn" type="button" data-emoji="🎭">تغيير الشكل</button>
+        <button class="secondary" id="settingsMenuBtn" type="button" data-i18n="settingsBtn" data-emoji="⚙️">الإعدادات والمستخدمين</button>
+        <button class="secondary" id="exportCsvBtn" type="button" data-i18n="exportCSV" data-emoji="📊">تصدير CSV</button>
+        <button class="secondary" id="printBtn" type="button" data-i18n="printBtn" data-emoji="🖨️">طباعة</button>
+        <button class="secondary" id="styleBtn" type="button" data-i18n="styleBtn" data-emoji="🎭">تغيير الشكل</button>
         <button class="secondary" id="showTrash" type="button"></button>
       </div>
     </div>
 
-    <!-- ==========================================
-         واجهة الكاشير المعزولة (تقفيل الشيفت فقط)
-    =========================================== -->
+    <!-- واجهة الكاشير المعزولة (تقفيل الشيفت فقط) -->
     <section class="panel cashier-box" id="cashierPanel" hidden>
       <div class="panel-heading">
-        <h2 data-emoji="🧾">تقفيل إيراد الشيفت</h2>
+        <h2 data-i18n="closeShiftTitle" data-emoji="🧾">تقفيل إيراد الشيفت</h2>
         <span class="hint" id="cashierDateLabel"></span>
       </div>
       
@@ -256,147 +287,150 @@
 
       <form id="cashierCloseForm" class="cashier-fields">
         <div class="cashier-field-card">
-          <label for="cashierCash" data-emoji="💵">إجمالي الكاش (نقدي)</label>
-          <small>يُرحّل تلقائياً إلى: الخزنة الرئيسية - الدخاخني</small>
+          <label for="cashierCash" data-i18n="cashTotal" data-emoji="💵">إجمالي الكاش (نقدي)</label>
+          <small data-i18n="cashDestHint">يُرحّل تلقائياً إلى: الخزنة الرئيسية - الدخاخني</small>
           <input id="cashierCash" type="number" min="0" step="0.01" placeholder="0.00">
         </div>
 
         <div class="cashier-field-card">
-          <label for="cashierInstapay" data-emoji="📱">إجمالي إنستا باي (Instapay)</label>
-          <small>يُرحّل تلقائياً إلى: إنستا باي الأهلي</small>
+          <label for="cashierInstapay" data-i18n="instaTotal" data-emoji="📱">إجمالي إنستا باي (Instapay)</label>
+          <small data-i18n="instaDestHint">يُرحّل تلقائياً إلى: إنستا باي الأهلي</small>
           <input id="cashierInstapay" type="number" min="0" step="0.01" placeholder="0.00">
         </div>
 
         <div class="cashier-field-card">
-          <label for="cashierVisa" data-emoji="💳">إجمالي فيزا QNB</label>
-          <small>يُرحّل تلقائياً إلى: فيزا QNB</small>
+          <label for="cashierVisa" data-i18n="visaTotal" data-emoji="💳">إجمالي فيزا QNB</label>
+          <small data-i18n="visaDestHint">يُرحّل تلقائياً إلى: فيزا QNB</small>
           <input id="cashierVisa" type="number" min="0" step="0.01" placeholder="0.00">
         </div>
 
         <label>
-          <span data-emoji="📝">ملاحظات الشيفت (اختياري)</span>
-          <input id="cashierNotes" type="text" placeholder="أي ملاحظات تخص التقفيل...">
+          <span data-i18n="shiftNotes" data-emoji="📝">ملاحظات الشيفت (اختياري)</span>
+          <input id="cashierNotes" type="text" data-i18n-placeholder="notesPlaceholder" placeholder="أي ملاحظات تخص التقفيل...">
         </label>
 
-        <button class="primary" type="submit" style="width: 100%; padding: 14px; font-size: 15px;" data-emoji="✅">حفظ وترحيل تقفيل الشيفت</button>
+        <button class="primary" type="submit" style="width: 100%; padding: 14px; font-size: 15px;" data-i18n="saveShiftBtn" data-emoji="✅">حفظ وترحيل تقفيل الشيفت</button>
         <div id="cashierNotice" class="notice" role="status"></div>
       </form>
     </section>
 
-    <!-- ==========================================
-         واجهة الأدمن / المالك الكاملة
-    =========================================== -->
+    <!-- واجهة الأدمن / المالك الكاملة -->
     <div id="adminWorkspace" class="admin-only">
-      <!-- لوحة إدارة المستخدمين وتقارير الأرصدة -->
       <section class="panel settings-panel" id="settingsPanel" hidden>
-        <div class="panel-heading"><h2 data-emoji="👥">إدارة المستخدمين والصلاحيات</h2></div>
+        <div class="panel-heading"><h2 data-i18n="usersMgmtTitle" data-emoji="👥">إدارة المستخدمين والصلاحيات</h2></div>
         <form id="addUserForm" class="form-grid" style="background: var(--soft); padding: 15px; border-radius: 12px; margin-bottom: 15px;">
-          <label>اسم المستخدم<input type="text" id="newUserEmail" required></label>
-          <label>كلمة المرور<input type="text" id="newUserPass" required></label>
-          <label>الصلاحية<select id="newUserRole"><option value="cashier">مستخدم / كاشير (تقفيل شيفت فقط)</option><option value="admin">مدير / مالك (صلاحية كاملة)</option></select></label>
-          <div style="grid-column: span 3;"><label>الفروع المسموحة للمستخدم:</label><div class="checkbox-group" id="branchCheckboxes"></div></div>
-          <button class="primary" type="submit" style="grid-column: span 3;">إضافة حساب جديد</button>
+          <label><span data-i18n="username">اسم المستخدم</span><input type="text" id="newUserEmail" required></label>
+          <label><span data-i18n="password">كلمة المرور</span><input type="text" id="newUserPass" required></label>
+          <label><span data-i18n="roleLabel">الصلاحية</span><select id="newUserRole"><option value="cashier" data-i18n="roleCashier">مستخدم / كاشير (تقفيل شيفت فقط)</option><option value="admin" data-i18n="roleAdmin">مدير / مالك (صلاحية كاملة)</option></select></label>
+          <div style="grid-column: span 3;"><label data-i18n="allowedBranches">الفروع المسموحة للمستخدم:</label><div class="checkbox-group" id="branchCheckboxes"></div></div>
+          <button class="primary" type="submit" style="grid-column: span 3;" data-i18n="addUserBtn">إضافة حساب جديد</button>
         </form>
         <div class="table-wrap" style="margin-bottom: 30px;">
           <table class="users-table">
-            <thead><tr><th>اسم المستخدم</th><th>الدور</th><th>الفروع المسموحة</th><th>إجراء</th></tr></thead>
+            <thead><tr><th data-i18n="username">اسم المستخدم</th><th data-i18n="roleLabel">الدور</th><th data-i18n="allowedBranches">الفروع المسموحة</th><th data-i18n="actionCol">إجراء</th></tr></thead>
             <tbody id="usersList"></tbody>
           </table>
         </div>
 
-        <div class="panel-heading"><h2 data-emoji="📈">تقارير تعديل الأرصدة الافتتاحية</h2></div>
+        <div class="panel-heading"><h2 data-i18n="openingReportsTitle" data-emoji="📈">تقارير تعديل الأرصدة الافتتاحية</h2></div>
         <div class="table-wrap">
           <table class="users-table">
-            <thead><tr><th>تاريخ الإضافة/التعديل</th><th>الخزنة / الحساب</th><th>الرصيد الافتتاحي</th><th>بواسطة</th><th>الحالة</th></tr></thead>
+            <thead><tr><th data-i18n="dateTimeCol">تاريخ الإضافة/التعديل</th><th data-i18n="accountCol">الخزنة / الحساب</th><th data-i18n="openingBalCol">الرصيد الافتتاحي</th><th data-i18n="byCol">بواسطة</th><th data-i18n="statusCol">الحالة</th></tr></thead>
             <tbody id="balancesHistoryList"></tbody>
           </table>
         </div>
       </section>
 
       <section class="panel style-panel" id="stylePanel" hidden>
-        <div class="chip-group"><strong data-emoji="🎨">الألوان والتصميم</strong><div class="chips" id="themeChips"></div></div>
-        <div class="chip-group"><strong data-emoji="🖼️">شكل الخلفية</strong><div class="chips" id="bgChips"></div></div>
+        <div class="chip-group"><strong data-i18n="themeTitle" data-emoji="🎨">الألوان والتصميم</strong><div class="chips" id="themeChips"></div></div>
+        <div class="chip-group"><strong data-i18n="bgTitle" data-emoji="🖼️">شكل الخلفية</strong><div class="chips" id="bgChips"></div></div>
       </section>
 
-      <!-- الأرصدة -->
       <section class="panel" id="balancesPanel">
-        <div class="panel-heading"><h2 data-emoji="🏦">أرصدة الحسابات والخزن</h2><span class="hint" id="balancesHint"></span></div>
+        <div class="panel-heading"><h2 data-i18n="balancesTitle" data-emoji="🏦">أرصدة الحسابات والخزن</h2><span class="hint" id="balancesHint"></span></div>
         <div class="balance-grid" id="balanceGrid"></div>
         
         <div class="opening-editor" id="openingEditor" hidden>
           <div class="form-grid" id="openingInputs"></div>
           <div class="actions">
-            <button class="primary" id="saveOpening" type="button" data-emoji="💾">حفظ الرصيد الأول وتسميعه</button>
-            <button class="secondary" id="cancelOpening" type="button" data-emoji="✖️">إلغاء</button>
+            <button class="primary" id="saveOpening" type="button" data-i18n="saveOpeningBtn" data-emoji="💾">حفظ الرصيد الأول وتسميعه</button>
+            <button class="secondary" id="cancelOpening" type="button" data-i18n="cancelBtn" data-emoji="✖️">إلغاء</button>
           </div>
         </div>
 
         <div class="close-row">
-          <button class="secondary" id="editOpeningBtn" type="button" data-emoji="✏️">تعديل الرصيد الأول</button>
+          <button class="secondary" id="editOpeningBtn" type="button" data-i18n="editOpeningBtn" data-emoji="✏️">تعديل الرصيد الأول</button>
         </div>
         <div id="balanceNotice" class="notice" role="status"></div>
       </section>
 
-      <section class="summary">
-        <article class="summary-card"><span class="summary-label" data-emoji="🟢">إجمالي الإيرادات</span><strong class="summary-value green" id="totalIncome">0.00 ج.م</strong></article>
-        <article class="summary-card"><span class="summary-label" data-emoji="🔴">إجمالي المصروفات</span><strong class="summary-value red" id="totalExpenses">0.00 ج.م</strong></article>
-        <article class="summary-card"><span class="summary-label" data-emoji="⚖️">صافي الحساب</span><strong class="summary-value" id="netTotal">0.00 ج.م</strong></article>
+      <section class="summary" id="summarySection">
+        <article class="summary-card"><span class="summary-label" data-i18n="totalIncome" data-emoji="🟢">إجمالي الإيرادات</span><strong class="summary-value green" id="totalIncome">0.00 ج.م</strong></article>
+        <article class="summary-card"><span class="summary-label" data-i18n="totalExpenses" data-emoji="🔴">إجمالي المصروفات</span><strong class="summary-value red" id="totalExpenses">0.00 ج.م</strong></article>
+        <article class="summary-card"><span class="summary-label" data-i18n="netTotal" data-emoji="⚖️">صافي الحساب</span><strong class="summary-value" id="netTotal">0.00 ج.م</strong></article>
       </section>
 
-      <section class="panel">
-        <div class="panel-heading"><h2 data-emoji="➕">إضافة حركة مالية (للمدير)</h2><span class="hint">إيراد أو مصروف أو تحويل</span></div>
+      <section class="panel" id="transactionFormPanel">
+        <div class="panel-heading"><h2 data-i18n="addTxTitle" data-emoji="➕">إضافة حركة مالية (للمدير)</h2><span class="hint" data-i18n="addTxHint">إيراد أو مصروف أو تحويل</span></div>
         <form id="transactionForm">
           <div class="form-grid">
-            <label><span>نوع الحركة</span><select id="type"><option value="income">🟢 إيراد</option><option value="expense">🔴 مصروف</option><option value="transfer">🟣 تحويل نقدي</option></select></label>
-            <label><span>المبلغ بالجنيه</span><input id="amount" type="number" min="0.01" step="0.01" placeholder="مثال: 1500" required></label>
-            <label><span>التاريخ</span><input id="date" type="date" required></label>
-            <label id="branchField"><span>الفرع</span><select id="branch"></select></label>
-            <label id="shiftField"><span>رقم الشيفت</span><input id="shift" type="text" autocomplete="off" placeholder="اكتب رقم الشيفت"></label>
-            <label id="accountField"><span id="accountLabel">الحساب</span><select id="account"></select></label>
-            <label id="categoryField"><span>تصنيف المصروف</span><select id="category"><option value="">اختر التصنيف</option><option value="إيجار">🏠 إيجار</option><option value="رواتب">👥 رواتب</option><option value="مشتريات">🛒 مشتريات</option><option value="كهرباء ومياه">💡 كهرباء ومياه</option><option value="نقل">🚚 نقل</option><option value="صيانة">🔧 صيانة</option><option value="جمعية">🤝 جمعية</option><option value="تحويل">🔁 تحويل</option><option value="أخرى">📦 أخرى</option></select></label>
-            <label id="destinationField"><span>الوجهة</span><input id="destination" placeholder="دفع فاتورة.."></label>
-            <label id="transferFromField"><span>من حساب</span><select id="transferFrom"></select></label>
-            <label id="transferToField"><span>إلى حساب</span><select id="transferTo"></select></label>
-            <label id="descriptionField"><span>ملاحظات</span><input id="description" placeholder="ملاحظات اختيارية"></label>
+            <label><span data-i18n="txTypeLabel">نوع الحركة</span><select id="type"><option value="income" data-i18n="typeIncome">🟢 إيراد</option><option value="expense" data-i18n="typeExpense">🔴 مصروف</option><option value="transfer" data-i18n="typeTransfer">🟣 تحويل نقدي</option></select></label>
+            <label><span data-i18n="amountLabel">المبلغ بالجنيه</span><input id="amount" type="number" min="0.01" step="0.01" placeholder="1500" required></label>
+            <label><span data-i18n="dateCol">التاريخ</span><input id="date" type="date" required></label>
+            <label id="branchField"><span data-i18n="branchCol">الفرع</span><select id="branch"></select></label>
+            <label id="shiftField"><span data-i18n="shiftNumber">رقم الشيفت</span><input id="shift" type="text" autocomplete="off" placeholder="1"></label>
+            <label id="accountField"><span id="accountLabel" data-i18n="accountCol">الحساب</span><select id="account"></select></label>
+            <label id="categoryField"><span data-i18n="catLabel">تصنيف المصروف</span><select id="category"><option value="" data-i18n="chooseCat">اختر التصنيف</option><option value="إيجار">🏠 إيجار</option><option value="رواتب">👥 رواتب</option><option value="مشتريات">🛒 مشتريات</option><option value="كهرباء ومياه">💡 كهرباء ومياه</option><option value="نقل">🚚 نقل</option><option value="صيانة">🔧 صيانة</option><option value="جمعية">🤝 جمعية</option><option value="تحويل">🔁 تحويل</option><option value="أخرى">📦 أخرى</option></select></label>
+            <label id="destinationField"><span data-i18n="destLabel">الوجهة</span><input id="destination" placeholder="..."></label>
+            <label id="transferFromField"><span data-i18n="fromAccLabel">من حساب</span><select id="transferFrom"></select></label>
+            <label id="transferToField"><span data-i18n="toAccLabel">إلى حساب</span><select id="transferTo"></select></label>
+            <label id="descriptionField"><span data-i18n="notesLabel">ملاحظات</span><input id="description" placeholder="..."></label>
           </div>
           <div class="actions">
-            <button class="primary" id="submitBtn" type="submit" data-emoji="➕">إضافة الحركة للشيت</button>
-            <button class="secondary" id="cancelEdit" type="button" data-emoji="✖️" style="display:none">إلغاء</button>
+            <button class="primary" id="submitBtn" type="submit" data-i18n="submitTxBtn" data-emoji="➕">إضافة الحركة للشيت</button>
+            <button class="secondary" id="cancelEdit" type="button" data-i18n="cancelBtn" data-emoji="✖️" style="display:none">إلغاء</button>
           </div>
           <div id="notice" class="notice" role="status"></div>
         </form>
       </section>
 
       <section class="panel filters">
-        <div class="panel-heading"><h2 data-emoji="🔎">تصفية الحركات</h2></div>
+        <div class="panel-heading"><h2 data-i18n="filterTitle" data-emoji="🔎">تصفية الحركات</h2></div>
         <div class="filter-grid">
-          <label>الفرع<select id="filterBranch"><option value="">الكل</option></select></label>
-          <label>الشيفت<input id="filterShift" type="text" autocomplete="off" placeholder="الكل"></label>
-          <label>النوع<select id="filterType"><option value="">الكل</option><option value="income">إيراد</option><option value="expense">مصروف</option><option value="transfer">تحويل</option></select></label>
-          <label>من<input id="filterFrom" type="date"></label>
-          <label>إلى<input id="filterTo" type="date"></label>
-          <label style="align-self:end"><button class="secondary" id="clearFilters" type="button" data-emoji="🧼">مسح الفلاتر</button></label>
+          <label><span data-i18n="branchCol">الفرع</span><select id="filterBranch"><option value="">الكل</option></select></label>
+          <label><span data-i18n="shiftCol">الشيفت</span><input id="filterShift" type="text" autocomplete="off" placeholder="..."></label>
+          <label><span data-i18n="typeCol">النوع</span><select id="filterType"><option value="" data-i18n="allOption">الكل</option><option value="income" data-i18n="typeIncome">إيراد</option><option value="expense" data-i18n="typeExpense">مصروف</option><option value="transfer" data-i18n="typeTransfer">تحويل</option></select></label>
+          <label><span data-i18n="fromDateLabel">من</span><input id="filterFrom" type="date"></label>
+          <label><span data-i18n="toDateLabel">إلى</span><input id="filterTo" type="date"></label>
+          <label style="align-self:end"><button class="secondary" id="clearFilters" type="button" data-i18n="clearFiltersBtn" data-emoji="🧼">مسح الفلاتر</button></label>
         </div>
       </section>
 
       <section class="panel" id="printArea">
-        <div class="panel-heading"><h2 id="tableTitle" data-emoji="📒">سجل الحركات</h2><span class="hint" id="visibleCount">0 حركة</span></div>
+        <div class="panel-heading"><h2 id="tableTitle" data-i18n="txLogTitle" data-emoji="📒">سجل الحركات</h2><span class="hint" id="visibleCount">0</span></div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>التاريخ</th><th>الفرع</th><th>الشيفت</th><th>بواسطة</th><th>النوع</th><th>التفاصيل</th><th>المبلغ</th><th>إجراء</th>
+                <th data-i18n="dateCol">التاريخ</th>
+                <th data-i18n="branchCol">الفرع</th>
+                <th data-i18n="shiftCol">الشيفت</th>
+                <th data-i18n="byCol">بواسطة</th>
+                <th data-i18n="typeCol">النوع</th>
+                <th data-i18n="detailsCol">التفاصيل</th>
+                <th data-i18n="amountCol">المبلغ</th>
+                <th data-i18n="actionCol">إجراء</th>
               </tr>
             </thead>
             <tbody id="transactions"></tbody>
           </table>
-          <div id="emptyMessage" class="empty">لا توجد حركات.</div>
+          <div id="emptyMessage" class="empty" data-i18n="noTxMsg">لا توجد حركات.</div>
         </div>
       </section>
     </div>
   </main>
 
-  <footer><span data-emoji="✨">تصميم وتطوير Samy Aziz</span></footer>
+  <footer><span>✨ Powered by <strong>Samy Aziz</strong></span></footer>
 
   <script>
     const SHEET_URL = "https://script.google.com/macros/s/AKfycbwXm33BZ1yZ4MlT22bXdCL1qulFS4L-VML_D8L_fY-AuNWymVkIJzX1AYc1mBXuSzutUw/exec";
@@ -411,10 +445,215 @@
     const transferAccounts = [...mainSafes, ...otherSafes, ...banks];
 
     const themes = [
-      { id: "classic", emoji: "💙", ar: "كلاسيك", sw: "#3158d5" }, { id: "ocean", emoji: "🌊", ar: "بحري", sw: "#0e7c9b" },
-      { id: "sunset", emoji: "🌇", ar: "غروب", sw: "#e0592a" }, { id: "forest", emoji: "🌿", ar: "أخضر", sw: "#2f8f4e" },
-      { id: "rose", emoji: "🌸", ar: "وردي", sw: "#c2447a" }, { id: "dark", emoji: "🌙", ar: "داكن", sw: "#1a2238" }
+      { id: "classic", emoji: "💙", ar: "كلاسيك", en: "Classic", sw: "#3158d5" },
+      { id: "ocean", emoji: "🌊", ar: "بحري", en: "Ocean", sw: "#0e7c9b" },
+      { id: "sunset", emoji: "🌇", ar: "غروب", en: "Sunset", sw: "#e0592a" },
+      { id: "forest", emoji: "🌿", ar: "أخضر", en: "Forest", sw: "#2f8f4e" },
+      { id: "rose", emoji: "🌸", ar: "وردي", en: "Rose", sw: "#c2447a" },
+      { id: "dark", emoji: "🌙", ar: "داكن", en: "Dark", sw: "#1a2238" }
     ];
+
+    const backgrounds = [
+      { id: "gradient", emoji: "🌈", ar: "تدرج", en: "Gradient" },
+      { id: "dots", emoji: "⚪", ar: "نقط", en: "Dots" },
+      { id: "grid", emoji: "▦", ar: "شبكة", en: "Grid" },
+      { id: "stripes", emoji: "〰️", ar: "خطوط", en: "Stripes" },
+      { id: "plain", emoji: "⬜", ar: "سادة", en: "Plain" }
+    ];
+
+    /* ===== قاموس الترجمة الشامل ===== */
+    const i18nDict = {
+      ar: {
+        splashWelcome: "أهلاً بك في نظام الدخاخني ستور",
+        splashDesc: "نظام الإدارة المالية المتكامل للفروع والخزن ومتابعة الإيرادات والمصروفات لحظياً عبر السحابة.",
+        enterSystem: "دخول النظام",
+        syncingTitle: "جارِ مزامنة النظام...",
+        syncingDesc: "يتم جلب البيانات من السحابة",
+        loginTitle: "تسجيل الدخول",
+        username: "اسم المستخدم",
+        password: "كلمة المرور",
+        userPlaceholder: "أدخل اسم المستخدم",
+        passPlaceholder: "أدخل كلمة المرور",
+        loginBtn: "دخول",
+        shiftDataTitle: "بيانات الشيفت",
+        chooseBranch: "اختر الفرع",
+        shiftNumber: "رقم الشيفت",
+        shiftPlaceholder: "اكتب رقم الشيفت الحالي",
+        startWorkBtn: "ابدأ العمل",
+        storeTitle: "الدخاخني ستور",
+        dashboardSub: "لوحة الإدارة المالية",
+        logout: "تسجيل خروج",
+        pageColor: "لون الصفحة",
+        defaultColor: "الافتراضي",
+        settingsBtn: "الإعدادات والمستخدمين",
+        exportCSV: "تصدير CSV",
+        printBtn: "طباعة",
+        styleBtn: "تغيير الشكل",
+        closeShiftTitle: "تقفيل إيراد الشيفت",
+        cashTotal: "إجمالي الكاش (نقدي)",
+        cashDestHint: "يُرحّل تلقائياً إلى: الخزنة الرئيسية - الدخاخني",
+        instaTotal: "إجمالي إنستا باي (Instapay)",
+        instaDestHint: "يُرحّل تلقائياً إلى: إنستا باي الأهلي",
+        visaTotal: "إجمالي فيزا QNB",
+        visaDestHint: "يُرحّل تلقائياً إلى: فيزا QNB",
+        shiftNotes: "ملاحظات الشيفت (اختياري)",
+        notesPlaceholder: "أي ملاحظات تخص التقفيل...",
+        saveShiftBtn: "حفظ وترحيل تقفيل الشيفت",
+        usersMgmtTitle: "إدارة المستخدمين والصلاحيات",
+        roleLabel: "الصلاحية",
+        roleCashier: "مستخدم / كاشير (تقفيل شيفت فقط)",
+        roleAdmin: "مدير / مالك (صلاحية كاملة)",
+        allowedBranches: "الفروع المسموحة للمستخدم:",
+        addUserBtn: "إضافة حساب جديد",
+        actionCol: "إجراء",
+        openingReportsTitle: "تقارير تعديل الأرصدة الافتتاحية",
+        dateTimeCol: "تاريخ الإضافة/التعديل",
+        accountCol: "الخزنة / الحساب",
+        openingBalCol: "الرصيد الافتتاحي",
+        byCol: "بواسطة",
+        statusCol: "الحالة",
+        themeTitle: "الألوان والتصميم",
+        bgTitle: "شكل الخلفية",
+        balancesTitle: "أرصدة الحسابات والخزن",
+        saveOpeningBtn: "حفظ الرصيد الأول وتسميعه",
+        cancelBtn: "إلغاء",
+        editOpeningBtn: "تعديل الرصيد الأول",
+        totalIncome: "إجمالي الإيرادات",
+        totalExpenses: "إجمالي المصروفات",
+        netTotal: "صافي الحساب",
+        addTxTitle: "إضافة حركة مالية (للمدير)",
+        addTxHint: "إيراد أو مصروف أو تحويل",
+        txTypeLabel: "نوع الحركة",
+        typeIncome: "🟢 إيراد",
+        typeExpense: "🔴 مصروف",
+        typeTransfer: "🟣 تحويل نقدي",
+        amountLabel: "المبلغ بالجنيه",
+        dateCol: "التاريخ",
+        branchCol: "الفرع",
+        shiftCol: "الشيفت",
+        catLabel: "تصنيف المصروف",
+        chooseCat: "اختر التصنيف",
+        destLabel: "الوجهة",
+        fromAccLabel: "من حساب",
+        toAccLabel: "إلى حساب",
+        notesLabel: "ملاحظات",
+        submitTxBtn: "إضافة الحركة للشيت",
+        saveEditBtn: "حفظ التعديل",
+        filterTitle: "تصفية الحركات",
+        allOption: "الكل",
+        fromDateLabel: "من",
+        toDateLabel: "إلى",
+        clearFiltersBtn: "مسح الفلاتر",
+        txLogTitle: "سجل الحركات",
+        trashTitle: "سلة المحذوفات",
+        backToLog: "↩️ العودة للسجل",
+        detailsCol: "التفاصيل",
+        amountCol: "المبلغ",
+        typeCol: "النوع",
+        noTxMsg: "لا توجد حركات.",
+        openingFirst: "الرصيد الأول:",
+        editBtn: "✏️ تعديل",
+        deleteBtn: "🗑️ حذف",
+        restoreBtn: "♻️ استعادة",
+        editedTag: "✏️ معدل",
+        countWord: "حركة"
+      },
+      en: {
+        splashWelcome: "Welcome to Al-Dakhakhni Store",
+        splashDesc: "Integrated cloud financial management system for branches, safes, and real-time revenue & expense tracking.",
+        enterSystem: "Enter System",
+        syncingTitle: "Syncing System...",
+        syncingDesc: "Fetching data from cloud",
+        loginTitle: "Login",
+        username: "Username",
+        password: "Password",
+        userPlaceholder: "Enter username",
+        passPlaceholder: "Enter password",
+        loginBtn: "Login",
+        shiftDataTitle: "Shift Details",
+        chooseBranch: "Select Branch",
+        shiftNumber: "Shift Number",
+        shiftPlaceholder: "Enter current shift number",
+        startWorkBtn: "Start Shift",
+        storeTitle: "Al-Dakhakhni Store",
+        dashboardSub: "Financial Management Dashboard",
+        logout: "Logout",
+        pageColor: "Page Color",
+        defaultColor: "Default",
+        settingsBtn: "Settings & Users",
+        exportCSV: "Export CSV",
+        printBtn: "Print",
+        styleBtn: "Appearance",
+        closeShiftTitle: "Shift Revenue Closing",
+        cashTotal: "Total Cash",
+        cashDestHint: "Auto-posted to: Main Safe - Al-Dakhakhni",
+        instaTotal: "Total Instapay",
+        instaDestHint: "Auto-posted to: Instapay - Ahly",
+        visaTotal: "Total QNB Visa",
+        visaDestHint: "Auto-posted to: QNB Visa",
+        shiftNotes: "Shift Notes (Optional)",
+        notesPlaceholder: "Any closing notes...",
+        saveShiftBtn: "Save & Submit Shift Closing",
+        usersMgmtTitle: "Users & Permissions Management",
+        roleLabel: "Role",
+        roleCashier: "User / Cashier (Shift Closing Only)",
+        roleAdmin: "Admin / Owner (Full Access)",
+        allowedBranches: "Allowed Branches:",
+        addUserBtn: "Add New Account",
+        actionCol: "Action",
+        openingReportsTitle: "Opening Balance Audit Log",
+        dateTimeCol: "Date & Time",
+        accountCol: "Safe / Account",
+        openingBalCol: "Opening Balance",
+        byCol: "By",
+        statusCol: "Status",
+        themeTitle: "Colors & Themes",
+        bgTitle: "Background Pattern",
+        balancesTitle: "Accounts & Safes Balances",
+        saveOpeningBtn: "Save Opening Balances",
+        cancelBtn: "Cancel",
+        editOpeningBtn: "Edit Opening Balance",
+        totalIncome: "Total Income",
+        totalExpenses: "Total Expenses",
+        netTotal: "Net Balance",
+        addTxTitle: "Add Financial Transaction (Admin)",
+        addTxHint: "Income, expense, or transfer",
+        txTypeLabel: "Transaction Type",
+        typeIncome: "🟢 Income",
+        typeExpense: "🔴 Expense",
+        typeTransfer: "🟣 Cash Transfer",
+        amountLabel: "Amount (EGP)",
+        dateCol: "Date",
+        branchCol: "Branch",
+        shiftCol: "Shift",
+        catLabel: "Expense Category",
+        chooseCat: "Select Category",
+        destLabel: "Destination",
+        fromAccLabel: "From Account",
+        toAccLabel: "To Account",
+        notesLabel: "Notes",
+        submitTxBtn: "Submit to Sheet",
+        saveEditBtn: "Save Changes",
+        filterTitle: "Filter Transactions",
+        allOption: "All",
+        fromDateLabel: "From",
+        toDateLabel: "To",
+        clearFiltersBtn: "Clear Filters",
+        txLogTitle: "Transactions Log",
+        trashTitle: "Trash Bin",
+        backToLog: "↩️ Back to Log",
+        detailsCol: "Details",
+        amountCol: "Amount",
+        typeCol: "Type",
+        noTxMsg: "No matching transactions.",
+        openingFirst: "Opening:",
+        editBtn: "✏️ Edit",
+        deleteBtn: "🗑️ Delete",
+        restoreBtn: "♻️ Restore",
+        editedTag: "✏️ Edited",
+        countWord: "items"
+      }
+    };
 
     const root = document.documentElement;
     const form = document.getElementById("transactionForm");
@@ -424,11 +663,63 @@
     let balancesHistory = []; 
     let trashView = false;
     let editingId = null;
+    let currentLang = localStorage.getItem("dakhakhni-lang") || "ar";
 
     let currentUser = JSON.parse(localStorage.getItem("dakhakhni-currentUser")) || null;
     let currentSession = JSON.parse(localStorage.getItem("dakhakhni-session")) || null;
 
+    function t(key) {
+      return (i18nDict[currentLang] && i18nDict[currentLang][key]) || key;
+    }
+
+    function applyLanguage(lang) {
+      currentLang = lang === "en" ? "en" : "ar";
+      localStorage.setItem("dakhakhni-lang", currentLang);
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+      document.getElementById("languageSelect").value = currentLang;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (i18nDict[currentLang][key]) {
+          el.textContent = i18nDict[currentLang][key];
+        }
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (i18nDict[currentLang][key]) {
+          el.placeholder = i18nDict[currentLang][key];
+        }
+      });
+
+      renderStyleChips();
+      updateSubmitLabel();
+      if (currentUser?.role === "admin") {
+        renderUsers();
+        render();
+      }
+    }
+
+    document.getElementById("languageSelect").addEventListener("change", (e) => applyLanguage(e.target.value));
+
+    /* ===== شاشة الترحيب (Splash Screen) ===== */
+    const splashScreen = document.getElementById("splashScreen");
+    let dataLoaded = false;
+
+    function dismissSplash() {
+      if (!splashScreen || splashScreen.hidden) return;
+      splashScreen.hidden = true;
+      if (!dataLoaded) {
+        document.getElementById("loadingScreen").hidden = false;
+      }
+    }
+    document.getElementById("splashEnterBtn").addEventListener("click", dismissSplash);
+    setTimeout(dismissSplash, 3500);
+
+    /* ===== تحميل البيانات والمزامنة ===== */
     window.addEventListener('DOMContentLoaded', async () => {
+      applyLanguage(currentLang);
       try {
         const res = await fetch(SHEET_URL);
         const data = await res.json();
@@ -436,13 +727,14 @@
         if (data.users && data.users.length > 0) {
           users = data.users;
         } else {
-          users = [{ username: "باسم الدخاخني ", pass: "123", role: "admin", branches: ["الكل"], reports: true }];
+          users = [{ username: "باسم الدخاخني المالك", pass: "123", role: "admin", branches: ["الكل"], reports: true }];
           fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) });
         }
         
         if (data.transactions) entries = data.transactions.reverse();
         if (data.balances) balancesHistory = data.balances;
 
+        dataLoaded = true;
         document.getElementById("loadingScreen").hidden = true;
         
         if (currentUser) {
@@ -464,7 +756,9 @@
           document.getElementById("loginScreen").hidden = false;
         }
       } catch (e) {
-        alert("فشل الاتصال بالشيت. تأكد من الإنترنت.");
+        dataLoaded = true;
+        document.getElementById("loadingScreen").hidden = true;
+        document.getElementById("loginScreen").hidden = false;
       }
     });
 
@@ -480,17 +774,15 @@
         document.getElementById("loginScreen").hidden = true;
         
         if (user.role === "admin") {
-          // الأدمن يدخل فوراً بدون شاشة فرع أو شيفت
           startAdminApp();
         } else {
-          // المستخدم العادي يختار الفرع والشيفت الأول
           const allowed = (user.branches && user.branches.length && user.branches[0] !== "") ? user.branches : branches;
           fillSelect(document.getElementById("shiftBranch"), allowed);
           document.getElementById("shiftScreen").hidden = false;
         }
       } else {
         const ln = document.getElementById("loginNotice");
-        ln.textContent = "اسم المستخدم أو كلمة المرور غير صحيحة!";
+        ln.textContent = currentLang === "ar" ? "اسم المستخدم أو كلمة المرور غير صحيحة!" : "Invalid username or password!";
         ln.style.display = "block";
       }
     });
@@ -515,16 +807,14 @@
     }
     document.getElementById("logoutBtn").addEventListener("click", logout);
 
-    /* ==========================================
-       تشغيل واجهة المستخدم (الكاشير) المعزولة
-    =========================================== */
+    /* ===== واجهة الكاشير المعزولة ===== */
     function startCashierApp() {
       document.getElementById("mainContent").style.display = "block";
       document.querySelectorAll(".admin-only").forEach(el => el.style.display = "none");
       document.getElementById("cashierPanel").hidden = false;
       
-      document.getElementById("userSubtitle").textContent = `مستخدم: ${currentUser.username}`;
-      document.getElementById("cashierShiftInfo").textContent = `🏬 الفرع: ${currentSession.branch}   |   ⏱️ شيفت رقم: ${currentSession.shift}`;
+      document.getElementById("userSubtitle").textContent = `${currentUser.username}`;
+      document.getElementById("cashierShiftInfo").textContent = `🏬 ${currentSession.branch}   |   ⏱️ #${currentSession.shift}`;
       document.getElementById("cashierDateLabel").textContent = `📅 ${todayString()}`;
     }
 
@@ -538,7 +828,7 @@
       if (cashAmt <= 0 && instaAmt <= 0 && visaAmt <= 0) {
         const cn = document.getElementById("cashierNotice");
         cn.className = "notice error";
-        cn.textContent = "يرجى إدخال مبلغ واحد على الأقل (كاش أو إنستا باي أو فيزا).";
+        cn.textContent = currentLang === "ar" ? "يرجى إدخال مبلغ واحد على الأقل." : "Please enter at least one amount.";
         return;
       }
 
@@ -573,25 +863,23 @@
 
       const cn = document.getElementById("cashierNotice");
       cn.className = "notice ok";
-      cn.textContent = "⏳ جارٍ ترحيل تقفيل الشيفت إلى الإدارة والشيت...";
+      cn.textContent = currentLang === "ar" ? "⏳ جارٍ ترحيل تقفيل الشيفت..." : "⏳ Submitting shift closing...";
 
       for (const item of itemsToSend) {
         entries.unshift(item);
         await fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: item }) });
       }
 
-      cn.textContent = "✅ تم تقفيل الشيفت بنجاح وترحيل المبالغ للخزنة والحسابات!";
+      cn.textContent = currentLang === "ar" ? "✅ تم تقفيل الشيفت بنجاح وترحيل المبالغ!" : "✅ Shift closed and synced successfully!";
       e.target.reset();
     });
 
-    /* ==========================================
-       تشغيل واجهة الأدمن الكاملة
-    =========================================== */
+    /* ===== واجهة الأدمن الكاملة ===== */
     function startAdminApp() {
       document.getElementById("mainContent").style.display = "block";
       document.getElementById("cashierPanel").hidden = true;
       document.querySelectorAll(".admin-only").forEach(el => el.style.display = "");
-      document.getElementById("userSubtitle").textContent = `مرحباً: ${currentUser.username} (الإدارة)`;
+      document.getElementById("userSubtitle").textContent = `${currentUser.username}`;
       
       fillSelect(document.getElementById("branch"), branches);
       fillSelect(document.getElementById("filterBranch"), branches, true);
@@ -605,12 +893,11 @@
       render();
     }
 
-    /* ===== دوال المساعدة ===== */
     function todayString() { const now = new Date(); return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10); }
-    function fillSelect(select, values, includeEmpty = false) { const previous = select.value; select.innerHTML = ""; if (includeEmpty) { const option = document.createElement("option"); option.value = ""; option.textContent = "الكل"; select.appendChild(option); } values.forEach(value => { const option = document.createElement("option"); option.value = value; option.textContent = value; select.appendChild(option); }); if ([...select.options].some(option => option.value === previous)) select.value = previous; }
+    function fillSelect(select, values, includeEmpty = false) { const previous = select.value; select.innerHTML = ""; if (includeEmpty) { const option = document.createElement("option"); option.value = ""; option.textContent = t("allOption"); select.appendChild(option); } values.forEach(value => { const option = document.createElement("option"); option.value = value; option.textContent = value; select.appendChild(option); }); if ([...select.options].some(option => option.value === previous)) select.value = previous; }
     function setSelectValue(select, value) { if (value && [...select.options].some(option => option.value === value)) select.value = value; }
-    function money(value) { return Number(value || 0).toLocaleString("ar-EG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " ج.م"; }
-    function updateSubmitLabel() { const key = editingId ? "حفظ التعديل" : "إضافة الحركة للشيت"; document.getElementById("submitBtn").textContent = key; document.getElementById("cancelEdit").style.display = editingId ? "" : "none"; }
+    function money(value) { const curr = currentLang === "ar" ? "ج.م" : "EGP"; return Number(value || 0).toLocaleString(currentLang === "ar" ? "ar-EG" : "en-EG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " " + curr; }
+    function updateSubmitLabel() { const key = editingId ? "saveEditBtn" : "submitTxBtn"; document.getElementById("submitBtn").textContent = t(key); document.getElementById("cancelEdit").style.display = editingId ? "" : "none"; }
 
     function updateFields() {
       const type = typeInput.value, isIncome = type === "income", isExpense = type === "expense", isTransfer = type === "transfer";
@@ -626,7 +913,6 @@
       fillSelect(document.getElementById("transferFrom"), transferAccounts); fillSelect(document.getElementById("transferTo"), transferAccounts); 
     }
 
-    /* ===== الأرصدة ===== */
     function computeBalances() {
       const balances = {}; transferAccounts.forEach(acc => balances[acc] = 0);
       balancesHistory.forEach(b => { if(b.status !== 'deleted') balances[b.account] = Number(b.amount); });
@@ -651,13 +937,13 @@
       transferAccounts.forEach(account => {
         const val = balances[account], card = document.createElement("div"); card.className = "bal-card";
         const dot = `<span class="dot ${val>=0?'dot-green':'dot-red'}"></span>`;
-        card.innerHTML = `<div class="bal-name">${dot} ${account}</div><strong class="bal-value ${val>=0?'green':'red'}">${money(val)}</strong><small>الرصيد الأول: ${money(latestOpenings[account]||0)}</small>`;
+        card.innerHTML = `<div class="bal-name">${dot} ${account}</div><strong class="bal-value ${val>=0?'green':'red'}">${money(val)}</strong><small>${t("openingFirst")} ${money(latestOpenings[account]||0)}</small>`;
         grid.appendChild(card);
       });
 
       const tbody = document.getElementById("balancesHistoryList"); tbody.innerHTML = "";
       balancesHistory.forEach(b => {
-        tbody.innerHTML += `<tr><td>${new Date(b.timestamp).toLocaleString("ar-EG")}</td><td>${b.account}</td><td style="font-weight:bold;">${money(b.amount)}</td><td>👤 ${b.addedBy}</td><td>${b.status==='deleted'?'❌ محذوف':'✅ معتمد'}</td></tr>`;
+        tbody.innerHTML += `<tr><td>${new Date(b.timestamp).toLocaleString(currentLang === "ar" ? "ar-EG" : "en-EG")}</td><td>${b.account}</td><td style="font-weight:bold;">${money(b.amount)}</td><td>👤 ${b.addedBy}</td><td>${b.status==='deleted'?'❌':'✅'}</td></tr>`;
       });
     }
 
@@ -669,14 +955,14 @@
       transferAccounts.forEach(acc => {
         container.innerHTML += `<label><span>${acc}</span><input type="number" step="0.01" placeholder="0" data-account="${acc}" value="${latestOpenings[acc] !== undefined ? latestOpenings[acc] : ''}"></label>`;
       });
-      container.innerHTML += `<label><span>التاريخ</span><input type="date" id="openingDateInput" value="${todayString()}"></label>`;
+      container.innerHTML += `<label><span>${t("dateCol")}</span><input type="date" id="openingDateInput" value="${todayString()}"></label>`;
       document.getElementById("openingEditor").hidden = false;
     });
 
     document.getElementById("cancelOpening").addEventListener("click", () => document.getElementById("openingEditor").hidden = true);
     document.getElementById("saveOpening").addEventListener("click", () => {
       const dt = document.getElementById("openingDateInput").value;
-      if (!dt) { showNotice("اختر التاريخ!", "error"); return; }
+      if (!dt) return;
       
       document.querySelectorAll("#openingInputs input[data-account]").forEach(inp => {
         const amt = inp.value.trim() === "" ? 0 : Number(inp.value);
@@ -689,13 +975,12 @@
         fetch(SHEET_URL, { method: "POST", body: JSON.stringify(payload) });
       });
       
-      document.getElementById("openingEditor").hidden = true; render(); showNotice("تم حفظ الرصيد في الشيت.", "ok");
+      document.getElementById("openingEditor").hidden = true; render();
+      showNotice(currentLang === "ar" ? "تم حفظ الرصيد في الشيت." : "Opening balance saved.", "ok");
     });
 
-    /* ===== الحركات ===== */
     function getLatestEntriesMap() {
       const latestState = {};
-      // entries مرتبة من الأحدث للأقدم، فـ أول نسخة نقابلها هي الأحدث
       entries.forEach(e => {
         if (!latestState[e.id]) latestState[e.id] = e;
       });
@@ -704,10 +989,10 @@
 
     function getFilteredEntries() {
       const list = Object.values(getLatestEntriesMap());
-      const b = document.getElementById("filterBranch").value, s = document.getElementById("filterShift").value.trim(), t = document.getElementById("filterType").value;
+      const b = document.getElementById("filterBranch").value, s = document.getElementById("filterShift").value.trim(), ty = document.getElementById("filterType").value;
       const f = document.getElementById("filterFrom").value, to = document.getElementById("filterTo").value;
       return list.filter(item => 
-        (!b || item.branch === b) && (!s || String(item.shift).trim() === s) && (!t || item.type === t) &&
+        (!b || item.branch === b) && (!s || String(item.shift).trim() === s) && (!ty || item.type === ty) &&
         (!f || item.date >= f) && (!to || item.date <= to)
       );
     }
@@ -727,26 +1012,28 @@
         addCell(item.date); addCell(item.branch); addCell(item.shift);
         addCell(`👤 ${item.addedBy}`);
         
-        const typeAr = item.type === "income" ? "🟢 إيراد" : item.type === "expense" ? "🔴 مصروف" : "🟣 تحويل";
-        addCell(typeAr).className = "type-tag";
+        const typeLabel = item.type === "income" ? t("typeIncome") : item.type === "expense" ? t("typeExpense") : t("typeTransfer");
+        const tagClass = item.type === "income" ? "tag-income" : item.type === "expense" ? "tag-expense" : "tag-transfer";
+        const typeCell = addCell("");
+        typeCell.innerHTML = `<span class="type-tag ${tagClass}">${typeLabel}</span>`;
 
         let details = item.description || "—";
         if (item.type === "income") details = [item.account, item.description].filter(Boolean).join(" - ");
         else if (item.type === "expense") details = [item.category, item.destination, item.account, item.description].filter(Boolean).join(" - ");
-        else if (item.type === "transfer") details = `من ${item.transferFrom} إلى ${item.transferTo}`;
+        else if (item.type === "transfer") details = `${item.transferFrom} ➔ ${item.transferTo}`;
         
         const dCell = addCell(details);
-        if(item.status === 'edited') { dCell.innerHTML += ` <span class="edited-tag">✏️ معدل</span>`; }
+        if(item.status === 'edited') { dCell.innerHTML += ` <span class="edited-tag">${t("editedTag")}</span>`; }
 
         const amtCell = addCell(money(item.amount)); amtCell.style.fontWeight = 'bold';
 
         const actionCell = document.createElement("td");
         if (trashView) {
-          const restore = document.createElement("button"); restore.type = "button"; restore.className = "restore"; restore.textContent = "♻️ استعادة";
+          const restore = document.createElement("button"); restore.type = "button"; restore.className = "restore"; restore.textContent = t("restoreBtn");
           restore.onclick = () => updateTransactionStatus(item, 'active');
           actionCell.appendChild(restore);
         } else {
-          const editBtn = document.createElement("button"); editBtn.type = "button"; editBtn.className = "edit"; editBtn.textContent = "✏️ تعديل";
+          const editBtn = document.createElement("button"); editBtn.type = "button"; editBtn.className = "edit"; editBtn.textContent = t("editBtn");
           editBtn.onclick = () => {
             editingId = item.id; typeInput.value = item.type; updateFields(); document.getElementById("amount").value = item.amount; document.getElementById("date").value = item.date;
             if (item.type === "income") { setSelectValue(document.getElementById("branch"), item.branch); document.getElementById("shift").value = item.shift; setSelectValue(document.getElementById("account"), item.account); document.getElementById("description").value = item.description; }
@@ -754,8 +1041,8 @@
             else if (item.type === "transfer") { setSelectValue(document.getElementById("transferFrom"), item.transferFrom); setSelectValue(document.getElementById("transferTo"), item.transferTo); }
             updateSubmitLabel(); form.scrollIntoView({ behavior: "smooth", block: "center" });
           };
-          const delBtn = document.createElement("button"); delBtn.type = "button"; delBtn.className = "delete"; delBtn.textContent = "🗑️ حذف";
-          delBtn.onclick = () => { if(confirm("متأكد من مسح الحركة؟")) updateTransactionStatus(item, 'deleted'); };
+          const delBtn = document.createElement("button"); delBtn.type = "button"; delBtn.className = "delete"; delBtn.textContent = t("deleteBtn");
+          delBtn.onclick = () => { if(confirm(currentLang === "ar" ? "متأكد من مسح الحركة؟" : "Delete this transaction?")) updateTransactionStatus(item, 'deleted'); };
           actionCell.append(editBtn, delBtn);
         }
         row.appendChild(actionCell); tbody.appendChild(row);
@@ -764,9 +1051,10 @@
       document.getElementById("totalIncome").textContent = money(inc); document.getElementById("totalExpenses").textContent = money(exp);
       const net = inc - exp; const netElement = document.getElementById("netTotal"); netElement.textContent = money(net); netElement.className = "summary-value " + (net >= 0 ? "green" : "red");
       
-      document.getElementById("visibleCount").textContent = shown.length + " حركة"; document.getElementById("emptyMessage").style.display = shown.length ? "none" : "block";
-      document.getElementById("tableTitle").textContent = trashView ? "سلة المحذوفات" : "سجل الحركات";
-      document.getElementById("showTrash").innerHTML = trashView ? "↩️ العودة للسجل" : `🗑️ سلة المحذوفات <span class="trash-count">${filtered.filter(e=>e.status==='deleted').length}</span>`;
+      document.getElementById("visibleCount").textContent = `${shown.length} ${t("countWord")}`;
+      document.getElementById("emptyMessage").style.display = shown.length ? "none" : "block";
+      document.getElementById("tableTitle").textContent = trashView ? t("trashTitle") : t("txLogTitle");
+      document.getElementById("showTrash").innerHTML = trashView ? t("backToLog") : `🗑️ ${t("trashTitle")} <span class="trash-count">${filtered.filter(e=>e.status==='deleted').length}</span>`;
       
       renderBalances();
     }
@@ -777,7 +1065,8 @@
       const updatedItem = { ...item, status: newStatus };
       if(newStatus === 'active' && item.status === 'deleted') updatedItem.status = 'edited';
       entries.unshift(updatedItem);
-      render(); showNotice("تم التحديث وجار الإرسال للشيت...", "ok");
+      render();
+      showNotice(currentLang === "ar" ? "تم التحديث وجار الإرسال للشيت..." : "Updating sheet...", "ok");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: updatedItem }) });
     }
 
@@ -798,7 +1087,7 @@
       };
 
       entries.unshift(entry); editingId = null; updateSubmitLabel(); render();
-      showNotice("تم الحفظ في الشيت!", "ok");
+      showNotice(currentLang === "ar" ? "تم الحفظ في الشيت!" : "Saved to sheet!", "ok");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: entry }) });
       
       form.reset(); document.getElementById("date").value = todayString(); updateFields();
@@ -827,27 +1116,52 @@
       const username = document.getElementById("newUserEmail").value.trim(), pass = document.getElementById("newUserPass").value.trim(), role = document.getElementById("newUserRole").value;
       const allowed = []; document.querySelectorAll("#branchCheckboxes input:checked").forEach(cb => allowed.push(cb.value));
       users.push({ username, pass, role, branches: allowed, reports: false });
-      renderUsers(); e.target.reset(); alert("تم الإضافة وجارِ الرفع للشيت!");
+      renderUsers(); e.target.reset();
+      alert(currentLang === "ar" ? "تم الإضافة وجارِ الرفع للشيت!" : "User added & syncing!");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) });
     });
     function renderUsers() {
       const tbody = document.getElementById("usersList"); tbody.innerHTML = "";
-      users.forEach((u, i) => { tbody.innerHTML += `<tr><td>${u.username}</td><td>${u.role==='admin'?'مدير / مالك':'مستخدم (تقفيل شيفت)'}</td><td>${u.role==='admin'?'الكل':u.branches.join('، ')}</td><td>${u.username!=='باسم الدخاخني المالك'?`<button class="delete" onclick="deleteUser(${i})">حذف</button>`:'—'}</td></tr>`; });
+      users.forEach((u, i) => {
+        const roleTxt = u.role === 'admin' ? t("roleAdmin") : t("roleCashier");
+        tbody.innerHTML += `<tr><td>${u.username}</td><td>${roleTxt}</td><td>${u.role==='admin'?t("allOption"):u.branches.join('، ')}</td><td>${u.username!=='باسم الدخاخني المالك'?`<button class="delete" onclick="deleteUser(${i})">${t("deleteBtn")}</button>`:'—'}</td></tr>`;
+      });
     }
     window.deleteUser = function(i) {
-      if(confirm("حذف المستخدم؟")) { users.splice(i,1); renderUsers(); fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) }); }
+      if(confirm(currentLang === "ar" ? "حذف المستخدم؟" : "Delete user?")) { users.splice(i,1); renderUsers(); fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) }); }
     }
 
-    /* ===== الثيمات ===== */
+    /* ===== الثيمات والخلفيات ===== */
     function renderStyleChips() {
       const themeBox = document.getElementById("themeChips"); themeBox.innerHTML = "";
-      themes.forEach(t => { const c = document.createElement("button"); c.type = "button"; c.className = "chip" + (root.dataset.theme === t.id ? " active" : ""); c.innerHTML = `<span class="swatch" style="background:${t.sw}"></span> ${t.ar}`; c.onclick = () => { root.dataset.theme = t.id; localStorage.setItem("dakhakhni-theme", t.id); renderStyleChips(); }; themeBox.appendChild(c); });
+      themes.forEach(th => {
+        const c = document.createElement("button"); c.type = "button"; c.className = "chip" + (root.dataset.theme === th.id ? " active" : "");
+        c.innerHTML = `<span class="swatch" style="background:${th.sw}"></span> ${th.emoji} ${th[currentLang]}`;
+        c.onclick = () => { root.dataset.theme = th.id; localStorage.setItem("dakhakhni-theme", th.id); renderStyleChips(); };
+        themeBox.appendChild(c);
+      });
+
+      const bgBox = document.getElementById("bgChips"); bgBox.innerHTML = "";
+      backgrounds.forEach(bg => {
+        const c = document.createElement("button"); c.type = "button"; c.className = "chip" + (root.dataset.bg === bg.id ? " active" : "");
+        c.textContent = `${bg.emoji} ${bg[currentLang]}`;
+        c.onclick = () => { root.dataset.bg = bg.id; localStorage.setItem("dakhakhni-bg", bg.id); renderStyleChips(); };
+        bgBox.appendChild(c);
+      });
     }
     document.getElementById("styleBtn").addEventListener("click", () => { const panel = document.getElementById("stylePanel"); panel.hidden = !panel.hidden; });
     document.getElementById("resetColor").addEventListener("click", () => { root.style.removeProperty("--page-color"); localStorage.removeItem("dakhakhni-page-color"); document.getElementById("pageColor").value = "#f5f7fb"; });
     document.getElementById("pageColor").addEventListener("input", (e) => { root.style.setProperty("--page-color", e.target.value); localStorage.setItem("dakhakhni-page-color", e.target.value); });
     
-    applyTheme(); function applyTheme() { root.dataset.theme = localStorage.getItem("dakhakhni-theme") || "classic"; const c = localStorage.getItem("dakhakhni-page-color"); if(c) { root.style.setProperty("--page-color", c); document.getElementById("pageColor").value = c; } renderStyleChips(); document.getElementById("date").value = todayString(); }
+    applyTheme();
+    function applyTheme() {
+      root.dataset.theme = localStorage.getItem("dakhakhni-theme") || "classic";
+      root.dataset.bg = localStorage.getItem("dakhakhni-bg") || "gradient";
+      const c = localStorage.getItem("dakhakhni-page-color");
+      if(c) { root.style.setProperty("--page-color", c); document.getElementById("pageColor").value = c; }
+      renderStyleChips();
+      document.getElementById("date").value = todayString();
+    }
   </script>
 </body>
 </html>
