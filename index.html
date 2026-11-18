@@ -310,7 +310,7 @@
     <!-- واجهة الكاشير المعزولة (تقفيل إيراد ومصاريف الشيفت) -->
     <section class="panel cashier-box" id="cashierPanel" hidden>
       <div class="panel-heading">
-        <h2 data-i18n="closeShiftTitle" data-emoji="🧾">تقفيل إيراد الشيفت</h2>
+        <h2 data-i18n="closeShiftTitle" data-emoji="🧾">تقفيل إيراد ومصاريف الشيفت</h2>
         <span class="hint" id="cashierDateLabel"></span>
       </div>
       
@@ -453,7 +453,7 @@
           <table>
             <thead>
               <tr>
-                <th data-i18n="dateCol">التاريخ</th>
+                <th data-i18n="dateCol">التاريخ والوقت</th>
                 <th data-i18n="branchCol">الفرع</th>
                 <th data-i18n="shiftCol">الشيفت</th>
                 <th data-i18n="byCol">بواسطة</th>
@@ -572,7 +572,7 @@
         typeExpense: "🔴 مصروف",
         typeTransfer: "🟣 تحويل نقدي",
         amountLabel: "المبلغ بالجنيه",
-        dateCol: "التاريخ",
+        dateCol: "التاريخ والوقت",
         branchCol: "الفرع",
         shiftCol: "الشيفت",
         catLabel: "تصنيف المصروف",
@@ -670,7 +670,7 @@
         typeExpense: "🔴 Expense",
         typeTransfer: "🟣 Cash Transfer",
         amountLabel: "Amount (EGP)",
-        dateCol: "Date",
+        dateCol: "Date & Time",
         branchCol: "Branch",
         shiftCol: "Shift",
         catLabel: "Expense Category",
@@ -854,6 +854,15 @@
     }
     document.getElementById("logoutBtn").addEventListener("click", logout);
 
+    /* ===== دوال التاريخ والوقت بتوقيت مصر ===== */
+    function todayString() {
+      const now = new Date();
+      return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    }
+    function nowTimeString() {
+      return new Date().toLocaleTimeString("en-US", { timeZone: "Africa/Cairo", hour: "2-digit", minute: "2-digit", hour12: true });
+    }
+
     /* ===== واجهة الكاشير المعزولة + مصاريف الشيفت المتعددة ===== */
     function startCashierApp() {
       document.getElementById("mainContent").style.display = "block";
@@ -862,7 +871,7 @@
       
       document.getElementById("userSubtitle").textContent = `${currentUser.username}`;
       document.getElementById("cashierShiftInfo").textContent = `🏬 ${currentSession.branch}   |   ⏱️ #${currentSession.shift}`;
-      document.getElementById("cashierDateLabel").textContent = `📅 ${todayString()}`;
+      document.getElementById("cashierDateLabel").textContent = `📅 ${todayString()} | ${nowTimeString()}`;
     }
 
     function createCashierExpenseRow() {
@@ -914,14 +923,14 @@
         return;
       }
 
-      const today = todayString();
+      const todayWithTime = `${todayString()} | ${nowTimeString()}`;
       const baseNote = notes ? `تقفيل شيفت (${notes})` : "تقفيل إيراد الشيفت";
       const itemsToSend = [];
       const baseId = Date.now();
 
       if (cashAmt > 0) {
         itemsToSend.push({
-          id: "TR_" + baseId + "_1", type: "income", amount: cashAmt, date: today,
+          id: "TR_" + baseId + "_1", type: "income", amount: cashAmt, date: todayWithTime,
           addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift,
           account: DAKH_SAFE, category: "", destination: "", transferFrom: "", transferTo: "",
           description: `${baseNote} - كاش`, status: "active"
@@ -929,7 +938,7 @@
       }
       if (instaAmt > 0) {
         itemsToSend.push({
-          id: "TR_" + baseId + "_2", type: "income", amount: instaAmt, date: today,
+          id: "TR_" + baseId + "_2", type: "income", amount: instaAmt, date: todayWithTime,
           addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift,
           account: "إنستا باي الأهلي", category: "", destination: "", transferFrom: "", transferTo: "",
           description: `${baseNote} - إنستا باي`, status: "active"
@@ -937,7 +946,7 @@
       }
       if (visaAmt > 0) {
         itemsToSend.push({
-          id: "TR_" + baseId + "_3", type: "income", amount: visaAmt, date: today,
+          id: "TR_" + baseId + "_3", type: "income", amount: visaAmt, date: todayWithTime,
           addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift,
           account: "فيزا QNB", category: "", destination: "", transferFrom: "", transferTo: "",
           description: `${baseNote} - فيزا QNB`, status: "active"
@@ -947,7 +956,7 @@
       validExpenses.forEach((exp, idx) => {
         const destText = exp.dest ? `${exp.dest} — ` : "";
         itemsToSend.push({
-          id: "TR_" + baseId + "_EXP_" + (idx + 1), type: "expense", amount: exp.amt, date: today,
+          id: "TR_" + baseId + "_EXP_" + (idx + 1), type: "expense", amount: exp.amt, date: todayWithTime,
           addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift,
           account: DAKH_SAFE, category: exp.cat, destination: exp.dest, transferFrom: "", transferTo: "",
           description: `${destText}مصروف شيفت (${currentSession.branch} - #${currentSession.shift})${notes ? ' - ' + notes : ''}`,
@@ -988,7 +997,6 @@
       render();
     }
 
-    function todayString() { const now = new Date(); return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10); }
     function fillSelect(select, values, includeEmpty = false) { const previous = select.value; select.innerHTML = ""; if (includeEmpty) { const option = document.createElement("option"); option.value = ""; option.textContent = t("allOption"); select.appendChild(option); } values.forEach(value => { const option = document.createElement("option"); option.value = value; option.textContent = value; select.appendChild(option); }); if ([...select.options].some(option => option.value === previous)) select.value = previous; }
     function setSelectValue(select, value) { if (value && [...select.options].some(option => option.value === value)) select.value = value; }
     function money(value) { const curr = currentLang === "ar" ? "ج.م" : "EGP"; return Number(value || 0).toLocaleString(currentLang === "ar" ? "ar-EG" : "en-EG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " " + curr; }
@@ -1038,7 +1046,8 @@
 
       const tbody = document.getElementById("balancesHistoryList"); tbody.innerHTML = "";
       balancesHistory.forEach(b => {
-        tbody.innerHTML += `<tr><td>${new Date(b.timestamp).toLocaleString(currentLang === "ar" ? "ar-EG" : "en-EG")}</td><td>${b.account}</td><td style="font-weight:bold;">${money(b.amount)}</td><td>👤 ${b.addedBy}</td><td>${b.status==='deleted'?'❌':'✅'}</td></tr>`;
+        const timeText = b.timestamp ? b.timestamp : "";
+        tbody.innerHTML += `<tr><td>${timeText}</td><td>${b.account}</td><td style="font-weight:bold;">${money(b.amount)}</td><td>👤 ${b.addedBy}</td><td>${b.status==='deleted'?'❌':'✅'}</td></tr>`;
       });
     }
 
@@ -1066,7 +1075,7 @@
           action: "syncBalance",
           item: { id: "bal_"+Date.now()+"_"+Math.random(), date: dt, account: acc, amount: amt, addedBy: currentUser.username, status: 'active' }
         };
-        balancesHistory.push({...payload.item, timestamp: new Date().toISOString()});
+        balancesHistory.push({...payload.item, timestamp: `${todayString()} ${nowTimeString()}`});
         fetch(SHEET_URL, { method: "POST", body: JSON.stringify(payload) });
       });
       
@@ -1086,10 +1095,11 @@
       const list = Object.values(getLatestEntriesMap());
       const b = document.getElementById("filterBranch").value, s = document.getElementById("filterShift").value.trim(), ty = document.getElementById("filterType").value;
       const f = document.getElementById("filterFrom").value, to = document.getElementById("filterTo").value;
-      return list.filter(item => 
-        (!b || item.branch === b) && (!s || String(item.shift).trim() === s) && (!ty || item.type === ty) &&
-        (!f || item.date >= f) && (!to || item.date <= to)
-      );
+      return list.filter(item => {
+        const pureDate = item.date ? item.date.toString().split(" ")[0] : "";
+        return (!b || item.branch === b) && (!s || String(item.shift).trim() === s) && (!ty || item.type === ty) &&
+               (!f || pureDate >= f) && (!to || pureDate <= to);
+      });
     }
 
     function render() {
@@ -1130,9 +1140,11 @@
         } else {
           const editBtn = document.createElement("button"); editBtn.type = "button"; editBtn.className = "edit"; editBtn.textContent = t("editBtn");
           editBtn.onclick = () => {
-            editingId = item.id; typeInput.value = item.type; updateFields(); document.getElementById("amount").value = item.amount; document.getElementById("date").value = item.date;
+            editingId = item.id; typeInput.value = item.type; updateFields();
+            document.getElementById("amount").value = item.amount;
+            document.getElementById("date").value = item.date ? item.date.toString().split(" ")[0] : todayString();
             if (item.type === "income") { setSelectValue(document.getElementById("branch"), item.branch); document.getElementById("shift").value = item.shift; setSelectValue(document.getElementById("account"), item.account); document.getElementById("description").value = item.description; }
-            else if (item.type === "expense") { setSelectValue(document.getElementById("account"), item.account); setSelectValue(document.getElementById("category"), item.category); document.getElementById("destination").value = item.destination; document.getElementById("description").value = item.description; }
+            else if (item.type === "expense") { setSelectValue(document.getElementById("account"), item.account); setSelectValue(document.getElementById("category"), item.category); document.getElementById("destination").value = item.destination || ""; document.getElementById("description").value = item.description; }
             else if (item.type === "transfer") { setSelectValue(document.getElementById("transferFrom"), item.transferFrom); setSelectValue(document.getElementById("transferTo"), item.transferTo); }
             updateSubmitLabel(); form.scrollIntoView({ behavior: "smooth", block: "center" });
           };
@@ -1171,7 +1183,7 @@
       
       const entry = {
         id: editingId || ("TR_" + Date.now()),
-        type, amount, date: dateValue, addedBy: currentUser.username,
+        type, amount, date: `${dateValue} | ${nowTimeString()}`, addedBy: currentUser.username,
         branch: type === "income" ? document.getElementById("branch").value : "",
         shift: type === "income" ? shiftValue : "",
         account: type === "income" || type === "expense" ? document.getElementById("account").value : "",
@@ -1197,7 +1209,7 @@
     /* ===== الطباعة والتصدير ===== */
     document.getElementById("printBtn").addEventListener("click", () => window.print());
     document.getElementById("exportCsvBtn").addEventListener("click", () => {
-      let csv = "data:text/csv;charset=utf-8,\uFEFFالتاريخ,الفرع,الشيفت,النوع,بواسطة,المبلغ,الحساب,التصنيف,الوجهة,التفاصيل\r\n";
+      let csv = "data:text/csv;charset=utf-8,\uFEFFالتاريخ والوقت,الفرع,الشيفت,النوع,بواسطة,المبلغ,الحساب,التصنيف,الوجهة,التفاصيل\r\n";
       getFilteredEntries().filter(e=>e.status!=='deleted').forEach(e => {
         csv += `"${e.date}","${e.branch}","${e.shift}","${e.type}","${e.addedBy}","${e.amount}","${e.account||''}","${e.category||''}","${e.destination||''}","${e.description}"\r\n`;
       });
