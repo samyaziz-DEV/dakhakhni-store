@@ -945,11 +945,12 @@
       }
 
       validExpenses.forEach((exp, idx) => {
+        const destText = exp.dest ? `${exp.dest} — ` : "";
         itemsToSend.push({
           id: "TR_" + baseId + "_EXP_" + (idx + 1), type: "expense", amount: exp.amt, date: today,
           addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift,
           account: DAKH_SAFE, category: exp.cat, destination: exp.dest, transferFrom: "", transferTo: "",
-          description: `مصروف شيفت (${currentSession.branch} - #${currentSession.shift})${notes ? ' - ' + notes : ''}`,
+          description: `${destText}مصروف شيفت (${currentSession.branch} - #${currentSession.shift})${notes ? ' - ' + notes : ''}`,
           status: "active"
         });
       });
