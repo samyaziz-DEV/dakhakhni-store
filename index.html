@@ -1165,16 +1165,39 @@ const themes = [
       alert(currentLang === "ar" ? "تم الإضافة وجارِ الرفع للشيت!" : "User added & syncing!");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) });
     });
-    function renderUsers() {
+   function renderUsers() {
       const tbody = document.getElementById("usersList"); tbody.innerHTML = "";
       users.forEach((u, i) => {
         const roleTxt = u.role === 'admin' ? t("roleAdmin") : t("roleCashier");
-        tbody.innerHTML += `<tr><td>${u.username}</td><td>${roleTxt}</td><td>${u.role==='admin'?t("allOption"):u.branches.join('، ')}</td><td>${u.username!=='باسم الدخاخني المالك'?`<button class="delete" onclick="deleteUser(${i})">${t("deleteBtn")}</button>`:'—'}</td></tr>`;
+        const passBtn = `<button class="edit" onclick="changeUserPass(${i})">🔑 ${currentLang === 'ar' ? 'تغيير الباسورد' : 'Password'}</button>`;
+        const delBtn = u.username !== 'باسم الدخاخني المالك' ? `<button class="delete" onclick="deleteUser(${i})">${t("deleteBtn")}</button>` : '';
+        tbody.innerHTML += `<tr><td>${u.username}</td><td>${roleTxt}</td><td>${u.role==='admin'?t("allOption"):u.branches.join('، ')}</td><td>${passBtn}${delBtn}</td></tr>`;
       });
     }
-    window.deleteUser = function(i) {
-      if(confirm(currentLang === "ar" ? "حذف المستخدم؟" : "Delete user?")) { users.splice(i,1); renderUsers(); fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) }); }
-    }
+   window.changeUserPass = function(i) {
+      const user = users[i];
+      const msg = currentLang === "ar"
+        ? `اكتب كلمة المرور الجديدة للمستخدم (${user.username}):`
+        : `Enter new password for (${user.username}):`;
+      const newPass = prompt(msg, user.pass);
+
+      if (newPass !== null && newPass.trim() !== "") {
+        users[i].pass = newPass.trim();
+        renderUsers();
+
+        if (currentUser && currentUser.username === user.username) {
+          currentUser.pass = users[i].pass;
+          localStorage.setItem("dakhakhni-currentUser", JSON.stringify(currentUser));
+        }
+
+        fetch(SHEET_URL, {
+          method: "POST",
+          body: JSON.stringify({ action: "syncUsers", users: users })
+        });
+
+        alert(currentLang === "ar" ? "✅ تم تحديث كلمة المرور وحفظها في الشيت!" : "✅ Password updated and synced!");
+      }
+    };
 
     /* ===== الثيمات والخلفيات ===== */
     function renderStyleChips() {
