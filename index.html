@@ -26,8 +26,52 @@
 
     html[data-theme="ocean"] { --blue: #0e7c9b; --blue-hover: #0a6580; --page-color: #eef8fb; --tint1: #bfe7f2; --tint2: #d6f5ee; --blue-soft: #e0f3f8; --focus-ring: #0e7c9b2a; --top-gradient: linear-gradient(125deg, #06293a, #0b5470, #0e7c9b); }
     html[data-theme="sunset"] { --blue: #e0592a; --blue-hover: #c2481c; --page-color: #fff6ef; --tint1: #ffd9c2; --tint2: #ffe3f0; --blue-soft: #ffece3; --focus-ring: #e0592a2a; --top-gradient: linear-gradient(125deg, #3b1d2e, #9b3d3d, #e0592a); }
-    html[data-theme="forest"] { --blue: #2f8f4e; --blue-hover: #247a40; --page-color: #f1f9f3; --tint1: #cdeed6; --tint2: #e6f4c9; --blue-soft: #e4f5e9; --focus-ring: #2f8f4e2a; --top-gradient: linear-gradient(125deg, #0f2a1a, #1d5a34, #2f8f4e); }
-    html[data-theme="rose"] { --blue: #c2447a; --blue-hover: #a63665; --page-color: #fff1f6; --tint1: #ffd3e4; --tint2: #e9dcff; --blue-soft: #ffe4ee; --focus-ring: #c2447a2a; --top-gradient: linear-gradient(125deg, #3a1230, #8a2c5e, #c2447a); }
+html[data-theme="vip"] {
+  color-scheme: dark;
+  --blue: #d4af37;
+  --blue-hover: #b89428;
+  --page-color: #071912;
+  --text: #f5efe0;
+  --muted: #9eb5aa;
+  --line: #183d2e;
+  --white: #0c261c;
+  --soft: #091f16;
+  --hover: #113326;
+  --input-bg: #071811;
+  --input-line: #1f4d3b;
+  --label: #d4af37;
+  --btn-soft: #133628;
+  --btn-soft-text: #f0dfaa;
+  --toolbar-bg: #0c261cd9;
+  --green: #38d996;
+  --red: #ff6b75;
+  --purple: #e0b84c;
+  --green-soft: #0f3828;
+  --red-soft: #3b171e;
+  --purple-soft: #2e2612;
+  --blue-soft: #29220e;
+  --ok-text: #6fe3b0;
+  --err-text: #ff9aa1;
+  --warn-bg: #36290b;
+  --warn-text: #f5c84c;
+  --focus-ring: #d4af3740;
+  --bg-end: #030d09;
+  --tint1: #0f3b2a;
+  --tint2: #382c0d;
+  --top-gradient: linear-gradient(125deg, #04120c, #0d3b29 45%, #8f6b14 85%, #d4af37);
+  --shadow: 0 14px 34px #00000090, 0 0 0 1px #d4af3730;
+  --shadow-hover: 0 22px 48px #000000b0, 0 0 18px #d4af3735;
+  --shadow-soft: 0 8px 22px #00000075;
+  --btn-shadow: 0 4px 12px #00000070;
+  --btn-shadow-hover: 0 8px 20px #d4af3745;
+}
+html[data-theme="vip"] .primary {
+  color: #071912;
+  background: linear-gradient(135deg, #e5c158, #c59b27);
+}
+html[data-theme="vip"] .primary:hover {
+  background: linear-gradient(135deg, #f0cf6b, #d4af37);
+}    html[data-theme="rose"] { --blue: #c2447a; --blue-hover: #a63665; --page-color: #fff1f6; --tint1: #ffd3e4; --tint2: #e9dcff; --blue-soft: #ffe4ee; --focus-ring: #c2447a2a; --top-gradient: linear-gradient(125deg, #3a1230, #8a2c5e, #c2447a); }
     html[data-theme="dark"] { color-scheme: dark; --blue: #5b82ff; --blue-hover: #4a6fe8; --page-color: #0f1424; --text: #e8ecf6; --muted: #94a0ba; --line: #27304a; --white: #1a2238; --soft: #151c30; --hover: #1f2842; --input-bg: #121a2e; --input-line: #2e3858; --label: #b4bed6; --btn-soft: #252f4d; --btn-soft-text: #d6ddf0; --toolbar-bg: #1a2238cc; --green: #3ecf8e; --red: #ff6b75; --purple: #a78bfa; --green-soft: #12392c; --red-soft: #3c1a22; --purple-soft: #2a2350; --blue-soft: #1d2a55; --ok-text: #6fe3b0; --err-text: #ff9aa1; --warn-bg: #3d3112; --warn-text: #ffc861; --focus-ring: #5b82ff33; --bg-end: #0a0e1b; --tint1: #1b2750; --tint2: #2a1b47; --top-gradient: linear-gradient(125deg, #080c18, #141f42, #2a4bb8); --shadow: 0 14px 34px #00000080, 0 2px 6px #00000060; --shadow-hover: 0 22px 48px #000000a0, 0 4px 10px #00000070; --shadow-soft: 0 8px 22px #00000070; --btn-shadow: 0 4px 10px #00000070; --btn-shadow-hover: 0 9px 20px #000000a0; }
 
     html[data-bg="dots"] { --bg-image: radial-gradient(color-mix(in srgb, var(--blue) 30%, transparent) 1.6px, transparent 1.9px), linear-gradient(135deg, var(--page-color), var(--bg-end) 80%); --bg-size: 24px 24px, auto; }
@@ -444,7 +488,8 @@
     const incomeAccounts = [...mainSafes, ...banks];
     const transferAccounts = [...mainSafes, ...otherSafes, ...banks];
 
-    const themes = [
+const themes = [
+      { id: "vip", emoji: "👑", ar: "VIP ملكي", en: "VIP Royal", sw: "linear-gradient(135deg, #0d3b29, #d4af37)" },
       { id: "classic", emoji: "💙", ar: "كلاسيك", en: "Classic", sw: "#3158d5" },
       { id: "ocean", emoji: "🌊", ar: "بحري", en: "Ocean", sw: "#0e7c9b" },
       { id: "sunset", emoji: "🌇", ar: "غروب", en: "Sunset", sw: "#e0592a" },
