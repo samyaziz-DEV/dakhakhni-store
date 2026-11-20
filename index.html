@@ -163,8 +163,6 @@
     button:active { transform: scale(.96); }
     .primary { background: var(--blue); color: white; font-weight: 700; box-shadow: 0 6px 14px color-mix(in srgb, var(--blue) 45%, transparent); }
     .primary:hover { background: var(--blue-hover); }
-    .whatsapp-btn { background: #25D366; color: #ffffff; font-weight: 700; }
-    .whatsapp-btn:hover { background: #1ebe5d; }
     .secondary { background: var(--btn-soft); color: var(--btn-soft-text); }
     .danger-soft { background: var(--red-soft); color: var(--red); font-weight: 700; }
     .table-wrap { overflow-x: auto; }
@@ -309,7 +307,7 @@
   <!-- شاشة تسجيل الدخول -->
   <div class="overlay-screen" id="loginScreen" hidden>
     <div class="auth-card">
-      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNY"></div>
+      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNNY"></div>
       <h2 data-i18n="loginTitle">تسجيل الدخول</h2>
       <form class="auth-form" id="loginForm">
         <label>
@@ -373,7 +371,6 @@
         <button class="secondary" id="resetColor" type="button" data-i18n="defaultColor" data-emoji="↩️">الافتراضي</button>
       </div>
       <div class="toolbar-actions">
-        <button class="whatsapp-btn" id="sendWhatsappSummaryBtn" type="button" data-i18n="waSummaryBtn" data-emoji="📲">ملخص اليوم واتساب</button>
         <button class="secondary" id="analyticsToggleBtn" type="button" data-i18n="analyticsBtn" data-emoji="📊">ملخص الفروع والمصاريف</button>
         <button class="secondary" id="settingsMenuBtn" type="button" data-i18n="settingsBtn" data-emoji="⚙️">الإعدادات والمستخدمين</button>
         <button class="secondary" id="exportCsvBtn" type="button" data-i18n="exportCSV" data-emoji="📥">تصدير CSV</button>
@@ -383,7 +380,7 @@
       </div>
     </div>
 
-    <!-- واجهة الكاشير (ترسل للشيت + تفتح واتساب برسالة التقفيل + تسجل الخروج تلقائياً) -->
+    <!-- واجهة الكاشير (يتم تسجيل خروجه تلقائياً فور حفظ التقفيل) -->
     <section class="panel cashier-box" id="cashierPanel" hidden>
       <div class="panel-heading">
         <h2 data-i18n="closeShiftTitle" data-emoji="🧾">تقفيل إيراد ومصاريف الشيفت</h2>
@@ -425,7 +422,7 @@
           <input id="cashierNotes" type="text" data-i18n-placeholder="notesPlaceholder" placeholder="أي ملاحظات تخص التقفيل...">
         </label>
 
-        <button class="primary" id="cashierSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px;" data-i18n="saveShiftBtn" data-emoji="✅">حفظ وإرسال التقفيل للإدارة (واتساب + شيت)</button>
+        <button class="primary" id="cashierSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px;" data-i18n="saveShiftBtn" data-emoji="✅">حفظ وإرسال تقفيل الشيفت للإدارة</button>
         <div id="cashierNotice" class="notice" role="status"></div>
       </form>
     </section>
@@ -561,7 +558,6 @@
 
   <script>
     const SHEET_URL = "https://script.google.com/macros/s/AKfycbyLc9cVrC5M-bk9Ickn5sC22G4T5o1sZPcfCdqPf8-6eeJ1UyrqatUwYusBO_vao4YRQw/exec";
-    const ADMIN_WHATSAPP = "201270855523";
     
     const branches = ["ڤيب ستور", "ڤيب ستور 2", "الدخاخني", "المول", "اسواق المدينه", "طوخ"];
     const mainSafes = ["الخزنة الرئيسية - الدخاخني", "الخزنة الرئيسية - طوخ"];
@@ -614,7 +610,6 @@
         logout: "تسجيل خروج",
         pageColor: "لون الصفحة",
         defaultColor: "الافتراضي",
-        waSummaryBtn: "ملخص اليوم واتساب",
         analyticsBtn: "ملخص الفروع والمصاريف",
         settingsBtn: "الإعدادات والمستخدمين",
         exportCSV: "تصدير CSV",
@@ -636,7 +631,7 @@
         shiftExpenseHint: "تُراجع وتُعتمد من الإدارة وتُخصم من الخزنة الرئيسية - الدخاخني",
         shiftNotes: "ملاحظات الشيفت (اختياري)",
         notesPlaceholder: "أي ملاحظات تخص التقفيل...",
-        saveShiftBtn: "حفظ وإرسال التقفيل للإدارة (واتساب + شيت)",
+        saveShiftBtn: "حفظ وإرسال تقفيل الشيفت للإدارة",
         usersMgmtTitle: "إدارة المستخدمين والصلاحيات",
         roleLabel: "الصلاحية",
         roleCashier: "مستخدم / كاشير (تقفيل شيفت فقط)",
@@ -725,7 +720,6 @@
         logout: "Logout",
         pageColor: "Page Color",
         defaultColor: "Default",
-        waSummaryBtn: "WhatsApp Summary",
         analyticsBtn: "Branches & Expenses Summary",
         settingsBtn: "Settings & Users",
         exportCSV: "Export CSV",
@@ -747,7 +741,7 @@
         shiftExpenseHint: "Pending admin approval to deduct from Main Safe - Al-Dakhakhni",
         shiftNotes: "Shift Notes (Optional)",
         notesPlaceholder: "Any closing notes...",
-        saveShiftBtn: "Submit Shift Closing (WhatsApp + Sheet)",
+        saveShiftBtn: "Submit Shift Closing for Approval",
         usersMgmtTitle: "Users & Permissions Management",
         roleLabel: "Role",
         roleCashier: "User / Cashier (Shift Closing Only)",
@@ -957,6 +951,7 @@
         sessionStorage.setItem("dakhakhni-currentUser", JSON.stringify(currentUser));
         document.getElementById("loginScreen").hidden = true;
 
+        // تسجيل عملية الدخول في جوجل شيت للرسم البياني للموظفين
         fetch(SHEET_URL, {
           method: "POST",
           body: JSON.stringify({ action: "logLogin", username: user.username, role: user.role })
@@ -1017,7 +1012,7 @@
       return new Date().toLocaleTimeString("en-US", { timeZone: "Africa/Cairo", hour: "2-digit", minute: "2-digit", hour12: true });
     }
 
-    /* ===== واجهة الكاشير + إرسال رسالة واتساب مباشرة للإدارة ===== */
+    /* ===== واجهة الكاشير (تُغلق وتخرج تلقائياً بعد الحفظ) ===== */
     function startCashierApp() {
       document.getElementById("mainContent").style.display = "block";
       document.querySelectorAll(".admin-only").forEach(el => el.style.display = "none");
@@ -1062,14 +1057,12 @@
 
       const expenseRows = [...document.querySelectorAll("#cashierExpensesList .cashier-expense-row")];
       const validExpenses = [];
-      let totalShiftExpenses = 0;
       for (const r of expenseRows) {
         const amt = Number(r.querySelector(".exp-amt").value) || 0;
         const cat = r.querySelector(".exp-cat").value;
         const dest = r.querySelector(".exp-dest").value.trim();
         if (amt > 0) {
           validExpenses.push({ amt, cat, dest });
-          totalShiftExpenses += amt;
         }
       }
 
@@ -1127,64 +1120,21 @@
       const cn = document.getElementById("cashierNotice");
       cn.className = "notice ok";
       cn.style.display = "block";
-      cn.textContent = currentLang === "ar" ? "⏳ جارٍ حفظ التقفيل وفتح الواتساب للإرسال..." : "⏳ Saving shift & opening WhatsApp...";
+      cn.textContent = currentLang === "ar" ? "⏳ جارٍ إرسال التقفيل للإدارة..." : "⏳ Submitting shift closing...";
 
       for (const item of itemsToSend) {
         entries.unshift(item);
         await fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: item }) });
       }
 
-      // تجهيز رسالة واتساب المنسقة لرقم الإدارة 01270855523
-      const expLines = validExpenses.map(x => `   - ${x.cat} (${x.dest}): ${x.amt} ج.م`).join("\n");
-      const waMsg = [
-        `🧾 *تقفيل شيفت - الدخاخني ستور*`,
-        `📅 التاريخ: ${todayWithTime}`,
-        `🏬 الفرع: *${currentSession.branch}* | ⏱️ شيفت: *#${currentSession.shift}*`,
-        `👤 الكاشير: *${currentUser.username}*`,
-        `──────────────`,
-        `💵 كاش: *${cashAmt.toLocaleString()} ج.م*`,
-        `📱 إنستا باي: *${instaAmt.toLocaleString()} ج.م*`,
-        `💳 فيزا QNB: *${visaAmt.toLocaleString()} ج.م*`,
-        totalShiftExpenses > 0 ? `🔴 مصاريف الشيفت: *${totalShiftExpenses.toLocaleString()} ج.م*\n${expLines}` : `🟢 مصاريف الشيفت: لا يوجد`,
-        notes ? `📝 ملاحظات: ${notes}` : ``,
-        `──────────────`,
-        `⏳ بانتظار تأكيد الاستلام في النظام.`
-      ].filter(Boolean).join("\n");
-
-      const waUrl = `https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(waMsg)}`;
-      window.open(waUrl, "_blank");
-
       cn.textContent = currentLang === "ar"
-        ? "✅ تم الحفظ وفتح الواتساب! جارٍ تسجيل الخروج..."
-        : "✅ Saved & WhatsApp opened! Logging out...";
+        ? "✅ تم حفظ وترحيل التقفيل بنجاح! جارٍ تسجيل الخروج..."
+        : "✅ Shift saved! Logging out...";
 
+      // إغلاق الجلسة والخروج التلقائي لشاشة تسجيل الدخول بعد ثانيتين
       setTimeout(() => {
         logout();
-      }, 2200);
-    });
-
-    /* ===== زر إرسال ملخص اليوم واتساب في لوحة الأدمن ===== */
-    document.getElementById("sendWhatsappSummaryBtn").addEventListener("click", () => {
-      const balances = computeBalances();
-      const incTxt = document.getElementById("totalIncome").textContent;
-      const expTxt = document.getElementById("totalExpenses").textContent;
-      const netTxt = document.getElementById("netTotal").textContent;
-
-      const balLines = transferAccounts.map(acc => `• ${acc}: *${money(balances[acc])}*`).join("\n");
-      const summaryMsg = [
-        `📊 *ملخص الحسابات والأرصدة - الدخاخني ستور*`,
-        `📅 التاريخ: ${todayString()} | ${nowTimeString()}`,
-        `──────────────`,
-        `🟢 إجمالي الإيرادات (المؤكدة): *${incTxt}*`,
-        `🔴 إجمالي المصروفات (المؤكدة): *${expTxt}*`,
-        `⚖️ صافي الحساب المؤكد: *${netTxt}*`,
-        `──────────────`,
-        `🏦 *أرصدة الخزن والحسابات الحالية:*`,
-        balLines
-      ].join("\n");
-
-      const waUrl = `https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(summaryMsg)}`;
-      window.open(waUrl, "_blank");
+      }, 2000);
     });
 
     /* ===== واجهة الأدمن ===== */
