@@ -51,7 +51,23 @@
     html[data-bg="plain"] { --bg-image: none; --bg-size: auto; }
 
     * { box-sizing: border-box; }
-    body { min-height: 100vh; margin: 0; color: var(--text); font-family: Tahoma, Arial, sans-serif; background-color: var(--page-color); background-image: var(--bg-image); background-size: var(--bg-size); background-attachment: fixed; animation: appear .5s ease both; }
+    body { min-height: 100vh; margin: 0; color: var(--text); font-family: Tahoma, Arial, sans-serif; background-color: var(--page-color); background-image: var(--bg-image); background-size: var(--bg-size); background-attachment: fixed; animation: appear .5s ease both; position: relative; }
+    
+    /* علامة مائية للوجو في خلفية الموقع بالكامل */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("logo.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: min(480px, 75vw);
+      opacity: 0.06;
+      pointer-events: none;
+      z-index: 0;
+    }
+    main, .topbar, footer { position: relative; z-index: 1; }
+
     [data-emoji]::before { content: attr(data-emoji) "\00a0"; }
     @keyframes appear { from { opacity: 0; } to { opacity: 1; } }
     @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -72,16 +88,19 @@
     .splash-bar span { display: block; height: 100%; background: var(--blue); transform-origin: right center; animation: fillBar 3.5s linear both; }
     html[dir="ltr"] .splash-bar span { transform-origin: left center; }
 
-    .auth-card { width: min(400px, 100%); padding: 35px 30px; background: var(--white); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); text-align: center; animation: pop .5s ease both; }
-    .auth-logo { width: 70px; height: 70px; margin: 0 auto 20px; display: grid; place-items: center; border-radius: 20px; color: #fff; font-size: 32px; font-weight: 700; background: var(--top-gradient); box-shadow: 0 12px 26px color-mix(in srgb, var(--blue) 45%, transparent); }
-    .auth-card h2 { font-size: 22px; margin-bottom: 25px; color: var(--text); }
+    .auth-card { width: min(400px, 100%); padding: 35px 30px; background: var(--white); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); text-align: center; animation: pop .5s ease both; position: relative; }
+    .auth-logo { width: 78px; height: 78px; margin: 0 auto 20px; display: grid; place-items: center; border-radius: 20px; color: #fff; font-size: 32px; font-weight: 700; background: var(--top-gradient); box-shadow: 0 12px 26px color-mix(in srgb, var(--blue) 45%, transparent); padding: 8px; overflow: hidden; }
+    .auth-card h2 { font-size: 22px; margin-bottom: 20px; color: var(--text); }
     .auth-form { text-align: start; display: flex; flex-direction: column; gap: 15px; }
     .loader { width: 40px; height: 40px; border: 4px solid var(--btn-soft); border-top-color: var(--blue); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+
+    .shift-user-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; margin-bottom: 16px; border-radius: 20px; background: var(--blue-soft); color: var(--blue); font-size: 12px; font-weight: 700; }
 
     .topbar { color: white; padding: 20px max(4%, calc((100% - 1180px) / 2)); background: var(--top-gradient); background-size: 180% 180%; box-shadow: 0 10px 30px #14213d55; }
     .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
     .brand, .top-actions { display: flex; align-items: center; gap: 13px; }
-    .brand-mark { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 15px; background: #ffffff2e; font-size: 24px; }
+    .brand-mark { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 14px; background: #ffffff22; overflow: hidden; padding: 4px; }
+    .brand-mark img, .auth-logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
     h1 { margin: 0 0 6px; font-size: 22px; }
     .subtitle { margin: 0; font-size: 13px; color: #d5def4; }
     .top-actions { flex-wrap: wrap; justify-content: flex-end; }
@@ -117,8 +136,9 @@
     .primary { background: var(--blue); color: white; font-weight: 700; box-shadow: 0 6px 14px color-mix(in srgb, var(--blue) 45%, transparent); }
     .primary:hover { background: var(--blue-hover); }
     .secondary { background: var(--btn-soft); color: var(--btn-soft-text); }
+    .danger-soft { background: var(--red-soft); color: var(--red); font-weight: 700; }
     .table-wrap { overflow-x: auto; }
-    table { width: 100%; min-width: 850px; border-collapse: collapse; }
+    table { width: 100%; min-width: 920px; border-collapse: collapse; }
     th, td { padding: 13px 10px; text-align: start; border-bottom: 1px solid var(--line); font-size: 12px; }
     th { color: var(--muted); font-weight: 600; background: var(--soft); }
     tbody tr:hover { background: var(--hover); }
@@ -127,10 +147,18 @@
     .tag-income { color: var(--green); background: var(--green-soft); }
     .tag-expense { color: var(--red); background: var(--red-soft); }
     .tag-transfer { color: var(--purple); background: var(--purple-soft); }
+    
+    /* شارات وزرار تأكيد الاستلام */
+    .pending-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; color: var(--warn-text); background: var(--warn-bg); font-size: 10px; font-weight: 700; border: 1px solid color-mix(in srgb, var(--warn-text) 30%, transparent); }
+    .confirmed-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; color: var(--green); background: var(--green-soft); font-size: 10px; font-weight: 700; }
+    .confirm-btn { padding: 7px 11px; background: var(--green); color: #fff; font-weight: 700; margin-inline-end: 6px; }
+    .confirm-btn:hover { opacity: 0.92; }
+    tr.row-pending { background: color-mix(in srgb, var(--warn-bg) 35%, transparent); }
+
     .delete, .permanent-delete { padding: 7px 10px; background: var(--red-soft); color: var(--red); }
     .restore { padding: 7px 10px; background: var(--green-soft); color: var(--green); }
     .edit { padding: 7px 10px; background: var(--blue-soft); color: var(--blue); margin-inline-end: 6px; }
-    .edited-tag { display: inline-block; margin-inline-start: 8px; padding: 3px 8px; border-radius: 20px; color: var(--warn-text); background: var(--warn-bg); font-size: 10px; font-weight: 700; }
+    .edited-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 8px; border-radius: 20px; color: var(--warn-text); background: var(--warn-bg); font-size: 10px; font-weight: 700; }
     .empty { padding: 28px; text-align: center; color: var(--muted); font-size: 13px; }
 
     .notice { display: none; padding: 11px 13px; margin-top: 14px; border-radius: 10px; font-size: 12px; }
@@ -184,15 +212,19 @@
     html[dir="ltr"] th, html[dir="ltr"] td { text-align: left; }
 
     @media print {
-      body { background: #fff !important; color: #000 !important; }
+      body { background: #fff !important; color: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      body::before {
+        opacity: 0.10 !important;
+        background-size: 420px !important;
+      }
       .overlay-screen, .toolbar, .filters, #transactionFormPanel, #settingsPanel, #stylePanel, #balancesPanel, .topbar button, .topbar select, footer { display: none !important; }
       main { display: block !important; width: 100% !important; margin: 0 !important; }
       .topbar { background: #14213d !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 12px 16px; margin-bottom: 14px; }
       .summary { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; margin-bottom: 14px !important; }
-      .summary-card, .panel { box-shadow: none !important; border: 1px solid #ccc !important; background: #fff !important; }
+      .summary-card, .panel { box-shadow: none !important; border: 1px solid #ccc !important; background: transparent !important; }
       table { min-width: 100% !important; font-size: 11px !important; }
       th, td { border: 1px solid #ddd !important; padding: 8px 6px !important; }
-      .edit, .delete, .restore { display: none !important; }
+      .edit, .delete, .restore, .confirm-btn { display: none !important; }
     }
 
     @media (max-width: 760px) {
@@ -215,7 +247,7 @@
   <!-- شاشة الترحيب -->
   <div class="overlay-screen splash-screen" id="splashScreen">
     <div class="splash-card">
-      <div class="auth-logo">د</div>
+      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNNY"></div>
       <h2 data-i18n="splashWelcome">أهلاً بك في نظام الدخاخني ستور</h2>
       <p data-i18n="splashDesc">نظام الإدارة المالية المتكامل للفروع والخزن ومتابعة الإيرادات والمصروفات لحظياً عبر السحابة.</p>
       <p class="powered-by">✨ Powered by <strong>Samy Aziz</strong></p>
@@ -233,15 +265,15 @@
     </div>
   </div>
 
-  <!-- شاشة تسجيل الدخول -->
+  <!-- شاشة تسجيل الدخول (بقائمة منسدلة لأسماء المستخدمين) -->
   <div class="overlay-screen" id="loginScreen" hidden>
     <div class="auth-card">
-      <div class="auth-logo">د</div>
+      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNNY"></div>
       <h2 data-i18n="loginTitle">تسجيل الدخول</h2>
       <form class="auth-form" id="loginForm">
         <label>
           <span data-i18n="username" data-emoji="👤">اسم المستخدم</span>
-          <input type="text" id="loginUsername" required data-i18n-placeholder="userPlaceholder" placeholder="أدخل اسم المستخدم">
+          <select id="loginUsername" required></select>
         </label>
         <label>
           <span data-i18n="password" data-emoji="🔒">كلمة المرور</span>
@@ -253,10 +285,11 @@
     </div>
   </div>
 
-  <!-- شاشة بداية الشيفت (للكاشير فقط) -->
+  <!-- شاشة بداية الشيفت (للكاشير فقط + زر خروج للرجوع لشاشة الدخول) -->
   <div class="overlay-screen" id="shiftScreen" hidden>
     <div class="auth-card">
       <h2 data-i18n="shiftDataTitle" data-emoji="⏱️">بيانات الشيفت</h2>
+      <div class="shift-user-pill" id="shiftScreenUserBadge"></div>
       <form class="auth-form" id="shiftForm">
         <label>
           <span data-i18n="chooseBranch" data-emoji="🏬">اختر الفرع</span>
@@ -267,6 +300,7 @@
           <input type="text" id="shiftNumberEntry" required data-i18n-placeholder="shiftPlaceholder" placeholder="اكتب رقم الشيفت الحالي">
         </label>
         <button class="primary" type="submit" style="width: 100%; margin-top: 10px;" data-i18n="startWorkBtn">ابدأ العمل</button>
+        <button class="danger-soft" id="shiftLogoutBtn" type="button" style="width: 100%; margin-top: 4px;" data-i18n="switchUserBtn" data-emoji="🚪">تسجيل خروج / تغيير المستخدم</button>
       </form>
     </div>
   </div>
@@ -274,7 +308,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <div class="brand-mark">د</div>
+        <div class="brand-mark"><img src="logo.png" alt="EL-DKHAKHNNY"></div>
         <div>
           <h1 data-i18n="storeTitle">الدخاخني ستور</h1>
           <p class="subtitle" id="userSubtitle" data-i18n="dashboardSub">لوحة الإدارة المالية</p>
@@ -319,19 +353,19 @@
       <form id="cashierCloseForm" class="cashier-fields">
         <div class="cashier-field-card">
           <label for="cashierCash" data-i18n="cashTotal" data-emoji="💵">إجمالي الكاش (نقدي)</label>
-          <small data-i18n="cashDestHint">يُرحّل تلقائياً إلى: الخزنة الرئيسية - الدخاخني</small>
+          <small data-i18n="cashDestHint">يُعلّق لحين استلام الإدارة وترحيله إلى: الخزنة الرئيسية - الدخاخني</small>
           <input id="cashierCash" type="number" min="0" step="0.01" placeholder="0.00">
         </div>
 
         <div class="cashier-field-card">
           <label for="cashierInstapay" data-i18n="instaTotal" data-emoji="📱">إجمالي إنستا باي (Instapay)</label>
-          <small data-i18n="instaDestHint">يُرحّل تلقائياً إلى: إنستا باي الأهلي</small>
+          <small data-i18n="instaDestHint">يُعلّق لحين تأكيد الإدارة وترحيله إلى: إنستا باي الأهلي</small>
           <input id="cashierInstapay" type="number" min="0" step="0.01" placeholder="0.00">
         </div>
 
         <div class="cashier-field-card">
           <label for="cashierVisa" data-i18n="visaTotal" data-emoji="💳">إجمالي فيزا QNB</label>
-          <small data-i18n="visaDestHint">يُرحّل تلقائياً إلى: فيزا QNB</small>
+          <small data-i18n="visaDestHint">يُعلّق لحين تأكيد الإدارة وترحيله إلى: فيزا QNB</small>
           <input id="cashierVisa" type="number" min="0" step="0.01" placeholder="0.00">
         </div>
 
@@ -341,7 +375,7 @@
             <strong data-i18n="shiftExpensesTitle" data-emoji="🔴">مصاريف الشيفت (إن وجدت)</strong>
             <button type="button" class="secondary" id="addCashierExpenseBtn" style="padding: 7px 12px; font-size: 12px;" data-i18n="addExpenseRowBtn">➕ إضافة مصروف</button>
           </div>
-          <small style="display:block; color:var(--muted); font-size:11px;" data-i18n="shiftExpenseHint">تُخصم تلقائياً من الخزنة الرئيسية - الدخاخني وتظهر في تقارير الإدارة</small>
+          <small style="display:block; color:var(--muted); font-size:11px;" data-i18n="shiftExpenseHint">تُراجع وتُعتمد من الإدارة وتُخصم من الخزنة الرئيسية - الدخاخني</small>
           <div id="cashierExpensesList"></div>
         </div>
 
@@ -350,7 +384,7 @@
           <input id="cashierNotes" type="text" data-i18n-placeholder="notesPlaceholder" placeholder="أي ملاحظات تخص التقفيل...">
         </label>
 
-        <button class="primary" type="submit" style="width: 100%; padding: 14px; font-size: 15px;" data-i18n="saveShiftBtn" data-emoji="✅">حفظ وترحيل تقفيل الشيفت</button>
+        <button class="primary" type="submit" style="width: 100%; padding: 14px; font-size: 15px;" data-i18n="saveShiftBtn" data-emoji="✅">حفظ وإرسال تقفيل الشيفت للإدارة</button>
         <div id="cashierNotice" class="notice" role="status"></div>
       </form>
     </section>
@@ -388,7 +422,7 @@
       </section>
 
       <section class="panel" id="balancesPanel">
-        <div class="panel-heading"><h2 data-i18n="balancesTitle" data-emoji="🏦">أرصدة الحسابات والخزن</h2><span class="hint" id="balancesHint"></span></div>
+        <div class="panel-heading"><h2 data-i18n="balancesTitle" data-emoji="🏦">أرصدة الحسابات والخزن (المؤكدة فقط)</h2><span class="hint" id="balancesHint"></span></div>
         <div class="balance-grid" id="balanceGrid"></div>
         
         <div class="opening-editor" id="openingEditor" hidden>
@@ -406,13 +440,13 @@
       </section>
 
       <section class="summary" id="summarySection">
-        <article class="summary-card"><span class="summary-label" data-i18n="totalIncome" data-emoji="🟢">إجمالي الإيرادات</span><strong class="summary-value green" id="totalIncome">0.00 ج.م</strong></article>
-        <article class="summary-card"><span class="summary-label" data-i18n="totalExpenses" data-emoji="🔴">إجمالي المصروفات</span><strong class="summary-value red" id="totalExpenses">0.00 ج.م</strong></article>
-        <article class="summary-card"><span class="summary-label" data-i18n="netTotal" data-emoji="⚖️">صافي الحساب</span><strong class="summary-value" id="netTotal">0.00 ج.م</strong></article>
+        <article class="summary-card"><span class="summary-label" data-i18n="totalIncome" data-emoji="🟢">إجمالي الإيرادات (المؤكدة)</span><strong class="summary-value green" id="totalIncome">0.00 ج.م</strong></article>
+        <article class="summary-card"><span class="summary-label" data-i18n="totalExpenses" data-emoji="🔴">إجمالي المصروفات (المؤكدة)</span><strong class="summary-value red" id="totalExpenses">0.00 ج.م</strong></article>
+        <article class="summary-card"><span class="summary-label" data-i18n="netTotal" data-emoji="⚖️">صافي الحساب المؤكد</span><strong class="summary-value" id="netTotal">0.00 ج.م</strong></article>
       </section>
 
       <section class="panel" id="transactionFormPanel">
-        <div class="panel-heading"><h2 data-i18n="addTxTitle" data-emoji="➕">إضافة حركة مالية (للمدير)</h2><span class="hint" data-i18n="addTxHint">إيراد أو مصروف أو تحويل</span></div>
+        <div class="panel-heading"><h2 data-i18n="addTxTitle" data-emoji="➕">إضافة حركة مالية (للمدير)</h2><span class="hint" data-i18n="addTxHint">تُضاف مؤكدة مباشرة</span></div>
         <form id="transactionForm">
           <div class="form-grid">
             <label><span data-i18n="txTypeLabel">نوع الحركة</span><select id="type"><option value="income" data-i18n="typeIncome">🟢 إيراد</option><option value="expense" data-i18n="typeExpense">🔴 مصروف</option><option value="transfer" data-i18n="typeTransfer">🟣 تحويل نقدي</option></select></label>
@@ -512,8 +546,8 @@
         syncingDesc: "يتم جلب البيانات من السحابة",
         loginTitle: "تسجيل الدخول",
         username: "اسم المستخدم",
+        selectUserDefault: "-- اختر اسم المستخدم --",
         password: "كلمة المرور",
-        userPlaceholder: "أدخل اسم المستخدم",
         passPlaceholder: "أدخل كلمة المرور",
         loginBtn: "دخول",
         shiftDataTitle: "بيانات الشيفت",
@@ -521,6 +555,7 @@
         shiftNumber: "رقم الشيفت",
         shiftPlaceholder: "اكتب رقم الشيفت الحالي",
         startWorkBtn: "ابدأ العمل",
+        switchUserBtn: "تسجيل خروج / تغيير المستخدم",
         storeTitle: "الدخاخني ستور",
         dashboardSub: "لوحة الإدارة المالية",
         logout: "تسجيل خروج",
@@ -532,17 +567,17 @@
         styleBtn: "تغيير الشكل",
         closeShiftTitle: "تقفيل إيراد ومصاريف الشيفت",
         cashTotal: "إجمالي الكاش (نقدي)",
-        cashDestHint: "يُرحّل تلقائياً إلى: الخزنة الرئيسية - الدخاخني",
+        cashDestHint: "يُعلّق لحين استلام الإدارة وترحيله إلى: الخزنة الرئيسية - الدخاخني",
         instaTotal: "إجمالي إنستا باي (Instapay)",
-        instaDestHint: "يُرحّل تلقائياً إلى: إنستا باي الأهلي",
+        instaDestHint: "يُعلّق لحين تأكيد الإدارة وترحيله إلى: إنستا باي الأهلي",
         visaTotal: "إجمالي فيزا QNB",
-        visaDestHint: "يُرحّل تلقائياً إلى: فيزا QNB",
+        visaDestHint: "يُعلّق لحين تأكيد الإدارة وترحيله إلى: فيزا QNB",
         shiftExpensesTitle: "مصاريف الشيفت (إن وجدت)",
         addExpenseRowBtn: "➕ إضافة مصروف",
-        shiftExpenseHint: "تُخصم تلقائياً من الخزنة الرئيسية - الدخاخني وتظهر في تقارير الإدارة",
+        shiftExpenseHint: "تُراجع وتُعتمد من الإدارة وتُخصم من الخزنة الرئيسية - الدخاخني",
         shiftNotes: "ملاحظات الشيفت (اختياري)",
         notesPlaceholder: "أي ملاحظات تخص التقفيل...",
-        saveShiftBtn: "حفظ وترحيل تقفيل الشيفت",
+        saveShiftBtn: "حفظ وإرسال تقفيل الشيفت للإدارة",
         usersMgmtTitle: "إدارة المستخدمين والصلاحيات",
         roleLabel: "الصلاحية",
         roleCashier: "مستخدم / كاشير (تقفيل شيفت فقط)",
@@ -558,15 +593,15 @@
         statusCol: "الحالة",
         themeTitle: "الألوان والتصميم",
         bgTitle: "شكل الخلفية",
-        balancesTitle: "أرصدة الحسابات والخزن",
+        balancesTitle: "أرصدة الحسابات والخزن (المؤكدة فقط)",
         saveOpeningBtn: "حفظ الرصيد الأول وتسميعه",
         cancelBtn: "إلغاء",
         editOpeningBtn: "تعديل الرصيد الأول",
-        totalIncome: "إجمالي الإيرادات",
-        totalExpenses: "إجمالي المصروفات",
-        netTotal: "صافي الحساب",
+        totalIncome: "إجمالي الإيرادات (المؤكدة)",
+        totalExpenses: "إجمالي المصروفات (المؤكدة)",
+        netTotal: "صافي الحساب المؤكد",
         addTxTitle: "إضافة حركة مالية (للمدير)",
-        addTxHint: "إيراد أو مصروف أو تحويل",
+        addTxHint: "تُضاف مؤكدة مباشرة",
         txTypeLabel: "نوع الحركة",
         typeIncome: "🟢 إيراد",
         typeExpense: "🔴 مصروف",
@@ -600,6 +635,9 @@
         deleteBtn: "🗑️ حذف",
         restoreBtn: "♻️ استعادة",
         editedTag: "✏️ معدل",
+        pendingTag: "⏳ بانتظار الاستلام",
+        confirmedTag: "✅ تم الاستلام",
+        confirmBtn: "✅ تأكيد الاستلام",
         countWord: "حركة"
       },
       en: {
@@ -610,8 +648,8 @@
         syncingDesc: "Fetching data from cloud",
         loginTitle: "Login",
         username: "Username",
+        selectUserDefault: "-- Select Username --",
         password: "Password",
-        userPlaceholder: "Enter username",
         passPlaceholder: "Enter password",
         loginBtn: "Login",
         shiftDataTitle: "Shift Details",
@@ -619,6 +657,7 @@
         shiftNumber: "Shift Number",
         shiftPlaceholder: "Enter current shift number",
         startWorkBtn: "Start Shift",
+        switchUserBtn: "Logout / Switch User",
         storeTitle: "Al-Dakhakhni Store",
         dashboardSub: "Financial Management Dashboard",
         logout: "Logout",
@@ -630,17 +669,17 @@
         styleBtn: "Appearance",
         closeShiftTitle: "Shift Revenue & Expenses Closing",
         cashTotal: "Total Cash",
-        cashDestHint: "Auto-posted to: Main Safe - Al-Dakhakhni",
+        cashDestHint: "Pending admin confirmation to post to: Main Safe - Al-Dakhakhni",
         instaTotal: "Total Instapay",
-        instaDestHint: "Auto-posted to: Instapay - Ahly",
+        instaDestHint: "Pending admin confirmation to post to: Instapay - Ahly",
         visaTotal: "Total QNB Visa",
-        visaDestHint: "Auto-posted to: QNB Visa",
+        visaDestHint: "Pending admin confirmation to post to: QNB Visa",
         shiftExpensesTitle: "Shift Expenses (If any)",
         addExpenseRowBtn: "➕ Add Expense",
-        shiftExpenseHint: "Auto-deducted from Main Safe - Al-Dakhakhni & shown in Admin reports",
+        shiftExpenseHint: "Pending admin approval to deduct from Main Safe - Al-Dakhakhni",
         shiftNotes: "Shift Notes (Optional)",
         notesPlaceholder: "Any closing notes...",
-        saveShiftBtn: "Save & Submit Shift Closing",
+        saveShiftBtn: "Submit Shift Closing for Approval",
         usersMgmtTitle: "Users & Permissions Management",
         roleLabel: "Role",
         roleCashier: "User / Cashier (Shift Closing Only)",
@@ -656,15 +695,15 @@
         statusCol: "Status",
         themeTitle: "Colors & Themes",
         bgTitle: "Background Pattern",
-        balancesTitle: "Accounts & Safes Balances",
+        balancesTitle: "Accounts & Safes Balances (Confirmed Only)",
         saveOpeningBtn: "Save Opening Balances",
         cancelBtn: "Cancel",
         editOpeningBtn: "Edit Opening Balance",
-        totalIncome: "Total Income",
-        totalExpenses: "Total Expenses",
-        netTotal: "Net Balance",
+        totalIncome: "Total Income (Confirmed)",
+        totalExpenses: "Total Expenses (Confirmed)",
+        netTotal: "Confirmed Net Balance",
         addTxTitle: "Add Financial Transaction (Admin)",
-        addTxHint: "Income, expense, or transfer",
+        addTxHint: "Added as confirmed immediately",
         txTypeLabel: "Transaction Type",
         typeIncome: "🟢 Income",
         typeExpense: "🔴 Expense",
@@ -698,6 +737,9 @@
         deleteBtn: "🗑️ Delete",
         restoreBtn: "♻️ Restore",
         editedTag: "✏️ Edited",
+        pendingTag: "⏳ Pending Receipt",
+        confirmedTag: "✅ Confirmed",
+        confirmBtn: "✅ Confirm Receipt",
         countWord: "items"
       }
     };
@@ -712,11 +754,29 @@
     let editingId = null;
     let currentLang = localStorage.getItem("dakhakhni-lang") || "ar";
 
-    let currentUser = JSON.parse(localStorage.getItem("dakhakhni-currentUser")) || null;
-    let currentSession = JSON.parse(localStorage.getItem("dakhakhni-session")) || null;
+    // مسح أي جلسة قديمة من localStorage والاعتماد على sessionStorage حتى تُغلق الجلسة عند إغلاق التاب
+    localStorage.removeItem("dakhakhni-currentUser");
+    localStorage.removeItem("dakhakhni-session");
+    let currentUser = JSON.parse(sessionStorage.getItem("dakhakhni-currentUser")) || null;
+    let currentSession = JSON.parse(sessionStorage.getItem("dakhakhni-session")) || null;
 
     function t(key) {
       return (i18nDict[currentLang] && i18nDict[currentLang][key]) || key;
+    }
+
+    function populateLoginUsersDropdown() {
+      const select = document.getElementById("loginUsername");
+      if (!select) return;
+      const prev = select.value;
+      select.innerHTML = `<option value="">${t("selectUserDefault")}</option>`;
+      users.forEach(u => {
+        if (!u.username) return;
+        const opt = document.createElement("option");
+        opt.value = u.username;
+        opt.textContent = u.role === "admin" ? `👑 ${u.username}` : `👤 ${u.username}`;
+        select.appendChild(opt);
+      });
+      if ([...select.options].some(o => o.value === prev)) select.value = prev;
     }
 
     function applyLanguage(lang) {
@@ -740,6 +800,7 @@
         }
       });
 
+      populateLoginUsersDropdown();
       renderStyleChips();
       updateSubmitLabel();
       if (currentUser?.role === "admin") {
@@ -777,6 +838,7 @@
           users = [{ username: "باسم الدخاخني المالك", pass: "123", role: "admin", branches: ["الكل"], reports: true }];
           fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) });
         }
+        populateLoginUsersDropdown();
         
         if (data.transactions) entries = data.transactions.reverse();
         if (data.balances) balancesHistory = data.balances;
@@ -793,8 +855,7 @@
             } else if (currentSession && currentSession.shift && currentSession.branch) {
               startCashierApp();
             } else {
-              fillSelect(document.getElementById("shiftBranch"), currentUser.branches || branches);
-              document.getElementById("shiftScreen").hidden = false;
+              openShiftScreenForUser(currentUser);
             }
           } else {
             logout();
@@ -809,6 +870,13 @@
       }
     });
 
+    function openShiftScreenForUser(user) {
+      const allowed = (user.branches && user.branches.length && user.branches[0] !== "" && user.branches[0] !== "الكل") ? user.branches : branches;
+      fillSelect(document.getElementById("shiftBranch"), allowed);
+      document.getElementById("shiftScreenUserBadge").textContent = `👤 ${user.username}`;
+      document.getElementById("shiftScreen").hidden = false;
+    }
+
     document.getElementById("loginForm").addEventListener("submit", (e) => {
       e.preventDefault();
       const username = document.getElementById("loginUsername").value.trim();
@@ -816,20 +884,19 @@
       const user = users.find(u => u.username === username && u.pass === pass);
       
       if (user) {
+        document.getElementById("loginNotice").style.display = "none";
         currentUser = user;
-        localStorage.setItem("dakhakhni-currentUser", JSON.stringify(currentUser));
+        sessionStorage.setItem("dakhakhni-currentUser", JSON.stringify(currentUser));
         document.getElementById("loginScreen").hidden = true;
         
         if (user.role === "admin") {
           startAdminApp();
         } else {
-          const allowed = (user.branches && user.branches.length && user.branches[0] !== "") ? user.branches : branches;
-          fillSelect(document.getElementById("shiftBranch"), allowed);
-          document.getElementById("shiftScreen").hidden = false;
+          openShiftScreenForUser(user);
         }
       } else {
         const ln = document.getElementById("loginNotice");
-        ln.textContent = currentLang === "ar" ? "اسم المستخدم أو كلمة المرور غير صحيحة!" : "Invalid username or password!";
+        ln.textContent = currentLang === "ar" ? "يرجى اختيار اسم المستخدم وإدخال كلمة المرور الصحيحة!" : "Please select a user and enter the correct password!";
         ln.style.display = "block";
       }
     });
@@ -840,19 +907,28 @@
         branch: document.getElementById("shiftBranch").value,
         shift: document.getElementById("shiftNumberEntry").value.trim()
       };
-      localStorage.setItem("dakhakhni-session", JSON.stringify(currentSession));
+      sessionStorage.setItem("dakhakhni-session", JSON.stringify(currentSession));
       document.getElementById("shiftScreen").hidden = true;
       startCashierApp();
     });
 
     function logout() {
-      currentUser = null; currentSession = null;
-      localStorage.removeItem("dakhakhni-currentUser"); localStorage.removeItem("dakhakhni-session");
+      currentUser = null;
+      currentSession = null;
+      sessionStorage.removeItem("dakhakhni-currentUser");
+      sessionStorage.removeItem("dakhakhni-session");
+      localStorage.removeItem("dakhakhni-currentUser");
+      localStorage.removeItem("dakhakhni-session");
       document.getElementById("mainContent").style.display = "none";
-      document.getElementById("loginScreen").hidden = false;
+      document.getElementById("shiftScreen").hidden = true;
+      document.getElementById("loginNotice").style.display = "none";
       document.getElementById("loginForm").reset();
+      document.getElementById("shiftForm").reset();
+      populateLoginUsersDropdown();
+      document.getElementById("loginScreen").hidden = false;
     }
     document.getElementById("logoutBtn").addEventListener("click", logout);
+    document.getElementById("shiftLogoutBtn").addEventListener("click", logout);
 
     /* ===== دوال التاريخ والوقت بتوقيت مصر ===== */
     function todayString() {
@@ -863,7 +939,7 @@
       return new Date().toLocaleTimeString("en-US", { timeZone: "Africa/Cairo", hour: "2-digit", minute: "2-digit", hour12: true });
     }
 
-    /* ===== واجهة الكاشير المعزولة + مصاريف الشيفت المتعددة ===== */
+    /* ===== واجهة الكاشير المعزولة (ترسل بحالة pending) ===== */
     function startCashierApp() {
       document.getElementById("mainContent").style.display = "block";
       document.querySelectorAll(".admin-only").forEach(el => el.style.display = "none");
@@ -933,7 +1009,7 @@
           id: "TR_" + baseId + "_1", type: "income", amount: cashAmt, date: todayWithTime,
           addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift,
           account: DAKH_SAFE, category: "", destination: "", transferFrom: "", transferTo: "",
-          description: `${baseNote} - كاش`, status: "active"
+          description: `${baseNote} - كاش`, status: "pending"
         });
       }
       if (instaAmt > 0) {
@@ -941,7 +1017,7 @@
           id: "TR_" + baseId + "_2", type: "income", amount: instaAmt, date: todayWithTime,
           addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift,
           account: "إنستا باي الأهلي", category: "", destination: "", transferFrom: "", transferTo: "",
-          description: `${baseNote} - إنستا باي`, status: "active"
+          description: `${baseNote} - إنستا باي`, status: "pending"
         });
       }
       if (visaAmt > 0) {
@@ -949,7 +1025,7 @@
           id: "TR_" + baseId + "_3", type: "income", amount: visaAmt, date: todayWithTime,
           addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift,
           account: "فيزا QNB", category: "", destination: "", transferFrom: "", transferTo: "",
-          description: `${baseNote} - فيزا QNB`, status: "active"
+          description: `${baseNote} - فيزا QNB`, status: "pending"
         });
       }
 
@@ -960,20 +1036,20 @@
           addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift,
           account: DAKH_SAFE, category: exp.cat, destination: exp.dest, transferFrom: "", transferTo: "",
           description: `${destText}مصروف شيفت (${currentSession.branch} - #${currentSession.shift})${notes ? ' - ' + notes : ''}`,
-          status: "active"
+          status: "pending"
         });
       });
 
       const cn = document.getElementById("cashierNotice");
       cn.className = "notice ok";
-      cn.textContent = currentLang === "ar" ? "⏳ جارٍ ترحيل الإيرادات والمصاريف إلى الإدارة والشيت..." : "⏳ Submitting shift closing & expenses...";
+      cn.textContent = currentLang === "ar" ? "⏳ جارٍ إرسال التقفيل للإدارة (بانتظار تأكيد الاستلام)..." : "⏳ Submitting shift closing for admin confirmation...";
 
       for (const item of itemsToSend) {
         entries.unshift(item);
         await fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: item }) });
       }
 
-      cn.textContent = currentLang === "ar" ? "✅ تم تقفيل الشيفت بنجاح وترحيل الإيرادات والمصاريف!" : "✅ Shift closed and synced successfully!";
+      cn.textContent = currentLang === "ar" ? "✅ تم إرسال تقفيل الشيفت بنجاح! سيُضاف للرصيد فور تأكيد الإدارة." : "✅ Shift closing sent! Balances update upon admin confirmation.";
       e.target.reset();
       document.getElementById("cashierExpensesList").innerHTML = "";
     });
@@ -1016,13 +1092,20 @@
       fillSelect(document.getElementById("transferFrom"), transferAccounts); fillSelect(document.getElementById("transferTo"), transferAccounts); 
     }
 
+    function isPendingStatus(status) {
+      return String(status || "").trim().toLowerCase() === "pending";
+    }
+    function isConfirmedStatus(status) {
+      return String(status || "").trim().toLowerCase().startsWith("confirmed");
+    }
+
     function computeBalances() {
       const balances = {}; transferAccounts.forEach(acc => balances[acc] = 0);
       balancesHistory.forEach(b => { if(b.status !== 'deleted') balances[b.account] = Number(b.amount); });
 
       const latestEntries = getLatestEntriesMap();
       Object.values(latestEntries).forEach(e => {
-        if (e.status === 'deleted' || (editingId && e.id === editingId)) return;
+        if (e.status === 'deleted' || isPendingStatus(e.status) || (editingId && e.id === editingId)) return;
         const amt = Number(e.amount);
         if (e.type === "income" && e.account in balances) balances[e.account] += amt;
         else if (e.type === "expense" && e.account in balances) balances[e.account] -= amt;
@@ -1111,8 +1194,17 @@
       let inc = 0, exp = 0;
 
       shown.forEach(item => {
-        if (!trashView) { if (item.type === "income") inc += Number(item.amount); if (item.type === "expense") exp += Number(item.amount); }
-        const row = document.createElement("tr"); const addCell = val => { const td = document.createElement("td"); td.textContent = val || "—"; row.appendChild(td); return td; };
+        const pending = isPendingStatus(item.status);
+        const confirmed = isConfirmedStatus(item.status);
+
+        if (!trashView && !pending) {
+          if (item.type === "income") inc += Number(item.amount);
+          if (item.type === "expense") exp += Number(item.amount);
+        }
+
+        const row = document.createElement("tr");
+        if (pending) row.className = "row-pending";
+        const addCell = val => { const td = document.createElement("td"); td.textContent = val || "—"; row.appendChild(td); return td; };
         
         addCell(item.date); addCell(item.branch); addCell(item.shift);
         addCell(`👤 ${item.addedBy}`);
@@ -1128,7 +1220,13 @@
         else if (item.type === "transfer") details = `${item.transferFrom} ➔ ${item.transferTo}`;
         
         const dCell = addCell(details);
-        if(item.status === 'edited') { dCell.innerHTML += ` <span class="edited-tag">${t("editedTag")}</span>`; }
+        if (pending) {
+          dCell.innerHTML += ` <span class="pending-tag">${t("pendingTag")}</span>`;
+        } else if (confirmed) {
+          dCell.innerHTML += ` <span class="confirmed-tag">${t("confirmedTag")}</span>`;
+        } else if (item.status === 'edited') {
+          dCell.innerHTML += ` <span class="edited-tag">${t("editedTag")}</span>`;
+        }
 
         const amtCell = addCell(money(item.amount)); amtCell.style.fontWeight = 'bold';
 
@@ -1138,6 +1236,18 @@
           restore.onclick = () => updateTransactionStatus(item, 'active');
           actionCell.appendChild(restore);
         } else {
+          if (pending) {
+            const confirmBtn = document.createElement("button");
+            confirmBtn.type = "button";
+            confirmBtn.className = "confirm-btn";
+            confirmBtn.textContent = t("confirmBtn");
+            confirmBtn.onclick = () => {
+              const confirmStatus = `confirmed (${currentUser.username} - ${nowTimeString()})`;
+              updateTransactionStatus(item, confirmStatus);
+            };
+            actionCell.appendChild(confirmBtn);
+          }
+
           const editBtn = document.createElement("button"); editBtn.type = "button"; editBtn.className = "edit"; editBtn.textContent = t("editBtn");
           editBtn.onclick = () => {
             editingId = item.id; typeInput.value = item.type; updateFields();
@@ -1173,7 +1283,10 @@
       if(newStatus === 'active' && item.status === 'deleted') updatedItem.status = 'edited';
       entries.unshift(updatedItem);
       render();
-      showNotice(currentLang === "ar" ? "تم التحديث وجار الإرسال للشيت..." : "Updating sheet...", "ok");
+      const msg = isConfirmedStatus(newStatus)
+        ? (currentLang === "ar" ? "✅ تم تأكيد الاستلام وتحديث رصيد الخزنة/الحساب!" : "✅ Receipt confirmed and balance updated!")
+        : (currentLang === "ar" ? "تم التحديث وجار الإرسال للشيت..." : "Updating sheet...");
+      showNotice(msg, "ok");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: updatedItem }) });
     }
 
@@ -1209,9 +1322,9 @@
     /* ===== الطباعة والتصدير ===== */
     document.getElementById("printBtn").addEventListener("click", () => window.print());
     document.getElementById("exportCsvBtn").addEventListener("click", () => {
-      let csv = "data:text/csv;charset=utf-8,\uFEFFالتاريخ والوقت,الفرع,الشيفت,النوع,بواسطة,المبلغ,الحساب,التصنيف,الوجهة,التفاصيل\r\n";
+      let csv = "data:text/csv;charset=utf-8,\uFEFFالتاريخ والوقت,الفرع,الشيفت,النوع,بواسطة,المبلغ,الحساب,التصنيف,الوجهة,التفاصيل,الحالة\r\n";
       getFilteredEntries().filter(e=>e.status!=='deleted').forEach(e => {
-        csv += `"${e.date}","${e.branch}","${e.shift}","${e.type}","${e.addedBy}","${e.amount}","${e.account||''}","${e.category||''}","${e.destination||''}","${e.description}"\r\n`;
+        csv += `"${e.date}","${e.branch}","${e.shift}","${e.type}","${e.addedBy}","${e.amount}","${e.account||''}","${e.category||''}","${e.destination||''}","${e.description}","${e.status}"\r\n`;
       });
       const link = document.createElement("a"); link.href = encodeURI(csv); link.download = `تقرير_${todayString()}.csv`; link.click();
     });
@@ -1223,7 +1336,7 @@
       const username = document.getElementById("newUserEmail").value.trim(), pass = document.getElementById("newUserPass").value.trim(), role = document.getElementById("newUserRole").value;
       const allowed = []; document.querySelectorAll("#branchCheckboxes input:checked").forEach(cb => allowed.push(cb.value));
       users.push({ username, pass, role, branches: allowed, reports: false });
-      renderUsers(); e.target.reset();
+      renderUsers(); populateLoginUsersDropdown(); e.target.reset();
       alert(currentLang === "ar" ? "تم الإضافة وجارِ الرفع للشيت!" : "User added & syncing!");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) });
     });
@@ -1251,7 +1364,7 @@
 
         if (currentUser && currentUser.username === user.username) {
           currentUser.pass = users[i].pass;
-          localStorage.setItem("dakhakhni-currentUser", JSON.stringify(currentUser));
+          sessionStorage.setItem("dakhakhni-currentUser", JSON.stringify(currentUser));
         }
 
         fetch(SHEET_URL, {
@@ -1264,7 +1377,7 @@
     };
 
     window.deleteUser = function(i) {
-      if(confirm(currentLang === "ar" ? "حذف المستخدم؟" : "Delete user?")) { users.splice(i,1); renderUsers(); fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) }); }
+      if(confirm(currentLang === "ar" ? "حذف المستخدم؟" : "Delete user?")) { users.splice(i,1); renderUsers(); populateLoginUsersDropdown(); fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) }); }
     }
 
     /* ===== الثيمات والخلفيات ===== */
