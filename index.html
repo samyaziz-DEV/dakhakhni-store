@@ -53,7 +53,6 @@
     * { box-sizing: border-box; }
     body { min-height: 100vh; margin: 0; color: var(--text); font-family: Tahoma, Arial, sans-serif; background-color: var(--page-color); background-image: var(--bg-image); background-size: var(--bg-size); background-attachment: fixed; animation: appear .5s ease both; position: relative; }
     
-    /* علامة مائية للوجو في خلفية الموقع بالكامل بمقاس متناسق */
     body::before {
       content: "";
       position: fixed;
@@ -91,7 +90,6 @@
 
     .auth-card { width: min(400px, 100%); padding: 35px 30px; background: var(--white); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); text-align: center; animation: pop .5s ease both; position: relative; }
     
-    /* مقاس اللوجو في شاشة الترحيب وتسجيل الدخول */
     .auth-logo {
       width: 106px;
       height: 118px;
@@ -117,7 +115,6 @@
     .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
     .brand, .top-actions { display: flex; align-items: center; gap: 14px; }
     
-    /* مقاس اللوجو في الشريط العلوي مكان حرف د */
     .brand-mark {
       width: 62px;
       height: 68px;
@@ -179,6 +176,7 @@
     .tag-expense { color: var(--red); background: var(--red-soft); }
     .tag-transfer { color: var(--purple); background: var(--purple-soft); }
     
+    /* شارات وزرار تأكيد الاستلام (Approve) */
     .pending-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; color: var(--warn-text); background: var(--warn-bg); font-size: 10px; font-weight: 700; border: 1px solid color-mix(in srgb, var(--warn-text) 30%, transparent); }
     .confirmed-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; color: var(--green); background: var(--green-soft); font-size: 10px; font-weight: 700; }
     .confirm-btn { padding: 7px 11px; background: var(--green); color: #fff; font-weight: 700; margin-inline-end: 6px; }
@@ -204,6 +202,19 @@
     .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: none; }
     .dot-green { background: var(--green); box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 25%, transparent); }
     .dot-red { background: var(--red); box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 25%, transparent); }
+
+    /* بطاقات أداء الفروع ونسب المصروفات */
+    .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 18px; }
+    .branch-stat-card { padding: 14px; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-soft); display: flex; flex-direction: column; gap: 6px; }
+    .branch-stat-title { font-size: 13px; font-weight: 700; color: var(--blue); display: flex; justify-content: space-between; align-items: center; }
+    .branch-stat-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+    .branch-stat-net { border-top: 1px dashed var(--line); padding-top: 6px; margin-top: 2px; display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; }
+
+    .cat-bars { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+    .cat-bar-item { padding: 12px 14px; background: var(--soft); border: 1px solid var(--line); border-radius: 12px; }
+    .cat-bar-head { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+    .cat-bar-track { height: 8px; background: var(--btn-soft); border-radius: 8px; overflow: hidden; }
+    .cat-bar-fill { height: 100%; background: var(--red); border-radius: 8px; transition: width .4s ease; }
 
     .opening-editor { margin-top: 16px; padding: 16px; background: var(--soft); border: 1px dashed var(--input-line); border-radius: 14px; }
     .opening-editor[hidden] { display: none; }
@@ -298,7 +309,7 @@
   <!-- شاشة تسجيل الدخول -->
   <div class="overlay-screen" id="loginScreen" hidden>
     <div class="auth-card">
-      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNY"></div>
+      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNNY"></div>
       <h2 data-i18n="loginTitle">تسجيل الدخول</h2>
       <form class="auth-form" id="loginForm">
         <label>
@@ -362,14 +373,16 @@
         <button class="secondary" id="resetColor" type="button" data-i18n="defaultColor" data-emoji="↩️">الافتراضي</button>
       </div>
       <div class="toolbar-actions">
+        <button class="secondary" id="analyticsToggleBtn" type="button" data-i18n="analyticsBtn" data-emoji="📊">ملخص الفروع والمصاريف</button>
         <button class="secondary" id="settingsMenuBtn" type="button" data-i18n="settingsBtn" data-emoji="⚙️">الإعدادات والمستخدمين</button>
-        <button class="secondary" id="exportCsvBtn" type="button" data-i18n="exportCSV" data-emoji="📊">تصدير CSV</button>
+        <button class="secondary" id="exportCsvBtn" type="button" data-i18n="exportCSV" data-emoji="📥">تصدير CSV</button>
         <button class="secondary" id="printBtn" type="button" data-i18n="printBtn" data-emoji="🖨️">طباعة</button>
         <button class="secondary" id="styleBtn" type="button" data-i18n="styleBtn" data-emoji="🎭">تغيير الشكل</button>
         <button class="secondary" id="showTrash" type="button"></button>
       </div>
     </div>
 
+    <!-- واجهة الكاشير -->
     <section class="panel cashier-box" id="cashierPanel" hidden>
       <div class="panel-heading">
         <h2 data-i18n="closeShiftTitle" data-emoji="🧾">تقفيل إيراد ومصاريف الشيفت</h2>
@@ -416,6 +429,7 @@
       </form>
     </section>
 
+    <!-- واجهة الأدمن -->
     <div id="adminWorkspace" class="admin-only">
       <section class="panel settings-panel" id="settingsPanel" hidden>
         <div class="panel-heading"><h2 data-i18n="usersMgmtTitle" data-emoji="👥">إدارة المستخدمين والصلاحيات</h2></div>
@@ -445,6 +459,17 @@
       <section class="panel style-panel" id="stylePanel" hidden>
         <div class="chip-group"><strong data-i18n="themeTitle" data-emoji="🎨">الألوان والتصميم</strong><div class="chips" id="themeChips"></div></div>
         <div class="chip-group"><strong data-i18n="bgTitle" data-emoji="🖼️">شكل الخلفية</strong><div class="chips" id="bgChips"></div></div>
+      </section>
+
+      <!-- لوحة ملخص أداء الفروع ونسب المصروفات -->
+      <section class="panel" id="analyticsPanel">
+        <div class="panel-heading">
+          <h2 data-i18n="branchPerfTitle" data-emoji="🏬">ملخص أداء الفروع ونسب المصروفات (المؤكدة)</h2>
+          <span class="hint" data-i18n="analyticsHint">يتفاعل تلقائياً مع فلاتر التاريخ</span>
+        </div>
+        <div class="analytics-grid" id="branchStatsGrid"></div>
+        <div class="panel-heading" style="margin-top: 10px;"><h2 data-i18n="expenseDistTitle" data-emoji="📊">توزيع المصروفات حسب البند</h2></div>
+        <div class="cat-bars" id="expenseCategoryBars"></div>
       </section>
 
       <section class="panel" id="balancesPanel">
@@ -501,6 +526,7 @@
           <label><span data-i18n="branchCol">الفرع</span><select id="filterBranch"><option value="">الكل</option></select></label>
           <label><span data-i18n="shiftCol">الشيفت</span><input id="filterShift" type="text" autocomplete="off" placeholder="..."></label>
           <label><span data-i18n="typeCol">النوع</span><select id="filterType"><option value="" data-i18n="allOption">الكل</option><option value="income" data-i18n="typeIncome">إيراد</option><option value="expense" data-i18n="typeExpense">مصروف</option><option value="transfer" data-i18n="typeTransfer">تحويل</option></select></label>
+          <label><span data-i18n="approvalFilterLabel">حالة الاستلام</span><select id="filterApproval"><option value="" data-i18n="allOption">الكل</option><option value="pending" data-i18n="pendingFilterOpt">⏳ بانتظار الاستلام فقط</option><option value="confirmed" data-i18n="confirmedFilterOpt">✅ المؤكدة فقط</option></select></label>
           <label><span data-i18n="fromDateLabel">من</span><input id="filterFrom" type="date"></label>
           <label><span data-i18n="toDateLabel">إلى</span><input id="filterTo" type="date"></label>
           <label style="align-self:end"><button class="secondary" id="clearFilters" type="button" data-i18n="clearFiltersBtn" data-emoji="🧼">مسح الفلاتر</button></label>
@@ -587,10 +613,15 @@
         logout: "تسجيل خروج",
         pageColor: "لون الصفحة",
         defaultColor: "الافتراضي",
+        analyticsBtn: "ملخص الفروع والمصاريف",
         settingsBtn: "الإعدادات والمستخدمين",
         exportCSV: "تصدير CSV",
         printBtn: "طباعة",
         styleBtn: "تغيير الشكل",
+        branchPerfTitle: "ملخص أداء الفروع ونسب المصروفات (المؤكدة)",
+        analyticsHint: "يتفاعل تلقائياً مع فلاتر التاريخ",
+        expenseDistTitle: "توزيع المصروفات حسب البند",
+        noExpensesChart: "لا توجد مصروفات مؤكدة في الفترة المحددة.",
         closeShiftTitle: "تقفيل إيراد ومصاريف الشيفت",
         cashTotal: "إجمالي الكاش (نقدي)",
         cashDestHint: "يُعلّق لحين استلام الإدارة وترحيله إلى: الخزنة الرئيسية - الدخاخني",
@@ -646,6 +677,9 @@
         saveEditBtn: "حفظ التعديل",
         filterTitle: "تصفية الحركات",
         allOption: "الكل",
+        approvalFilterLabel: "حالة الاستلام",
+        pendingFilterOpt: "⏳ بانتظار الاستلام فقط",
+        confirmedFilterOpt: "✅ المؤكدة فقط",
         fromDateLabel: "من",
         toDateLabel: "إلى",
         clearFiltersBtn: "مسح الفلاتر",
@@ -689,10 +723,15 @@
         logout: "Logout",
         pageColor: "Page Color",
         defaultColor: "Default",
+        analyticsBtn: "Branches & Expenses Summary",
         settingsBtn: "Settings & Users",
         exportCSV: "Export CSV",
         printBtn: "Print",
         styleBtn: "Appearance",
+        branchPerfTitle: "Branch Performance & Expense Ratios (Confirmed)",
+        analyticsHint: "Auto-updates with date filters",
+        expenseDistTitle: "Expenses by Category",
+        noExpensesChart: "No confirmed expenses in the selected period.",
         closeShiftTitle: "Shift Revenue & Expenses Closing",
         cashTotal: "Total Cash",
         cashDestHint: "Pending admin confirmation to post to: Main Safe - Al-Dakhakhni",
@@ -748,6 +787,9 @@
         saveEditBtn: "Save Changes",
         filterTitle: "Filter Transactions",
         allOption: "All",
+        approvalFilterLabel: "Receipt Status",
+        pendingFilterOpt: "⏳ Pending Receipt Only",
+        confirmedFilterOpt: "✅ Confirmed Only",
         fromDateLabel: "From",
         toDateLabel: "To",
         clearFiltersBtn: "Clear Filters",
@@ -961,6 +1003,7 @@
       return new Date().toLocaleTimeString("en-US", { timeZone: "Africa/Cairo", hour: "2-digit", minute: "2-digit", hour12: true });
     }
 
+    /* ===== واجهة الكاشير (ترسل بحالة pending) ===== */
     function startCashierApp() {
       document.getElementById("mainContent").style.display = "block";
       document.querySelectorAll(".admin-only").forEach(el => el.style.display = "none");
@@ -1075,6 +1118,7 @@
       document.getElementById("cashierExpensesList").innerHTML = "";
     });
 
+    /* ===== واجهة الأدمن ===== */
     function startAdminApp() {
       document.getElementById("mainContent").style.display = "block";
       document.getElementById("cashierPanel").hidden = true;
@@ -1154,6 +1198,61 @@
       });
     }
 
+    function renderAnalytics(confirmedList) {
+      const bGrid = document.getElementById("branchStatsGrid");
+      const cBars = document.getElementById("expenseCategoryBars");
+      if (!bGrid || !cBars) return;
+
+      const bStats = {};
+      branches.forEach(b => bStats[b] = { income: 0, expense: 0 });
+      const catStats = {};
+      let totalExp = 0;
+
+      confirmedList.forEach(e => {
+        const amt = Number(e.amount) || 0;
+        if (e.type === "income" && e.branch) {
+          if (!bStats[e.branch]) bStats[e.branch] = { income: 0, expense: 0 };
+          bStats[e.branch].income += amt;
+        } else if (e.type === "expense") {
+          if (e.branch && bStats[e.branch]) bStats[e.branch].expense += amt;
+          const cat = e.category || "أخرى";
+          catStats[cat] = (catStats[cat] || 0) + amt;
+          totalExp += amt;
+        }
+      });
+
+      bGrid.innerHTML = "";
+      Object.keys(bStats).forEach(b => {
+        const inc = bStats[b].income;
+        const exp = bStats[b].expense;
+        const net = inc - exp;
+        bGrid.innerHTML += `
+          <div class="branch-stat-card">
+            <div class="branch-stat-title"><span>🏬 ${b}</span></div>
+            <div class="branch-stat-row"><span>${t("totalIncome")}</span><span class="green">${money(inc)}</span></div>
+            <div class="branch-stat-row"><span>${t("totalExpenses")}</span><span class="red">${money(exp)}</span></div>
+            <div class="branch-stat-net"><span>${t("netTotal")}</span><span class="${net >= 0 ? 'green' : 'red'}">${money(net)}</span></div>
+          </div>
+        `;
+      });
+
+      cBars.innerHTML = "";
+      const sortedCats = Object.entries(catStats).sort((a, b) => b[1] - a[1]);
+      if (sortedCats.length === 0) {
+        cBars.innerHTML = `<div class="hint">${t("noExpensesChart")}</div>`;
+      } else {
+        sortedCats.forEach(([cat, amt]) => {
+          const pct = totalExp > 0 ? ((amt / totalExp) * 100).toFixed(1) : 0;
+          cBars.innerHTML += `
+            <div class="cat-bar-item">
+              <div class="cat-bar-head"><span>${cat}</span><span>${money(amt)} (${pct}%)</span></div>
+              <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${pct}%"></div></div>
+            </div>
+          `;
+        });
+      }
+    }
+
     document.getElementById("editOpeningBtn").addEventListener("click", () => {
       const container = document.getElementById("openingInputs"); container.innerHTML = "";
       const latestOpenings = {};
@@ -1196,12 +1295,18 @@
 
     function getFilteredEntries() {
       const list = Object.values(getLatestEntriesMap());
-      const b = document.getElementById("filterBranch").value, s = document.getElementById("filterShift").value.trim(), ty = document.getElementById("filterType").value;
-      const f = document.getElementById("filterFrom").value, to = document.getElementById("filterTo").value;
+      const b = document.getElementById("filterBranch").value;
+      const s = document.getElementById("filterShift").value.trim();
+      const ty = document.getElementById("filterType").value;
+      const appFilter = document.getElementById("filterApproval").value;
+      const f = document.getElementById("filterFrom").value;
+      const to = document.getElementById("filterTo").value;
       return list.filter(item => {
         const pureDate = item.date ? item.date.toString().split(" ")[0] : "";
+        const isPend = isPendingStatus(item.status);
+        const passApproval = !appFilter || (appFilter === "pending" && isPend) || (appFilter === "confirmed" && !isPend);
         return (!b || item.branch === b) && (!s || String(item.shift).trim() === s) && (!ty || item.type === ty) &&
-               (!f || pureDate >= f) && (!to || pureDate <= to);
+               passApproval && (!f || pureDate >= f) && (!to || pureDate <= to);
       });
     }
 
@@ -1212,12 +1317,14 @@
       
       const tbody = document.getElementById("transactions"); tbody.innerHTML = "";
       let inc = 0, exp = 0;
+      const confirmedForAnalytics = [];
 
       shown.forEach(item => {
         const pending = isPendingStatus(item.status);
         const confirmed = isConfirmedStatus(item.status);
 
         if (!trashView && !pending) {
+          confirmedForAnalytics.push(item);
           if (item.type === "income") inc += Number(item.amount);
           if (item.type === "expense") exp += Number(item.amount);
         }
@@ -1293,6 +1400,7 @@
       document.getElementById("tableTitle").textContent = trashView ? t("trashTitle") : t("txLogTitle");
       document.getElementById("showTrash").innerHTML = trashView ? t("backToLog") : `🗑️ ${t("trashTitle")} <span class="trash-count">${filtered.filter(e=>e.status==='deleted').length}</span>`;
       
+      renderAnalytics(confirmedForAnalytics);
       renderBalances();
     }
 
@@ -1304,7 +1412,7 @@
       entries.unshift(updatedItem);
       render();
       const msg = isConfirmedStatus(newStatus)
-        ? (currentLang === "ar" ? "✅ تم تأكيد الاستلام وتحديث رصيد الخزنة/الحساب!" : "✅ Receipt confirmed and balance updated!")
+        ? (currentLang === "ar" ? "✅ تم تأكيد الاستلام وتحديث رصيد الخزنة/الحساب والشيت!" : "✅ Receipt confirmed and balance updated!")
         : (currentLang === "ar" ? "تم التحديث وجار الإرسال للشيت..." : "Updating sheet...");
       showNotice(msg, "ok");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: updatedItem }) });
@@ -1335,10 +1443,11 @@
 
     document.getElementById("cancelEdit").addEventListener("click", () => { editingId = null; updateSubmitLabel(); form.reset(); updateFields(); });
     document.getElementById("showTrash").addEventListener("click", () => { trashView = !trashView; render(); });
-    ["filterBranch", "filterShift", "filterType", "filterFrom", "filterTo"].forEach(id => document.getElementById(id).addEventListener("input", render));
-    document.getElementById("clearFilters").addEventListener("click", () => { ["filterBranch", "filterShift", "filterType", "filterFrom", "filterTo"].forEach(id => document.getElementById(id).value = ""); render(); });
+    ["filterBranch", "filterShift", "filterType", "filterApproval", "filterFrom", "filterTo"].forEach(id => document.getElementById(id).addEventListener("input", render));
+    document.getElementById("clearFilters").addEventListener("click", () => { ["filterBranch", "filterShift", "filterType", "filterApproval", "filterFrom", "filterTo"].forEach(id => document.getElementById(id).value = ""); render(); });
     typeInput.addEventListener("change", updateFields);
 
+    document.getElementById("analyticsToggleBtn").addEventListener("click", () => { const p = document.getElementById("analyticsPanel"); p.hidden = !p.hidden; });
     document.getElementById("printBtn").addEventListener("click", () => window.print());
     document.getElementById("exportCsvBtn").addEventListener("click", () => {
       let csv = "data:text/csv;charset=utf-8,\uFEFFالتاريخ والوقت,الفرع,الشيفت,النوع,بواسطة,المبلغ,الحساب,التصنيف,الوجهة,التفاصيل,الحالة\r\n";
