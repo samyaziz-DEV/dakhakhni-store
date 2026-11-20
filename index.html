@@ -53,7 +53,7 @@
     * { box-sizing: border-box; }
     body { min-height: 100vh; margin: 0; color: var(--text); font-family: Tahoma, Arial, sans-serif; background-color: var(--page-color); background-image: var(--bg-image); background-size: var(--bg-size); background-attachment: fixed; animation: appear .5s ease both; position: relative; }
     
-    /* علامة مائية للوجو في خلفية الموقع بالكامل */
+    /* علامة مائية للوجو في خلفية الموقع بالكامل بمقاس متناسق */
     body::before {
       content: "";
       position: fixed;
@@ -61,10 +61,11 @@
       background-image: url("logo.png");
       background-repeat: no-repeat;
       background-position: center center;
-      background-size: min(480px, 75vw);
-      opacity: 0.06;
+      background-size: min(440px, 72vw);
+      opacity: 0.07;
       pointer-events: none;
       z-index: 0;
+      border-radius: 24px;
     }
     main, .topbar, footer { position: relative; z-index: 1; }
 
@@ -89,19 +90,49 @@
     html[dir="ltr"] .splash-bar span { transform-origin: left center; }
 
     .auth-card { width: min(400px, 100%); padding: 35px 30px; background: var(--white); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); text-align: center; animation: pop .5s ease both; position: relative; }
-    .auth-logo { width: 78px; height: 78px; margin: 0 auto 20px; display: grid; place-items: center; border-radius: 20px; color: #fff; font-size: 32px; font-weight: 700; background: var(--top-gradient); box-shadow: 0 12px 26px color-mix(in srgb, var(--blue) 45%, transparent); padding: 8px; overflow: hidden; }
+    
+    /* مقاس اللوجو في شاشة الترحيب وتسجيل الدخول */
+    .auth-logo {
+      width: 106px;
+      height: 118px;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 20px;
+      background: #ffffff;
+      border: 2px solid color-mix(in srgb, var(--blue) 35%, #e2e8f0);
+      box-shadow: 0 12px 26px #00000026;
+      padding: 6px;
+      overflow: hidden;
+    }
+    .auth-logo img { width: 100%; height: 100%; object-fit: contain; }
+
     .auth-card h2 { font-size: 22px; margin-bottom: 20px; color: var(--text); }
     .auth-form { text-align: start; display: flex; flex-direction: column; gap: 15px; }
     .loader { width: 40px; height: 40px; border: 4px solid var(--btn-soft); border-top-color: var(--blue); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
 
     .shift-user-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; margin-bottom: 16px; border-radius: 20px; background: var(--blue-soft); color: var(--blue); font-size: 12px; font-weight: 700; }
 
-    .topbar { color: white; padding: 20px max(4%, calc((100% - 1180px) / 2)); background: var(--top-gradient); background-size: 180% 180%; box-shadow: 0 10px 30px #14213d55; }
+    .topbar { color: white; padding: 14px max(4%, calc((100% - 1180px) / 2)); background: var(--top-gradient); background-size: 180% 180%; box-shadow: 0 10px 30px #14213d55; }
     .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
-    .brand, .top-actions { display: flex; align-items: center; gap: 13px; }
-    .brand-mark { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 14px; background: #ffffff22; overflow: hidden; padding: 4px; }
-    .brand-mark img, .auth-logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
-    h1 { margin: 0 0 6px; font-size: 22px; }
+    .brand, .top-actions { display: flex; align-items: center; gap: 14px; }
+    
+    /* مقاس اللوجو في الشريط العلوي مكان حرف د */
+    .brand-mark {
+      width: 62px;
+      height: 68px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 4px 14px #00000035;
+      overflow: hidden;
+      padding: 4px;
+      flex-shrink: 0;
+    }
+    .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+
+    h1 { margin: 0 0 4px; font-size: 22px; }
     .subtitle { margin: 0; font-size: 13px; color: #d5def4; }
     .top-actions { flex-wrap: wrap; justify-content: flex-end; }
     .language-select { width: auto; margin: 0; padding: 9px 12px; }
@@ -148,7 +179,6 @@
     .tag-expense { color: var(--red); background: var(--red-soft); }
     .tag-transfer { color: var(--purple); background: var(--purple-soft); }
     
-    /* شارات وزرار تأكيد الاستلام */
     .pending-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; color: var(--warn-text); background: var(--warn-bg); font-size: 10px; font-weight: 700; border: 1px solid color-mix(in srgb, var(--warn-text) 30%, transparent); }
     .confirmed-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; color: var(--green); background: var(--green-soft); font-size: 10px; font-weight: 700; }
     .confirm-btn { padding: 7px 11px; background: var(--green); color: #fff; font-weight: 700; margin-inline-end: 6px; }
@@ -192,7 +222,6 @@
     .checkbox-group label { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; background: var(--soft); padding: 5px 10px; border-radius: 8px; border: 1px solid var(--line); cursor: pointer; }
     .checkbox-group input { width: auto; margin: 0; }
 
-    /* واجهة تقفيل الكاشير ومصاريف الشيفت */
     .cashier-box { max-width: 620px; margin: 20px auto; }
     .cashier-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 20px; background: var(--blue-soft); color: var(--blue); font-size: 13px; font-weight: 700; margin-bottom: 18px; }
     .cashier-fields { display: flex; flex-direction: column; gap: 16px; }
@@ -214,8 +243,9 @@
     @media print {
       body { background: #fff !important; color: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       body::before {
-        opacity: 0.10 !important;
-        background-size: 420px !important;
+        opacity: 0.12 !important;
+        background-size: 400px !important;
+        mix-blend-mode: multiply;
       }
       .overlay-screen, .toolbar, .filters, #transactionFormPanel, #settingsPanel, #stylePanel, #balancesPanel, .topbar button, .topbar select, footer { display: none !important; }
       main { display: block !important; width: 100% !important; margin: 0 !important; }
@@ -247,7 +277,7 @@
   <!-- شاشة الترحيب -->
   <div class="overlay-screen splash-screen" id="splashScreen">
     <div class="splash-card">
-      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNNY"></div>
+      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNY"></div>
       <h2 data-i18n="splashWelcome">أهلاً بك في نظام الدخاخني ستور</h2>
       <p data-i18n="splashDesc">نظام الإدارة المالية المتكامل للفروع والخزن ومتابعة الإيرادات والمصروفات لحظياً عبر السحابة.</p>
       <p class="powered-by">✨ Powered by <strong>Samy Aziz</strong></p>
@@ -265,10 +295,10 @@
     </div>
   </div>
 
-  <!-- شاشة تسجيل الدخول (بقائمة منسدلة لأسماء المستخدمين) -->
+  <!-- شاشة تسجيل الدخول -->
   <div class="overlay-screen" id="loginScreen" hidden>
     <div class="auth-card">
-      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNNY"></div>
+      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNY"></div>
       <h2 data-i18n="loginTitle">تسجيل الدخول</h2>
       <form class="auth-form" id="loginForm">
         <label>
@@ -285,7 +315,7 @@
     </div>
   </div>
 
-  <!-- شاشة بداية الشيفت (للكاشير فقط + زر خروج للرجوع لشاشة الدخول) -->
+  <!-- شاشة بداية الشيفت -->
   <div class="overlay-screen" id="shiftScreen" hidden>
     <div class="auth-card">
       <h2 data-i18n="shiftDataTitle" data-emoji="⏱️">بيانات الشيفت</h2>
@@ -308,7 +338,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <div class="brand-mark"><img src="logo.png" alt="EL-DKHAKHNNY"></div>
+        <div class="brand-mark"><img src="logo.png" alt="EL-DKHAKHNY"></div>
         <div>
           <h1 data-i18n="storeTitle">الدخاخني ستور</h1>
           <p class="subtitle" id="userSubtitle" data-i18n="dashboardSub">لوحة الإدارة المالية</p>
@@ -325,7 +355,6 @@
   </header>
 
   <main id="mainContent">
-    <!-- شريط الأدوات (للأدمن فقط) -->
     <div class="toolbar admin-only">
       <div class="color-control">
         <label data-i18n="pageColor" data-emoji="🎨">لون الصفحة</label>
@@ -341,7 +370,6 @@
       </div>
     </div>
 
-    <!-- واجهة الكاشير المعزولة (تقفيل إيراد ومصاريف الشيفت) -->
     <section class="panel cashier-box" id="cashierPanel" hidden>
       <div class="panel-heading">
         <h2 data-i18n="closeShiftTitle" data-emoji="🧾">تقفيل إيراد ومصاريف الشيفت</h2>
@@ -369,7 +397,6 @@
           <input id="cashierVisa" type="number" min="0" step="0.01" placeholder="0.00">
         </div>
 
-        <!-- قسم مصاريف الشيفت المتعددة -->
         <div class="expense-section-box">
           <div class="expense-section-header">
             <strong data-i18n="shiftExpensesTitle" data-emoji="🔴">مصاريف الشيفت (إن وجدت)</strong>
@@ -389,7 +416,6 @@
       </form>
     </section>
 
-    <!-- واجهة الأدمن / المالك الكاملة -->
     <div id="adminWorkspace" class="admin-only">
       <section class="panel settings-panel" id="settingsPanel" hidden>
         <div class="panel-heading"><h2 data-i18n="usersMgmtTitle" data-emoji="👥">إدارة المستخدمين والصلاحيات</h2></div>
@@ -754,7 +780,6 @@
     let editingId = null;
     let currentLang = localStorage.getItem("dakhakhni-lang") || "ar";
 
-    // مسح أي جلسة قديمة من localStorage والاعتماد على sessionStorage حتى تُغلق الجلسة عند إغلاق التاب
     localStorage.removeItem("dakhakhni-currentUser");
     localStorage.removeItem("dakhakhni-session");
     let currentUser = JSON.parse(sessionStorage.getItem("dakhakhni-currentUser")) || null;
@@ -811,7 +836,6 @@
 
     document.getElementById("languageSelect").addEventListener("change", (e) => applyLanguage(e.target.value));
 
-    /* ===== شاشة الترحيب (Splash Screen) ===== */
     const splashScreen = document.getElementById("splashScreen");
     let dataLoaded = false;
 
@@ -825,7 +849,6 @@
     document.getElementById("splashEnterBtn").addEventListener("click", dismissSplash);
     setTimeout(dismissSplash, 3500);
 
-    /* ===== تحميل البيانات والمزامنة ===== */
     window.addEventListener('DOMContentLoaded', async () => {
       applyLanguage(currentLang);
       try {
@@ -930,7 +953,6 @@
     document.getElementById("logoutBtn").addEventListener("click", logout);
     document.getElementById("shiftLogoutBtn").addEventListener("click", logout);
 
-    /* ===== دوال التاريخ والوقت بتوقيت مصر ===== */
     function todayString() {
       const now = new Date();
       return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
@@ -939,7 +961,6 @@
       return new Date().toLocaleTimeString("en-US", { timeZone: "Africa/Cairo", hour: "2-digit", minute: "2-digit", hour12: true });
     }
 
-    /* ===== واجهة الكاشير المعزولة (ترسل بحالة pending) ===== */
     function startCashierApp() {
       document.getElementById("mainContent").style.display = "block";
       document.querySelectorAll(".admin-only").forEach(el => el.style.display = "none");
@@ -1054,7 +1075,6 @@
       document.getElementById("cashierExpensesList").innerHTML = "";
     });
 
-    /* ===== واجهة الأدمن الكاملة ===== */
     function startAdminApp() {
       document.getElementById("mainContent").style.display = "block";
       document.getElementById("cashierPanel").hidden = true;
@@ -1319,7 +1339,6 @@
     document.getElementById("clearFilters").addEventListener("click", () => { ["filterBranch", "filterShift", "filterType", "filterFrom", "filterTo"].forEach(id => document.getElementById(id).value = ""); render(); });
     typeInput.addEventListener("change", updateFields);
 
-    /* ===== الطباعة والتصدير ===== */
     document.getElementById("printBtn").addEventListener("click", () => window.print());
     document.getElementById("exportCsvBtn").addEventListener("click", () => {
       let csv = "data:text/csv;charset=utf-8,\uFEFFالتاريخ والوقت,الفرع,الشيفت,النوع,بواسطة,المبلغ,الحساب,التصنيف,الوجهة,التفاصيل,الحالة\r\n";
@@ -1329,7 +1348,6 @@
       const link = document.createElement("a"); link.href = encodeURI(csv); link.download = `تقرير_${todayString()}.csv`; link.click();
     });
 
-    /* ===== إدارة المستخدمين وتعديل كلمات المرور ===== */
     document.getElementById("settingsMenuBtn").addEventListener("click", () => { const p = document.getElementById("settingsPanel"); p.hidden = !p.hidden; });
     document.getElementById("addUserForm").addEventListener("submit", (e) => {
       e.preventDefault();
@@ -1380,7 +1398,6 @@
       if(confirm(currentLang === "ar" ? "حذف المستخدم؟" : "Delete user?")) { users.splice(i,1); renderUsers(); populateLoginUsersDropdown(); fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) }); }
     }
 
-    /* ===== الثيمات والخلفيات ===== */
     function renderStyleChips() {
       const themeBox = document.getElementById("themeChips"); themeBox.innerHTML = "";
       themes.forEach(th => {
