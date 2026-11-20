@@ -176,7 +176,6 @@
     .tag-expense { color: var(--red); background: var(--red-soft); }
     .tag-transfer { color: var(--purple); background: var(--purple-soft); }
     
-    /* شارات وزرار تأكيد الاستلام (Approve) */
     .pending-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; color: var(--warn-text); background: var(--warn-bg); font-size: 10px; font-weight: 700; border: 1px solid color-mix(in srgb, var(--warn-text) 30%, transparent); }
     .confirmed-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; color: var(--green); background: var(--green-soft); font-size: 10px; font-weight: 700; }
     .confirm-btn { padding: 7px 11px; background: var(--green); color: #fff; font-weight: 700; margin-inline-end: 6px; }
@@ -203,7 +202,6 @@
     .dot-green { background: var(--green); box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 25%, transparent); }
     .dot-red { background: var(--red); box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 25%, transparent); }
 
-    /* بطاقات أداء الفروع ونسب المصروفات */
     .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 18px; }
     .branch-stat-card { padding: 14px; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-soft); display: flex; flex-direction: column; gap: 6px; }
     .branch-stat-title { font-size: 13px; font-weight: 700; color: var(--blue); display: flex; justify-content: space-between; align-items: center; }
@@ -382,7 +380,7 @@
       </div>
     </div>
 
-    <!-- واجهة الكاشير -->
+    <!-- واجهة الكاشير (يتم تسجيل خروجه تلقائياً فور حفظ التقفيل) -->
     <section class="panel cashier-box" id="cashierPanel" hidden>
       <div class="panel-heading">
         <h2 data-i18n="closeShiftTitle" data-emoji="🧾">تقفيل إيراد ومصاريف الشيفت</h2>
@@ -424,7 +422,7 @@
           <input id="cashierNotes" type="text" data-i18n-placeholder="notesPlaceholder" placeholder="أي ملاحظات تخص التقفيل...">
         </label>
 
-        <button class="primary" type="submit" style="width: 100%; padding: 14px; font-size: 15px;" data-i18n="saveShiftBtn" data-emoji="✅">حفظ وإرسال تقفيل الشيفت للإدارة</button>
+        <button class="primary" id="cashierSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px;" data-i18n="saveShiftBtn" data-emoji="✅">حفظ وإرسال تقفيل الشيفت للإدارة</button>
         <div id="cashierNotice" class="notice" role="status"></div>
       </form>
     </section>
@@ -461,7 +459,6 @@
         <div class="chip-group"><strong data-i18n="bgTitle" data-emoji="🖼️">شكل الخلفية</strong><div class="chips" id="bgChips"></div></div>
       </section>
 
-      <!-- لوحة ملخص أداء الفروع ونسب المصروفات -->
       <section class="panel" id="analyticsPanel">
         <div class="panel-heading">
           <h2 data-i18n="branchPerfTitle" data-emoji="🏬">ملخص أداء الفروع ونسب المصروفات (المؤكدة)</h2>
@@ -953,6 +950,12 @@
         currentUser = user;
         sessionStorage.setItem("dakhakhni-currentUser", JSON.stringify(currentUser));
         document.getElementById("loginScreen").hidden = true;
+
+        // تسجيل عملية الدخول في جوجل شيت للرسم البياني للموظفين
+        fetch(SHEET_URL, {
+          method: "POST",
+          body: JSON.stringify({ action: "logLogin", username: user.username, role: user.role })
+        });
         
         if (user.role === "admin") {
           startAdminApp();
@@ -985,10 +988,16 @@
       localStorage.removeItem("dakhakhni-currentUser");
       localStorage.removeItem("dakhakhni-session");
       document.getElementById("mainContent").style.display = "none";
+      document.getElementById("cashierPanel").hidden = true;
       document.getElementById("shiftScreen").hidden = true;
       document.getElementById("loginNotice").style.display = "none";
       document.getElementById("loginForm").reset();
       document.getElementById("shiftForm").reset();
+      document.getElementById("cashierCloseForm").reset();
+      document.getElementById("cashierExpensesList").innerHTML = "";
+      document.getElementById("cashierNotice").style.display = "none";
+      const submitBtn = document.getElementById("cashierSubmitBtn");
+      if (submitBtn) submitBtn.disabled = false;
       populateLoginUsersDropdown();
       document.getElementById("loginScreen").hidden = false;
     }
@@ -1003,7 +1012,7 @@
       return new Date().toLocaleTimeString("en-US", { timeZone: "Africa/Cairo", hour: "2-digit", minute: "2-digit", hour12: true });
     }
 
-    /* ===== واجهة الكاشير (ترسل بحالة pending) ===== */
+    /* ===== واجهة الكاشير (تُغلق وتخرج تلقائياً بعد الحفظ) ===== */
     function startCashierApp() {
       document.getElementById("mainContent").style.display = "block";
       document.querySelectorAll(".admin-only").forEach(el => el.style.display = "none");
@@ -1040,6 +1049,7 @@
 
     document.getElementById("cashierCloseForm").addEventListener("submit", async (e) => {
       e.preventDefault();
+      const submitBtn = document.getElementById("cashierSubmitBtn");
       const cashAmt = Number(document.getElementById("cashierCash").value) || 0;
       const instaAmt = Number(document.getElementById("cashierInstapay").value) || 0;
       const visaAmt = Number(document.getElementById("cashierVisa").value) || 0;
@@ -1059,9 +1069,12 @@
       if (cashAmt <= 0 && instaAmt <= 0 && visaAmt <= 0 && validExpenses.length === 0) {
         const cn = document.getElementById("cashierNotice");
         cn.className = "notice error";
+        cn.style.display = "block";
         cn.textContent = currentLang === "ar" ? "يرجى إدخال مبلغ إيراد أو مصروف واحد على الأقل." : "Please enter at least one revenue or expense amount.";
         return;
       }
+
+      submitBtn.disabled = true;
 
       const todayWithTime = `${todayString()} | ${nowTimeString()}`;
       const baseNote = notes ? `تقفيل شيفت (${notes})` : "تقفيل إيراد الشيفت";
@@ -1106,16 +1119,22 @@
 
       const cn = document.getElementById("cashierNotice");
       cn.className = "notice ok";
-      cn.textContent = currentLang === "ar" ? "⏳ جارٍ إرسال التقفيل للإدارة (بانتظار تأكيد الاستلام)..." : "⏳ Submitting shift closing for admin confirmation...";
+      cn.style.display = "block";
+      cn.textContent = currentLang === "ar" ? "⏳ جارٍ إرسال التقفيل للإدارة..." : "⏳ Submitting shift closing...";
 
       for (const item of itemsToSend) {
         entries.unshift(item);
         await fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: item }) });
       }
 
-      cn.textContent = currentLang === "ar" ? "✅ تم إرسال تقفيل الشيفت بنجاح! سيُضاف للرصيد فور تأكيد الإدارة." : "✅ Shift closing sent! Balances update upon admin confirmation.";
-      e.target.reset();
-      document.getElementById("cashierExpensesList").innerHTML = "";
+      cn.textContent = currentLang === "ar"
+        ? "✅ تم حفظ وترحيل التقفيل بنجاح! جارٍ تسجيل الخروج..."
+        : "✅ Shift saved! Logging out...";
+
+      // إغلاق الجلسة والخروج التلقائي لشاشة تسجيل الدخول بعد ثانيتين
+      setTimeout(() => {
+        logout();
+      }, 2000);
     });
 
     /* ===== واجهة الأدمن ===== */
@@ -1412,7 +1431,7 @@
       entries.unshift(updatedItem);
       render();
       const msg = isConfirmedStatus(newStatus)
-        ? (currentLang === "ar" ? "✅ تم تأكيد الاستلام وتحديث رصيد الخزنة/الحساب والشيت!" : "✅ Receipt confirmed and balance updated!")
+        ? (currentLang === "ar" ? "✅ تم تأكيد الاستلام وتحديث رصيد الخزنة/الحساب والرسوم البيانية!" : "✅ Receipt confirmed and balance updated!")
         : (currentLang === "ar" ? "تم التحديث وجار الإرسال للشيت..." : "Updating sheet...");
       showNotice(msg, "ok");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: updatedItem }) });
