@@ -111,6 +111,19 @@
 
     .shift-user-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; margin-bottom: 16px; border-radius: 20px; background: var(--blue-soft); color: var(--blue); font-size: 12px; font-weight: 700; }
 
+    /* نافذة تعديل أدوار وصلاحيات المستخدمين */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 3000;
+      background: rgba(5, 12, 9, 0.75); backdrop-filter: blur(6px);
+      display: grid; place-items: center; padding: 20px;
+    }
+    .modal-overlay[hidden] { display: none; }
+    .modal-card {
+      width: min(460px, 100%); background: var(--white); border: 1px solid var(--line);
+      border-radius: 20px; padding: 26px; box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+      animation: pop .3s ease both;
+    }
+
     .topbar { color: white; padding: 14px max(4%, calc((100% - 1180px) / 2)); background: var(--top-gradient); background-size: 180% 180%; box-shadow: 0 10px 30px #14213d55; }
     .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
     .brand, .top-actions { display: flex; align-items: center; gap: 14px; }
@@ -163,13 +176,58 @@
     button:active { transform: scale(.96); }
     .primary { background: var(--blue); color: white; font-weight: 700; box-shadow: 0 6px 14px color-mix(in srgb, var(--blue) 45%, transparent); }
     .primary:hover { background: var(--blue-hover); }
+    .whatsapp-btn { background: #25D366; color: #ffffff; font-weight: 700; }
+    .whatsapp-btn:hover { background: #1ebe5d; }
     .secondary { background: var(--btn-soft); color: var(--btn-soft-text); }
     .danger-soft { background: var(--red-soft); color: var(--red); font-weight: 700; }
     .table-wrap { overflow-x: auto; }
-    table { width: 100%; min-width: 920px; border-collapse: collapse; }
+    table { width: 100%; min-width: 980px; border-collapse: collapse; }
     th, td { padding: 13px 10px; text-align: start; border-bottom: 1px solid var(--line); font-size: 12px; }
     th { color: var(--muted); font-weight: 600; background: var(--soft); }
     tbody tr:hover { background: var(--hover); }
+
+    .tx-id-badge {
+      display: inline-block;
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 8px;
+      background: var(--btn-soft);
+      color: var(--blue);
+      border: 1px solid var(--line);
+      direction: ltr;
+    }
+
+    .old-amount-strike {
+      display: block;
+      text-decoration: line-through;
+      color: var(--red);
+      opacity: 0.78;
+      font-size: 11px;
+      font-weight: normal;
+      margin-bottom: 2px;
+    }
+
+    .editor-info-note {
+      display: block;
+      margin-top: 4px;
+      font-size: 11px;
+      color: var(--warn-text);
+      font-weight: 700;
+    }
+
+    .safe-impact-pill {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 4px 9px;
+      border-radius: 8px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid color-mix(in srgb, var(--blue) 25%, transparent);
+    }
 
     .type-tag { display: inline-block; border-radius: 20px; padding: 5px 9px; font-size: 11px; font-weight: 700; }
     .tag-income { color: var(--green); background: var(--green-soft); }
@@ -256,7 +314,7 @@
         background-size: 400px !important;
         mix-blend-mode: multiply;
       }
-      .overlay-screen, .toolbar, .filters, #transactionFormPanel, #settingsPanel, #stylePanel, #balancesPanel, .topbar button, .topbar select, footer { display: none !important; }
+      .overlay-screen, .modal-overlay, .toolbar, .filters, #transactionFormPanel, #settingsPanel, #stylePanel, #balancesPanel, .topbar button, .topbar select, footer { display: none !important; }
       main { display: block !important; width: 100% !important; margin: 0 !important; }
       .topbar { background: #14213d !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 12px 16px; margin-bottom: 14px; }
       .summary { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; margin-bottom: 14px !important; }
@@ -304,10 +362,10 @@
     </div>
   </div>
 
-  <!-- شاشة تسجيل الدخول -->
+  <!-- شاشة تسجيل الدخول الكلاسيكية -->
   <div class="overlay-screen" id="loginScreen" hidden>
     <div class="auth-card">
-      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNNY"></div>
+      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNY"></div>
       <h2 data-i18n="loginTitle">تسجيل الدخول</h2>
       <form class="auth-form" id="loginForm">
         <label>
@@ -344,6 +402,36 @@
     </div>
   </div>
 
+  <!-- نافذة تعديل دور وصلاحيات المستخدم -->
+  <div class="modal-overlay" id="editUserModal" hidden>
+    <div class="modal-card">
+      <div class="panel-heading">
+        <h2 data-i18n="editRoleModalTitle" data-emoji="⚙️">تعديل دور وصلاحيات المستخدم</h2>
+      </div>
+      <form id="editUserRoleForm" class="auth-form">
+        <div>
+          <label data-i18n="username">اسم المستخدم</label>
+          <input type="text" id="editRoleUsername" readonly style="font-weight:bold; opacity:0.85;">
+        </div>
+        <div>
+          <label data-i18n="roleLabel">الدور / الصلاحية</label>
+          <select id="editRoleSelect">
+            <option value="cashier" data-i18n="roleCashier">مستخدم / كاشير (تقفيل شيفت فقط)</option>
+            <option value="admin" data-i18n="roleAdmin">مدير / مالك (صلاحية كاملة)</option>
+          </select>
+        </div>
+        <div id="editRoleBranchesWrap">
+          <label data-i18n="allowedBranches">الفروع المسموحة للمستخدم:</label>
+          <div class="checkbox-group" id="editRoleBranchesBox"></div>
+        </div>
+        <div class="actions" style="justify-content:flex-end;">
+          <button type="button" class="secondary" id="closeEditUserModalBtn" data-i18n="cancelBtn">إلغاء</button>
+          <button type="submit" class="primary" data-i18n="saveRoleBtn">💾 حفظ الصلاحيات</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
@@ -371,6 +459,7 @@
         <button class="secondary" id="resetColor" type="button" data-i18n="defaultColor" data-emoji="↩️">الافتراضي</button>
       </div>
       <div class="toolbar-actions">
+        <button class="whatsapp-btn" id="sendWhatsappSummaryBtn" type="button" data-i18n="waSummaryBtn" data-emoji="📲">ملخص اليوم واتساب</button>
         <button class="secondary" id="analyticsToggleBtn" type="button" data-i18n="analyticsBtn" data-emoji="📊">ملخص الفروع والمصاريف</button>
         <button class="secondary" id="settingsMenuBtn" type="button" data-i18n="settingsBtn" data-emoji="⚙️">الإعدادات والمستخدمين</button>
         <button class="secondary" id="exportCsvBtn" type="button" data-i18n="exportCSV" data-emoji="📥">تصدير CSV</button>
@@ -380,7 +469,7 @@
       </div>
     </div>
 
-    <!-- واجهة الكاشير (يتم تسجيل خروجه تلقائياً فور حفظ التقفيل) -->
+    <!-- واجهة الكاشير -->
     <section class="panel cashier-box" id="cashierPanel" hidden>
       <div class="panel-heading">
         <h2 data-i18n="closeShiftTitle" data-emoji="🧾">تقفيل إيراد ومصاريف الشيفت</h2>
@@ -422,7 +511,7 @@
           <input id="cashierNotes" type="text" data-i18n-placeholder="notesPlaceholder" placeholder="أي ملاحظات تخص التقفيل...">
         </label>
 
-        <button class="primary" id="cashierSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px;" data-i18n="saveShiftBtn" data-emoji="✅">حفظ وإرسال تقفيل الشيفت للإدارة</button>
+        <button class="primary" id="cashierSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px;" data-i18n="saveShiftBtn" data-emoji="✅">حفظ وإرسال التقفيل للإدارة (واتساب + شيت)</button>
         <div id="cashierNotice" class="notice" role="status"></div>
       </form>
     </section>
@@ -536,6 +625,7 @@
           <table>
             <thead>
               <tr>
+                <th data-i18n="idCol">رقم الحركة</th>
                 <th data-i18n="dateCol">التاريخ والوقت</th>
                 <th data-i18n="branchCol">الفرع</th>
                 <th data-i18n="shiftCol">الشيفت</th>
@@ -558,6 +648,7 @@
 
   <script>
     const SHEET_URL = "https://script.google.com/macros/s/AKfycbyLc9cVrC5M-bk9Ickn5sC22G4T5o1sZPcfCdqPf8-6eeJ1UyrqatUwYusBO_vao4YRQw/exec";
+    const ADMIN_WHATSAPP = "201270855523";
     
     const branches = ["ڤيب ستور", "ڤيب ستور 2", "الدخاخني", "المول", "اسواق المدينه", "طوخ"];
     const mainSafes = ["الخزنة الرئيسية - الدخاخني", "الخزنة الرئيسية - طوخ"];
@@ -605,11 +696,15 @@
         shiftPlaceholder: "اكتب رقم الشيفت الحالي",
         startWorkBtn: "ابدأ العمل",
         switchUserBtn: "تسجيل خروج / تغيير المستخدم",
+        editRoleModalTitle: "تعديل دور وصلاحيات المستخدم",
+        saveRoleBtn: "💾 حفظ الصلاحيات",
+        editRoleBtnText: "⚙️ الدور والفروع",
         storeTitle: "الدخاخني ستور",
         dashboardSub: "لوحة الإدارة المالية",
         logout: "تسجيل خروج",
         pageColor: "لون الصفحة",
         defaultColor: "الافتراضي",
+        waSummaryBtn: "ملخص اليوم واتساب",
         analyticsBtn: "ملخص الفروع والمصاريف",
         settingsBtn: "الإعدادات والمستخدمين",
         exportCSV: "تصدير CSV",
@@ -631,7 +726,7 @@
         shiftExpenseHint: "تُراجع وتُعتمد من الإدارة وتُخصم من الخزنة الرئيسية - الدخاخني",
         shiftNotes: "ملاحظات الشيفت (اختياري)",
         notesPlaceholder: "أي ملاحظات تخص التقفيل...",
-        saveShiftBtn: "حفظ وإرسال تقفيل الشيفت للإدارة",
+        saveShiftBtn: "حفظ وإرسال التقفيل للإدارة (واتساب + شيت)",
         usersMgmtTitle: "إدارة المستخدمين والصلاحيات",
         roleLabel: "الصلاحية",
         roleCashier: "مستخدم / كاشير (تقفيل شيفت فقط)",
@@ -661,6 +756,7 @@
         typeExpense: "🔴 مصروف",
         typeTransfer: "🟣 تحويل نقدي",
         amountLabel: "المبلغ بالجنيه",
+        idCol: "رقم الحركة",
         dateCol: "التاريخ والوقت",
         branchCol: "الفرع",
         shiftCol: "الشيفت",
@@ -692,6 +788,9 @@
         deleteBtn: "🗑️ حذف",
         restoreBtn: "♻️ استعادة",
         editedTag: "✏️ معدل",
+        editedByPrefix: "تعديل بواسطة:",
+        safeBeforeLabel: "كان",
+        safeAfterLabel: "أصبح",
         pendingTag: "⏳ بانتظار الاستلام",
         confirmedTag: "✅ تم الاستلام",
         confirmBtn: "✅ تأكيد الاستلام",
@@ -715,11 +814,15 @@
         shiftPlaceholder: "Enter current shift number",
         startWorkBtn: "Start Shift",
         switchUserBtn: "Logout / Switch User",
+        editRoleModalTitle: "Edit User Role & Branches",
+        saveRoleBtn: "💾 Save Permissions",
+        editRoleBtnText: "⚙️ Role & Branches",
         storeTitle: "Al-Dakhakhni Store",
         dashboardSub: "Financial Management Dashboard",
         logout: "Logout",
         pageColor: "Page Color",
         defaultColor: "Default",
+        waSummaryBtn: "WhatsApp Summary",
         analyticsBtn: "Branches & Expenses Summary",
         settingsBtn: "Settings & Users",
         exportCSV: "Export CSV",
@@ -741,7 +844,7 @@
         shiftExpenseHint: "Pending admin approval to deduct from Main Safe - Al-Dakhakhni",
         shiftNotes: "Shift Notes (Optional)",
         notesPlaceholder: "Any closing notes...",
-        saveShiftBtn: "Submit Shift Closing for Approval",
+        saveShiftBtn: "Submit Shift Closing (WhatsApp + Sheet)",
         usersMgmtTitle: "Users & Permissions Management",
         roleLabel: "Role",
         roleCashier: "User / Cashier (Shift Closing Only)",
@@ -771,6 +874,7 @@
         typeExpense: "🔴 Expense",
         typeTransfer: "🟣 Cash Transfer",
         amountLabel: "Amount (EGP)",
+        idCol: "Tx ID",
         dateCol: "Date & Time",
         branchCol: "Branch",
         shiftCol: "Shift",
@@ -802,6 +906,9 @@
         deleteBtn: "🗑️ Delete",
         restoreBtn: "♻️ Restore",
         editedTag: "✏️ Edited",
+        editedByPrefix: "Edited by:",
+        safeBeforeLabel: "Was",
+        safeAfterLabel: "Now",
         pendingTag: "⏳ Pending Receipt",
         confirmedTag: "✅ Confirmed",
         confirmBtn: "✅ Confirm Receipt",
@@ -817,6 +924,7 @@
     let balancesHistory = []; 
     let trashView = false;
     let editingId = null;
+    let editingUserIndex = null;
     let currentLang = localStorage.getItem("dakhakhni-lang") || "ar";
 
     localStorage.removeItem("dakhakhni-currentUser");
@@ -826,6 +934,14 @@
 
     function t(key) {
       return (i18nDict[currentLang] && i18nDict[currentLang][key]) || key;
+    }
+
+    function shortTxId(fullId) {
+      const s = String(fullId || "").trim();
+      if (!s) return "—";
+      const digitsOnly = s.replace(/\D/g, "");
+      if (digitsOnly.length >= 5) return "#" + digitsOnly.slice(-5);
+      return "#" + s.slice(-5);
     }
 
     function populateLoginUsersDropdown() {
@@ -951,7 +1067,6 @@
         sessionStorage.setItem("dakhakhni-currentUser", JSON.stringify(currentUser));
         document.getElementById("loginScreen").hidden = true;
 
-        // تسجيل عملية الدخول في جوجل شيت للرسم البياني للموظفين
         fetch(SHEET_URL, {
           method: "POST",
           body: JSON.stringify({ action: "logLogin", username: user.username, role: user.role })
@@ -1012,7 +1127,6 @@
       return new Date().toLocaleTimeString("en-US", { timeZone: "Africa/Cairo", hour: "2-digit", minute: "2-digit", hour12: true });
     }
 
-    /* ===== واجهة الكاشير (تُغلق وتخرج تلقائياً بعد الحفظ) ===== */
     function startCashierApp() {
       document.getElementById("mainContent").style.display = "block";
       document.querySelectorAll(".admin-only").forEach(el => el.style.display = "none");
@@ -1057,12 +1171,14 @@
 
       const expenseRows = [...document.querySelectorAll("#cashierExpensesList .cashier-expense-row")];
       const validExpenses = [];
+      let totalShiftExpenses = 0;
       for (const r of expenseRows) {
         const amt = Number(r.querySelector(".exp-amt").value) || 0;
         const cat = r.querySelector(".exp-cat").value;
         const dest = r.querySelector(".exp-dest").value.trim();
         if (amt > 0) {
           validExpenses.push({ amt, cat, dest });
+          totalShiftExpenses += amt;
         }
       }
 
@@ -1120,24 +1236,64 @@
       const cn = document.getElementById("cashierNotice");
       cn.className = "notice ok";
       cn.style.display = "block";
-      cn.textContent = currentLang === "ar" ? "⏳ جارٍ إرسال التقفيل للإدارة..." : "⏳ Submitting shift closing...";
+      cn.textContent = currentLang === "ar" ? "⏳ جارٍ حفظ التقفيل وفتح الواتساب للإرسال..." : "⏳ Saving shift & opening WhatsApp...";
 
       for (const item of itemsToSend) {
         entries.unshift(item);
         await fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: item }) });
       }
 
-      cn.textContent = currentLang === "ar"
-        ? "✅ تم حفظ وترحيل التقفيل بنجاح! جارٍ تسجيل الخروج..."
-        : "✅ Shift saved! Logging out...";
+      const expLines = validExpenses.map(x => `   - ${x.cat} (${x.dest}): ${x.amt} ج.م`).join("\n");
+      const waMsg = [
+        `🧾 *تقفيل شيفت - الدخاخني ستور*`,
+        `📅 التاريخ: ${todayWithTime}`,
+        `🏬 الفرع: *${currentSession.branch}* | ⏱️ شيفت: *#${currentSession.shift}*`,
+        `👤 الكاشير: *${currentUser.username}*`,
+        `──────────────`,
+        `💵 كاش: *${cashAmt.toLocaleString()} ج.م*`,
+        `📱 إنستا باي: *${instaAmt.toLocaleString()} ج.م*`,
+        `💳 فيزا QNB: *${visaAmt.toLocaleString()} ج.م*`,
+        totalShiftExpenses > 0 ? `🔴 مصاريف الشيفت: *${totalShiftExpenses.toLocaleString()} ج.م*\n${expLines}` : `🟢 مصاريف الشيفت: لا يوجد`,
+        notes ? `📝 ملاحظات: ${notes}` : ``,
+        `──────────────`,
+        `⏳ بانتظار تأكيد الاستلام في النظام.`
+      ].filter(Boolean).join("\n");
 
-      // إغلاق الجلسة والخروج التلقائي لشاشة تسجيل الدخول بعد ثانيتين
+      const waUrl = `https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(waMsg)}`;
+      window.open(waUrl, "_blank");
+
+      cn.textContent = currentLang === "ar"
+        ? "✅ تم الحفظ وفتح الواتساب! جارٍ تسجيل الخروج..."
+        : "✅ Saved & WhatsApp opened! Logging out...";
+
       setTimeout(() => {
         logout();
-      }, 2000);
+      }, 2200);
     });
 
-    /* ===== واجهة الأدمن ===== */
+    document.getElementById("sendWhatsappSummaryBtn").addEventListener("click", () => {
+      const balances = computeBalances();
+      const incTxt = document.getElementById("totalIncome").textContent;
+      const expTxt = document.getElementById("totalExpenses").textContent;
+      const netTxt = document.getElementById("netTotal").textContent;
+
+      const balLines = transferAccounts.map(acc => `• ${acc}: *${money(balances[acc])}*`).join("\n");
+      const summaryMsg = [
+        `📊 *ملخص الحسابات والأرصدة - الدخاخني ستور*`,
+        `📅 التاريخ: ${todayString()} | ${nowTimeString()}`,
+        `──────────────`,
+        `🟢 إجمالي الإيرادات (المؤكدة): *${incTxt}*`,
+        `🔴 إجمالي المصروفات (المؤكدة): *${expTxt}*`,
+        `⚖️ صافي الحساب المؤكد: *${netTxt}*`,
+        `──────────────`,
+        `🏦 *أرصدة الخزن والحسابات الحالية:*`,
+        balLines
+      ].join("\n");
+
+      const waUrl = `https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(summaryMsg)}`;
+      window.open(waUrl, "_blank");
+    });
+
     function startAdminApp() {
       document.getElementById("mainContent").style.display = "block";
       document.getElementById("cashierPanel").hidden = true;
@@ -1180,6 +1336,63 @@
     }
     function isConfirmedStatus(status) {
       return String(status || "").trim().toLowerCase().startsWith("confirmed");
+    }
+
+    /* ===== تجميع النسخ المتتالية لكل معاملة + حساب رصيد الخزنة قبل وبعد كل مصروف ===== */
+    function getLatestEntriesMap() {
+      const latestState = {};
+      entries.forEach(e => {
+        if (!latestState[e.id]) {
+          latestState[e.id] = { ...e, history: [e] };
+        } else {
+          latestState[e.id].history.push(e);
+        }
+      });
+
+      Object.values(latestState).forEach(item => {
+        if (item.history.length > 1) {
+          const originalVersion = item.history[item.history.length - 1];
+          item.originalAddedBy = originalVersion.addedBy;
+
+          const diffAmountVersion = item.history.slice(1).find(h => Number(h.amount) !== Number(item.amount));
+          if (diffAmountVersion) {
+            item.previousAmount = Number(diffAmountVersion.amount);
+          }
+
+          const wasEdited = item.history.some(h => h.status === "edited") ||
+                            Number(originalVersion.amount) !== Number(item.amount) ||
+                            (originalVersion.description || "") !== (item.description || "");
+          if (wasEdited) {
+            item.wasEdited = true;
+            item.editedBy = item.addedBy;
+            item.editedAt = item.date;
+          }
+        }
+      });
+
+      // حساب رصيد الخزنة/الحساب قبل وبعد الصرف بترتيب زمني من الأقدم للأحدث
+      const runningBalances = {};
+      transferAccounts.forEach(acc => runningBalances[acc] = 0);
+      balancesHistory.forEach(b => { if (b.status !== "deleted") runningBalances[b.account] = Number(b.amount) || 0; });
+
+      const chronologicalItems = Object.values(latestState).slice().reverse();
+      chronologicalItems.forEach(item => {
+        if (item.status === "deleted" || isPendingStatus(item.status)) return;
+        const amt = Number(item.amount) || 0;
+
+        if (item.type === "income" && (item.account in runningBalances)) {
+          runningBalances[item.account] += amt;
+        } else if (item.type === "expense" && (item.account in runningBalances)) {
+          item.safeBalanceBefore = runningBalances[item.account];
+          runningBalances[item.account] -= amt;
+          item.safeBalanceAfter = runningBalances[item.account];
+        } else if (item.type === "transfer") {
+          if (item.transferFrom in runningBalances) runningBalances[item.transferFrom] -= amt;
+          if (item.transferTo in runningBalances) runningBalances[item.transferTo] += amt;
+        }
+      });
+
+      return latestState;
     }
 
     function computeBalances() {
@@ -1304,14 +1517,6 @@
       showNotice(currentLang === "ar" ? "تم حفظ الرصيد في الشيت." : "Opening balance saved.", "ok");
     });
 
-    function getLatestEntriesMap() {
-      const latestState = {};
-      entries.forEach(e => {
-        if (!latestState[e.id]) latestState[e.id] = e;
-      });
-      return latestState;
-    }
-
     function getFilteredEntries() {
       const list = Object.values(getLatestEntriesMap());
       const b = document.getElementById("filterBranch").value;
@@ -1352,14 +1557,30 @@
         if (pending) row.className = "row-pending";
         const addCell = val => { const td = document.createElement("td"); td.textContent = val || "—"; row.appendChild(td); return td; };
         
-        addCell(item.date); addCell(item.branch); addCell(item.shift);
-        addCell(`👤 ${item.addedBy}`);
+        // 1. عمود رقم الحركة (آخر 5 أرقام)
+        const idCell = addCell("");
+        idCell.innerHTML = `<span class="tx-id-badge" title="${item.id}">${shortTxId(item.id)}</span>`;
+
+        // 2. التاريخ والفرع والشيفت
+        addCell(item.date);
+        addCell(item.branch);
+        addCell(item.shift);
+
+        // 3. بواسطة (يوضح المُنشئ الأصلي ومن قام بالتعديل إن وُجد)
+        const byCell = addCell("");
+        const creator = item.originalAddedBy || item.addedBy;
+        byCell.innerHTML = `👤 ${creator}`;
+        if (item.wasEdited && item.editedBy) {
+          byCell.innerHTML += `<span class="editor-info-note">✏️ ${t("editedByPrefix")} ${item.editedBy}</span>`;
+        }
         
+        // 4. نوع الحركة
         const typeLabel = item.type === "income" ? t("typeIncome") : item.type === "expense" ? t("typeExpense") : t("typeTransfer");
         const tagClass = item.type === "income" ? "tag-income" : item.type === "expense" ? "tag-expense" : "tag-transfer";
         const typeCell = addCell("");
         typeCell.innerHTML = `<span class="type-tag ${tagClass}">${typeLabel}</span>`;
 
+        // 5. التفاصيل + شارات الحالة والتعديل + رصيد الخزنة قبل وبعد المصروف
         let details = item.description || "—";
         if (item.type === "income") details = [item.account, item.description].filter(Boolean).join(" - ");
         else if (item.type === "expense") details = [item.category, item.destination, item.account, item.description].filter(Boolean).join(" - ");
@@ -1370,12 +1591,25 @@
           dCell.innerHTML += ` <span class="pending-tag">${t("pendingTag")}</span>`;
         } else if (confirmed) {
           dCell.innerHTML += ` <span class="confirmed-tag">${t("confirmedTag")}</span>`;
-        } else if (item.status === 'edited') {
+        }
+        if (item.wasEdited || item.status === 'edited') {
           dCell.innerHTML += ` <span class="edited-tag">${t("editedTag")}</span>`;
         }
 
-        const amtCell = addCell(money(item.amount)); amtCell.style.fontWeight = 'bold';
+        // إظهار رصيد الخزنة كان كام وبقي كام بعد الصرف في معاملات المصروفات
+        if (item.type === "expense" && !pending && item.safeBalanceBefore !== undefined) {
+          dCell.innerHTML += `<br><span class="safe-impact-pill">🏦 ${item.account}: ${t("safeBeforeLabel")} <u>${money(item.safeBalanceBefore)}</u> ➔ ${t("safeAfterLabel")} <u>${money(item.safeBalanceAfter)}</u></span>`;
+        }
 
+        // 6. عمود المبلغ (يعرض الرقم القديم مشطوباً فوق الرقم الجديد في حال التعديل)
+        const amtCell = addCell("");
+        if (item.previousAmount !== undefined && item.previousAmount !== Number(item.amount)) {
+          amtCell.innerHTML = `<span class="old-amount-strike">${money(item.previousAmount)}</span><strong>${money(item.amount)}</strong>`;
+        } else {
+          amtCell.innerHTML = `<strong>${money(item.amount)}</strong>`;
+        }
+
+        // 7. الإجراءات
         const actionCell = document.createElement("td");
         if (trashView) {
           const restore = document.createElement("button"); restore.type = "button"; restore.className = "restore"; restore.textContent = t("restoreBtn");
@@ -1426,7 +1660,8 @@
     function showNotice(msg, status) { const n = document.getElementById("notice"); n.className = "notice " + status; n.textContent = msg; n.style.display = 'block'; setTimeout(()=>n.style.display='none',3000); }
 
     function updateTransactionStatus(item, newStatus) {
-      const updatedItem = { ...item, status: newStatus };
+      const { history, previousAmount, wasEdited, editedBy, editedAt, originalAddedBy, safeBalanceBefore, safeBalanceAfter, ...cleanItem } = item;
+      const updatedItem = { ...cleanItem, status: newStatus, addedBy: currentUser.username };
       if(newStatus === 'active' && item.status === 'deleted') updatedItem.status = 'edited';
       entries.unshift(updatedItem);
       render();
@@ -1469,9 +1704,9 @@
     document.getElementById("analyticsToggleBtn").addEventListener("click", () => { const p = document.getElementById("analyticsPanel"); p.hidden = !p.hidden; });
     document.getElementById("printBtn").addEventListener("click", () => window.print());
     document.getElementById("exportCsvBtn").addEventListener("click", () => {
-      let csv = "data:text/csv;charset=utf-8,\uFEFFالتاريخ والوقت,الفرع,الشيفت,النوع,بواسطة,المبلغ,الحساب,التصنيف,الوجهة,التفاصيل,الحالة\r\n";
+      let csv = "data:text/csv;charset=utf-8,\uFEFFرقم الحركة,التاريخ والوقت,الفرع,الشيفت,النوع,بواسطة,المبلغ,الحساب,التصنيف,الوجهة,التفاصيل,الحالة\r\n";
       getFilteredEntries().filter(e=>e.status!=='deleted').forEach(e => {
-        csv += `"${e.date}","${e.branch}","${e.shift}","${e.type}","${e.addedBy}","${e.amount}","${e.account||''}","${e.category||''}","${e.destination||''}","${e.description}","${e.status}"\r\n`;
+        csv += `"${shortTxId(e.id)}","${e.date}","${e.branch}","${e.shift}","${e.type}","${e.addedBy}","${e.amount}","${e.account||''}","${e.category||''}","${e.destination||''}","${e.description}","${e.status}"\r\n`;
       });
       const link = document.createElement("a"); link.href = encodeURI(csv); link.download = `تقرير_${todayString()}.csv`; link.click();
     });
@@ -1481,7 +1716,7 @@
       e.preventDefault();
       const username = document.getElementById("newUserEmail").value.trim(), pass = document.getElementById("newUserPass").value.trim(), role = document.getElementById("newUserRole").value;
       const allowed = []; document.querySelectorAll("#branchCheckboxes input:checked").forEach(cb => allowed.push(cb.value));
-      users.push({ username, pass, role, branches: allowed, reports: false });
+      users.push({ username, pass, role, branches: role === "admin" ? ["الكل"] : allowed, reports: role === "admin" });
       renderUsers(); populateLoginUsersDropdown(); e.target.reset();
       alert(currentLang === "ar" ? "تم الإضافة وجارِ الرفع للشيت!" : "User added & syncing!");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) });
@@ -1491,11 +1726,64 @@
       const tbody = document.getElementById("usersList"); tbody.innerHTML = "";
       users.forEach((u, i) => {
         const roleTxt = u.role === 'admin' ? t("roleAdmin") : t("roleCashier");
+        const roleBtn = u.username !== 'باسم الدخاخني المالك' ? `<button class="edit" onclick="openEditUserRole(${i})">${t("editRoleBtnText")}</button>` : '';
         const passBtn = `<button class="edit" onclick="changeUserPass(${i})">🔑 ${currentLang === 'ar' ? 'تغيير الباسورد' : 'Password'}</button>`;
         const delBtn = u.username !== 'باسم الدخاخني المالك' ? `<button class="delete" onclick="deleteUser(${i})">${t("deleteBtn")}</button>` : '';
-        tbody.innerHTML += `<tr><td>${u.username}</td><td>${roleTxt}</td><td>${u.role==='admin'?t("allOption"):u.branches.join('، ')}</td><td>${passBtn}${delBtn}</td></tr>`;
+        tbody.innerHTML += `<tr><td>${u.username}</td><td>${roleTxt}</td><td>${u.role==='admin'?t("allOption"):(u.branches || []).join('، ')}</td><td>${roleBtn}${passBtn}${delBtn}</td></tr>`;
       });
     }
+
+    /* ===== تعديل أدوار وصلاحيات المستخدمين ===== */
+    window.openEditUserRole = function(i) {
+      editingUserIndex = i;
+      const u = users[i];
+      document.getElementById("editRoleUsername").value = u.username;
+      const roleSel = document.getElementById("editRoleSelect");
+      roleSel.value = u.role || "cashier";
+
+      const box = document.getElementById("editRoleBranchesBox");
+      box.innerHTML = "";
+      branches.forEach(b => {
+        const checked = (u.branches || []).includes(b) ? "checked" : "";
+        box.innerHTML += `<label><input type="checkbox" value="${b}" ${checked}> ${b}</label>`;
+      });
+
+      document.getElementById("editRoleBranchesWrap").style.display = roleSel.value === "admin" ? "none" : "";
+      document.getElementById("editUserModal").hidden = false;
+    };
+
+    document.getElementById("editRoleSelect").addEventListener("change", (e) => {
+      document.getElementById("editRoleBranchesWrap").style.display = e.target.value === "admin" ? "none" : "";
+    });
+
+    document.getElementById("closeEditUserModalBtn").addEventListener("click", () => {
+      document.getElementById("editUserModal").hidden = true;
+      editingUserIndex = null;
+    });
+
+    document.getElementById("editUserRoleForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (editingUserIndex === null) return;
+      const newRole = document.getElementById("editRoleSelect").value;
+      const selectedBranches = [];
+      document.querySelectorAll("#editRoleBranchesBox input:checked").forEach(cb => selectedBranches.push(cb.value));
+
+      users[editingUserIndex].role = newRole;
+      users[editingUserIndex].branches = newRole === "admin" ? ["الكل"] : selectedBranches;
+      users[editingUserIndex].reports = newRole === "admin";
+
+      if (currentUser && currentUser.username === users[editingUserIndex].username) {
+        currentUser = users[editingUserIndex];
+        sessionStorage.setItem("dakhakhni-currentUser", JSON.stringify(currentUser));
+      }
+
+      document.getElementById("editUserModal").hidden = true;
+      editingUserIndex = null;
+      renderUsers();
+      populateLoginUsersDropdown();
+      fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) });
+      alert(currentLang === "ar" ? "✅ تم تحديث دور وصلاحيات المستخدم وحفظها في الشيت!" : "✅ User role & permissions updated!");
+    });
 
     window.changeUserPass = function(i) {
       const user = users[i];
