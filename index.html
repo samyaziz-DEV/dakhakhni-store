@@ -1,443 +1,499 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="classic">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f7fb">
-  <title>الدخاخني ستور | الإدارة المالية</title>
+  <meta name="theme-color" content="#3158d5">
+  <title>الدخاخني ستور | الإدارة المالية المتكاملة</title>
 
   <style>
     :root {
-      --blue: #3158d5; --blue-hover: #2448bc; --page-color: #f5f7fb;
-      --text: #182230; --muted: #748096; --line: #e8ecf3;
-      --green: #12845b; --red: #d24650; --purple: #7357c8;
-      --white: #fff; --soft: #fbfcfe; --hover: #f8faff;
-      --input-bg: #fff; --input-line: #dfe4ed; --label: #465166;
-      --btn-soft: #eef1f7; --btn-soft-text: #39445a; --toolbar-bg: #ffffffc9;
-      --green-soft: #e9f7f0; --red-soft: #fff0f0; --purple-soft: #f1edff; --blue-soft: #eaf0ff;
-      --ok-text: #126b4b; --err-text: #a7353c; --warn-bg: #fff5dd; --warn-text: #a86a00;
-      --focus-ring: #3158d51c; --top-gradient: linear-gradient(125deg, #14213d, #243d79, #3158d5);
-      --bg-end: #fff; --tint1: #c9d8ff; --tint2: #f3d9ff;
-      --shadow: 0 14px 34px #18284b2e, 0 2px 6px #18284b1a; --shadow-hover: 0 22px 48px #18284b42, 0 4px 10px #18284b22;
-      --shadow-soft: 0 8px 22px #18284b26; --btn-shadow: 0 4px 10px #18284b26; --btn-shadow-hover: 0 9px 20px #18284b40;
-      --bg-image: radial-gradient(ellipse at 5% 10%, color-mix(in srgb, var(--page-color) 72%, var(--tint1)) 0, transparent 42%), radial-gradient(ellipse at 95% 35%, color-mix(in srgb, var(--page-color) 70%, var(--tint2)) 0, transparent 40%), linear-gradient(135deg, var(--page-color), var(--bg-end) 72%);
-      --bg-size: auto;
+      --blue: #3158d5; --blue-hover: #2448bc; --page-color: #f3f6fc;
+      --sidebar-bg: #101b36; --sidebar-text: #dce4f7; --sidebar-hover: rgba(255,255,255,0.08);
+      --text: #162033; --muted: #6c7a93; --line: #e4e9f2;
+      --green: #10855a; --red: #d63f4c; --purple: #6f52c9;
+      --white: #ffffff; --soft: #f8faff; --hover: #f2f6ff;
+      --input-bg: #ffffff; --input-line: #d8e0ed; --label: #3f4b61;
+      --btn-soft: #ecf0f8; --btn-soft-text: #344056; --toolbar-bg: rgba(255,255,255,0.88);
+      --green-soft: #e6f7f0; --red-soft: #ffecee; --purple-soft: #efeaff; --blue-soft: #e8efff;
+      --ok-text: #0f6b49; --err-text: #a7313b; --warn-bg: #fff4d8; --warn-text: #a36500;
+      --focus-ring: rgba(49, 88, 213, 0.16);
+      --top-gradient: linear-gradient(135deg, #101b36 0%, #1e3775 55%, #3158d5 100%);
+      --shadow: 0 10px 28px rgba(16, 27, 54, 0.06), 0 2px 6px rgba(16, 27, 54, 0.04);
+      --shadow-hover: 0 16px 36px rgba(16, 27, 54, 0.11);
     }
 
-    html[data-theme="ocean"] { --blue: #0e7c9b; --blue-hover: #0a6580; --page-color: #eef8fb; --tint1: #bfe7f2; --tint2: #d6f5ee; --blue-soft: #e0f3f8; --focus-ring: #0e7c9b2a; --top-gradient: linear-gradient(125deg, #06293a, #0b5470, #0e7c9b); }
-    html[data-theme="sunset"] { --blue: #e0592a; --blue-hover: #c2481c; --page-color: #fff6ef; --tint1: #ffd9c2; --tint2: #ffe3f0; --blue-soft: #ffece3; --focus-ring: #e0592a2a; --top-gradient: linear-gradient(125deg, #3b1d2e, #9b3d3d, #e0592a); }
-    html[data-theme="forest"] { --blue: #2f8f4e; --blue-hover: #247a40; --page-color: #f1f9f3; --tint1: #cdeed6; --tint2: #e6f4c9; --blue-soft: #e4f5e9; --focus-ring: #2f8f4e2a; --top-gradient: linear-gradient(125deg, #0f2a1a, #1d5a34, #2f8f4e); }
-    html[data-theme="rose"] { --blue: #c2447a; --blue-hover: #a63665; --page-color: #fff1f6; --tint1: #ffd3e4; --tint2: #e9dcff; --blue-soft: #ffe4ee; --focus-ring: #c2447a2a; --top-gradient: linear-gradient(125deg, #3a1230, #8a2c5e, #c2447a); }
-    html[data-theme="dark"] { color-scheme: dark; --blue: #5b82ff; --blue-hover: #4a6fe8; --page-color: #0f1424; --text: #e8ecf6; --muted: #94a0ba; --line: #27304a; --white: #1a2238; --soft: #151c30; --hover: #1f2842; --input-bg: #121a2e; --input-line: #2e3858; --label: #b4bed6; --btn-soft: #252f4d; --btn-soft-text: #d6ddf0; --toolbar-bg: #1a2238cc; --green: #3ecf8e; --red: #ff6b75; --purple: #a78bfa; --green-soft: #12392c; --red-soft: #3c1a22; --purple-soft: #2a2350; --blue-soft: #1d2a55; --ok-text: #6fe3b0; --err-text: #ff9aa1; --warn-bg: #3d3112; --warn-text: #ffc861; --focus-ring: #5b82ff33; --bg-end: #0a0e1b; --tint1: #1b2750; --tint2: #2a1b47; --top-gradient: linear-gradient(125deg, #080c18, #141f42, #2a4bb8); --shadow: 0 14px 34px #00000080, 0 2px 6px #00000060; --shadow-hover: 0 22px 48px #000000a0, 0 4px 10px #00000070; --shadow-soft: 0 8px 22px #00000070; --btn-shadow: 0 4px 10px #00000070; --btn-shadow-hover: 0 9px 20px #000000a0; }
+    html[data-theme="ocean"] { --blue: #0e7c9b; --blue-hover: #0a6580; --page-color: #eef8fb; --sidebar-bg: #072636; --blue-soft: #e0f3f8; --top-gradient: linear-gradient(135deg, #06293a, #0b5470, #0e7c9b); }
+    html[data-theme="sunset"] { --blue: #e0592a; --blue-hover: #c2481c; --page-color: #fff6ef; --sidebar-bg: #2e1523; --blue-soft: #ffece3; --top-gradient: linear-gradient(135deg, #3b1d2e, #9b3d3d, #e0592a); }
+    html[data-theme="forest"] { --blue: #2f8f4e; --blue-hover: #247a40; --page-color: #f1f9f3; --sidebar-bg: #0e2618; --blue-soft: #e4f5e9; --top-gradient: linear-gradient(135deg, #0f2a1a, #1d5a34, #2f8f4e); }
+    html[data-theme="rose"] { --blue: #c2447a; --blue-hover: #a63665; --page-color: #fff1f6; --sidebar-bg: #300f27; --blue-soft: #ffe4ee; --top-gradient: linear-gradient(135deg, #3a1230, #8a2c5e, #c2447a); }
+    html[data-theme="dark"] {
+      color-scheme: dark; --blue: #5b82ff; --blue-hover: #4a6fe8; --page-color: #0d1220;
+      --sidebar-bg: #080b14; --text: #e8ecf6; --muted: #94a0ba; --line: #232c45;
+      --white: #161e33; --soft: #12182b; --hover: #1d2640; --input-bg: #101626; --input-line: #2a3452;
+      --label: #b4bed6; --btn-soft: #222c4a; --btn-soft-text: #d6ddf0; --toolbar-bg: rgba(22,30,51,0.9);
+      --green: #3ecf8e; --red: #ff6b75; --purple: #a78bfa;
+      --green-soft: #12392c; --red-soft: #3c1a22; --purple-soft: #2a2350; --blue-soft: #1d2a55;
+      --warn-bg: #3d3112; --warn-text: #ffc861; --top-gradient: linear-gradient(135deg, #080c18, #141f42, #2a4bb8);
+    }
     html[data-theme="vip"] {
       color-scheme: dark; --blue: #d4af37; --blue-hover: #b89428; --page-color: #071912;
-      --text: #f5efe0; --muted: #9eb5aa; --line: #183d2e; --white: #0c261c; --soft: #091f16; --hover: #113326;
-      --input-bg: #071811; --input-line: #1f4d3b; --label: #d4af37; --btn-soft: #133628; --btn-soft-text: #f0dfaa;
-      --toolbar-bg: #0c261cd9; --green: #38d996; --red: #ff6b75; --purple: #e0b84c;
+      --sidebar-bg: #04100b; --text: #f5efe0; --muted: #9eb5aa; --line: #183d2e;
+      --white: #0c261c; --soft: #091f16; --hover: #113326; --input-bg: #071811; --input-line: #1f4d3b;
+      --label: #d4af37; --btn-soft: #133628; --btn-soft-text: #f0dfaa; --toolbar-bg: rgba(12,38,28,0.9);
+      --green: #38d996; --red: #ff6b75; --purple: #e0b84c;
       --green-soft: #0f3828; --red-soft: #3b171e; --purple-soft: #2e2612; --blue-soft: #29220e;
-      --ok-text: #6fe3b0; --err-text: #ff9aa1; --warn-bg: #36290b; --warn-text: #f5c84c;
-      --focus-ring: #d4af3740; --bg-end: #030d09; --tint1: #0f3b2a; --tint2: #382c0d;
-      --top-gradient: linear-gradient(125deg, #04120c, #0d3b29 45%, #8f6b14 85%, #d4af37);
-      --shadow: 0 14px 34px #00000090, 0 0 0 1px #d4af3730;
-      --shadow-hover: 0 22px 48px #000000b0, 0 0 18px #d4af3735;
-      --shadow-soft: 0 8px 22px #00000075; --btn-shadow: 0 4px 12px #00000070; --btn-shadow-hover: 0 8px 20px #d4af3745;
+      --warn-bg: #36290b; --warn-text: #f5c84c;
+      --top-gradient: linear-gradient(135deg, #04120c, #0d3b29 45%, #8f6b14 85%, #d4af37);
     }
-    html[data-theme="vip"] .primary { color: #071912; background: linear-gradient(135deg, #e5c158, #c59b27); }
-    html[data-theme="vip"] .primary:hover { background: linear-gradient(135deg, #f0cf6b, #d4af37); }
-
-    html[data-bg="dots"] { --bg-image: radial-gradient(color-mix(in srgb, var(--blue) 30%, transparent) 1.6px, transparent 1.9px), linear-gradient(135deg, var(--page-color), var(--bg-end) 80%); --bg-size: 24px 24px, auto; }
-    html[data-bg="grid"] { --bg-image: linear-gradient(color-mix(in srgb, var(--blue) 12%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--blue) 12%, transparent) 1px, transparent 1px), linear-gradient(135deg, var(--page-color), var(--bg-end) 80%); --bg-size: 30px 30px, 30px 30px, auto; }
-    html[data-bg="stripes"] { --bg-image: repeating-linear-gradient(45deg, color-mix(in srgb, var(--blue) 10%, transparent) 0 2px, transparent 2px 16px), linear-gradient(135deg, var(--page-color), var(--bg-end) 80%); --bg-size: auto, auto; }
-    html[data-bg="plain"] { --bg-image: none; --bg-size: auto; }
 
     * { box-sizing: border-box; }
-    body { min-height: 100vh; margin: 0; color: var(--text); font-family: Tahoma, Arial, sans-serif; background-color: var(--page-color); background-image: var(--bg-image); background-size: var(--bg-size); background-attachment: fixed; animation: appear .5s ease both; position: relative; }
-    
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: url("logo.png");
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: min(440px, 72vw);
-      opacity: 0.07;
-      pointer-events: none;
-      z-index: 0;
-      border-radius: 24px;
+    body {
+      margin: 0; min-height: 100vh; color: var(--text); font-family: Tahoma, Arial, sans-serif;
+      background-color: var(--page-color); position: relative; overflow-x: hidden;
     }
-    main, .topbar, footer { position: relative; z-index: 1; }
+
+    body::before {
+      content: ""; position: fixed; inset: 0;
+      background-image: url("logo.png"); background-repeat: no-repeat;
+      background-position: center center; background-size: min(420px, 68vw);
+      opacity: 0.045; pointer-events: none; z-index: 0;
+    }
 
     [data-emoji]::before { content: attr(data-emoji) "\00a0"; }
-    @keyframes appear { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes pop { from { opacity: 0; transform: translateY(18px) scale(.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes floatOrb {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(25px, -25px) scale(1.08); }
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
     @keyframes fillBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
-    .overlay-screen { position: fixed; inset: 0; z-index: 1000; background: var(--page-color); background-image: var(--bg-image); background-size: var(--bg-size); display: grid; place-items: center; padding: 20px; transition: opacity .4s ease, visibility .4s ease; }
-    .overlay-screen[hidden] { opacity: 0; visibility: hidden; pointer-events: none; }
-    
-    .splash-screen { z-index: 2000; background: color-mix(in srgb, var(--page-color) 65%, #0b1020cc); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-    .splash-card { width: min(440px, 100%); padding: 34px 28px 24px; background: var(--white); border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 30px 70px #00000055; text-align: center; animation: pop .5s ease both; }
-    .splash-card h2 { font-size: 22px; margin: 0 0 12px; color: var(--text); }
-    .splash-card p { margin: 0 0 14px; color: var(--muted); font-size: 13px; line-height: 1.9; }
-    .powered-by { font-size: 14px !important; color: var(--text) !important; font-weight: 700; letter-spacing: .3px; }
-    .powered-by strong { color: var(--blue); }
-    .splash-bar { height: 4px; margin-top: 18px; overflow: hidden; background: var(--btn-soft); border-radius: 4px; }
-    .splash-bar span { display: block; height: 100%; background: var(--blue); transform-origin: right center; animation: fillBar 3.5s linear both; }
-    html[dir="ltr"] .splash-bar span { transform-origin: left center; }
-
-    .auth-card { width: min(400px, 100%); padding: 35px 30px; background: var(--white); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); text-align: center; animation: pop .5s ease both; position: relative; }
-    
-    .auth-logo {
-      width: 106px;
-      height: 118px;
-      margin: 0 auto 18px;
-      display: grid;
-      place-items: center;
-      border-radius: 20px;
-      background: #ffffff;
-      border: 2px solid color-mix(in srgb, var(--blue) 35%, #e2e8f0);
-      box-shadow: 0 12px 26px #00000026;
-      padding: 6px;
-      overflow: hidden;
-    }
-    .auth-logo img { width: 100%; height: 100%; object-fit: contain; }
-
-    .auth-card h2 { font-size: 22px; margin-bottom: 20px; color: var(--text); }
-    .auth-form { text-align: start; display: flex; flex-direction: column; gap: 15px; }
-    .loader { width: 40px; height: 40px; border: 4px solid var(--btn-soft); border-top-color: var(--blue); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
-
-    .shift-user-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; margin-bottom: 16px; border-radius: 20px; background: var(--blue-soft); color: var(--blue); font-size: 12px; font-weight: 700; }
-
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 3000;
-      background: rgba(5, 12, 9, 0.75); backdrop-filter: blur(6px);
+    /* ===== شاشات الترحيب والتحميل والدخول المبهرة ===== */
+    .overlay-screen {
+      position: fixed; inset: 0; z-index: 2000;
       display: grid; place-items: center; padding: 20px;
-    }
-    .modal-overlay[hidden] { display: none; }
-    .modal-card {
-      width: min(460px, 100%); background: var(--white); border: 1px solid var(--line);
-      border-radius: 20px; padding: 26px; box-shadow: 0 25px 60px rgba(0,0,0,0.45);
-      animation: pop .3s ease both;
-    }
-
-    .topbar { color: white; padding: 14px max(4%, calc((100% - 1180px) / 2)); background: var(--top-gradient); background-size: 180% 180%; box-shadow: 0 10px 30px #14213d55; }
-    .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 13px; }
-    .brand, .top-actions { display: flex; align-items: center; gap: 14px; }
-    
-    .brand-mark {
-      width: 62px;
-      height: 68px;
-      display: grid;
-      place-items: center;
-      border-radius: 14px;
-      background: #ffffff;
-      box-shadow: 0 4px 14px #00000035;
+      background: linear-gradient(135deg, #0b142b 0%, #162958 50%, #2748b0 100%);
       overflow: hidden;
-      padding: 4px;
-      flex-shrink: 0;
     }
-    .brand-mark img { width: 100%; height: 100%; object-fit: contain; }
+    .overlay-screen[hidden] { display: none !important; }
 
-    h1 { margin: 0 0 4px; font-size: 22px; }
-    .subtitle { margin: 0; font-size: 13px; color: #d5def4; }
-    .top-actions { flex-wrap: wrap; justify-content: flex-end; }
-    .language-select { width: auto; margin: 0; padding: 9px 12px; }
+    /* كرات إضاءة متحركة في خلفية الدخول */
+    .orb {
+      position: absolute; border-radius: 50%; filter: blur(65px); opacity: 0.45; pointer-events: none;
+      animation: floatOrb 8s ease-in-out infinite;
+    }
+    .orb-1 { width: 320px; height: 320px; background: #4f7cff; top: -60px; right: -40px; }
+    .orb-2 { width: 280px; height: 280px; background: #00d2ff; bottom: -60px; left: -40px; animation-delay: 2s; }
+    .orb-3 { width: 200px; height: 200px; background: #7c3aed; top: 45%; left: 55%; animation-delay: 4s; }
 
-    main { width: min(1180px, 92%); margin: 24px auto 38px; display: none; }
+    .glass-login-box {
+      position: relative; z-index: 2;
+      width: min(420px, 100%);
+      background: rgba(255, 255, 255, 0.11);
+      backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 28px; padding: 36px 30px;
+      box-shadow: 0 30px 70px rgba(4, 10, 28, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      color: #ffffff; text-align: center;
+      animation: popIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
 
-    .toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; padding: 14px 16px; background: var(--toolbar-bg); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-soft); }
-    .toolbar-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-    .color-control { display: flex; align-items: center; gap: 10px; color: var(--label); font-size: 12px; }
-    input[type="color"] { width: 42px; height: 36px; margin: 0; padding: 3px; cursor: pointer; }
+    .login-logo-ring {
+      width: 108px; height: 120px; margin: 0 auto 18px;
+      border-radius: 24px; background: #ffffff;
+      padding: 7px; display: grid; place-items: center;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35), 0 0 0 5px rgba(255, 255, 255, 0.16);
+      overflow: hidden;
+    }
+    .login-logo-ring img { width: 100%; height: 100%; object-fit: contain; }
 
-    .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px; }
-    .summary-card, .panel { background: color-mix(in srgb, var(--white) 95%, var(--page-color)); border: 1px solid color-mix(in srgb, var(--line) 75%, var(--page-color)); border-radius: 16px; box-shadow: var(--shadow); transition: transform .22s ease, box-shadow .22s ease; animation: rise .4s ease both; }
-    .summary-card:hover, .panel:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .glass-login-box h1, .glass-login-box h2 {
+      margin: 0 0 6px; font-size: 24px; font-weight: 700; color: #ffffff; letter-spacing: 0.3px;
+    }
+    .glass-login-box p.sub-glow {
+      margin: 0 0 24px; font-size: 13px; color: #c7d6ff; line-height: 1.7;
+    }
+
+    .glass-form { display: flex; flex-direction: column; gap: 15px; text-align: start; }
+    .glass-field label {
+      display: block; font-size: 12px; font-weight: 700; color: #dce6ff; margin-bottom: 6px;
+    }
+    .glass-input-wrap {
+      position: relative; display: flex; align-items: center;
+    }
+    .glass-input-wrap select, .glass-input-wrap input {
+      width: 100%; padding: 13px 14px; border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(10, 19, 44, 0.65); color: #ffffff;
+      font: inherit; font-size: 14px; outline: none; transition: 0.2s ease;
+    }
+    .glass-input-wrap select option { background: #101b36; color: #ffffff; }
+    .glass-input-wrap select:focus, .glass-input-wrap input:focus {
+      border-color: #7aa2ff; box-shadow: 0 0 0 4px rgba(91, 130, 255, 0.28);
+      background: rgba(10, 19, 44, 0.85);
+    }
+
+    .btn-login-glow {
+      width: 100%; margin-top: 8px; padding: 14px; border-radius: 14px; border: 0;
+      background: linear-gradient(135deg, #4b74f5 0%, #2648b8 100%);
+      color: #ffffff; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer;
+      box-shadow: 0 12px 26px rgba(38, 72, 184, 0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-login-glow:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(49, 88, 213, 0.65);
+    }
+
+    .splash-bar { height: 4px; margin-top: 18px; overflow: hidden; background: rgba(255,255,255,0.18); border-radius: 4px; }
+    .splash-bar span { display: block; height: 100%; background: #7aa2ff; transform-origin: right center; animation: fillBar 3s linear both; }
+    .loader { width: 42px; height: 42px; border: 4px solid rgba(255,255,255,0.2); border-top-color: #ffffff; border-radius: 50%; animation: spin 0.9s linear infinite; margin: 0 auto 16px; }
+
+    /* ===== تخطيط لوحة التحكم مع الشريط الجانبي (Sidebar) ===== */
+    .app-shell { display: none; min-height: 100vh; position: relative; z-index: 1; }
+    .app-shell.active { display: flex; }
+
+    aside.sidebar {
+      width: 268px; background: var(--sidebar-bg); color: var(--sidebar-text);
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 20px 14px; flex-shrink: 0; position: sticky; top: 0; height: 100vh;
+      overflow-y: auto; box-shadow: 4px 0 24px rgba(10, 18, 40, 0.14); z-index: 100;
+    }
+    .side-header {
+      display: flex; align-items: center; gap: 12px;
+      padding-bottom: 16px; margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .side-logo {
+      width: 48px; height: 52px; border-radius: 12px; background: #ffffff;
+      padding: 3px; display: grid; place-items: center; flex-shrink: 0; overflow: hidden;
+    }
+    .side-logo img { width: 100%; height: 100%; object-fit: contain; }
+    .side-header h2 { margin: 0; font-size: 16px; color: #ffffff; }
+    .side-header small { display: block; font-size: 11px; color: #9fb2db; margin-top: 2px; }
+
+    .nav-group-label {
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px;
+      color: #7d91bd; padding: 10px 12px 4px; font-weight: 700;
+    }
+    .side-nav { display: flex; flex-direction: column; gap: 4px; }
+    .nav-btn {
+      width: 100%; text-align: start; padding: 11px 13px; border-radius: 12px;
+      border: 0; background: transparent; color: var(--sidebar-text);
+      font: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: all 0.18s ease; box-shadow: none;
+    }
+    .nav-btn:hover { background: var(--sidebar-hover); transform: translateX(-2px); }
+    html[dir="ltr"] .nav-btn:hover { transform: translateX(2px); }
+    .nav-btn.active {
+      background: var(--blue); color: #ffffff;
+      box-shadow: 0 6px 16px rgba(49, 88, 213, 0.38);
+    }
+    .nav-badge {
+      padding: 2px 8px; border-radius: 12px; font-size: 11px;
+      background: rgba(255,255,255,0.14); color: #ffffff;
+    }
+
+    .side-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 12px; margin-top: 16px; display: flex; flex-direction: column; gap: 8px;
+    }
+
+    .main-area { flex: 1; padding: 20px 26px 40px; min-width: 0; }
+
+    .top-header-bar {
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+      background: var(--white); border: 1px solid var(--line); border-radius: 16px;
+      padding: 14px 20px; margin-bottom: 20px; box-shadow: var(--shadow);
+    }
+    .top-header-bar h1 { margin: 0; font-size: 19px; color: var(--text); }
+    .top-tools { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+    /* البطاقات واللوحات */
+    .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 20px; }
+    .summary-card, .panel {
+      background: var(--white); border: 1px solid var(--line);
+      border-radius: 16px; box-shadow: var(--shadow); transition: 0.2s ease;
+    }
     .summary-card { padding: 18px; }
-    .summary-label { color: var(--muted); font-size: 13px; }
-    .summary-value { display: block; margin-top: 13px; font-size: 23px; font-weight: 700; }
+    .summary-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+    .summary-label { color: var(--muted); font-size: 12px; font-weight: 700; display: block; }
+    .summary-value { display: block; margin-top: 10px; font-size: 22px; font-weight: 700; }
     .green { color: var(--green); } .red { color: var(--red); }
-    .panel { padding: 21px; margin-bottom: 18px; }
-    .panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 17px; }
-    h2 { margin: 0; font-size: 17px; } .hint { color: var(--muted); font-size: 12px; }
+
+    .panel { padding: 20px; margin-bottom: 20px; }
+    .panel-heading {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+      gap: 12px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line);
+    }
+    .panel-heading h2 { margin: 0; font-size: 16px; }
+    .hint { color: var(--muted); font-size: 12px; }
 
     .form-grid, .filter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-    label { display: block; color: var(--label); font-size: 12px; margin-bottom: 5px; }
-    input, select { width: 100%; padding: 11px 12px; border: 1px solid var(--input-line); border-radius: 10px; background: var(--input-bg); color: var(--text); font: inherit; font-size: 13px; transition: .2s ease; }
+    .filter-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    label { display: block; color: var(--label); font-size: 12px; margin-bottom: 5px; font-weight: 700; }
+    input, select {
+      width: 100%; padding: 10px 12px; border: 1px solid var(--input-line); border-radius: 10px;
+      background: var(--input-bg); color: var(--text); font: inherit; font-size: 13px; transition: .2s ease;
+    }
     input:focus, select:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px var(--focus-ring); }
 
-    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-    button { border: 0; border-radius: 10px; padding: 11px 16px; font: inherit; font-size: 13px; cursor: pointer; box-shadow: var(--btn-shadow); transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
-    button:hover { transform: translateY(-2px); box-shadow: var(--btn-shadow-hover); }
-    button:active { transform: scale(.96); }
-    .primary { background: var(--blue); color: white; font-weight: 700; box-shadow: 0 6px 14px color-mix(in srgb, var(--blue) 45%, transparent); }
-    .primary:hover { background: var(--blue-hover); }
+    button {
+      border: 0; border-radius: 10px; padding: 10px 15px; font: inherit; font-size: 13px;
+      cursor: pointer; transition: 0.18s ease; font-weight: 700;
+    }
+    button:hover { opacity: 0.92; transform: translateY(-1px); }
+    .primary { background: var(--blue); color: #ffffff; }
     .secondary { background: var(--btn-soft); color: var(--btn-soft-text); }
-    .danger-soft { background: var(--red-soft); color: var(--red); font-weight: 700; }
+    .danger-soft { background: var(--red-soft); color: var(--red); }
+
     .table-wrap { overflow-x: auto; }
-    table { width: 100%; min-width: 980px; border-collapse: collapse; }
-    th, td { padding: 13px 10px; text-align: start; border-bottom: 1px solid var(--line); font-size: 12px; }
-    th { color: var(--muted); font-weight: 600; background: var(--soft); }
+    table { width: 100%; min-width: 820px; border-collapse: collapse; }
+    th, td { padding: 12px 10px; text-align: start; border-bottom: 1px solid var(--line); font-size: 12px; }
+    th { color: var(--muted); font-weight: 700; background: var(--soft); }
     tbody tr:hover { background: var(--hover); }
 
-    .tx-id-wrap {
-      position: relative;
-      display: inline-block;
-    }
+    /* رقم الحركة والتعديلات وأثر الخزنة */
+    .tx-id-wrap { position: relative; display: inline-block; }
     .tx-id-badge {
-      display: inline-block;
-      font-family: monospace;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 8px;
-      background: var(--btn-soft);
-      color: var(--blue);
-      border: 1px solid var(--line);
-      direction: ltr;
-      cursor: pointer;
+      display: inline-block; font-family: monospace; font-size: 11px; font-weight: 700;
+      padding: 4px 8px; border-radius: 8px; background: var(--btn-soft);
+      color: var(--blue); border: 1px solid var(--line); direction: ltr; cursor: pointer;
     }
     .tx-id-tooltip {
-      visibility: hidden;
-      opacity: 0;
-      position: absolute;
-      bottom: 125%;
-      right: 50%;
-      transform: translateX(50%);
-      background: #111827;
-      color: #ffffff;
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-family: monospace;
-      font-size: 11px;
-      white-space: nowrap;
-      z-index: 50;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-      border: 1px solid var(--blue);
-      direction: ltr;
-      transition: opacity .15s ease;
-      pointer-events: none;
+      visibility: hidden; opacity: 0; position: absolute; bottom: 125%; right: 50%;
+      transform: translateX(50%); background: #111827; color: #ffffff;
+      padding: 6px 10px; border-radius: 8px; font-family: monospace; font-size: 11px;
+      white-space: nowrap; z-index: 60; box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      border: 1px solid var(--blue); direction: ltr; transition: opacity .15s ease; pointer-events: none;
     }
     .tx-id-wrap:hover .tx-id-tooltip,
     .tx-id-wrap:focus-within .tx-id-tooltip,
-    .tx-id-wrap.show-full .tx-id-tooltip {
-      visibility: visible;
-      opacity: 1;
-    }
+    .tx-id-wrap.show-full .tx-id-tooltip { visibility: visible; opacity: 1; }
 
-    .old-amount-strike {
-      display: block;
-      text-decoration: line-through;
-      color: var(--red);
-      opacity: 0.78;
-      font-size: 11px;
-      font-weight: normal;
-      margin-bottom: 2px;
-    }
-
-    .editor-info-note {
-      display: block;
-      margin-top: 4px;
-      font-size: 11px;
-      color: var(--warn-text);
-      font-weight: 700;
-    }
-
+    .old-amount-strike { display: block; text-decoration: line-through; color: var(--red); opacity: 0.8; font-size: 11px; font-weight: normal; }
+    .editor-info-note { display: block; margin-top: 4px; font-size: 11px; color: var(--warn-text); font-weight: 700; }
     .safe-impact-pill {
-      display: inline-block;
-      margin-top: 6px;
-      padding: 4px 9px;
-      border-radius: 8px;
-      background: var(--blue-soft);
-      color: var(--blue);
-      font-size: 11px;
-      font-weight: 700;
-      border: 1px solid color-mix(in srgb, var(--blue) 25%, transparent);
+      display: inline-block; margin-top: 6px; padding: 4px 9px; border-radius: 8px;
+      background: var(--blue-soft); color: var(--blue); font-size: 11px; font-weight: 700;
     }
 
-    .type-tag { display: inline-block; border-radius: 20px; padding: 5px 9px; font-size: 11px; font-weight: 700; }
+    .type-tag { display: inline-block; border-radius: 20px; padding: 4px 10px; font-size: 11px; font-weight: 700; }
     .tag-income { color: var(--green); background: var(--green-soft); }
     .tag-expense { color: var(--red); background: var(--red-soft); }
     .tag-transfer { color: var(--purple); background: var(--purple-soft); }
-    
-    .pending-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; color: var(--warn-text); background: var(--warn-bg); font-size: 10px; font-weight: 700; border: 1px solid color-mix(in srgb, var(--warn-text) 30%, transparent); }
+    .pending-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; color: var(--warn-text); background: var(--warn-bg); font-size: 10px; font-weight: 700; }
     .confirmed-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; color: var(--green); background: var(--green-soft); font-size: 10px; font-weight: 700; }
-    .confirm-btn { padding: 7px 11px; background: var(--green); color: #fff; font-weight: 700; margin-inline-end: 6px; }
-    .confirm-btn:hover { opacity: 0.92; }
+    .edited-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 8px; border-radius: 20px; color: var(--warn-text); background: var(--warn-bg); font-size: 10px; font-weight: 700; }
     tr.row-pending { background: color-mix(in srgb, var(--warn-bg) 35%, transparent); }
 
-    .delete, .permanent-delete { padding: 7px 10px; background: var(--red-soft); color: var(--red); }
-    .restore { padding: 7px 10px; background: var(--green-soft); color: var(--green); }
-    .edit { padding: 7px 10px; background: var(--blue-soft); color: var(--blue); margin-inline-end: 6px; }
-    .edited-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 8px; border-radius: 20px; color: var(--warn-text); background: var(--warn-bg); font-size: 10px; font-weight: 700; }
-    .empty { padding: 28px; text-align: center; color: var(--muted); font-size: 13px; }
+    .confirm-btn { padding: 6px 10px; background: var(--green); color: #fff; margin-inline-end: 5px; }
+    .edit { padding: 6px 10px; background: var(--blue-soft); color: var(--blue); margin-inline-end: 5px; }
+    .delete { padding: 6px 10px; background: var(--red-soft); color: var(--red); }
+    .restore { padding: 6px 10px; background: var(--green-soft); color: var(--green); }
 
-    .notice { display: none; padding: 11px 13px; margin-top: 14px; border-radius: 10px; font-size: 12px; }
-    .notice.ok { display: block; color: var(--ok-text); background: var(--green-soft); }
-    .notice.error { display: block; color: var(--err-text); background: var(--red-soft); }
-    .trash-count { display: inline-grid; place-items: center; min-width: 22px; height: 22px; margin-inline-start: 5px; padding: 0 6px; border-radius: 20px; color: var(--err-text); background: var(--red-soft); font-size: 11px; }
-
+    /* بطاقات الأرصدة والفروع وتصنيفات المصروفات */
     .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
-    .bal-card { display: flex; flex-direction: column; gap: 8px; padding: 15px; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-soft); }
+    .bal-card { display: flex; flex-direction: column; gap: 7px; padding: 15px; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; }
     .bal-name { display: flex; align-items: center; gap: 7px; color: var(--label); font-size: 12px; font-weight: 700; }
-    .bal-value { font-size: 20px; font-weight: 700; }
-    .bal-card small { color: var(--muted); font-size: 11px; }
-    .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: none; }
-    .dot-green { background: var(--green); box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 25%, transparent); }
-    .dot-red { background: var(--red); box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 25%, transparent); }
+    .bal-value { font-size: 19px; font-weight: 700; }
+    .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+    .dot-green { background: var(--green); } .dot-red { background: var(--red); }
 
-    .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 18px; }
-    .branch-stat-card { padding: 14px; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-soft); display: flex; flex-direction: column; gap: 6px; }
-    .branch-stat-title { font-size: 13px; font-weight: 700; color: var(--blue); display: flex; justify-content: space-between; align-items: center; }
+    .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; margin-bottom: 18px; }
+    .branch-stat-card { padding: 16px; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; display: flex; flex-direction: column; gap: 8px; }
+    .branch-stat-title { font-size: 14px; font-weight: 700; color: var(--blue); display: flex; justify-content: space-between; }
     .branch-stat-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
-    .branch-stat-net { border-top: 1px dashed var(--line); padding-top: 6px; margin-top: 2px; display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; }
+    .branch-stat-net { border-top: 1px dashed var(--line); padding-top: 8px; display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; }
 
-    .cat-bars { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
-    .cat-bar-item { padding: 12px 14px; background: var(--soft); border: 1px solid var(--line); border-radius: 12px; }
-    .cat-bar-head { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; margin-bottom: 6px; }
-    .cat-bar-track { height: 8px; background: var(--btn-soft); border-radius: 8px; overflow: hidden; }
-    .cat-bar-fill { height: 100%; background: var(--red); border-radius: 8px; transition: width .4s ease; }
+    /* الرسومات البيانية التفاعلية */
+    .chart-box {
+      background: var(--soft); border: 1px solid var(--line); border-radius: 16px;
+      padding: 18px; margin-bottom: 18px;
+    }
+    .chart-bars-container {
+      display: flex; align-items: flex-end; justify-content: space-around; gap: 14px;
+      height: 210px; padding: 20px 10px 8px; border-bottom: 2px solid var(--line);
+      overflow-x: auto;
+    }
+    .chart-col-group {
+      display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 85px; flex: 1;
+    }
+    .chart-pair {
+      display: flex; align-items: flex-end; gap: 5px; height: 150px;
+    }
+    .c-bar {
+      width: 20px; border-radius: 6px 6px 0 0; transition: height 0.5s ease; position: relative; min-height: 4px;
+    }
+    .c-bar.inc { background: linear-gradient(180deg, #16a34a, #10855a); }
+    .c-bar.exp { background: linear-gradient(180deg, #f43f5e, #d63f4c); }
+    .c-bar:hover::after {
+      content: attr(data-val); position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%);
+      background: #101b36; color: #fff; font-size: 10px; padding: 3px 6px; border-radius: 6px; white-space: nowrap; z-index: 10;
+    }
+    .chart-label { font-size: 11px; font-weight: 700; color: var(--text); text-align: center; }
 
-    .opening-editor { margin-top: 16px; padding: 16px; background: var(--soft); border: 1px dashed var(--input-line); border-radius: 14px; }
-    .opening-editor[hidden] { display: none; }
-    .close-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px; margin-top: 16px; }
+    .cat-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 18px; }
+    .cat-card {
+      padding: 15px; background: var(--soft); border: 1px solid var(--line); border-radius: 14px;
+      border-inline-start: 4px solid var(--red); cursor: pointer; transition: 0.2s;
+    }
+    .cat-card:hover { transform: translateY(-2px); border-color: var(--blue); }
+    .cat-card h4 { margin: 0 0 6px; font-size: 14px; display: flex; justify-content: space-between; }
+    .cat-card .amt { font-size: 18px; font-weight: 700; color: var(--red); }
+    .cat-progress { height: 7px; background: var(--btn-soft); border-radius: 6px; overflow: hidden; margin-top: 8px; }
+    .cat-progress span { display: block; height: 100%; background: var(--red); border-radius: 6px; }
 
-    .style-panel, .settings-panel { display: grid; gap: 16px; }
-    .style-panel[hidden], .settings-panel[hidden] { display: none; }
-    .chip-group strong { display: block; margin-bottom: 10px; font-size: 13px; }
-    .chips { display: flex; flex-wrap: wrap; gap: 9px; }
-    .chip { display: inline-flex; align-items: center; gap: 7px; padding: 9px 13px; background: var(--btn-soft); color: var(--btn-soft-text); border: 2px solid transparent; }
-    .chip.active { border-color: var(--blue); font-weight: 700; }
-    .swatch { width: 14px; height: 14px; border-radius: 50%; box-shadow: 0 0 0 2px #ffffff80, 0 1px 4px #00000050; }
+    /* سجل النشاط (Activity Logs) */
+    .log-timeline { display: flex; flex-direction: column; gap: 10px; }
+    .log-item {
+      display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+      padding: 13px 16px; background: var(--soft); border: 1px solid var(--line);
+      border-radius: 12px; border-inline-start: 4px solid var(--blue);
+    }
+    .log-item.log-edit { border-inline-start-color: #d97706; }
+    .log-item.log-confirm { border-inline-start-color: var(--green); }
+    .log-item.log-delete { border-inline-start-color: var(--red); }
+    .log-meta { font-size: 11px; color: var(--muted); }
 
-    .users-table th { background: var(--blue-soft); color: var(--blue); }
-    .checkbox-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 5px; }
+    /* نافذة تعديل أدوار المستخدمين */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 3000; background: rgba(10, 18, 40, 0.72);
+      backdrop-filter: blur(6px); display: grid; place-items: center; padding: 20px;
+    }
+    .modal-overlay[hidden] { display: none; }
+    .modal-card { width: min(460px, 100%); background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: 26px; box-shadow: 0 25px 60px rgba(0,0,0,0.45); }
+
+    .checkbox-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 5px; }
     .checkbox-group label { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; background: var(--soft); padding: 5px 10px; border-radius: 8px; border: 1px solid var(--line); cursor: pointer; }
     .checkbox-group input { width: auto; margin: 0; }
 
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { display: inline-flex; align-items: center; gap: 7px; padding: 8px 13px; background: var(--btn-soft); color: var(--btn-soft-text); border: 2px solid transparent; }
+    .chip.active { border-color: var(--blue); }
+    .swatch { width: 14px; height: 14px; border-radius: 50%; }
+
+    .notice { display: none; padding: 11px 13px; margin-top: 12px; border-radius: 10px; font-size: 12px; font-weight: 700; }
+    .notice.ok { display: block; color: var(--ok-text); background: var(--green-soft); }
+    .notice.error { display: block; color: var(--err-text); background: var(--red-soft); }
+
+    /* واجهة الكاشير */
     .cashier-box { max-width: 620px; margin: 20px auto; }
     .cashier-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 20px; background: var(--blue-soft); color: var(--blue); font-size: 13px; font-weight: 700; margin-bottom: 18px; }
-    .cashier-fields { display: flex; flex-direction: column; gap: 16px; }
+    .cashier-fields { display: flex; flex-direction: column; gap: 15px; }
     .cashier-field-card { padding: 14px 16px; background: var(--soft); border: 1px solid var(--line); border-radius: 12px; }
-    .cashier-field-card label { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-    .cashier-field-card small { display: block; color: var(--muted); font-size: 11px; margin-bottom: 8px; }
-
     .expense-section-box { padding: 16px; background: var(--red-soft); border: 1px dashed var(--red); border-radius: 14px; }
-    .expense-section-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
-    .expense-section-header strong { color: var(--red); font-size: 14px; }
     .cashier-expense-row { display: grid; grid-template-columns: 1.2fr 1fr 1.4fr auto; gap: 8px; align-items: center; margin-top: 10px; padding: 10px; background: var(--white); border-radius: 10px; border: 1px solid var(--line); }
-    .cashier-expense-row select, .cashier-expense-row input { padding: 9px 10px; font-size: 12px; }
-    .remove-exp-btn { padding: 9px 11px; background: var(--red-soft); color: var(--red); font-weight: bold; }
 
-    footer { padding: 22px 16px; text-align: center; color: var(--muted); font-size: 12px; }
-    footer span { display: inline-block; padding: 9px 16px; background: var(--toolbar-bg); border: 1px solid var(--line); border-radius: 30px; box-shadow: var(--shadow-soft); }
-    html[dir="ltr"] th, html[dir="ltr"] td { text-align: left; }
+    footer { padding: 20px; text-align: center; color: var(--muted); font-size: 12px; }
 
     @media print {
-      body { background: #fff !important; color: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      body::before {
-        opacity: 0.12 !important;
-        background-size: 400px !important;
-        mix-blend-mode: multiply;
-      }
-      .overlay-screen, .modal-overlay, .toolbar, .filters, #transactionFormPanel, #settingsPanel, #stylePanel, #balancesPanel, .topbar button, .topbar select, footer { display: none !important; }
-      main { display: block !important; width: 100% !important; margin: 0 !important; }
-      .topbar { background: #14213d !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 12px 16px; margin-bottom: 14px; }
-      .summary { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; margin-bottom: 14px !important; }
-      .summary-card, .panel { box-shadow: none !important; border: 1px solid #ccc !important; background: transparent !important; }
-      table { min-width: 100% !important; font-size: 11px !important; }
-      th, td { border: 1px solid #ddd !important; padding: 8px 6px !important; }
-      .edit, .delete, .restore, .confirm-btn { display: none !important; }
+      aside.sidebar, .top-header-bar button, .top-header-bar select, .no-print, footer { display: none !important; }
+      .main-area { padding: 0 !important; }
+      .panel { box-shadow: none !important; border: 1px solid #ccc !important; }
     }
 
-    @media (max-width: 760px) {
-      .topbar-inner { align-items: flex-start; flex-direction: column; }
-      .top-actions { justify-content: flex-start; }
-      .summary { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .form-grid, .filter-grid { grid-template-columns: 1fr 1fr; }
-      .cashier-expense-row { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 920px) {
+      .app-shell.active { flex-direction: column; }
+      aside.sidebar { width: 100%; height: auto; position: static; }
+      .side-nav { flex-direction: row; flex-wrap: wrap; }
+      .nav-btn { width: auto; }
+      .form-grid, .filter-grid, .filter-grid-4 { grid-template-columns: 1fr 1fr; }
     }
-    @media (max-width: 470px) {
-      .form-grid, .filter-grid { grid-template-columns: 1fr; }
-      .panel-heading { align-items: flex-start; flex-direction: column; }
-      .cashier-expense-row { grid-template-columns: 1fr; }
+    @media (max-width: 520px) {
+      .form-grid, .filter-grid, .filter-grid-4, .cashier-expense-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- شاشة الترحيب -->
-  <div class="overlay-screen splash-screen" id="splashScreen">
-    <div class="splash-card">
-      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNY"></div>
+  <!-- 1. شاشة الترحيب -->
+  <div class="overlay-screen" id="splashScreen">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="glass-login-box">
+      <div class="login-logo-ring"><img src="logo.png" alt="EL-DKHAKHNY"></div>
       <h2 data-i18n="splashWelcome">أهلاً بك في نظام الدخاخني ستور</h2>
-      <p data-i18n="splashDesc">نظام الإدارة المالية المتكامل للفروع والخزن ومتابعة الإيرادات والمصروفات لحظياً عبر السحابة.</p>
-      <p class="powered-by">✨ Powered by <strong>Samy Aziz</strong></p>
-      <button class="primary" id="splashEnterBtn" type="button" style="width:100%; margin-top:8px;" data-i18n="enterSystem" data-emoji="🚀">دخول النظام</button>
+      <p class="sub-glow" data-i18n="splashDesc">نظام الإدارة المالية المتكامل للفروع والخزن ومتابعة الإيرادات والمصروفات لحظياً عبر السحابة.</p>
+      <p style="font-size:13px; color:#dce6ff; margin-bottom:14px;">✨ Powered by <strong>Samy Aziz</strong></p>
+      <button class="btn-login-glow" id="splashEnterBtn" type="button" data-i18n="enterSystem">🚀 دخول النظام</button>
       <div class="splash-bar"><span></span></div>
     </div>
   </div>
 
-  <!-- شاشة التحميل والمزامنة -->
+  <!-- 2. شاشة المزامنة -->
   <div class="overlay-screen" id="loadingScreen" hidden>
-    <div class="auth-card" style="box-shadow:none; border:none; background:transparent;">
+    <div class="glass-login-box">
       <div class="loader"></div>
-      <h2 style="color:var(--blue)" data-i18n="syncingTitle">جارِ مزامنة النظام...</h2>
-      <p style="color:var(--muted); font-size:13px;" data-i18n="syncingDesc">يتم جلب البيانات من السحابة</p>
+      <h2 data-i18n="syncingTitle">جارِ مزامنة النظام...</h2>
+      <p class="sub-glow" data-i18n="syncingDesc">يتم جلب البيانات من السحابة</p>
     </div>
   </div>
 
-  <!-- شاشة تسجيل الدخول الكلاسيكية -->
+  <!-- 3. شاشة تسجيل الدخول المبهرة -->
   <div class="overlay-screen" id="loginScreen" hidden>
-    <div class="auth-card">
-      <div class="auth-logo"><img src="logo.png" alt="EL-DKHAKHNY"></div>
-      <h2 data-i18n="loginTitle">تسجيل الدخول</h2>
-      <form class="auth-form" id="loginForm">
-        <label>
-          <span data-i18n="username" data-emoji="👤">اسم المستخدم</span>
-          <select id="loginUsername" required></select>
-        </label>
-        <label>
-          <span data-i18n="password" data-emoji="🔒">كلمة المرور</span>
-          <input type="password" id="loginPassword" required data-i18n-placeholder="passPlaceholder" placeholder="أدخل كلمة المرور">
-        </label>
-        <button class="primary" type="submit" style="width: 100%; margin-top: 10px;" data-i18n="loginBtn">دخول</button>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="glass-login-box">
+      <div class="login-logo-ring"><img src="logo.png" alt="EL-DKHAKHNY"></div>
+      <h1 data-i18n="storeTitle">الدخاخني ستور</h1>
+      <p class="sub-glow" data-i18n="loginSubGlow">بوابة الإدارة المالية الذكية • سجل الدخول للمتابعة</p>
+
+      <form class="glass-form" id="loginForm">
+        <div class="glass-field">
+          <label data-i18n="username" data-emoji="👤">اسم المستخدم</label>
+          <div class="glass-input-wrap">
+            <select id="loginUsername" required></select>
+          </div>
+        </div>
+        <div class="glass-field">
+          <label data-i18n="password" data-emoji="🔒">كلمة المرور</label>
+          <div class="glass-input-wrap">
+            <input type="password" id="loginPassword" required data-i18n-placeholder="passPlaceholder" placeholder="أدخل كلمة المرور">
+          </div>
+        </div>
+        <button class="btn-login-glow" type="submit" data-i18n="loginBtn">✨ تسجيل الدخول</button>
         <div id="loginNotice" class="notice error"></div>
       </form>
+      <div style="margin-top:18px; font-size:11px; color:#9fb2db;">Powered by Samy Aziz</div>
     </div>
   </div>
 
-  <!-- شاشة بداية الشيفت -->
+  <!-- 4. شاشة بداية الشيفت للكاشير -->
   <div class="overlay-screen" id="shiftScreen" hidden>
-    <div class="auth-card">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="glass-login-box">
       <h2 data-i18n="shiftDataTitle" data-emoji="⏱️">بيانات الشيفت</h2>
-      <div class="shift-user-pill" id="shiftScreenUserBadge"></div>
-      <form class="auth-form" id="shiftForm">
-        <label>
-          <span data-i18n="chooseBranch" data-emoji="🏬">اختر الفرع</span>
-          <select id="shiftBranch" required></select>
-        </label>
-        <label>
-          <span data-i18n="shiftNumber" data-emoji="🔢">رقم الشيفت</span>
-          <input type="text" id="shiftNumberEntry" required data-i18n-placeholder="shiftPlaceholder" placeholder="اكتب رقم الشيفت الحالي">
-        </label>
-        <button class="primary" type="submit" style="width: 100%; margin-top: 10px;" data-i18n="startWorkBtn">ابدأ العمل</button>
-        <button class="danger-soft" id="shiftLogoutBtn" type="button" style="width: 100%; margin-top: 4px;" data-i18n="switchUserBtn" data-emoji="🚪">تسجيل خروج / تغيير المستخدم</button>
+      <div id="shiftScreenUserBadge" style="display:inline-block; padding:6px 14px; border-radius:20px; background:rgba(255,255,255,0.15); margin-bottom:16px; font-size:13px; font-weight:bold;"></div>
+      <form class="glass-form" id="shiftForm">
+        <div class="glass-field">
+          <label data-i18n="chooseBranch" data-emoji="🏬">اختر الفرع</label>
+          <div class="glass-input-wrap"><select id="shiftBranch" required></select></div>
+        </div>
+        <div class="glass-field">
+          <label data-i18n="shiftNumber" data-emoji="🔢">رقم الشيفت</label>
+          <div class="glass-input-wrap"><input type="text" id="shiftNumberEntry" required data-i18n-placeholder="shiftPlaceholder" placeholder="اكتب رقم الشيفت الحالي"></div>
+        </div>
+        <button class="btn-login-glow" type="submit" data-i18n="startWorkBtn">ابدأ العمل</button>
+        <button class="secondary" id="shiftLogoutBtn" type="button" style="width:100%;" data-i18n="switchUserBtn">🚪 تسجيل خروج / تغيير المستخدم</button>
       </form>
     </div>
   </div>
 
-  <!-- نافذة تعديل دور وصلاحيات المستخدم -->
+  <!-- نافذة تعديل أدوار وصلاحيات المستخدمين -->
   <div class="modal-overlay" id="editUserModal" hidden>
     <div class="modal-card">
-      <div class="panel-heading">
-        <h2 data-i18n="editRoleModalTitle" data-emoji="⚙️">تعديل دور وصلاحيات المستخدم</h2>
-      </div>
-      <form id="editUserRoleForm" class="auth-form">
+      <div class="panel-heading"><h2 data-i18n="editRoleModalTitle" data-emoji="⚙️">تعديل دور وصلاحيات المستخدم</h2></div>
+      <form id="editUserRoleForm" style="display:flex; flex-direction:column; gap:14px;">
         <div>
           <label data-i18n="username">اسم المستخدم</label>
           <input type="text" id="editRoleUsername" readonly style="font-weight:bold; opacity:0.85;">
@@ -453,7 +509,7 @@
           <label data-i18n="allowedBranches">الفروع المسموحة للمستخدم:</label>
           <div class="checkbox-group" id="editRoleBranchesBox"></div>
         </div>
-        <div class="actions" style="justify-content:flex-end;">
+        <div style="display:flex; gap:10px; justify-content:flex-end;">
           <button type="button" class="secondary" id="closeEditUserModalBtn" data-i18n="cancelBtn">إلغاء</button>
           <button type="submit" class="primary" data-i18n="saveRoleBtn">💾 حفظ الصلاحيات</button>
         </div>
@@ -461,219 +517,374 @@
     </div>
   </div>
 
-  <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <div class="brand-mark"><img src="logo.png" alt="EL-DKHAKHNY"></div>
+  <!-- هيكل التطبيق الرئيسي -->
+  <div class="app-shell" id="appShell">
+
+    <!-- الشريط الجانبي (Sidebar) -->
+    <aside class="sidebar admin-only" id="adminSidebar">
+      <div>
+        <div class="side-header">
+          <div class="side-logo"><img src="logo.png" alt="EL-DKHAKHNY"></div>
+          <div>
+            <h2 data-i18n="storeTitle">الدخاخني ستور</h2>
+            <small id="userSubtitle">لوحة الإدارة المالية</small>
+          </div>
+        </div>
+
+        <div class="nav-group-label" data-i18n="navMainGrp">القائمة الرئيسية</div>
+        <nav class="side-nav">
+          <button type="button" class="nav-btn active" data-view="viewDashboard"><span>🏦 الخزن وإضافة حركة</span></button>
+          <button type="button" class="nav-btn" data-view="viewBranches"><span>🏬 ملخص وتقرير الفروع</span></button>
+          <button type="button" class="nav-btn" data-view="viewExpenses"><span>🔴 تقرير وتصنيفات المصاريف</span></button>
+          <button type="button" class="nav-btn" data-view="viewTransactions"><span>📒 سجل الحركات الشامل</span><span class="nav-badge" id="navPendingBadge" style="display:none;">0</span></button>
+          <button type="button" class="nav-btn" data-view="viewActivity"><span>🕵️ سجل النشاط (Activity Logs)</span></button>
+        </nav>
+
+        <div class="nav-group-label" data-i18n="navAdminGrp">الإدارة والإعدادات</div>
+        <nav class="side-nav">
+          <button type="button" class="nav-btn" data-view="viewUsers"><span>👥 المستخدمين والأدوار</span></button>
+          <button type="button" class="nav-btn" data-view="viewTrash"><span>🗑️ سلة المحذوفات</span><span class="nav-badge" id="navTrashBadge">0</span></button>
+          <button type="button" class="nav-btn" data-view="viewAppearance"><span>🎨 الألوان والتصميم</span></button>
+        </nav>
+      </div>
+
+      <div class="side-footer">
+        <button type="button" class="danger-soft" id="logoutBtn" style="width:100%;" data-i18n="logout" data-emoji="🚪">تسجيل خروج</button>
+      </div>
+    </aside>
+
+    <!-- مساحة المحتوى -->
+    <div class="main-area">
+      <!-- الشريط العلوي -->
+      <div class="top-header-bar">
         <div>
-          <h1 data-i18n="storeTitle">الدخاخني ستور</h1>
-          <p class="subtitle" id="userSubtitle" data-i18n="dashboardSub">لوحة الإدارة المالية</p>
+          <h1 id="activeSectionTitle">🏦 الخزن وإضافة حركة</h1>
+          <span class="hint" id="headerDateLabel"></span>
+        </div>
+        <div class="top-tools">
+          <button type="button" class="secondary admin-only" id="exportCsvBtn" data-i18n="exportCSV" data-emoji="📥">تصدير CSV</button>
+          <button type="button" class="secondary admin-only" id="printBtn" data-i18n="printBtn" data-emoji="🖨️">طباعة</button>
+          <button type="button" class="danger-soft cashier-only" id="cashierTopLogoutBtn" style="display:none;" data-i18n="logout" data-emoji="🚪">تسجيل خروج</button>
+          <select id="languageSelect" style="width:auto; padding:8px 12px;">
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
+          </select>
         </div>
       </div>
-      <div class="top-actions">
-        <button class="secondary" id="logoutBtn" type="button" data-i18n="logout" data-emoji="🚪" style="color: var(--red); font-weight:bold;">تسجيل خروج</button>
-        <select class="language-select" id="languageSelect" aria-label="Language">
-          <option value="ar">العربية</option>
-          <option value="en">English</option>
-        </select>
-      </div>
-    </div>
-  </header>
 
-  <main id="mainContent">
-    <div class="toolbar admin-only">
-      <div class="color-control">
-        <label data-i18n="pageColor" data-emoji="🎨">لون الصفحة</label>
-        <input id="pageColor" type="color" value="#f5f7fb">
-        <button class="secondary" id="resetColor" type="button" data-i18n="defaultColor" data-emoji="↩️">الافتراضي</button>
-      </div>
-      <div class="toolbar-actions">
-        <button class="secondary" id="analyticsToggleBtn" type="button" data-i18n="analyticsBtn" data-emoji="📊">ملخص الفروع والمصاريف</button>
-        <button class="secondary" id="settingsMenuBtn" type="button" data-i18n="settingsBtn" data-emoji="⚙️">الإعدادات والمستخدمين</button>
-        <button class="secondary" id="exportCsvBtn" type="button" data-i18n="exportCSV" data-emoji="📥">تصدير CSV</button>
-        <button class="secondary" id="printBtn" type="button" data-i18n="printBtn" data-emoji="🖨️">طباعة</button>
-        <button class="secondary" id="styleBtn" type="button" data-i18n="styleBtn" data-emoji="🎭">تغيير الشكل</button>
-        <button class="secondary" id="showTrash" type="button"></button>
-      </div>
-    </div>
-
-    <!-- واجهة الكاشير -->
-    <section class="panel cashier-box" id="cashierPanel" hidden>
-      <div class="panel-heading">
-        <h2 data-i18n="closeShiftTitle" data-emoji="🧾">تقفيل إيراد ومصاريف الشيفت</h2>
-        <span class="hint" id="cashierDateLabel"></span>
-      </div>
-      
-      <div class="cashier-badge" id="cashierShiftInfo"></div>
-
-      <form id="cashierCloseForm" class="cashier-fields">
-        <div class="cashier-field-card">
-          <label for="cashierCash" data-i18n="cashTotal" data-emoji="💵">إجمالي الكاش (نقدي)</label>
-          <small data-i18n="cashDestHint">يُعلّق لحين استلام الإدارة وترحيله إلى: الخزنة الرئيسية - الدخاخني</small>
-          <input id="cashierCash" type="number" min="0" step="0.01" placeholder="0.00">
-        </div>
-
-        <div class="cashier-field-card">
-          <label for="cashierInstapay" data-i18n="instaTotal" data-emoji="📱">إجمالي إنستا باي (Instapay)</label>
-          <small data-i18n="instaDestHint">يُعلّق لحين تأكيد الإدارة وترحيله إلى: إنستا باي الأهلي</small>
-          <input id="cashierInstapay" type="number" min="0" step="0.01" placeholder="0.00">
-        </div>
-
-        <div class="cashier-field-card">
-          <label for="cashierVisa" data-i18n="visaTotal" data-emoji="💳">إجمالي فيزا QNB</label>
-          <small data-i18n="visaDestHint">يُعلّق لحين تأكيد الإدارة وترحيله إلى: فيزا QNB</small>
-          <input id="cashierVisa" type="number" min="0" step="0.01" placeholder="0.00">
-        </div>
-
-        <div class="expense-section-box">
-          <div class="expense-section-header">
-            <strong data-i18n="shiftExpensesTitle" data-emoji="🔴">مصاريف الشيفت (إن وجدت)</strong>
-            <button type="button" class="secondary" id="addCashierExpenseBtn" style="padding: 7px 12px; font-size: 12px;" data-i18n="addExpenseRowBtn">➕ إضافة مصروف</button>
-          </div>
-          <small style="display:block; color:var(--muted); font-size:11px;" data-i18n="shiftExpenseHint">تُراجع وتُعتمد من الإدارة وتُخصم من الخزنة الرئيسية - الدخاخني</small>
-          <div id="cashierExpensesList"></div>
-        </div>
-
-        <label>
-          <span data-i18n="shiftNotes" data-emoji="📝">ملاحظات الشيفت (اختياري)</span>
-          <input id="cashierNotes" type="text" data-i18n-placeholder="notesPlaceholder" placeholder="أي ملاحظات تخص التقفيل...">
-        </label>
-
-        <button class="primary" id="cashierSubmitBtn" type="submit" style="width: 100%; padding: 14px; font-size: 15px;" data-i18n="saveShiftBtn" data-emoji="✅">حفظ وإرسال التقفيل للإدارة</button>
-        <div id="cashierNotice" class="notice" role="status"></div>
-      </form>
-    </section>
-
-    <!-- واجهة الأدمن -->
-    <div id="adminWorkspace" class="admin-only">
-      <section class="panel settings-panel" id="settingsPanel" hidden>
-        <div class="panel-heading"><h2 data-i18n="usersMgmtTitle" data-emoji="👥">إدارة المستخدمين والصلاحيات</h2></div>
-        <form id="addUserForm" class="form-grid" style="background: var(--soft); padding: 15px; border-radius: 12px; margin-bottom: 15px;">
-          <label><span data-i18n="username">اسم المستخدم</span><input type="text" id="newUserEmail" required></label>
-          <label><span data-i18n="password">كلمة المرور</span><input type="text" id="newUserPass" required></label>
-          <label><span data-i18n="roleLabel">الصلاحية</span><select id="newUserRole"><option value="cashier" data-i18n="roleCashier">مستخدم / كاشير (تقفيل شيفت فقط)</option><option value="admin" data-i18n="roleAdmin">مدير / مالك (صلاحية كاملة)</option></select></label>
-          <div style="grid-column: span 3;"><label data-i18n="allowedBranches">الفروع المسموحة للمستخدم:</label><div class="checkbox-group" id="branchCheckboxes"></div></div>
-          <button class="primary" type="submit" style="grid-column: span 3;" data-i18n="addUserBtn">إضافة حساب جديد</button>
-        </form>
-        <div class="table-wrap" style="margin-bottom: 30px;">
-          <table class="users-table">
-            <thead><tr><th data-i18n="username">اسم المستخدم</th><th data-i18n="roleLabel">الدور</th><th data-i18n="allowedBranches">الفروع المسموحة</th><th data-i18n="actionCol">إجراء</th></tr></thead>
-            <tbody id="usersList"></tbody>
-          </table>
-        </div>
-
-        <div class="panel-heading"><h2 data-i18n="openingReportsTitle" data-emoji="📈">تقارير تعديل الأرصدة الافتتاحية</h2></div>
-        <div class="table-wrap">
-          <table class="users-table">
-            <thead><tr><th data-i18n="dateTimeCol">تاريخ الإضافة/التعديل</th><th data-i18n="accountCol">الخزنة / الحساب</th><th data-i18n="openingBalCol">الرصيد الافتتاحي</th><th data-i18n="byCol">بواسطة</th><th data-i18n="statusCol">الحالة</th></tr></thead>
-            <tbody id="balancesHistoryList"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="panel style-panel" id="stylePanel" hidden>
-        <div class="chip-group"><strong data-i18n="themeTitle" data-emoji="🎨">الألوان والتصميم</strong><div class="chips" id="themeChips"></div></div>
-        <div class="chip-group"><strong data-i18n="bgTitle" data-emoji="🖼️">شكل الخلفية</strong><div class="chips" id="bgChips"></div></div>
-      </section>
-
-      <section class="panel" id="analyticsPanel">
+      <!-- واجهة الكاشير -->
+      <section class="panel cashier-box" id="cashierPanel" hidden>
         <div class="panel-heading">
-          <h2 data-i18n="branchPerfTitle" data-emoji="🏬">ملخص أداء الفروع ونسب المصروفات (المؤكدة)</h2>
-          <span class="hint" data-i18n="analyticsHint">يتفاعل تلقائياً مع فلاتر التاريخ</span>
+          <h2 data-i18n="closeShiftTitle" data-emoji="🧾">تقفيل إيراد ومصاريف الشيفت</h2>
+          <span class="hint" id="cashierDateLabel"></span>
         </div>
-        <div class="analytics-grid" id="branchStatsGrid"></div>
-        <div class="panel-heading" style="margin-top: 10px;"><h2 data-i18n="expenseDistTitle" data-emoji="📊">توزيع المصروفات حسب البند</h2></div>
-        <div class="cat-bars" id="expenseCategoryBars"></div>
-      </section>
+        <div class="cashier-badge" id="cashierShiftInfo"></div>
 
-      <section class="panel" id="balancesPanel">
-        <div class="panel-heading"><h2 data-i18n="balancesTitle" data-emoji="🏦">أرصدة الحسابات والخزن (المؤكدة فقط)</h2><span class="hint" id="balancesHint"></span></div>
-        <div class="balance-grid" id="balanceGrid"></div>
-        
-        <div class="opening-editor" id="openingEditor" hidden>
-          <div class="form-grid" id="openingInputs"></div>
-          <div class="actions">
-            <button class="primary" id="saveOpening" type="button" data-i18n="saveOpeningBtn" data-emoji="💾">حفظ الرصيد الأول وتسميعه</button>
-            <button class="secondary" id="cancelOpening" type="button" data-i18n="cancelBtn" data-emoji="✖️">إلغاء</button>
+        <form id="cashierCloseForm" class="cashier-fields">
+          <div class="cashier-field-card">
+            <label for="cashierCash" data-i18n="cashTotal" data-emoji="💵">إجمالي الكاش (نقدي)</label>
+            <small style="color:var(--muted);display:block;margin-bottom:6px;" data-i18n="cashDestHint">يُعلّق لحين استلام الإدارة وترحيله إلى: الخزنة الرئيسية - الدخاخني</small>
+            <input id="cashierCash" type="number" min="0" step="0.01" placeholder="0.00">
           </div>
-        </div>
-
-        <div class="close-row">
-          <button class="secondary" id="editOpeningBtn" type="button" data-i18n="editOpeningBtn" data-emoji="✏️">تعديل الرصيد الأول</button>
-        </div>
-        <div id="balanceNotice" class="notice" role="status"></div>
-      </section>
-
-      <!-- بطاقات ملخص الخزنة الرئيسية - الدخاخني (الداخل الإجمالي vs المصروفات vs الصافي المطابق للأعلى) -->
-      <section class="summary" id="summarySection">
-        <article class="summary-card"><span class="summary-label" data-i18n="dakhIncomeLabel" data-emoji="🟢">الخزنة الرئيسية - الدخاخني</span><strong class="summary-value green" id="totalIncome">0.00 ج.م</strong></article>
-        <article class="summary-card"><span class="summary-label" data-i18n="dakhExpensesLabel" data-emoji="🔴">مصروفات الخزنة الرئيسية - الدخاخني</span><strong class="summary-value red" id="totalExpenses">0.00 ج.م</strong></article>
-        <article class="summary-card"><span class="summary-label" data-i18n="dakhNetLabel" data-emoji="⚖️">الصافي من الخزنة الرئيسية</span><strong class="summary-value" id="netTotal">0.00 ج.م</strong></article>
-      </section>
-
-      <section class="panel" id="transactionFormPanel">
-        <div class="panel-heading"><h2 data-i18n="addTxTitle" data-emoji="➕">إضافة حركة مالية (للمدير)</h2><span class="hint" data-i18n="addTxHint">تُضاف مؤكدة مباشرة</span></div>
-        <form id="transactionForm">
-          <div class="form-grid">
-            <label><span data-i18n="txTypeLabel">نوع الحركة</span><select id="type"><option value="income" data-i18n="typeIncome">🟢 إيراد</option><option value="expense" data-i18n="typeExpense">🔴 مصروف</option><option value="transfer" data-i18n="typeTransfer">🟣 تحويل نقدي</option></select></label>
-            <label><span data-i18n="amountLabel">المبلغ بالجنيه</span><input id="amount" type="number" min="0.01" step="0.01" placeholder="1500" required></label>
-            <label><span data-i18n="dateCol">التاريخ</span><input id="date" type="date" required></label>
-            <label id="branchField"><span data-i18n="branchCol">الفرع</span><select id="branch"></select></label>
-            <label id="shiftField"><span data-i18n="shiftNumber">رقم الشيفت</span><input id="shift" type="text" autocomplete="off" placeholder="1"></label>
-            <label id="accountField"><span id="accountLabel" data-i18n="accountCol">الحساب</span><select id="account"></select></label>
-            <label id="categoryField"><span data-i18n="catLabel">تصنيف المصروف</span><select id="category"><option value="" data-i18n="chooseCat">اختر التصنيف</option><option value="إيجار">🏠 إيجار</option><option value="رواتب">👥 رواتب</option><option value="مشتريات">🛒 مشتريات</option><option value="كهرباء ومياه">💡 كهرباء ومياه</option><option value="نقل">🚚 نقل</option><option value="صيانة">🔧 صيانة</option><option value="جمعية">🤝 جمعية</option><option value="تحويل">🔁 تحويل</option><option value="أخرى">📦 أخرى</option></select></label>
-            <label id="destinationField"><span data-i18n="destLabel">الوجهة</span><input id="destination" placeholder="..."></label>
-            <label id="transferFromField"><span data-i18n="fromAccLabel">من حساب</span><select id="transferFrom"></select></label>
-            <label id="transferToField"><span data-i18n="toAccLabel">إلى حساب</span><select id="transferTo"></select></label>
-            <label id="descriptionField"><span data-i18n="notesLabel">ملاحظات</span><input id="description" placeholder="..."></label>
+          <div class="cashier-field-card">
+            <label for="cashierInstapay" data-i18n="instaTotal" data-emoji="📱">إجمالي إنستا باي (Instapay)</label>
+            <small style="color:var(--muted);display:block;margin-bottom:6px;" data-i18n="instaDestHint">يُعلّق لحين تأكيد الإدارة وترحيله إلى: إنستا باي الأهلي</small>
+            <input id="cashierInstapay" type="number" min="0" step="0.01" placeholder="0.00">
           </div>
-          <div class="actions">
-            <button class="primary" id="submitBtn" type="submit" data-i18n="submitTxBtn" data-emoji="➕">إضافة الحركة للشيت</button>
-            <button class="secondary" id="cancelEdit" type="button" data-i18n="cancelBtn" data-emoji="✖️" style="display:none">إلغاء</button>
+          <div class="cashier-field-card">
+            <label for="cashierVisa" data-i18n="visaTotal" data-emoji="💳">إجمالي فيزا QNB</label>
+            <small style="color:var(--muted);display:block;margin-bottom:6px;" data-i18n="visaDestHint">يُعلّق لحين تأكيد الإدارة وترحيله إلى: فيزا QNB</small>
+            <input id="cashierVisa" type="number" min="0" step="0.01" placeholder="0.00">
           </div>
-          <div id="notice" class="notice" role="status"></div>
+          <div class="expense-section-box">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <strong style="color:var(--red);" data-i18n="shiftExpensesTitle" data-emoji="🔴">مصاريف الشيفت (إن وجدت)</strong>
+              <button type="button" class="secondary" id="addCashierExpenseBtn" style="padding:6px 12px;font-size:12px;" data-i18n="addExpenseRowBtn">➕ إضافة مصروف</button>
+            </div>
+            <div id="cashierExpensesList"></div>
+          </div>
+          <label>
+            <span data-i18n="shiftNotes" data-emoji="📝">ملاحظات الشيفت (اختياري)</span>
+            <input id="cashierNotes" type="text" data-i18n-placeholder="notesPlaceholder" placeholder="أي ملاحظات تخص التقفيل...">
+          </label>
+          <button class="primary" id="cashierSubmitBtn" type="submit" style="width:100%;padding:14px;font-size:15px;" data-i18n="saveShiftBtn" data-emoji="✅">حفظ وإرسال التقفيل للإدارة</button>
+          <div id="cashierNotice" class="notice" role="status"></div>
         </form>
       </section>
 
-      <section class="panel filters">
-        <div class="panel-heading"><h2 data-i18n="filterTitle" data-emoji="🔎">تصفية الحركات</h2></div>
-        <div class="filter-grid">
-          <label><span data-i18n="branchCol">الفرع</span><select id="filterBranch"><option value="">الكل</option></select></label>
-          <label><span data-i18n="shiftCol">الشيفت</span><input id="filterShift" type="text" autocomplete="off" placeholder="..."></label>
-          <label><span data-i18n="typeCol">النوع</span><select id="filterType"><option value="" data-i18n="allOption">الكل</option><option value="income" data-i18n="typeIncome">إيراد</option><option value="expense" data-i18n="typeExpense">مصروف</option><option value="transfer" data-i18n="typeTransfer">تحويل</option></select></label>
-          <label><span data-i18n="approvalFilterLabel">حالة الاستلام</span><select id="filterApproval"><option value="" data-i18n="allOption">الكل</option><option value="pending" data-i18n="pendingFilterOpt">⏳ بانتظار الاستلام فقط</option><option value="confirmed" data-i18n="confirmedFilterOpt">✅ المؤكدة فقط</option></select></label>
-          <label><span data-i18n="fromDateLabel">من</span><input id="filterFrom" type="date"></label>
-          <label><span data-i18n="toDateLabel">إلى</span><input id="filterTo" type="date"></label>
-          <label style="align-self:end"><button class="secondary" id="clearFilters" type="button" data-i18n="clearFiltersBtn" data-emoji="🧼">مسح الفلاتر</button></label>
-        </div>
-      </section>
+      <!-- أقسام الأدمن -->
+      <div id="adminWorkspace" class="admin-only">
 
-      <section class="panel" id="printArea">
-        <div class="panel-heading"><h2 id="tableTitle" data-i18n="txLogTitle" data-emoji="📒">سجل الحركات</h2><span class="hint" id="visibleCount">0</span></div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th data-i18n="idCol">رقم الحركة</th>
-                <th data-i18n="dateCol">التاريخ والوقت</th>
-                <th data-i18n="branchCol">الفرع</th>
-                <th data-i18n="shiftCol">الشيفت</th>
-                <th data-i18n="byCol">بواسطة</th>
-                <th data-i18n="typeCol">النوع</th>
-                <th data-i18n="detailsCol">التفاصيل</th>
-                <th data-i18n="amountCol">المبلغ</th>
-                <th data-i18n="actionCol">إجراء</th>
-              </tr>
-            </thead>
-            <tbody id="transactions"></tbody>
-          </table>
-          <div id="emptyMessage" class="empty" data-i18n="noTxMsg">لا توجد حركات.</div>
+        <!-- 1. لوحة التحكم الرئيسية (الخزن + ملخص الخزنة الرئيسية + إضافة حركة) -->
+        <div id="viewDashboard" class="view-section">
+          <section class="panel">
+            <div class="panel-heading">
+              <h2 data-i18n="balancesTitle" data-emoji="🏦">أرصدة الحسابات والخزن (المؤكدة فقط)</h2>
+              <button class="secondary no-print" id="editOpeningBtn" type="button" data-i18n="editOpeningBtn" data-emoji="✏️">تعديل الرصيد الأول</button>
+            </div>
+            <div class="balance-grid" id="balanceGrid"></div>
+
+            <div id="openingEditor" hidden style="margin-top:16px;padding:16px;background:var(--soft);border:1px dashed var(--input-line);border-radius:14px;">
+              <div class="form-grid" id="openingInputs"></div>
+              <div style="display:flex;gap:10px;margin-top:14px;">
+                <button class="primary" id="saveOpening" type="button" data-i18n="saveOpeningBtn" data-emoji="💾">حفظ الرصيد الأول وتسميعه</button>
+                <button class="secondary" id="cancelOpening" type="button" data-i18n="cancelBtn" data-emoji="✖️">إلغاء</button>
+              </div>
+            </div>
+            <div id="balanceNotice" class="notice"></div>
+          </section>
+
+          <section class="summary">
+            <article class="summary-card"><span class="summary-label" data-i18n="dakhIncomeLabel" data-emoji="🟢">الخزنة الرئيسية - الدخاخني</span><strong class="summary-value green" id="totalIncome">0.00 ج.م</strong></article>
+            <article class="summary-card"><span class="summary-label" data-i18n="dakhExpensesLabel" data-emoji="🔴">مصروفات الخزنة الرئيسية - الدخاخني</span><strong class="summary-value red" id="totalExpenses">0.00 ج.م</strong></article>
+            <article class="summary-card"><span class="summary-label" data-i18n="dakhNetLabel" data-emoji="⚖️">الصافي من الخزنة الرئيسية</span><strong class="summary-value" id="netTotal">0.00 ج.م</strong></article>
+          </section>
+
+          <section class="panel no-print" id="transactionFormPanel">
+            <div class="panel-heading"><h2 data-i18n="addTxTitle" data-emoji="➕">إضافة حركة مالية (للمدير)</h2><span class="hint" data-i18n="addTxHint">تُضاف مؤكدة مباشرة</span></div>
+            <form id="transactionForm">
+              <div class="form-grid">
+                <label><span data-i18n="txTypeLabel">نوع الحركة</span><select id="type"><option value="income" data-i18n="typeIncome">🟢 إيراد</option><option value="expense" data-i18n="typeExpense">🔴 مصروف</option><option value="transfer" data-i18n="typeTransfer">🟣 تحويل نقدي</option></select></label>
+                <label><span data-i18n="amountLabel">المبلغ بالجنيه</span><input id="amount" type="number" min="0.01" step="0.01" placeholder="1500" required></label>
+                <label><span data-i18n="dateCol">التاريخ</span><input id="date" type="date" required></label>
+                <label id="branchField"><span data-i18n="branchCol">الفرع</span><select id="branch"></select></label>
+                <label id="shiftField"><span data-i18n="shiftNumber">رقم الشيفت</span><input id="shift" type="text" autocomplete="off" placeholder="1"></label>
+                <label id="accountField"><span id="accountLabel" data-i18n="accountCol">الحساب</span><select id="account"></select></label>
+                <label id="categoryField"><span data-i18n="catLabel">تصنيف المصروف</span><select id="category"><option value="" data-i18n="chooseCat">اختر التصنيف</option><option value="إيجار">🏠 إيجار</option><option value="رواتب">👥 رواتب</option><option value="مشتريات">🛒 مشتريات</option><option value="كهرباء ومياه">💡 كهرباء ومياه</option><option value="نقل">🚚 نقل</option><option value="صيانة">🔧 صيانة</option><option value="جمعية">🤝 جمعية</option><option value="تحويل">🔁 تحويل</option><option value="أخرى">📦 أخرى</option></select></label>
+                <label id="destinationField"><span data-i18n="destLabel">الوجهة</span><input id="destination" placeholder="..."></label>
+                <label id="transferFromField"><span data-i18n="fromAccLabel">من حساب</span><select id="transferFrom"></select></label>
+                <label id="transferToField"><span data-i18n="toAccLabel">إلى حساب</span><select id="transferTo"></select></label>
+                <label id="descriptionField"><span data-i18n="notesLabel">ملاحظات</span><input id="description" placeholder="..."></label>
+              </div>
+              <div style="display:flex;gap:10px;margin-top:16px;">
+                <button class="primary" id="submitBtn" type="submit" data-i18n="submitTxBtn" data-emoji="➕">إضافة الحركة للشيت</button>
+                <button class="secondary" id="cancelEdit" type="button" data-i18n="cancelBtn" data-emoji="✖️" style="display:none">إلغاء</button>
+              </div>
+              <div id="notice" class="notice"></div>
+            </form>
+          </section>
         </div>
-      </section>
+
+        <!-- 2. تقرير الفروع المستقل (يظهر فقط عند الضغط عليه من القائمة الجانبية) -->
+        <div id="viewBranches" class="view-section" hidden>
+          <section class="panel no-print">
+            <div class="panel-heading"><h2>🔎 تصفية تقرير الفروع</h2></div>
+            <div class="filter-grid-4">
+              <label><span>الفرع</span><select id="brFilterBranch"><option value="">كل الفروع</option></select></label>
+              <label><span>رقم الشيفت</span><input type="text" id="brFilterShift" placeholder="..."></label>
+              <label><span>من تاريخ</span><input type="date" id="brFilterFrom"></label>
+              <label><span>إلى تاريخ</span><input type="date" id="brFilterTo"></label>
+            </div>
+            <div style="margin-top:12px;">
+              <button type="button" class="secondary" id="brClearFilter">🧼 مسح الفلاتر</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>📊 الرسم البياني لمقارنة أداء الفروع (الإيرادات vs المصروفات)</h2>
+              <span class="hint">🟢 إيرادات | 🔴 مصروفات</span>
+            </div>
+            <div class="chart-box">
+              <div class="chart-bars-container" id="branchChartContainer"></div>
+            </div>
+
+            <div class="analytics-grid" id="branchStatsGrid"></div>
+
+            <h3 style="margin:20px 0 12px; font-size:15px;">📋 سجل حركات الفروع التفصيلي</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>رقم الحركة</th><th>التاريخ</th><th>الفرع</th><th>الشيفت</th><th>النوع</th><th>الحساب والتفاصيل</th><th>المبلغ</th></tr>
+                </thead>
+                <tbody id="branchReportTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <!-- 3. تقرير المصروفات المستقل (مقسم حسب كل تصنيف + رسم بياني + فلاتر) -->
+        <div id="viewExpenses" class="view-section" hidden>
+          <section class="panel no-print">
+            <div class="panel-heading"><h2>🔎 تصفية تقرير المصروفات</h2></div>
+            <div class="filter-grid-4">
+              <label>
+                <span>تصنيف المصروف</span>
+                <select id="expFilterCat">
+                  <option value="">كل التصنيفات</option>
+                  <option value="إيجار">🏠 إيجار</option>
+                  <option value="رواتب">👥 رواتب</option>
+                  <option value="مشتريات">🛒 مشتريات</option>
+                  <option value="كهرباء ومياه">💡 كهرباء ومياه</option>
+                  <option value="نقل">🚚 نقل</option>
+                  <option value="صيانة">🔧 صيانة</option>
+                  <option value="جمعية">🤝 جمعية</option>
+                  <option value="تحويل">🔁 تحويل</option>
+                  <option value="أخرى">📦 أخرى</option>
+                </select>
+              </label>
+              <label><span>الخزنة / الحساب</span><select id="expFilterAcc"><option value="">كل الحسابات</option></select></label>
+              <label><span>من تاريخ</span><input type="date" id="expFilterFrom"></label>
+              <label><span>إلى تاريخ</span><input type="date" id="expFilterTo"></label>
+            </div>
+            <div style="margin-top:12px;">
+              <button type="button" class="secondary" id="expClearFilter">🧼 مسح الفلاتر</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>📊 الرسم البياني لتوزيع المصروفات حسب التصنيف</h2>
+              <strong id="expTotalHeader" class="red">0.00 ج.م</strong>
+            </div>
+
+            <div class="chart-box">
+              <div class="chart-bars-container" id="expenseChartContainer"></div>
+            </div>
+
+            <h3 style="margin:16px 0 12px; font-size:15px;">🗂️ المصروفات مقسمة حسب كل تصنيف (اضغط على أي تصنيف لعرض حركاته)</h3>
+            <div class="cat-cards-grid" id="expenseCategoryCards"></div>
+
+            <h3 style="margin:20px 0 12px; font-size:15px;">📋 تفاصيل حركات المصروفات وأثرها على الخزنة</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>رقم الحركة</th><th>التاريخ</th><th>التصنيف</th><th>الوجهة / التفاصيل</th><th>الحساب</th><th>أثر الخزنة</th><th>المبلغ</th></tr>
+                </thead>
+                <tbody id="expenseReportTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <!-- 4. سجل الحركات الشامل -->
+        <div id="viewTransactions" class="view-section" hidden>
+          <section class="panel no-print">
+            <div class="panel-heading"><h2 data-i18n="filterTitle" data-emoji="🔎">تصفية الحركات الشاملة</h2></div>
+            <div class="filter-grid">
+              <label><span data-i18n="branchCol">الفرع</span><select id="filterBranch"><option value="">الكل</option></select></label>
+              <label><span data-i18n="shiftCol">الشيفت</span><input id="filterShift" type="text" placeholder="..."></label>
+              <label><span data-i18n="typeCol">النوع</span><select id="filterType"><option value="" data-i18n="allOption">الكل</option><option value="income" data-i18n="typeIncome">إيراد</option><option value="expense" data-i18n="typeExpense">مصروف</option><option value="transfer" data-i18n="typeTransfer">تحويل</option></select></label>
+              <label><span data-i18n="approvalFilterLabel">حالة الاستلام</span><select id="filterApproval"><option value="" data-i18n="allOption">الكل</option><option value="pending" data-i18n="pendingFilterOpt">⏳ بانتظار الاستلام فقط</option><option value="confirmed" data-i18n="confirmedFilterOpt">✅ المؤكدة فقط</option></select></label>
+              <label><span data-i18n="fromDateLabel">من</span><input id="filterFrom" type="date"></label>
+              <label><span data-i18n="toDateLabel">إلى</span><input id="filterTo" type="date"></label>
+            </div>
+            <div style="margin-top:12px;">
+              <button class="secondary" id="clearFilters" type="button" data-i18n="clearFiltersBtn" data-emoji="🧼">مسح الفلاتر</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading"><h2 data-i18n="txLogTitle" data-emoji="📒">سجل الحركات</h2><span class="hint" id="visibleCount">0</span></div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="idCol">رقم الحركة</th>
+                    <th data-i18n="dateCol">التاريخ والوقت</th>
+                    <th data-i18n="branchCol">الفرع</th>
+                    <th data-i18n="shiftCol">الشيفت</th>
+                    <th data-i18n="byCol">بواسطة</th>
+                    <th data-i18n="typeCol">النوع</th>
+                    <th data-i18n="detailsCol">التفاصيل</th>
+                    <th data-i18n="amountCol">المبلغ</th>
+                    <th data-i18n="actionCol">إجراء</th>
+                  </tr>
+                </thead>
+                <tbody id="transactions"></tbody>
+              </table>
+              <div id="emptyMessage" style="padding:24px;text-align:center;color:var(--muted);" data-i18n="noTxMsg">لا توجد حركات.</div>
+            </div>
+          </section>
+        </div>
+
+        <!-- 5. سجل النشاط (Activity Logs) -->
+        <div id="viewActivity" class="view-section" hidden>
+          <section class="panel no-print">
+            <div class="panel-heading"><h2>🔎 تصفية سجل النشاط (Activity Logs)</h2></div>
+            <div class="filter-grid-4">
+              <label><span>الموظف / المستخدم</span><select id="actFilterUser"><option value="">كل المستخدمين</option></select></label>
+              <label>
+                <span>نوع النشاط</span>
+                <select id="actFilterKind">
+                  <option value="">كل الأنشطة</option>
+                  <option value="create">➕ إضافة حركة / تقفيل شيفت</option>
+                  <option value="edit">✏️ تعديل حركة</option>
+                  <option value="confirm">✅ تأكيد استلام</option>
+                  <option value="delete">🗑️ حذف حركة</option>
+                  <option value="opening">🏦 تعديل رصيد افتتاحي</option>
+                </select>
+              </label>
+              <label><span>من تاريخ</span><input type="date" id="actFilterFrom"></label>
+              <label><span>إلى تاريخ</span><input type="date" id="actFilterTo"></label>
+            </div>
+            <div style="margin-top:12px;">
+              <button type="button" class="secondary" id="actClearFilter">🧼 مسح الفلاتر</button>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <h2>🕵️ سجل الرقابة والنشاط التفصيلي (Activity Logs)</h2>
+              <span class="hint" id="activityCountLabel">0 نشاط</span>
+            </div>
+            <div class="log-timeline" id="activityTimeline"></div>
+          </section>
+        </div>
+
+        <!-- 6. المستخدمين والأدوار -->
+        <div id="viewUsers" class="view-section" hidden>
+          <section class="panel">
+            <div class="panel-heading"><h2 data-i18n="usersMgmtTitle" data-emoji="👥">إدارة المستخدمين والصلاحيات</h2></div>
+            <form id="addUserForm" class="form-grid" style="background: var(--soft); padding: 15px; border-radius: 12px; margin-bottom: 18px;">
+              <label><span data-i18n="username">اسم المستخدم</span><input type="text" id="newUserEmail" required></label>
+              <label><span data-i18n="password">كلمة المرور</span><input type="text" id="newUserPass" required></label>
+              <label><span data-i18n="roleLabel">الصلاحية</span><select id="newUserRole"><option value="cashier" data-i18n="roleCashier">مستخدم / كاشير (تقفيل شيفت فقط)</option><option value="admin" data-i18n="roleAdmin">مدير / مالك (صلاحية كاملة)</option></select></label>
+              <div style="grid-column: span 3;"><label data-i18n="allowedBranches">الفروع المسموحة للمستخدم:</label><div class="checkbox-group" id="branchCheckboxes"></div></div>
+              <button class="primary" type="submit" style="grid-column: span 3;" data-i18n="addUserBtn">إضافة حساب جديد</button>
+            </form>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th data-i18n="username">اسم المستخدم</th><th data-i18n="roleLabel">الدور</th><th data-i18n="allowedBranches">الفروع المسموحة</th><th data-i18n="actionCol">إجراء</th></tr></thead>
+                <tbody id="usersList"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <!-- 7. سلة المحذوفات -->
+        <div id="viewTrash" class="view-section" hidden>
+          <section class="panel">
+            <div class="panel-heading"><h2 data-i18n="trashTitle" data-emoji="🗑️">سلة المحذوفات</h2></div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>رقم الحركة</th><th>التاريخ</th><th>الفرع</th><th>بواسطة</th><th>النوع</th><th>التفاصيل</th><th>المبلغ</th><th>استعادة</th></tr>
+                </thead>
+                <tbody id="trashTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <!-- 8. الألوان والتصميم -->
+        <div id="viewAppearance" class="view-section" hidden>
+          <section class="panel">
+            <div class="panel-heading"><h2 data-i18n="themeTitle" data-emoji="🎨">الألوان والتصميم</h2></div>
+            <div class="chips" id="themeChips" style="margin-bottom:18px;"></div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <label style="margin:0;">لون خلفية مخصص:</label>
+              <input id="pageColor" type="color" value="#f3f6fc" style="width:48px;height:38px;padding:3px;">
+              <button class="secondary" id="resetColor" type="button">↩️ استعادة الافتراضي</button>
+            </div>
+          </section>
+        </div>
+
+      </div>
+
+      <footer><span>✨ Powered by <strong>Samy Aziz</strong></span></footer>
     </div>
-  </main>
-
-  <footer><span>✨ Powered by <strong>Samy Aziz</strong></span></footer>
+  </div>
 
   <script>
     const SHEET_URL = "https://script.google.com/macros/s/AKfycbyLc9cVrC5M-bk9Ickn5sC22G4T5o1sZPcfCdqPf8-6eeJ1UyrqatUwYusBO_vao4YRQw/exec";
@@ -688,8 +899,8 @@
     const transferAccounts = [...mainSafes, ...otherSafes, ...banks];
 
     const themes = [
+      { id: "classic", emoji: "💙", ar: "كلاسيك (الأساسي)", en: "Classic (Default)", sw: "#3158d5" },
       { id: "vip", emoji: "👑", ar: "VIP ملكي", en: "VIP Royal", sw: "linear-gradient(135deg, #0d3b29, #d4af37)" },
-      { id: "classic", emoji: "💙", ar: "كلاسيك", en: "Classic", sw: "#3158d5" },
       { id: "ocean", emoji: "🌊", ar: "بحري", en: "Ocean", sw: "#0e7c9b" },
       { id: "sunset", emoji: "🌇", ar: "غروب", en: "Sunset", sw: "#e0592a" },
       { id: "forest", emoji: "🌿", ar: "أخضر", en: "Forest", sw: "#2f8f4e" },
@@ -697,50 +908,32 @@
       { id: "dark", emoji: "🌙", ar: "داكن", en: "Dark", sw: "#1a2238" }
     ];
 
-    const backgrounds = [
-      { id: "gradient", emoji: "🌈", ar: "تدرج", en: "Gradient" },
-      { id: "dots", emoji: "⚪", ar: "نقط", en: "Dots" },
-      { id: "grid", emoji: "▦", ar: "شبكة", en: "Grid" },
-      { id: "stripes", emoji: "〰️", ar: "خطوط", en: "Stripes" },
-      { id: "plain", emoji: "⬜", ar: "سادة", en: "Plain" }
-    ];
-
     const i18nDict = {
       ar: {
         splashWelcome: "أهلاً بك في نظام الدخاخني ستور",
         splashDesc: "نظام الإدارة المالية المتكامل للفروع والخزن ومتابعة الإيرادات والمصروفات لحظياً عبر السحابة.",
-        enterSystem: "دخول النظام",
+        enterSystem: "🚀 دخول النظام",
         syncingTitle: "جارِ مزامنة النظام...",
         syncingDesc: "يتم جلب البيانات من السحابة",
-        loginTitle: "تسجيل الدخول",
+        storeTitle: "الدخاخني ستور",
+        loginSubGlow: "بوابة الإدارة المالية الذكية • سجل الدخول للمتابعة",
         username: "اسم المستخدم",
         selectUserDefault: "-- اختر اسم المستخدم --",
         password: "كلمة المرور",
         passPlaceholder: "أدخل كلمة المرور",
-        loginBtn: "دخول",
+        loginBtn: "✨ تسجيل الدخول",
         shiftDataTitle: "بيانات الشيفت",
         chooseBranch: "اختر الفرع",
         shiftNumber: "رقم الشيفت",
         shiftPlaceholder: "اكتب رقم الشيفت الحالي",
         startWorkBtn: "ابدأ العمل",
-        switchUserBtn: "تسجيل خروج / تغيير المستخدم",
+        switchUserBtn: "🚪 تسجيل خروج / تغيير المستخدم",
         editRoleModalTitle: "تعديل دور وصلاحيات المستخدم",
         saveRoleBtn: "💾 حفظ الصلاحيات",
         editRoleBtnText: "⚙️ الدور والفروع",
-        storeTitle: "الدخاخني ستور",
-        dashboardSub: "لوحة الإدارة المالية",
         logout: "تسجيل خروج",
-        pageColor: "لون الصفحة",
-        defaultColor: "الافتراضي",
-        analyticsBtn: "ملخص الفروع والمصاريف",
-        settingsBtn: "الإعدادات والمستخدمين",
         exportCSV: "تصدير CSV",
         printBtn: "طباعة",
-        styleBtn: "تغيير الشكل",
-        branchPerfTitle: "ملخص أداء الفروع ونسب المصروفات (المؤكدة)",
-        analyticsHint: "يتفاعل تلقائياً مع فلاتر التاريخ",
-        expenseDistTitle: "توزيع المصروفات حسب البند",
-        noExpensesChart: "لا توجد مصروفات مؤكدة في الفترة المحددة.",
         closeShiftTitle: "تقفيل إيراد ومصاريف الشيفت",
         cashTotal: "إجمالي الكاش (نقدي)",
         cashDestHint: "يُعلّق لحين استلام الإدارة وترحيله إلى: الخزنة الرئيسية - الدخاخني",
@@ -750,7 +943,6 @@
         visaDestHint: "يُعلّق لحين تأكيد الإدارة وترحيله إلى: فيزا QNB",
         shiftExpensesTitle: "مصاريف الشيفت (إن وجدت)",
         addExpenseRowBtn: "➕ إضافة مصروف",
-        shiftExpenseHint: "تُراجع وتُعتمد من الإدارة وتُخصم من الخزنة الرئيسية - الدخاخني",
         shiftNotes: "ملاحظات الشيفت (اختياري)",
         notesPlaceholder: "أي ملاحظات تخص التقفيل...",
         saveShiftBtn: "حفظ وإرسال التقفيل للإدارة",
@@ -761,14 +953,8 @@
         allowedBranches: "الفروع المسموحة للمستخدم:",
         addUserBtn: "إضافة حساب جديد",
         actionCol: "إجراء",
-        openingReportsTitle: "تقارير تعديل الأرصدة الافتتاحية",
-        dateTimeCol: "تاريخ الإضافة/التعديل",
-        accountCol: "الخزنة / الحساب",
-        openingBalCol: "الرصيد الافتتاحي",
         byCol: "بواسطة",
-        statusCol: "الحالة",
         themeTitle: "الألوان والتصميم",
-        bgTitle: "شكل الخلفية",
         balancesTitle: "أرصدة الحسابات والخزن (المؤكدة فقط)",
         saveOpeningBtn: "حفظ الرصيد الأول وتسميعه",
         cancelBtn: "إلغاء",
@@ -776,9 +962,6 @@
         dakhIncomeLabel: "الخزنة الرئيسية - الدخاخني",
         dakhExpensesLabel: "مصروفات الخزنة الرئيسية - الدخاخني",
         dakhNetLabel: "الصافي من الخزنة الرئيسية",
-        totalIncome: "إجمالي الإيرادات",
-        totalExpenses: "إجمالي المصروفات",
-        netTotal: "صافي الحساب",
         addTxTitle: "إضافة حركة مالية (للمدير)",
         addTxHint: "تُضاف مؤكدة مباشرة",
         txTypeLabel: "نوع الحركة",
@@ -798,7 +981,7 @@
         notesLabel: "ملاحظات",
         submitTxBtn: "إضافة الحركة للشيت",
         saveEditBtn: "حفظ التعديل",
-        filterTitle: "تصفية الحركات",
+        filterTitle: "تصفية الحركات الشاملة",
         allOption: "الكل",
         approvalFilterLabel: "حالة الاستلام",
         pendingFilterOpt: "⏳ بانتظار الاستلام فقط",
@@ -808,7 +991,6 @@
         clearFiltersBtn: "مسح الفلاتر",
         txLogTitle: "سجل الحركات",
         trashTitle: "سلة المحذوفات",
-        backToLog: "↩️ العودة للسجل",
         detailsCol: "التفاصيل",
         amountCol: "المبلغ",
         typeCol: "النوع",
@@ -828,39 +1010,29 @@
       },
       en: {
         splashWelcome: "Welcome to Al-Dakhakhni Store",
-        splashDesc: "Integrated cloud financial management system for branches, safes, and real-time revenue & expense tracking.",
-        enterSystem: "Enter System",
+        splashDesc: "Integrated cloud financial management system for branches, safes, and real-time tracking.",
+        enterSystem: "🚀 Enter System",
         syncingTitle: "Syncing System...",
         syncingDesc: "Fetching data from cloud",
-        loginTitle: "Login",
+        storeTitle: "Al-Dakhakhni Store",
+        loginSubGlow: "Smart Financial Portal • Sign in to continue",
         username: "Username",
         selectUserDefault: "-- Select Username --",
         password: "Password",
         passPlaceholder: "Enter password",
-        loginBtn: "Login",
+        loginBtn: "✨ Sign In",
         shiftDataTitle: "Shift Details",
         chooseBranch: "Select Branch",
         shiftNumber: "Shift Number",
         shiftPlaceholder: "Enter current shift number",
         startWorkBtn: "Start Shift",
-        switchUserBtn: "Logout / Switch User",
+        switchUserBtn: "🚪 Logout / Switch User",
         editRoleModalTitle: "Edit User Role & Branches",
         saveRoleBtn: "💾 Save Permissions",
         editRoleBtnText: "⚙️ Role & Branches",
-        storeTitle: "Al-Dakhakhni Store",
-        dashboardSub: "Financial Management Dashboard",
         logout: "Logout",
-        pageColor: "Page Color",
-        defaultColor: "Default",
-        analyticsBtn: "Branches & Expenses Summary",
-        settingsBtn: "Settings & Users",
         exportCSV: "Export CSV",
         printBtn: "Print",
-        styleBtn: "Appearance",
-        branchPerfTitle: "Branch Performance & Expense Ratios (Confirmed)",
-        analyticsHint: "Auto-updates with date filters",
-        expenseDistTitle: "Expenses by Category",
-        noExpensesChart: "No confirmed expenses in the selected period.",
         closeShiftTitle: "Shift Revenue & Expenses Closing",
         cashTotal: "Total Cash",
         cashDestHint: "Pending admin confirmation to post to: Main Safe - Al-Dakhakhni",
@@ -870,7 +1042,6 @@
         visaDestHint: "Pending admin confirmation to post to: QNB Visa",
         shiftExpensesTitle: "Shift Expenses (If any)",
         addExpenseRowBtn: "➕ Add Expense",
-        shiftExpenseHint: "Pending admin approval to deduct from Main Safe - Al-Dakhakhni",
         shiftNotes: "Shift Notes (Optional)",
         notesPlaceholder: "Any closing notes...",
         saveShiftBtn: "Submit Shift Closing",
@@ -881,14 +1052,8 @@
         allowedBranches: "Allowed Branches:",
         addUserBtn: "Add New Account",
         actionCol: "Action",
-        openingReportsTitle: "Opening Balance Audit Log",
-        dateTimeCol: "Date & Time",
-        accountCol: "Safe / Account",
-        openingBalCol: "Opening Balance",
         byCol: "By",
-        statusCol: "Status",
         themeTitle: "Colors & Themes",
-        bgTitle: "Background Pattern",
         balancesTitle: "Accounts & Safes Balances (Confirmed Only)",
         saveOpeningBtn: "Save Opening Balances",
         cancelBtn: "Cancel",
@@ -896,9 +1061,6 @@
         dakhIncomeLabel: "Main Safe - Al-Dakhakhni",
         dakhExpensesLabel: "Main Safe - Al-Dakhakhni (Expenses)",
         dakhNetLabel: "Net from Main Safe",
-        totalIncome: "Total Income",
-        totalExpenses: "Total Expenses",
-        netTotal: "Net Balance",
         addTxTitle: "Add Financial Transaction (Admin)",
         addTxHint: "Added as confirmed immediately",
         txTypeLabel: "Transaction Type",
@@ -918,7 +1080,7 @@
         notesLabel: "Notes",
         submitTxBtn: "Submit to Sheet",
         saveEditBtn: "Save Changes",
-        filterTitle: "Filter Transactions",
+        filterTitle: "Filter All Transactions",
         allOption: "All",
         approvalFilterLabel: "Receipt Status",
         pendingFilterOpt: "⏳ Pending Receipt Only",
@@ -928,7 +1090,6 @@
         clearFiltersBtn: "Clear Filters",
         txLogTitle: "Transactions Log",
         trashTitle: "Trash Bin",
-        backToLog: "↩️ Back to Log",
         detailsCol: "Details",
         amountCol: "Amount",
         typeCol: "Type",
@@ -953,8 +1114,7 @@
     const typeInput = document.getElementById("type");
     let entries = [];
     let users = [];
-    let balancesHistory = []; 
-    let trashView = false;
+    let balancesHistory = [];
     let editingId = null;
     let editingUserIndex = null;
     let currentLang = localStorage.getItem("dakhakhni-lang") || "ar";
@@ -964,17 +1124,39 @@
     let currentUser = JSON.parse(sessionStorage.getItem("dakhakhni-currentUser")) || null;
     let currentSession = JSON.parse(sessionStorage.getItem("dakhakhni-session")) || null;
 
-    function t(key) {
-      return (i18nDict[currentLang] && i18nDict[currentLang][key]) || key;
-    }
+    const t = key => (i18nDict[currentLang] && i18nDict[currentLang][key]) || key;
 
     function shortTxId(fullId) {
       const s = String(fullId || "").trim();
       if (!s) return "—";
       const digitsOnly = s.replace(/\D/g, "");
-      if (digitsOnly.length >= 5) return "#" + digitsOnly.slice(-5);
-      return "#" + s.slice(-5);
+      return digitsOnly.length >= 5 ? "#" + digitsOnly.slice(-5) : "#" + s.slice(-5);
     }
+
+    function todayString() {
+      const now = new Date();
+      return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    }
+    function nowTimeString() {
+      return new Date().toLocaleTimeString("en-US", { timeZone: "Africa/Cairo", hour: "2-digit", minute: "2-digit", hour12: true });
+    }
+    function money(value) {
+      const curr = currentLang === "ar" ? "ج.م" : "EGP";
+      return Number(value || 0).toLocaleString(currentLang === "ar" ? "ar-EG" : "en-EG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " " + curr;
+    }
+
+    /* ===== التنقل بين الأقسام من الشريط الجانبي ===== */
+    document.querySelectorAll(".nav-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        document.querySelectorAll(".view-section").forEach(sec => sec.hidden = true);
+        const target = document.getElementById(btn.dataset.view);
+        if (target) target.hidden = false;
+        document.getElementById("activeSectionTitle").textContent = btn.querySelector("span").textContent;
+        renderAll();
+      });
+    });
 
     function populateLoginUsersDropdown() {
       const select = document.getElementById("loginUsername");
@@ -1000,82 +1182,56 @@
 
       document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
-        if (i18nDict[currentLang][key]) {
-          el.textContent = i18nDict[currentLang][key];
-        }
+        if (i18nDict[currentLang][key]) el.textContent = i18nDict[currentLang][key];
       });
-
       document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
         const key = el.getAttribute("data-i18n-placeholder");
-        if (i18nDict[currentLang][key]) {
-          el.placeholder = i18nDict[currentLang][key];
-        }
+        if (i18nDict[currentLang][key]) el.placeholder = i18nDict[currentLang][key];
       });
 
       populateLoginUsersDropdown();
       renderStyleChips();
       updateSubmitLabel();
-      if (currentUser?.role === "admin") {
-        renderUsers();
-        render();
-      }
+      if (currentUser?.role === "admin") renderAll();
     }
-
-    document.getElementById("languageSelect").addEventListener("change", (e) => applyLanguage(e.target.value));
+    document.getElementById("languageSelect").addEventListener("change", e => applyLanguage(e.target.value));
 
     const splashScreen = document.getElementById("splashScreen");
     let dataLoaded = false;
-
     function dismissSplash() {
       if (!splashScreen || splashScreen.hidden) return;
       splashScreen.hidden = true;
-      if (!dataLoaded) {
-        document.getElementById("loadingScreen").hidden = false;
-      }
+      if (!dataLoaded) document.getElementById("loadingScreen").hidden = false;
     }
     document.getElementById("splashEnterBtn").addEventListener("click", dismissSplash);
-    setTimeout(dismissSplash, 3500);
+    setTimeout(dismissSplash, 3000);
 
-    window.addEventListener('DOMContentLoaded', async () => {
+    window.addEventListener("DOMContentLoaded", async () => {
       applyLanguage(currentLang);
       try {
         const res = await fetch(SHEET_URL);
         const data = await res.json();
-        
-        if (data.users && data.users.length > 0) {
-          users = data.users;
-        } else {
-          users = [{ username: "باسم الدخاخني المالك", pass: "123", role: "admin", branches: ["الكل"], reports: true }];
-          fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) });
-        }
+        users = (data.users && data.users.length) ? data.users : [{ username: "باسم الدخاخني المالك", pass: "123", role: "admin", branches: ["الكل"], reports: true }];
         populateLoginUsersDropdown();
-        
         if (data.transactions) entries = data.transactions.reverse();
         if (data.balances) balancesHistory = data.balances;
-
-        dataLoaded = true;
-        document.getElementById("loadingScreen").hidden = true;
-        
-        if (currentUser) {
-          const validUser = users.find(u => u.username === currentUser.username && u.pass === currentUser.pass);
-          if (validUser) {
-            currentUser = validUser;
-            if (currentUser.role === "admin") {
-              startAdminApp();
-            } else if (currentSession && currentSession.shift && currentSession.branch) {
-              startCashierApp();
-            } else {
-              openShiftScreenForUser(currentUser);
-            }
-          } else {
-            logout();
-          }
-        } else {
-          document.getElementById("loginScreen").hidden = false;
-        }
       } catch (e) {
-        dataLoaded = true;
-        document.getElementById("loadingScreen").hidden = true;
+        users = [{ username: "باسم الدخاخني المالك", pass: "123", role: "admin", branches: ["الكل"], reports: true }];
+        populateLoginUsersDropdown();
+      }
+
+      dataLoaded = true;
+      document.getElementById("loadingScreen").hidden = true;
+
+      if (currentUser) {
+        const valid = users.find(u => u.username === currentUser.username && u.pass === currentUser.pass);
+        if (valid) {
+          currentUser = valid;
+          if (currentUser.role === "admin") startAdminApp();
+          else if (currentSession?.shift && currentSession?.branch) startCashierApp();
+          else openShiftScreenForUser(currentUser);
+        } else logout();
+      } else {
         document.getElementById("loginScreen").hidden = false;
       }
     });
@@ -1087,89 +1243,63 @@
       document.getElementById("shiftScreen").hidden = false;
     }
 
-    document.getElementById("loginForm").addEventListener("submit", (e) => {
+    document.getElementById("loginForm").addEventListener("submit", e => {
       e.preventDefault();
       const username = document.getElementById("loginUsername").value.trim();
       const pass = document.getElementById("loginPassword").value.trim();
       const user = users.find(u => u.username === username && u.pass === pass);
-      
       if (user) {
         document.getElementById("loginNotice").style.display = "none";
         currentUser = user;
         sessionStorage.setItem("dakhakhni-currentUser", JSON.stringify(currentUser));
         document.getElementById("loginScreen").hidden = true;
-
-        fetch(SHEET_URL, {
-          method: "POST",
-          body: JSON.stringify({ action: "logLogin", username: user.username, role: user.role })
-        });
-        
-        if (user.role === "admin") {
-          startAdminApp();
-        } else {
-          openShiftScreenForUser(user);
-        }
+        fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "logLogin", username: user.username, role: user.role }) });
+        if (user.role === "admin") startAdminApp();
+        else openShiftScreenForUser(user);
       } else {
         const ln = document.getElementById("loginNotice");
-        ln.textContent = currentLang === "ar" ? "يرجى اختيار اسم المستخدم وإدخال كلمة المرور الصحيحة!" : "Please select a user and enter the correct password!";
+        ln.textContent = currentLang === "ar" ? "اسم المستخدم أو كلمة المرور غير صحيحة!" : "Invalid username or password!";
         ln.style.display = "block";
       }
     });
 
-    document.getElementById("shiftForm").addEventListener("submit", (e) => {
+    document.getElementById("shiftForm").addEventListener("submit", e => {
       e.preventDefault();
-      currentSession = {
-        branch: document.getElementById("shiftBranch").value,
-        shift: document.getElementById("shiftNumberEntry").value.trim()
-      };
+      currentSession = { branch: document.getElementById("shiftBranch").value, shift: document.getElementById("shiftNumberEntry").value.trim() };
       sessionStorage.setItem("dakhakhni-session", JSON.stringify(currentSession));
       document.getElementById("shiftScreen").hidden = true;
       startCashierApp();
     });
 
     function logout() {
-      currentUser = null;
-      currentSession = null;
-      sessionStorage.removeItem("dakhakhni-currentUser");
-      sessionStorage.removeItem("dakhakhni-session");
-      localStorage.removeItem("dakhakhni-currentUser");
-      localStorage.removeItem("dakhakhni-session");
-      document.getElementById("mainContent").style.display = "none";
+      currentUser = null; currentSession = null;
+      sessionStorage.clear();
+      document.getElementById("appShell").classList.remove("active");
       document.getElementById("cashierPanel").hidden = true;
       document.getElementById("shiftScreen").hidden = true;
-      document.getElementById("loginNotice").style.display = "none";
       document.getElementById("loginForm").reset();
-      document.getElementById("shiftForm").reset();
       document.getElementById("cashierCloseForm").reset();
       document.getElementById("cashierExpensesList").innerHTML = "";
-      document.getElementById("cashierNotice").style.display = "none";
-      const submitBtn = document.getElementById("cashierSubmitBtn");
-      if (submitBtn) submitBtn.disabled = false;
       populateLoginUsersDropdown();
       document.getElementById("loginScreen").hidden = false;
     }
     document.getElementById("logoutBtn").addEventListener("click", logout);
     document.getElementById("shiftLogoutBtn").addEventListener("click", logout);
+    document.getElementById("cashierTopLogoutBtn").addEventListener("click", logout);
 
-    function todayString() {
-      const now = new Date();
-      return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
-    }
-    function nowTimeString() {
-      return new Date().toLocaleTimeString("en-US", { timeZone: "Africa/Cairo", hour: "2-digit", minute: "2-digit", hour12: true });
-    }
-
+    /* ===== واجهة الكاشير ===== */
     function startCashierApp() {
-      document.getElementById("mainContent").style.display = "block";
+      document.getElementById("appShell").classList.add("active");
       document.querySelectorAll(".admin-only").forEach(el => el.style.display = "none");
+      document.querySelectorAll(".cashier-only").forEach(el => el.style.display = "");
       document.getElementById("cashierPanel").hidden = false;
-      
-      document.getElementById("userSubtitle").textContent = `${currentUser.username}`;
+      document.getElementById("activeSectionTitle").textContent = "🧾 تقفيل الشيفت";
+      document.getElementById("headerDateLabel").textContent = `👤 ${currentUser.username}`;
       document.getElementById("cashierShiftInfo").textContent = `🏬 ${currentSession.branch}   |   ⏱️ #${currentSession.shift}`;
       document.getElementById("cashierDateLabel").textContent = `📅 ${todayString()} | ${nowTimeString()}`;
     }
 
-    function createCashierExpenseRow() {
+    document.getElementById("addCashierExpenseBtn").addEventListener("click", () => {
       const container = document.getElementById("cashierExpensesList");
       const row = document.createElement("div");
       row.className = "cashier-expense-row";
@@ -1183,17 +1313,15 @@
           <option value="إيجار">🏠 إيجار</option>
           <option value="أخرى">📦 مصروفات أخرى</option>
         </select>
-        <input type="number" class="exp-amt" min="0.01" step="0.01" placeholder="${currentLang === 'ar' ? 'المبلغ' : 'Amount'}" required>
-        <input type="text" class="exp-dest" placeholder="${currentLang === 'ar' ? 'السبب / الوجهة' : 'Reason / Details'}" required>
-        <button type="button" class="remove-exp-btn" title="حذف">✖</button>
+        <input type="number" class="exp-amt" min="0.01" step="0.01" placeholder="المبلغ" required>
+        <input type="text" class="exp-dest" placeholder="السبب / الوجهة" required>
+        <button type="button" class="danger-soft" style="padding:8px 10px;">✖</button>
       `;
-      row.querySelector(".remove-exp-btn").onclick = () => row.remove();
+      row.querySelector("button").onclick = () => row.remove();
       container.appendChild(row);
-    }
+    });
 
-    document.getElementById("addCashierExpenseBtn").addEventListener("click", createCashierExpenseRow);
-
-    document.getElementById("cashierCloseForm").addEventListener("submit", async (e) => {
+    document.getElementById("cashierCloseForm").addEventListener("submit", async e => {
       e.preventDefault();
       const submitBtn = document.getElementById("cashierSubmitBtn");
       const cashAmt = Number(document.getElementById("cashierCash").value) || 0;
@@ -1201,159 +1329,115 @@
       const visaAmt = Number(document.getElementById("cashierVisa").value) || 0;
       const notes = document.getElementById("cashierNotes").value.trim();
 
-      const expenseRows = [...document.querySelectorAll("#cashierExpensesList .cashier-expense-row")];
       const validExpenses = [];
-      for (const r of expenseRows) {
+      document.querySelectorAll("#cashierExpensesList .cashier-expense-row").forEach(r => {
         const amt = Number(r.querySelector(".exp-amt").value) || 0;
-        const cat = r.querySelector(".exp-cat").value;
-        const dest = r.querySelector(".exp-dest").value.trim();
-        if (amt > 0) {
-          validExpenses.push({ amt, cat, dest });
-        }
-      }
+        if (amt > 0) validExpenses.push({ amt, cat: r.querySelector(".exp-cat").value, dest: r.querySelector(".exp-dest").value.trim() });
+      });
 
-      if (cashAmt <= 0 && instaAmt <= 0 && visaAmt <= 0 && validExpenses.length === 0) {
+      if (cashAmt <= 0 && instaAmt <= 0 && visaAmt <= 0 && !validExpenses.length) {
         const cn = document.getElementById("cashierNotice");
-        cn.className = "notice error";
-        cn.style.display = "block";
-        cn.textContent = currentLang === "ar" ? "يرجى إدخال مبلغ إيراد أو مصروف واحد على الأقل." : "Please enter at least one revenue or expense amount.";
-        return;
+        cn.className = "notice error"; cn.textContent = "يرجى إدخال مبلغ واحد على الأقل."; return;
       }
 
       submitBtn.disabled = true;
-
       const todayWithTime = `${todayString()} | ${nowTimeString()}`;
       const baseNote = notes ? `تقفيل شيفت (${notes})` : "تقفيل إيراد الشيفت";
       const itemsToSend = [];
       const baseId = Date.now();
 
-      if (cashAmt > 0) {
-        itemsToSend.push({
-          id: "TR_" + baseId + "_1", type: "income", amount: cashAmt, date: todayWithTime,
-          addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift,
-          account: DAKH_SAFE, category: "", destination: "", transferFrom: "", transferTo: "",
-          description: `${baseNote} - كاش`, status: "pending"
-        });
-      }
-      if (instaAmt > 0) {
-        itemsToSend.push({
-          id: "TR_" + baseId + "_2", type: "income", amount: instaAmt, date: todayWithTime,
-          addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift,
-          account: "إنستا باي الأهلي", category: "", destination: "", transferFrom: "", transferTo: "",
-          description: `${baseNote} - إنستا باي`, status: "pending"
-        });
-      }
-      if (visaAmt > 0) {
-        itemsToSend.push({
-          id: "TR_" + baseId + "_3", type: "income", amount: visaAmt, date: todayWithTime,
-          addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift,
-          account: "فيزا QNB", category: "", destination: "", transferFrom: "", transferTo: "",
-          description: `${baseNote} - فيزا QNB`, status: "pending"
-        });
-      }
+      if (cashAmt > 0) itemsToSend.push({ id: "TR_" + baseId + "_1", type: "income", amount: cashAmt, date: todayWithTime, addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift, account: DAKH_SAFE, category: "", destination: "", transferFrom: "", transferTo: "", description: `${baseNote} - كاش`, status: "pending" });
+      if (instaAmt > 0) itemsToSend.push({ id: "TR_" + baseId + "_2", type: "income", amount: instaAmt, date: todayWithTime, addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift, account: "إنستا باي الأهلي", category: "", destination: "", transferFrom: "", transferTo: "", description: `${baseNote} - إنستا باي`, status: "pending" });
+      if (visaAmt > 0) itemsToSend.push({ id: "TR_" + baseId + "_3", type: "income", amount: visaAmt, date: todayWithTime, addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift, account: "فيزا QNB", category: "", destination: "", transferFrom: "", transferTo: "", description: `${baseNote} - فيزا QNB`, status: "pending" });
 
       validExpenses.forEach((exp, idx) => {
         const destText = exp.dest ? `${exp.dest} — ` : "";
-        itemsToSend.push({
-          id: "TR_" + baseId + "_EXP_" + (idx + 1), type: "expense", amount: exp.amt, date: todayWithTime,
-          addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift,
-          account: DAKH_SAFE, category: exp.cat, destination: exp.dest, transferFrom: "", transferTo: "",
-          description: `${destText}مصروف شيفت (${currentSession.branch} - #${currentSession.shift})${notes ? ' - ' + notes : ''}`,
-          status: "pending"
-        });
+        itemsToSend.push({ id: "TR_" + baseId + "_EXP_" + (idx + 1), type: "expense", amount: exp.amt, date: todayWithTime, addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift, account: DAKH_SAFE, category: exp.cat, destination: exp.dest, transferFrom: "", transferTo: "", description: `${destText}مصروف شيفت (${currentSession.branch} - #${currentSession.shift})${notes ? ' - ' + notes : ''}`, status: "pending" });
       });
 
       const cn = document.getElementById("cashierNotice");
-      cn.className = "notice ok";
-      cn.style.display = "block";
-      cn.textContent = currentLang === "ar" ? "⏳ جارٍ حفظ التقفيل وإرساله للإدارة..." : "⏳ Saving & submitting shift...";
-
+      cn.className = "notice ok"; cn.textContent = "⏳ جارٍ حفظ التقفيل وإرساله للإدارة...";
       for (const item of itemsToSend) {
         entries.unshift(item);
-        await fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: item }) });
+        await fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item }) });
       }
-
-      cn.textContent = currentLang === "ar"
-        ? "✅ تم حفظ التقفيل وإرساله للإدارة! جارٍ تسجيل الخروج..."
-        : "✅ Shift closing submitted! Logging out...";
-
-      setTimeout(() => {
-        logout();
-      }, 2000);
+      cn.textContent = "✅ تم حفظ التقفيل وإرساله للإدارة! جارٍ تسجيل الخروج...";
+      setTimeout(() => { submitBtn.disabled = false; logout(); }, 1800);
     });
 
+    /* ===== واجهة الأدمن ===== */
     function startAdminApp() {
-      document.getElementById("mainContent").style.display = "block";
+      document.getElementById("appShell").classList.add("active");
       document.getElementById("cashierPanel").hidden = true;
       document.querySelectorAll(".admin-only").forEach(el => el.style.display = "");
-      document.getElementById("userSubtitle").textContent = `${currentUser.username}`;
-      
+      document.querySelectorAll(".cashier-only").forEach(el => el.style.display = "none");
+      document.getElementById("userSubtitle").textContent = currentUser.username;
+      document.getElementById("headerDateLabel").textContent = `📅 ${todayString()} | ${nowTimeString()}`;
+
       fillSelect(document.getElementById("branch"), branches);
       fillSelect(document.getElementById("filterBranch"), branches, true);
-      
+      fillSelect(document.getElementById("brFilterBranch"), branches, true);
+      fillSelect(document.getElementById("expFilterAcc"), incomeAccounts, true);
+
       const cbContainer = document.getElementById("branchCheckboxes");
-      cbContainer.innerHTML = "";
-      branches.forEach(b => cbContainer.innerHTML += `<label><input type="checkbox" value="${b}"> ${b}</label>`);
-      
-      renderUsers();
+      cbContainer.innerHTML = branches.map(b => `<label><input type="checkbox" value="${b}"> ${b}</label>`).join("");
+
       updateFields();
-      render();
+      renderAll();
     }
 
-    function fillSelect(select, values, includeEmpty = false) { const previous = select.value; select.innerHTML = ""; if (includeEmpty) { const option = document.createElement("option"); option.value = ""; option.textContent = t("allOption"); select.appendChild(option); } values.forEach(value => { const option = document.createElement("option"); option.value = value; option.textContent = value; select.appendChild(option); }); if ([...select.options].some(option => option.value === previous)) select.value = previous; }
-    function setSelectValue(select, value) { if (value && [...select.options].some(option => option.value === value)) select.value = value; }
-    function money(value) { const curr = currentLang === "ar" ? "ج.م" : "EGP"; return Number(value || 0).toLocaleString(currentLang === "ar" ? "ar-EG" : "en-EG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " " + curr; }
-    function updateSubmitLabel() { const key = editingId ? "saveEditBtn" : "submitTxBtn"; document.getElementById("submitBtn").textContent = t(key); document.getElementById("cancelEdit").style.display = editingId ? "" : "none"; }
+    function fillSelect(select, values, includeEmpty = false) {
+      if (!select) return;
+      const previous = select.value;
+      select.innerHTML = includeEmpty ? `<option value="">${t("allOption")}</option>` : "";
+      values.forEach(v => { const opt = document.createElement("option"); opt.value = v; opt.textContent = v; select.appendChild(opt); });
+      if ([...select.options].some(o => o.value === previous)) select.value = previous;
+    }
+    function setSelectValue(select, value) { if (value && [...select.options].some(o => o.value === value)) select.value = value; }
+    function updateSubmitLabel() { document.getElementById("submitBtn").textContent = t(editingId ? "saveEditBtn" : "submitTxBtn"); document.getElementById("cancelEdit").style.display = editingId ? "" : "none"; }
 
     function updateFields() {
       const type = typeInput.value, isIncome = type === "income", isExpense = type === "expense", isTransfer = type === "transfer";
-      document.getElementById("branchField").style.display = isIncome ? "" : "none"; document.getElementById("shiftField").style.display = isIncome ? "" : "none";
-      document.getElementById("accountField").style.display = isIncome || isExpense ? "" : "none"; document.getElementById("categoryField").style.display = isExpense ? "" : "none";
-      document.getElementById("destinationField").style.display = isExpense ? "" : "none"; document.getElementById("transferFromField").style.display = isTransfer ? "" : "none";
-      document.getElementById("transferToField").style.display = isTransfer ? "" : "none"; document.getElementById("descriptionField").style.display = isTransfer ? "none" : "";
-      
-      document.getElementById("branch").required = isIncome; document.getElementById("shift").required = isIncome; document.getElementById("account").required = isIncome || isExpense;
-      document.getElementById("category").required = isExpense; document.getElementById("destination").required = isExpense; document.getElementById("transferFrom").required = isTransfer; document.getElementById("transferTo").required = isTransfer;
-      
+      document.getElementById("branchField").style.display = isIncome ? "" : "none";
+      document.getElementById("shiftField").style.display = isIncome ? "" : "none";
+      document.getElementById("accountField").style.display = isIncome || isExpense ? "" : "none";
+      document.getElementById("categoryField").style.display = isExpense ? "" : "none";
+      document.getElementById("destinationField").style.display = isExpense ? "" : "none";
+      document.getElementById("transferFromField").style.display = isTransfer ? "" : "none";
+      document.getElementById("transferToField").style.display = isTransfer ? "" : "none";
+      document.getElementById("descriptionField").style.display = isTransfer ? "none" : "";
+
+      document.getElementById("branch").required = isIncome;
+      document.getElementById("shift").required = isIncome;
+      document.getElementById("account").required = isIncome || isExpense;
+      document.getElementById("category").required = isExpense;
+      document.getElementById("destination").required = isExpense;
+      document.getElementById("transferFrom").required = isTransfer;
+      document.getElementById("transferTo").required = isTransfer;
+
       if (isIncome || isExpense) fillSelect(document.getElementById("account"), incomeAccounts);
-      fillSelect(document.getElementById("transferFrom"), transferAccounts); fillSelect(document.getElementById("transferTo"), transferAccounts); 
+      fillSelect(document.getElementById("transferFrom"), transferAccounts);
+      fillSelect(document.getElementById("transferTo"), transferAccounts);
     }
 
-    function isPendingStatus(status) {
-      return String(status || "").trim().toLowerCase() === "pending";
-    }
-    function isConfirmedStatus(status) {
-      return String(status || "").trim().toLowerCase().startsWith("confirmed");
-    }
+    const isPendingStatus = s => String(s || "").trim().toLowerCase() === "pending";
+    const isConfirmedStatus = s => String(s || "").trim().toLowerCase().startsWith("confirmed");
 
     function getLatestEntriesMap() {
       const latestState = {};
       entries.forEach(e => {
-        if (!latestState[e.id]) {
-          latestState[e.id] = { ...e, history: [e] };
-        } else {
-          latestState[e.id].history.push(e);
-        }
+        if (!latestState[e.id]) latestState[e.id] = { ...e, history: [e] };
+        else latestState[e.id].history.push(e);
       });
 
       Object.values(latestState).forEach(item => {
         if (item.history.length > 1) {
-          const originalVersion = item.history[item.history.length - 1];
-          item.originalAddedBy = originalVersion.addedBy;
-
-          const diffAmountVersion = item.history.slice(1).find(h => Number(h.amount) !== Number(item.amount));
-          if (diffAmountVersion) {
-            item.previousAmount = Number(diffAmountVersion.amount);
-          }
-
-          const wasEdited = item.history.some(h => h.status === "edited") ||
-                            Number(originalVersion.amount) !== Number(item.amount) ||
-                            (originalVersion.description || "") !== (item.description || "");
-          if (wasEdited) {
-            item.wasEdited = true;
-            item.editedBy = item.addedBy;
-            item.editedAt = item.date;
-          }
+          const orig = item.history[item.history.length - 1];
+          item.originalAddedBy = orig.addedBy;
+          const diffAmt = item.history.slice(1).find(h => Number(h.amount) !== Number(item.amount));
+          if (diffAmt) item.previousAmount = Number(diffAmt.amount);
+          const wasEdited = item.history.some(h => h.status === "edited") || Number(orig.amount) !== Number(item.amount) || (orig.description || "") !== (item.description || "");
+          if (wasEdited) { item.wasEdited = true; item.editedBy = item.addedBy; }
         }
       });
 
@@ -1361,14 +1445,11 @@
       transferAccounts.forEach(acc => runningBalances[acc] = 0);
       balancesHistory.forEach(b => { if (b.status !== "deleted") runningBalances[b.account] = Number(b.amount) || 0; });
 
-      const chronologicalItems = Object.values(latestState).slice().reverse();
-      chronologicalItems.forEach(item => {
+      Object.values(latestState).slice().reverse().forEach(item => {
         if (item.status === "deleted" || isPendingStatus(item.status)) return;
         const amt = Number(item.amount) || 0;
-
-        if (item.type === "income" && (item.account in runningBalances)) {
-          runningBalances[item.account] += amt;
-        } else if (item.type === "expense" && (item.account in runningBalances)) {
+        if (item.type === "income" && (item.account in runningBalances)) runningBalances[item.account] += amt;
+        else if (item.type === "expense" && (item.account in runningBalances)) {
           item.safeBalanceBefore = runningBalances[item.account];
           runningBalances[item.account] -= amt;
           item.safeBalanceAfter = runningBalances[item.account];
@@ -1383,11 +1464,9 @@
 
     function computeBalances() {
       const balances = {}; transferAccounts.forEach(acc => balances[acc] = 0);
-      balancesHistory.forEach(b => { if(b.status !== 'deleted') balances[b.account] = Number(b.amount); });
-
-      const latestEntries = getLatestEntriesMap();
-      Object.values(latestEntries).forEach(e => {
-        if (e.status === 'deleted' || isPendingStatus(e.status) || (editingId && e.id === editingId)) return;
+      balancesHistory.forEach(b => { if (b.status !== "deleted") balances[b.account] = Number(b.amount); });
+      Object.values(getLatestEntriesMap()).forEach(e => {
+        if (e.status === "deleted" || isPendingStatus(e.status) || (editingId && e.id === editingId)) return;
         const amt = Number(e.amount);
         if (e.type === "income" && e.account in balances) balances[e.account] += amt;
         else if (e.type === "expense" && e.account in balances) balances[e.account] -= amt;
@@ -1396,459 +1475,517 @@
       return balances;
     }
 
-    function renderBalances() {
-      if(currentUser?.role !== 'admin') return;
-      const balances = computeBalances(), grid = document.getElementById("balanceGrid"); grid.innerHTML = "";
+    function renderAll() {
+      if (currentUser?.role !== "admin") return;
+      const allLatest = Object.values(getLatestEntriesMap());
+      const activeItems = allLatest.filter(e => e.status !== "deleted");
+      const deletedItems = allLatest.filter(e => e.status === "deleted");
+      const pendingCount = activeItems.filter(e => isPendingStatus(e.status)).length;
+
+      // تحديث شارات القائمة الجانبية
+      const pBadge = document.getElementById("navPendingBadge");
+      pBadge.style.display = pendingCount > 0 ? "" : "none";
+      pBadge.textContent = pendingCount;
+      document.getElementById("navTrashBadge").textContent = deletedItems.length;
+
+      // 1. أرصدة الخزن + ملخص الخزنة الرئيسية - الدخاخني
+      const balances = computeBalances();
       const latestOpenings = {};
-      balancesHistory.filter(b=>b.status!=='deleted').forEach(b => latestOpenings[b.account] = b.amount);
+      balancesHistory.filter(b => b.status !== "deleted").forEach(b => latestOpenings[b.account] = b.amount);
 
-      transferAccounts.forEach(account => {
-        const val = balances[account], card = document.createElement("div"); card.className = "bal-card";
-        const dot = `<span class="dot ${val>=0?'dot-green':'dot-red'}"></span>`;
-        card.innerHTML = `<div class="bal-name">${dot} ${account}</div><strong class="bal-value ${val>=0?'green':'red'}">${money(val)}</strong><small>${t("openingFirst")} ${money(latestOpenings[account]||0)}</small>`;
-        grid.appendChild(card);
-      });
+      document.getElementById("balanceGrid").innerHTML = transferAccounts.map(acc => {
+        const val = balances[acc];
+        return `<div class="bal-card">
+          <div class="bal-name"><span class="dot ${val >= 0 ? 'dot-green' : 'dot-red'}"></span> ${acc}</div>
+          <strong class="bal-value ${val >= 0 ? 'green' : 'red'}">${money(val)}</strong>
+          <small style="color:var(--muted);font-size:11px;">${t("openingFirst")} ${money(latestOpenings[acc] || 0)}</small>
+        </div>`;
+      }).join("");
 
-      const tbody = document.getElementById("balancesHistoryList"); tbody.innerHTML = "";
-      balancesHistory.forEach(b => {
-        const timeText = b.timestamp ? b.timestamp : "";
-        tbody.innerHTML += `<tr><td>${timeText}</td><td>${b.account}</td><td style="font-weight:bold;">${money(b.amount)}</td><td>👤 ${b.addedBy}</td><td>${b.status==='deleted'?'❌':'✅'}</td></tr>`;
-      });
-    }
-
-    function renderAnalytics(confirmedList) {
-      const bGrid = document.getElementById("branchStatsGrid");
-      const cBars = document.getElementById("expenseCategoryBars");
-      if (!bGrid || !cBars) return;
-
-      const bStats = {};
-      branches.forEach(b => bStats[b] = { income: 0, expense: 0 });
-      const catStats = {};
-      let totalExp = 0;
-
-      confirmedList.forEach(e => {
-        const amt = Number(e.amount) || 0;
-        if (e.type === "income" && e.branch) {
-          if (!bStats[e.branch]) bStats[e.branch] = { income: 0, expense: 0 };
-          bStats[e.branch].income += amt;
-        } else if (e.type === "expense") {
-          if (e.branch && bStats[e.branch]) bStats[e.branch].expense += amt;
-          const cat = e.category || "أخرى";
-          catStats[cat] = (catStats[cat] || 0) + amt;
-          totalExp += amt;
+      let dakhInflow = Number(latestOpenings[DAKH_SAFE] || 0);
+      let dakhOutflow = 0;
+      activeItems.filter(e => !isPendingStatus(e.status)).forEach(item => {
+        const amt = Number(item.amount) || 0;
+        if (item.type === "income" && item.account === DAKH_SAFE) dakhInflow += amt;
+        if (item.type === "expense" && item.account === DAKH_SAFE) dakhOutflow += amt;
+        if (item.type === "transfer") {
+          if (item.transferTo === DAKH_SAFE) dakhInflow += amt;
+          if (item.transferFrom === DAKH_SAFE) dakhOutflow += amt;
         }
       });
+      document.getElementById("totalIncome").textContent = money(dakhInflow);
+      document.getElementById("totalExpenses").textContent = money(dakhOutflow);
+      const dakhNet = dakhInflow - dakhOutflow;
+      const netEl = document.getElementById("netTotal");
+      netEl.textContent = money(dakhNet);
+      netEl.className = "summary-value " + (dakhNet >= 0 ? "green" : "red");
 
-      bGrid.innerHTML = "";
-      Object.keys(bStats).forEach(b => {
-        const inc = bStats[b].income;
-        const exp = bStats[b].expense;
-        const net = inc - exp;
-        bGrid.innerHTML += `
-          <div class="branch-stat-card">
-            <div class="branch-stat-title"><span>🏬 ${b}</span></div>
-            <div class="branch-stat-row"><span>${t("totalIncome")}</span><span class="green">${money(inc)}</span></div>
-            <div class="branch-stat-row"><span>${t("totalExpenses")}</span><span class="red">${money(exp)}</span></div>
-            <div class="branch-stat-net"><span>${t("netTotal")}</span><span class="${net >= 0 ? 'green' : 'red'}">${money(net)}</span></div>
-          </div>
-        `;
-      });
+      // 2. تقرير الفروع المستقل + الرسم البياني
+      renderBranchesReport(activeItems.filter(e => !isPendingStatus(e.status)));
 
-      cBars.innerHTML = "";
-      const sortedCats = Object.entries(catStats).sort((a, b) => b[1] - a[1]);
-      if (sortedCats.length === 0) {
-        cBars.innerHTML = `<div class="hint">${t("noExpensesChart")}</div>`;
-      } else {
-        sortedCats.forEach(([cat, amt]) => {
-          const pct = totalExp > 0 ? ((amt / totalExp) * 100).toFixed(1) : 0;
-          cBars.innerHTML += `
-            <div class="cat-bar-item">
-              <div class="cat-bar-head"><span>${cat}</span><span>${money(amt)} (${pct}%)</span></div>
-              <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${pct}%"></div></div>
-            </div>
-          `;
-        });
-      }
+      // 3. تقرير المصروفات المقسم بالتصنيف + الرسم البياني
+      renderExpensesReport(activeItems.filter(e => !isPendingStatus(e.status)));
+
+      // 4. سجل الحركات الشامل
+      renderMainTransactionsTable(activeItems);
+
+      // 5. سجل النشاط (Activity Logs)
+      renderActivityLogs();
+
+      // 6. المستخدمين وسلة المحذوفات
+      renderUsers();
+      renderTrashTable(deletedItems);
     }
 
-    document.getElementById("editOpeningBtn").addEventListener("click", () => {
-      const container = document.getElementById("openingInputs"); container.innerHTML = "";
-      const latestOpenings = {};
-      balancesHistory.filter(b=>b.status!=='deleted').forEach(b => latestOpenings[b.account] = b.amount);
+    /* ===== تقرير الفروع + الرسم البياني ===== */
+    function renderBranchesReport(confirmedList) {
+      const fBr = document.getElementById("brFilterBranch").value;
+      const fSh = document.getElementById("brFilterShift").value.trim();
+      const fFrom = document.getElementById("brFilterFrom").value;
+      const fTo = document.getElementById("brFilterTo").value;
 
-      transferAccounts.forEach(acc => {
-        container.innerHTML += `<label><span>${acc}</span><input type="number" step="0.01" placeholder="0" data-account="${acc}" value="${latestOpenings[acc] !== undefined ? latestOpenings[acc] : ''}"></label>`;
+      const filtered = confirmedList.filter(item => {
+        if (!item.branch) return false;
+        const d = item.date ? item.date.toString().split(" ")[0] : "";
+        return (!fBr || item.branch === fBr) && (!fSh || String(item.shift).trim() === fSh) && (!fFrom || d >= fFrom) && (!fTo || d <= fTo);
       });
-      container.innerHTML += `<label><span>${t("dateCol")}</span><input type="date" id="openingDateInput" value="${todayString()}"></label>`;
-      document.getElementById("openingEditor").hidden = false;
-    });
 
-    document.getElementById("cancelOpening").addEventListener("click", () => document.getElementById("openingEditor").hidden = true);
-    document.getElementById("saveOpening").addEventListener("click", () => {
-      const dt = document.getElementById("openingDateInput").value;
-      if (!dt) return;
-      
-      document.querySelectorAll("#openingInputs input[data-account]").forEach(inp => {
-        const amt = inp.value.trim() === "" ? 0 : Number(inp.value);
-        const acc = inp.dataset.account;
-        const payload = {
-          action: "syncBalance",
-          item: { id: "bal_"+Date.now()+"_"+Math.random(), date: dt, account: acc, amount: amt, addedBy: currentUser.username, status: 'active' }
-        };
-        balancesHistory.push({...payload.item, timestamp: `${todayString()} ${nowTimeString()}`});
-        fetch(SHEET_URL, { method: "POST", body: JSON.stringify(payload) });
+      const stats = {};
+      (fBr ? [fBr] : branches).forEach(b => stats[b] = { income: 0, expense: 0 });
+      filtered.forEach(e => {
+        if (!stats[e.branch]) stats[e.branch] = { income: 0, expense: 0 };
+        if (e.type === "income") stats[e.branch].income += Number(e.amount) || 0;
+        if (e.type === "expense") stats[e.branch].expense += Number(e.amount) || 0;
       });
-      
-      document.getElementById("openingEditor").hidden = true; render();
-      showNotice(currentLang === "ar" ? "تم حفظ الرصيد في الشيت." : "Opening balance saved.", "ok");
-    });
 
-    function getFilteredEntries() {
-      const list = Object.values(getLatestEntriesMap());
+      // رسم بياني
+      const maxVal = Math.max(1, ...Object.values(stats).flatMap(s => [s.income, s.expense]));
+      document.getElementById("branchChartContainer").innerHTML = Object.entries(stats).map(([b, s]) => {
+        const incH = Math.round((s.income / maxVal) * 140);
+        const expH = Math.round((s.expense / maxVal) * 140);
+        return `<div class="chart-col-group">
+          <div class="chart-pair">
+            <div class="c-bar inc" style="height:${incH}px" data-val="إيراد: ${money(s.income)}"></div>
+            <div class="c-bar exp" style="height:${expH}px" data-val="مصروف: ${money(s.expense)}"></div>
+          </div>
+          <div class="chart-label">${b}</div>
+        </div>`;
+      }).join("");
+
+      // بطاقات الفروع
+      document.getElementById("branchStatsGrid").innerHTML = Object.entries(stats).map(([b, s]) => {
+        const net = s.income - s.expense;
+        return `<div class="branch-stat-card">
+          <div class="branch-stat-title"><span>🏬 ${b}</span></div>
+          <div class="branch-stat-row"><span>إجمالي الإيرادات</span><span class="green">${money(s.income)}</span></div>
+          <div class="branch-stat-row"><span>إجمالي المصروفات</span><span class="red">${money(s.expense)}</span></div>
+          <div class="branch-stat-net"><span>صافي الفرع</span><span class="${net >= 0 ? 'green' : 'red'}">${money(net)}</span></div>
+        </div>`;
+      }).join("");
+
+      // جدول الفروع
+      document.getElementById("branchReportTableBody").innerHTML = filtered.map(item => `
+        <tr>
+          <td><span class="tx-id-badge">${shortTxId(item.id)}</span></td>
+          <td>${item.date}</td>
+          <td><strong>${item.branch}</strong></td>
+          <td>${item.shift || "—"}</td>
+          <td><span class="type-tag ${item.type === 'income' ? 'tag-income' : 'tag-expense'}">${item.type === 'income' ? '🟢 إيراد' : '🔴 مصروف'}</span></td>
+          <td>${item.account} ${item.description ? '- ' + item.description : ''}</td>
+          <td><strong>${money(item.amount)}</strong></td>
+        </tr>
+      `).join("") || `<tr><td colspan="7" style="text-align:center;color:var(--muted);">لا توجد حركات مطابقة للفلاتر</td></tr>`;
+    }
+
+    /* ===== تقرير المصروفات المقسم حسب التصنيف + الرسم البياني ===== */
+    function renderExpensesReport(confirmedList) {
+      const fCat = document.getElementById("expFilterCat").value;
+      const fAcc = document.getElementById("expFilterAcc").value;
+      const fFrom = document.getElementById("expFilterFrom").value;
+      const fTo = document.getElementById("expFilterTo").value;
+
+      const allExpenses = confirmedList.filter(item => {
+        if (item.type !== "expense") return false;
+        const d = item.date ? item.date.toString().split(" ")[0] : "";
+        return (!fAcc || item.account === fAcc) && (!fFrom || d >= fFrom) && (!fTo || d <= fTo);
+      });
+
+      const catTotals = {};
+      let grandExp = 0;
+      allExpenses.forEach(e => {
+        const c = e.category || "أخرى";
+        const amt = Number(e.amount) || 0;
+        catTotals[c] = (catTotals[c] || 0) + amt;
+        grandExp += amt;
+      });
+
+      document.getElementById("expTotalHeader").textContent = `إجمالي المصروفات: ${money(grandExp)}`;
+
+      // رسم بياني للتصنيفات
+      const entriesCat = Object.entries(catTotals).sort((a, b) => b[1] - a[1]);
+      const maxCat = Math.max(1, ...entriesCat.map(x => x[1]));
+      document.getElementById("expenseChartContainer").innerHTML = entriesCat.length
+        ? entriesCat.map(([cat, amt]) => {
+            const h = Math.round((amt / maxCat) * 140);
+            return `<div class="chart-col-group">
+              <div class="chart-pair"><div class="c-bar exp" style="height:${h}px; width:28px;" data-val="${money(amt)}"></div></div>
+              <div class="chart-label">${cat}</div>
+            </div>`;
+          }).join("")
+        : `<div class="hint">لا توجد مصروفات في هذه الفترة</div>`;
+
+      // بطاقات التصنيفات (الضغط على أي بطاقة يفلتر الجدول تحتها)
+      document.getElementById("expenseCategoryCards").innerHTML = entriesCat.map(([cat, amt]) => {
+        const pct = grandExp > 0 ? ((amt / grandExp) * 100).toFixed(1) : 0;
+        return `<div class="cat-card" onclick="document.getElementById('expFilterCat').value='${cat}'; renderAll();">
+          <h4><span>${cat}</span><span style="font-size:12px;color:var(--muted);">${pct}%</span></h4>
+          <div class="amt">${money(amt)}</div>
+          <div class="cat-progress"><span style="width:${pct}%"></span></div>
+        </div>`;
+      }).join("");
+
+      const shownExpenses = fCat ? allExpenses.filter(e => (e.category || "أخرى") === fCat) : allExpenses;
+      document.getElementById("expenseReportTableBody").innerHTML = shownExpenses.map(item => `
+        <tr>
+          <td><span class="tx-id-badge">${shortTxId(item.id)}</span></td>
+          <td>${item.date}</td>
+          <td><span class="type-tag tag-expense">${item.category || "أخرى"}</span></td>
+          <td>${item.destination || ""} ${item.description ? '— ' + item.description : ''}</td>
+          <td>${item.account}</td>
+          <td>${item.safeBalanceBefore !== undefined ? `<span class="safe-impact-pill">كان ${money(item.safeBalanceBefore)} ➔ أصبح ${money(item.safeBalanceAfter)}</span>` : "—"}</td>
+          <td><strong class="red">${money(item.amount)}</strong></td>
+        </tr>
+      `).join("") || `<tr><td colspan="7" style="text-align:center;color:var(--muted);">لا توجد مصروفات مطابقة</td></tr>`;
+    }
+
+    /* ===== سجل الحركات الشامل ===== */
+    function renderMainTransactionsTable(activeItems) {
       const b = document.getElementById("filterBranch").value;
       const s = document.getElementById("filterShift").value.trim();
       const ty = document.getElementById("filterType").value;
       const appFilter = document.getElementById("filterApproval").value;
       const f = document.getElementById("filterFrom").value;
       const to = document.getElementById("filterTo").value;
-      return list.filter(item => {
+
+      const shown = activeItems.filter(item => {
         const pureDate = item.date ? item.date.toString().split(" ")[0] : "";
         const isPend = isPendingStatus(item.status);
         const passApproval = !appFilter || (appFilter === "pending" && isPend) || (appFilter === "confirmed" && !isPend);
-        return (!b || item.branch === b) && (!s || String(item.shift).trim() === s) && (!ty || item.type === ty) &&
-               passApproval && (!f || pureDate >= f) && (!to || pureDate <= to);
+        return (!b || item.branch === b) && (!s || String(item.shift).trim() === s) && (!ty || item.type === ty) && passApproval && (!f || pureDate >= f) && (!to || pureDate <= to);
       });
-    }
 
-    function render() {
-      if (currentUser?.role !== 'admin') return;
-      let filtered = getFilteredEntries();
-      let shown = trashView ? filtered.filter(e => e.status === 'deleted') : filtered.filter(e => e.status !== 'deleted');
-      
-      const tbody = document.getElementById("transactions"); tbody.innerHTML = "";
-      
-      // بدء حساب الخزنة الرئيسية - الدخاخني من الرصيد الأول الافتتاحي ليطابق تماماً الموجود بالأعلى
-      let dakhOpening = 0;
-      balancesHistory.forEach(b => {
-        if (b.status !== 'deleted' && b.account === DAKH_SAFE) dakhOpening = Number(b.amount) || 0;
-      });
-      let dakhInflow = dakhOpening;
-      let dakhOutflow = 0;
-      const confirmedForAnalytics = [];
-
+      const tbody = document.getElementById("transactions");
+      tbody.innerHTML = "";
       shown.forEach(item => {
         const pending = isPendingStatus(item.status);
         const confirmed = isConfirmedStatus(item.status);
-
-        if (!trashView && !pending) {
-          confirmedForAnalytics.push(item);
-          const amt = Number(item.amount) || 0;
-          if (item.type === "income" && item.account === DAKH_SAFE) dakhInflow += amt;
-          if (item.type === "expense" && item.account === DAKH_SAFE) dakhOutflow += amt;
-          if (item.type === "transfer") {
-            if (item.transferTo === DAKH_SAFE) dakhInflow += amt;
-            if (item.transferFrom === DAKH_SAFE) dakhOutflow += amt;
-          }
-        }
-
         const row = document.createElement("tr");
         if (pending) row.className = "row-pending";
-        const addCell = val => { const td = document.createElement("td"); td.textContent = val || "—"; row.appendChild(td); return td; };
-        
-        // 1. عمود رقم الحركة (آخر 5 أرقام + إظهار الرقم الكامل عند تمرير الماوس أو النقر)
-        const idCell = addCell("");
-        idCell.innerHTML = `
-          <div class="tx-id-wrap" tabindex="0" onclick="this.classList.toggle('show-full')">
-            <span class="tx-id-badge">${shortTxId(item.id)}</span>
-            <span class="tx-id-tooltip">${item.id}</span>
-          </div>
-        `;
 
-        // 2. التاريخ والفرع والشيفت
-        addCell(item.date);
-        addCell(item.branch);
-        addCell(item.shift);
-
-        // 3. بواسطة (يوضح المُنشئ الأصلي ومن قام بالتعديل إن وُجد)
-        const byCell = addCell("");
         const creator = item.originalAddedBy || item.addedBy;
-        byCell.innerHTML = `👤 ${creator}`;
-        if (item.wasEdited && item.editedBy) {
-          byCell.innerHTML += `<span class="editor-info-note">✏️ ${t("editedByPrefix")} ${item.editedBy}</span>`;
-        }
-        
-        // 4. نوع الحركة
         const typeLabel = item.type === "income" ? t("typeIncome") : item.type === "expense" ? t("typeExpense") : t("typeTransfer");
         const tagClass = item.type === "income" ? "tag-income" : item.type === "expense" ? "tag-expense" : "tag-transfer";
-        const typeCell = addCell("");
-        typeCell.innerHTML = `<span class="type-tag ${tagClass}">${typeLabel}</span>`;
 
-        // 5. التفاصيل + شارات الحالة والتعديل + رصيد الخزنة قبل وبعد المصروف
         let details = item.description || "—";
         if (item.type === "income") details = [item.account, item.description].filter(Boolean).join(" - ");
         else if (item.type === "expense") details = [item.category, item.destination, item.account, item.description].filter(Boolean).join(" - ");
         else if (item.type === "transfer") details = `${item.transferFrom} ➔ ${item.transferTo}`;
-        
-        const dCell = addCell(details);
-        if (pending) {
-          dCell.innerHTML += ` <span class="pending-tag">${t("pendingTag")}</span>`;
-        } else if (confirmed) {
-          dCell.innerHTML += ` <span class="confirmed-tag">${t("confirmedTag")}</span>`;
-        }
-        if (item.wasEdited || item.status === 'edited') {
-          dCell.innerHTML += ` <span class="edited-tag">${t("editedTag")}</span>`;
-        }
 
+        let badgesHtml = "";
+        if (pending) badgesHtml += ` <span class="pending-tag">${t("pendingTag")}</span>`;
+        else if (confirmed) badgesHtml += ` <span class="confirmed-tag">${t("confirmedTag")}</span>`;
+        if (item.wasEdited || item.status === "edited") badgesHtml += ` <span class="edited-tag">${t("editedTag")}</span>`;
         if (item.type === "expense" && !pending && item.safeBalanceBefore !== undefined) {
-          dCell.innerHTML += `<br><span class="safe-impact-pill">🏦 ${item.account}: ${t("safeBeforeLabel")} <u>${money(item.safeBalanceBefore)}</u> ➔ ${t("safeAfterLabel")} <u>${money(item.safeBalanceAfter)}</u></span>`;
+          badgesHtml += `<br><span class="safe-impact-pill">🏦 ${item.account}: ${t("safeBeforeLabel")} <u>${money(item.safeBalanceBefore)}</u> ➔ ${t("safeAfterLabel")} <u>${money(item.safeBalanceAfter)}</u></span>`;
         }
 
-        // 6. عمود المبلغ
-        const amtCell = addCell("");
-        if (item.previousAmount !== undefined && item.previousAmount !== Number(item.amount)) {
-          amtCell.innerHTML = `<span class="old-amount-strike">${money(item.previousAmount)}</span><strong>${money(item.amount)}</strong>`;
-        } else {
-          amtCell.innerHTML = `<strong>${money(item.amount)}</strong>`;
-        }
+        const amtHtml = (item.previousAmount !== undefined && item.previousAmount !== Number(item.amount))
+          ? `<span class="old-amount-strike">${money(item.previousAmount)}</span><strong>${money(item.amount)}</strong>`
+          : `<strong>${money(item.amount)}</strong>`;
 
-        // 7. الإجراءات
-        const actionCell = document.createElement("td");
-        if (trashView) {
-          const restore = document.createElement("button"); restore.type = "button"; restore.className = "restore"; restore.textContent = t("restoreBtn");
-          restore.onclick = () => updateTransactionStatus(item, 'active');
-          actionCell.appendChild(restore);
-        } else {
-          if (pending) {
-            const confirmBtn = document.createElement("button");
-            confirmBtn.type = "button";
-            confirmBtn.className = "confirm-btn";
-            confirmBtn.textContent = t("confirmBtn");
-            confirmBtn.onclick = () => {
-              const confirmStatus = `confirmed (${currentUser.username} - ${nowTimeString()})`;
-              updateTransactionStatus(item, confirmStatus);
-            };
-            actionCell.appendChild(confirmBtn);
-          }
+        row.innerHTML = `
+          <td><div class="tx-id-wrap" tabindex="0" onclick="this.classList.toggle('show-full')"><span class="tx-id-badge">${shortTxId(item.id)}</span><span class="tx-id-tooltip">${item.id}</span></div></td>
+          <td>${item.date}</td>
+          <td>${item.branch || "—"}</td>
+          <td>${item.shift || "—"}</td>
+          <td>👤 ${creator}${item.wasEdited && item.editedBy ? `<span class="editor-info-note">✏️ ${t("editedByPrefix")} ${item.editedBy}</span>` : ""}</td>
+          <td><span class="type-tag ${tagClass}">${typeLabel}</span></td>
+          <td>${details}${badgesHtml}</td>
+          <td>${amtHtml}</td>
+          <td class="act-col"></td>
+        `;
 
-          const editBtn = document.createElement("button"); editBtn.type = "button"; editBtn.className = "edit"; editBtn.textContent = t("editBtn");
-          editBtn.onclick = () => {
-            editingId = item.id; typeInput.value = item.type; updateFields();
-            document.getElementById("amount").value = item.amount;
-            document.getElementById("date").value = item.date ? item.date.toString().split(" ")[0] : todayString();
-            if (item.type === "income") { setSelectValue(document.getElementById("branch"), item.branch); document.getElementById("shift").value = item.shift; setSelectValue(document.getElementById("account"), item.account); document.getElementById("description").value = item.description; }
-            else if (item.type === "expense") { setSelectValue(document.getElementById("account"), item.account); setSelectValue(document.getElementById("category"), item.category); document.getElementById("destination").value = item.destination || ""; document.getElementById("description").value = item.description; }
-            else if (item.type === "transfer") { setSelectValue(document.getElementById("transferFrom"), item.transferFrom); setSelectValue(document.getElementById("transferTo"), item.transferTo); }
-            updateSubmitLabel(); form.scrollIntoView({ behavior: "smooth", block: "center" });
-          };
-          const delBtn = document.createElement("button"); delBtn.type = "button"; delBtn.className = "delete"; delBtn.textContent = t("deleteBtn");
-          delBtn.onclick = () => { if(confirm(currentLang === "ar" ? "متأكد من مسح الحركة؟" : "Delete this transaction?")) updateTransactionStatus(item, 'deleted'); };
-          actionCell.append(editBtn, delBtn);
+        const actCell = row.querySelector(".act-col");
+        if (pending) {
+          const cBtn = document.createElement("button");
+          cBtn.type = "button"; cBtn.className = "confirm-btn"; cBtn.textContent = t("confirmBtn");
+          cBtn.onclick = () => updateTransactionStatus(item, `confirmed (${currentUser.username} - ${nowTimeString()})`);
+          actCell.appendChild(cBtn);
         }
-        row.appendChild(actionCell); tbody.appendChild(row);
+        const eBtn = document.createElement("button");
+        eBtn.type = "button"; eBtn.className = "edit"; eBtn.textContent = t("editBtn");
+        eBtn.onclick = () => {
+          editingId = item.id; typeInput.value = item.type; updateFields();
+          document.getElementById("amount").value = item.amount;
+          document.getElementById("date").value = item.date ? item.date.toString().split(" ")[0] : todayString();
+          if (item.type === "income") { setSelectValue(document.getElementById("branch"), item.branch); document.getElementById("shift").value = item.shift; setSelectValue(document.getElementById("account"), item.account); document.getElementById("description").value = item.description; }
+          else if (item.type === "expense") { setSelectValue(document.getElementById("account"), item.account); setSelectValue(document.getElementById("category"), item.category); document.getElementById("destination").value = item.destination || ""; document.getElementById("description").value = item.description; }
+          else if (item.type === "transfer") { setSelectValue(document.getElementById("transferFrom"), item.transferFrom); setSelectValue(document.getElementById("transferTo"), item.transferTo); }
+          updateSubmitLabel();
+          document.querySelector('[data-view="viewDashboard"]').click();
+          form.scrollIntoView({ behavior: "smooth" });
+        };
+        const dBtn = document.createElement("button");
+        dBtn.type = "button"; dBtn.className = "delete"; dBtn.textContent = t("deleteBtn");
+        dBtn.onclick = () => { if (confirm("متأكد من حذف الحركة؟")) updateTransactionStatus(item, "deleted"); };
+        actCell.append(eBtn, dBtn);
+        tbody.appendChild(row);
       });
 
-      document.getElementById("totalIncome").textContent = money(dakhInflow);
-      document.getElementById("totalExpenses").textContent = money(dakhOutflow);
-      const dakhNet = dakhInflow - dakhOutflow;
-      const netElement = document.getElementById("netTotal");
-      netElement.textContent = money(dakhNet);
-      netElement.className = "summary-value " + (dakhNet >= 0 ? "green" : "red");
-      
       document.getElementById("visibleCount").textContent = `${shown.length} ${t("countWord")}`;
       document.getElementById("emptyMessage").style.display = shown.length ? "none" : "block";
-      document.getElementById("tableTitle").textContent = trashView ? t("trashTitle") : t("txLogTitle");
-      document.getElementById("showTrash").innerHTML = trashView ? t("backToLog") : `🗑️ ${t("trashTitle")} <span class="trash-count">${filtered.filter(e=>e.status==='deleted').length}</span>`;
-      
-      renderAnalytics(confirmedForAnalytics);
-      renderBalances();
     }
 
-    function showNotice(msg, status) { const n = document.getElementById("notice"); n.className = "notice " + status; n.textContent = msg; n.style.display = 'block'; setTimeout(()=>n.style.display='none',3000); }
+    /* ===== سجل النشاط (Activity Logs) ===== */
+    function renderActivityLogs() {
+      const userSel = document.getElementById("actFilterUser");
+      const allUsersInLogs = [...new Set(entries.map(e => e.addedBy).filter(Boolean))];
+      fillSelect(userSel, allUsersInLogs, true);
+
+      const fUser = userSel.value;
+      const fKind = document.getElementById("actFilterKind").value;
+      const fFrom = document.getElementById("actFilterFrom").value;
+      const fTo = document.getElementById("actFilterTo").value;
+
+      const logs = [];
+      // تجميع سجل زمني من كل النسخ المحفوظة في الشيت
+      const groupedById = {};
+      entries.slice().reverse().forEach(e => {
+        const d = e.date ? e.date.toString().split(" ")[0] : "";
+        let kind = "create";
+        let cls = "";
+        let actionDesc = `إضافة حركة ${e.type === 'income' ? 'إيراد' : e.type === 'expense' ? 'مصروف' : 'تحويل'} بقيمة ${money(e.amount)}`;
+
+        if (groupedById[e.id]) {
+          const prev = groupedById[e.id];
+          if (e.status === "deleted") {
+            kind = "delete"; cls = "log-delete";
+            actionDesc = `حذف الحركة (${shortTxId(e.id)}) بقيمة ${money(e.amount)}`;
+          } else if (isConfirmedStatus(e.status) && isPendingStatus(prev.status)) {
+            kind = "confirm"; cls = "log-confirm";
+            actionDesc = `تأكيد استلام تقفيل الشيفت (${e.branch || e.account}) بقيمة ${money(e.amount)}`;
+          } else {
+            kind = "edit"; cls = "log-edit";
+            actionDesc = `تعديل الحركة (${shortTxId(e.id)}) — المبلغ كان ${money(prev.amount)} وأصبح ${money(e.amount)}`;
+          }
+        }
+        groupedById[e.id] = e;
+        logs.unshift({ user: e.addedBy, date: e.date, pureDate: d, kind, cls, desc: actionDesc, id: shortTxId(e.id) });
+      });
+
+      balancesHistory.forEach(b => {
+        const d = b.date ? b.date.toString().split(" ")[0] : "";
+        logs.push({ user: b.addedBy, date: b.timestamp || b.date, pureDate: d, kind: "opening", cls: "log-edit", desc: `تحديث الرصيد الافتتاحي لـ (${b.account}) إلى ${money(b.amount)}`, id: "BAL" });
+      });
+
+      const filteredLogs = logs.filter(l => (!fUser || l.user === fUser) && (!fKind || l.kind === fKind) && (!fFrom || l.pureDate >= fFrom) && (!fTo || l.pureDate <= fTo));
+      document.getElementById("activityCountLabel").textContent = `${filteredLogs.length} نشاط`;
+      document.getElementById("activityTimeline").innerHTML = filteredLogs.map(l => `
+        <div class="log-item ${l.cls}">
+          <div>
+            <strong>👤 ${l.user}</strong> — <span>${l.desc}</span>
+            <div class="log-meta">رقم المرجع: ${l.id}</div>
+          </div>
+          <div class="log-meta">🕒 ${l.date}</div>
+        </div>
+      `).join("") || `<div class="hint" style="text-align:center;padding:20px;">لا توجد أنشطة مطابقة</div>`;
+    }
+
+    function renderTrashTable(deletedItems) {
+      document.getElementById("trashTableBody").innerHTML = deletedItems.map((item, i) => `
+        <tr>
+          <td><span class="tx-id-badge">${shortTxId(item.id)}</span></td>
+          <td>${item.date}</td>
+          <td>${item.branch || "—"}</td>
+          <td>👤 ${item.addedBy}</td>
+          <td>${item.type}</td>
+          <td>${item.description || item.account || "—"}</td>
+          <td><strong>${money(item.amount)}</strong></td>
+          <td><button class="restore" onclick="restoreDeletedItem('${item.id}')">${t("restoreBtn")}</button></td>
+        </tr>
+      `).join("") || `<tr><td colspan="8" style="text-align:center;color:var(--muted);">سلة المحذوفات فارغة</td></tr>`;
+    }
+
+    window.restoreDeletedItem = function(id) {
+      const item = Object.values(getLatestEntriesMap()).find(x => x.id === id);
+      if (item) updateTransactionStatus(item, "edited");
+    };
 
     function updateTransactionStatus(item, newStatus) {
-      const { history, previousAmount, wasEdited, editedBy, editedAt, originalAddedBy, safeBalanceBefore, safeBalanceAfter, ...cleanItem } = item;
+      const { history, previousAmount, wasEdited, editedBy, originalAddedBy, safeBalanceBefore, safeBalanceAfter, ...cleanItem } = item;
       const updatedItem = { ...cleanItem, status: newStatus, addedBy: currentUser.username };
-      if(newStatus === 'active' && item.status === 'deleted') updatedItem.status = 'edited';
       entries.unshift(updatedItem);
-      render();
-      const msg = isConfirmedStatus(newStatus)
-        ? (currentLang === "ar" ? "✅ تم تأكيد الاستلام وتحديث رصيد الخزنة/الحساب والرسوم البيانية!" : "✅ Receipt confirmed and balance updated!")
-        : (currentLang === "ar" ? "تم التحديث وجار الإرسال للشيت..." : "Updating sheet...");
-      showNotice(msg, "ok");
+      renderAll();
+      showNotice("✅ تم التحديث والمزامنة مع الشيت!", "ok");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: updatedItem }) });
     }
 
-    form.addEventListener("submit", event => {
-      event.preventDefault();
-      const type = typeInput.value, amount = Number(document.getElementById("amount").value), dateValue = document.getElementById("date").value, shiftValue = document.getElementById("shift").value.trim(), destinationValue = document.getElementById("destination").value.trim();
-      
+    function showNotice(msg, status) {
+      const n = document.getElementById("notice");
+      n.className = "notice " + status; n.textContent = msg;
+      setTimeout(() => n.style.display = "none", 3000);
+    }
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const type = typeInput.value, amount = Number(document.getElementById("amount").value), dateValue = document.getElementById("date").value;
       const entry = {
         id: editingId || ("TR_" + Date.now()),
         type, amount, date: `${dateValue} | ${nowTimeString()}`, addedBy: currentUser.username,
         branch: type === "income" ? document.getElementById("branch").value : "",
-        shift: type === "income" ? shiftValue : "",
+        shift: type === "income" ? document.getElementById("shift").value.trim() : "",
         account: type === "income" || type === "expense" ? document.getElementById("account").value : "",
-        category: type === "expense" ? document.getElementById("category").value : "", destination: type === "expense" ? destinationValue : "",
-        transferFrom: type === "transfer" ? document.getElementById("transferFrom").value : "", transferTo: type === "transfer" ? document.getElementById("transferTo").value : "", 
+        category: type === "expense" ? document.getElementById("category").value : "",
+        destination: type === "expense" ? document.getElementById("destination").value.trim() : "",
+        transferFrom: type === "transfer" ? document.getElementById("transferFrom").value : "",
+        transferTo: type === "transfer" ? document.getElementById("transferTo").value : "",
         description: type === "transfer" ? "" : document.getElementById("description").value.trim(),
-        status: editingId ? 'edited' : 'active'
+        status: editingId ? "edited" : "active"
       };
-
-      entries.unshift(entry); editingId = null; updateSubmitLabel(); render();
-      showNotice(currentLang === "ar" ? "تم الحفظ في الشيت!" : "Saved to sheet!", "ok");
+      entries.unshift(entry); editingId = null; updateSubmitLabel(); renderAll();
+      showNotice("✅ تم الحفظ في الشيت!", "ok");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: entry }) });
-      
       form.reset(); document.getElementById("date").value = todayString(); updateFields();
     });
 
     document.getElementById("cancelEdit").addEventListener("click", () => { editingId = null; updateSubmitLabel(); form.reset(); updateFields(); });
-    document.getElementById("showTrash").addEventListener("click", () => { trashView = !trashView; render(); });
-    ["filterBranch", "filterShift", "filterType", "filterApproval", "filterFrom", "filterTo"].forEach(id => document.getElementById(id).addEventListener("input", render));
-    document.getElementById("clearFilters").addEventListener("click", () => { ["filterBranch", "filterShift", "filterType", "filterApproval", "filterFrom", "filterTo"].forEach(id => document.getElementById(id).value = ""); render(); });
     typeInput.addEventListener("change", updateFields);
 
-    document.getElementById("analyticsToggleBtn").addEventListener("click", () => { const p = document.getElementById("analyticsPanel"); p.hidden = !p.hidden; });
-    document.getElementById("printBtn").addEventListener("click", () => window.print());
-    document.getElementById("exportCsvBtn").addEventListener("click", () => {
-      let csv = "data:text/csv;charset=utf-8,\uFEFFرقم الحركة الكامل,التاريخ والوقت,الفرع,الشيفت,النوع,بواسطة,المبلغ,الحساب,التصنيف,الوجهة,التفاصيل,الحالة\r\n";
-      getFilteredEntries().filter(e=>e.status!=='deleted').forEach(e => {
-        csv += `"${e.id}","${e.date}","${e.branch}","${e.shift}","${e.type}","${e.addedBy}","${e.amount}","${e.account||''}","${e.category||''}","${e.destination||''}","${e.description}","${e.status}"\r\n`;
-      });
-      const link = document.createElement("a"); link.href = encodeURI(csv); link.download = `تقرير_${todayString()}.csv`; link.click();
+    // مستمعات الفلاتر لكل تقرير
+    ["filterBranch", "filterShift", "filterType", "filterApproval", "filterFrom", "filterTo",
+     "brFilterBranch", "brFilterShift", "brFilterFrom", "brFilterTo",
+     "expFilterCat", "expFilterAcc", "expFilterFrom", "expFilterTo",
+     "actFilterUser", "actFilterKind", "actFilterFrom", "actFilterTo"].forEach(id => {
+      document.getElementById(id)?.addEventListener("input", renderAll);
     });
 
-    document.getElementById("settingsMenuBtn").addEventListener("click", () => { const p = document.getElementById("settingsPanel"); p.hidden = !p.hidden; });
-    document.getElementById("addUserForm").addEventListener("submit", (e) => {
+    document.getElementById("clearFilters").addEventListener("click", () => { ["filterBranch", "filterShift", "filterType", "filterApproval", "filterFrom", "filterTo"].forEach(id => document.getElementById(id).value = ""); renderAll(); });
+    document.getElementById("brClearFilter").addEventListener("click", () => { ["brFilterBranch", "brFilterShift", "brFilterFrom", "brFilterTo"].forEach(id => document.getElementById(id).value = ""); renderAll(); });
+    document.getElementById("expClearFilter").addEventListener("click", () => { ["expFilterCat", "expFilterAcc", "expFilterFrom", "expFilterTo"].forEach(id => document.getElementById(id).value = ""); renderAll(); });
+    document.getElementById("actClearFilter").addEventListener("click", () => { ["actFilterUser", "actFilterKind", "actFilterFrom", "actFilterTo"].forEach(id => document.getElementById(id).value = ""); renderAll(); });
+
+    // الرصيد الأول الافتتاحي
+    document.getElementById("editOpeningBtn").addEventListener("click", () => {
+      const container = document.getElementById("openingInputs");
+      const latestOpenings = {};
+      balancesHistory.filter(b => b.status !== "deleted").forEach(b => latestOpenings[b.account] = b.amount);
+      container.innerHTML = transferAccounts.map(acc => `<label><span>${acc}</span><input type="number" step="0.01" data-account="${acc}" value="${latestOpenings[acc] ?? ''}"></label>`).join("") +
+        `<label><span>${t("dateCol")}</span><input type="date" id="openingDateInput" value="${todayString()}"></label>`;
+      document.getElementById("openingEditor").hidden = false;
+    });
+    document.getElementById("cancelOpening").addEventListener("click", () => document.getElementById("openingEditor").hidden = true);
+    document.getElementById("saveOpening").addEventListener("click", () => {
+      const dt = document.getElementById("openingDateInput").value;
+      if (!dt) return;
+      document.querySelectorAll("#openingInputs input[data-account]").forEach(inp => {
+        const amt = inp.value.trim() === "" ? 0 : Number(inp.value);
+        const payload = { action: "syncBalance", item: { id: "bal_" + Date.now() + "_" + Math.random(), date: dt, account: inp.dataset.account, amount: amt, addedBy: currentUser.username, status: "active" } };
+        balancesHistory.push({ ...payload.item, timestamp: `${todayString()} ${nowTimeString()}` });
+        fetch(SHEET_URL, { method: "POST", body: JSON.stringify(payload) });
+      });
+      document.getElementById("openingEditor").hidden = true; renderAll();
+    });
+
+    // المستخدمين والأدوار
+    document.getElementById("addUserForm").addEventListener("submit", e => {
       e.preventDefault();
       const username = document.getElementById("newUserEmail").value.trim(), pass = document.getElementById("newUserPass").value.trim(), role = document.getElementById("newUserRole").value;
-      const allowed = []; document.querySelectorAll("#branchCheckboxes input:checked").forEach(cb => allowed.push(cb.value));
+      const allowed = [...document.querySelectorAll("#branchCheckboxes input:checked")].map(cb => cb.value);
       users.push({ username, pass, role, branches: role === "admin" ? ["الكل"] : allowed, reports: role === "admin" });
-      renderUsers(); populateLoginUsersDropdown(); e.target.reset();
-      alert(currentLang === "ar" ? "تم الإضافة وجارِ الرفع للشيت!" : "User added & syncing!");
-      fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) });
+      renderAll(); populateLoginUsersDropdown(); e.target.reset();
+      fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users }) });
+      alert("✅ تم إضافة المستخدم!");
     });
 
     function renderUsers() {
-      const tbody = document.getElementById("usersList"); tbody.innerHTML = "";
-      users.forEach((u, i) => {
-        const roleTxt = u.role === 'admin' ? t("roleAdmin") : t("roleCashier");
-        const roleBtn = u.username !== 'باسم الدخاخني المالك' ? `<button class="edit" onclick="openEditUserRole(${i})">${t("editRoleBtnText")}</button>` : '';
-        const passBtn = `<button class="edit" onclick="changeUserPass(${i})">🔑 ${currentLang === 'ar' ? 'تغيير الباسورد' : 'Password'}</button>`;
-        const delBtn = u.username !== 'باسم الدخاخني المالك' ? `<button class="delete" onclick="deleteUser(${i})">${t("deleteBtn")}</button>` : '';
-        tbody.innerHTML += `<tr><td>${u.username}</td><td>${roleTxt}</td><td>${u.role==='admin'?t("allOption"):(u.branches || []).join('، ')}</td><td>${roleBtn}${passBtn}${delBtn}</td></tr>`;
-      });
+      document.getElementById("usersList").innerHTML = users.map((u, i) => `
+        <tr>
+          <td><strong>${u.username}</strong></td>
+          <td>${u.role === "admin" ? t("roleAdmin") : t("roleCashier")}</td>
+          <td>${u.role === "admin" ? t("allOption") : (u.branches || []).join("، ")}</td>
+          <td>
+            ${u.username !== "باسم الدخاخني المالك" ? `<button class="edit" onclick="openEditUserRole(${i})">${t("editRoleBtnText")}</button>` : ""}
+            <button class="edit" onclick="changeUserPass(${i})">🔑 تغيير الباسورد</button>
+            ${u.username !== "باسم الدخاخني المالك" ? `<button class="delete" onclick="deleteUser(${i})">${t("deleteBtn")}</button>` : ""}
+          </td>
+        </tr>
+      `).join("");
     }
 
     window.openEditUserRole = function(i) {
       editingUserIndex = i;
       const u = users[i];
       document.getElementById("editRoleUsername").value = u.username;
-      const roleSel = document.getElementById("editRoleSelect");
-      roleSel.value = u.role || "cashier";
-
-      const box = document.getElementById("editRoleBranchesBox");
-      box.innerHTML = "";
-      branches.forEach(b => {
-        const checked = (u.branches || []).includes(b) ? "checked" : "";
-        box.innerHTML += `<label><input type="checkbox" value="${b}" ${checked}> ${b}</label>`;
-      });
-
-      document.getElementById("editRoleBranchesWrap").style.display = roleSel.value === "admin" ? "none" : "";
+      document.getElementById("editRoleSelect").value = u.role || "cashier";
+      document.getElementById("editRoleBranchesBox").innerHTML = branches.map(b => `<label><input type="checkbox" value="${b}" ${(u.branches || []).includes(b) ? "checked" : ""}> ${b}</label>`).join("");
+      document.getElementById("editRoleBranchesWrap").style.display = u.role === "admin" ? "none" : "";
       document.getElementById("editUserModal").hidden = false;
     };
-
-    document.getElementById("editRoleSelect").addEventListener("change", (e) => {
-      document.getElementById("editRoleBranchesWrap").style.display = e.target.value === "admin" ? "none" : "";
-    });
-
-    document.getElementById("closeEditUserModalBtn").addEventListener("click", () => {
-      document.getElementById("editUserModal").hidden = true;
-      editingUserIndex = null;
-    });
-
-    document.getElementById("editUserRoleForm").addEventListener("submit", (e) => {
+    document.getElementById("editRoleSelect").addEventListener("change", e => { document.getElementById("editRoleBranchesWrap").style.display = e.target.value === "admin" ? "none" : ""; });
+    document.getElementById("closeEditUserModalBtn").addEventListener("click", () => { document.getElementById("editUserModal").hidden = true; });
+    document.getElementById("editUserRoleForm").addEventListener("submit", e => {
       e.preventDefault();
-      if (editingUserIndex === null) return;
       const newRole = document.getElementById("editRoleSelect").value;
-      const selectedBranches = [];
-      document.querySelectorAll("#editRoleBranchesBox input:checked").forEach(cb => selectedBranches.push(cb.value));
-
+      const selBranches = [...document.querySelectorAll("#editRoleBranchesBox input:checked")].map(cb => cb.value);
       users[editingUserIndex].role = newRole;
-      users[editingUserIndex].branches = newRole === "admin" ? ["الكل"] : selectedBranches;
+      users[editingUserIndex].branches = newRole === "admin" ? ["الكل"] : selBranches;
       users[editingUserIndex].reports = newRole === "admin";
-
-      if (currentUser && currentUser.username === users[editingUserIndex].username) {
-        currentUser = users[editingUserIndex];
-        sessionStorage.setItem("dakhakhni-currentUser", JSON.stringify(currentUser));
-      }
-
       document.getElementById("editUserModal").hidden = true;
-      editingUserIndex = null;
-      renderUsers();
-      populateLoginUsersDropdown();
-      fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) });
-      alert(currentLang === "ar" ? "✅ تم تحديث دور وصلاحيات المستخدم وحفظها في الشيت!" : "✅ User role & permissions updated!");
+      renderAll(); populateLoginUsersDropdown();
+      fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users }) });
+      alert("✅ تم حفظ الصلاحيات!");
     });
 
     window.changeUserPass = function(i) {
-      const user = users[i];
-      const msg = currentLang === "ar"
-        ? `اكتب كلمة المرور الجديدة للمستخدم (${user.username}):`
-        : `Enter new password for (${user.username}):`;
-      const newPass = prompt(msg, user.pass);
-
-      if (newPass !== null && newPass.trim() !== "") {
-        users[i].pass = newPass.trim();
-        renderUsers();
-
-        if (currentUser && currentUser.username === user.username) {
-          currentUser.pass = users[i].pass;
-          sessionStorage.setItem("dakhakhni-currentUser", JSON.stringify(currentUser));
-        }
-
-        fetch(SHEET_URL, {
-          method: "POST",
-          body: JSON.stringify({ action: "syncUsers", users: users })
-        });
-
-        alert(currentLang === "ar" ? "✅ تم تحديث كلمة المرور وحفظها في الشيت!" : "✅ Password updated and synced!");
+      const np = prompt(`كلمة المرور الجديدة لـ (${users[i].username}):`, users[i].pass);
+      if (np && np.trim()) {
+        users[i].pass = np.trim(); renderAll();
+        fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users }) });
       }
     };
-
     window.deleteUser = function(i) {
-      if(confirm(currentLang === "ar" ? "حذف المستخدم؟" : "Delete user?")) { users.splice(i,1); renderUsers(); populateLoginUsersDropdown(); fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) }); }
-    }
+      if (confirm("حذف المستخدم؟")) { users.splice(i, 1); renderAll(); populateLoginUsersDropdown(); fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users }) }); }
+    };
+
+    // الطباعة والتصدير والثيم الأساسي "classic"
+    document.getElementById("printBtn").addEventListener("click", () => window.print());
+    document.getElementById("exportCsvBtn").addEventListener("click", () => {
+      let csv = "data:text/csv;charset=utf-8,\uFEFFرقم الحركة,التاريخ,الفرع,الشيفت,النوع,بواسطة,المبلغ,الحساب,التصنيف,الوجهة,التفاصيل,الحالة\r\n";
+      Object.values(getLatestEntriesMap()).filter(e => e.status !== "deleted").forEach(e => {
+        csv += `"${e.id}","${e.date}","${e.branch}","${e.shift}","${e.type}","${e.addedBy}","${e.amount}","${e.account||''}","${e.category||''}","${e.destination||''}","${e.description}","${e.status}"\r\n`;
+      });
+      const a = document.createElement("a"); a.href = encodeURI(csv); a.download = `تقرير_الدخاخني_${todayString()}.csv`; a.click();
+    });
 
     function renderStyleChips() {
-      const themeBox = document.getElementById("themeChips"); themeBox.innerHTML = "";
-      themes.forEach(th => {
-        const c = document.createElement("button"); c.type = "button"; c.className = "chip" + (root.dataset.theme === th.id ? " active" : "");
-        c.innerHTML = `<span class="swatch" style="background:${th.sw}"></span> ${th.emoji} ${th[currentLang]}`;
-        c.onclick = () => { root.dataset.theme = th.id; localStorage.setItem("dakhakhni-theme", th.id); renderStyleChips(); };
-        themeBox.appendChild(c);
-      });
-
-      const bgBox = document.getElementById("bgChips"); bgBox.innerHTML = "";
-      backgrounds.forEach(bg => {
-        const c = document.createElement("button"); c.type = "button"; c.className = "chip" + (root.dataset.bg === bg.id ? " active" : "");
-        c.textContent = `${bg.emoji} ${bg[currentLang]}`;
-        c.onclick = () => { root.dataset.bg = bg.id; localStorage.setItem("dakhakhni-bg", bg.id); renderStyleChips(); };
-        bgBox.appendChild(c);
-      });
+      const box = document.getElementById("themeChips");
+      box.innerHTML = themes.map(th => `<button type="button" class="chip ${root.dataset.theme === th.id ? 'active' : ''}" onclick="setAppTheme('${th.id}')"><span class="swatch" style="background:${th.sw}"></span> ${th.emoji} ${th[currentLang]}</button>`).join("");
     }
-    document.getElementById("styleBtn").addEventListener("click", () => { const panel = document.getElementById("stylePanel"); panel.hidden = !panel.hidden; });
-    document.getElementById("resetColor").addEventListener("click", () => { root.style.removeProperty("--page-color"); localStorage.removeItem("dakhakhni-page-color"); document.getElementById("pageColor").value = "#f5f7fb"; });
-    document.getElementById("pageColor").addEventListener("input", (e) => { root.style.setProperty("--page-color", e.target.value); localStorage.setItem("dakhakhni-page-color", e.target.value); });
-    
-    applyTheme();
-    function applyTheme() {
-      root.dataset.theme = localStorage.getItem("dakhakhni-theme") || "vip";
-      root.dataset.bg = localStorage.getItem("dakhakhni-bg") || "gradient";
-      const c = localStorage.getItem("dakhakhni-page-color");
-      if(c) { root.style.setProperty("--page-color", c); document.getElementById("pageColor").value = c; }
+    window.setAppTheme = function(id) {
+      root.dataset.theme = id;
+      localStorage.setItem("dakhakhni-theme", id);
       renderStyleChips();
-      document.getElementById("date").value = todayString();
-    }
+    };
+    document.getElementById("pageColor").addEventListener("input", e => { root.style.setProperty("--page-color", e.target.value); localStorage.setItem("dakhakhni-page-color", e.target.value); });
+    document.getElementById("resetColor").addEventListener("click", () => { root.style.removeProperty("--page-color"); localStorage.removeItem("dakhakhni-page-color"); });
+
+    // ضبط الثيم الافتراضي الأساسي ليكون "classic"
+    const savedTheme = localStorage.getItem("dakhakhni-theme") || "classic";
+    root.dataset.theme = savedTheme;
+    const savedColor = localStorage.getItem("dakhakhni-page-color");
+    if (savedColor) root.style.setProperty("--page-color", savedColor);
+    document.getElementById("date").value = todayString();
+    renderStyleChips();
   </script>
 </body>
 </html>
