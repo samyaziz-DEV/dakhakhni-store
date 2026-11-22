@@ -111,7 +111,6 @@
 
     .shift-user-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; margin-bottom: 16px; border-radius: 20px; background: var(--blue-soft); color: var(--blue); font-size: 12px; font-weight: 700; }
 
-    /* نافذة تعديل أدوار وصلاحيات المستخدمين */
     .modal-overlay {
       position: fixed; inset: 0; z-index: 3000;
       background: rgba(5, 12, 9, 0.75); backdrop-filter: blur(6px);
@@ -184,7 +183,6 @@
     th { color: var(--muted); font-weight: 600; background: var(--soft); }
     tbody tr:hover { background: var(--hover); }
 
-    /* شارة رقم المعاملة + إظهار الرقم الكامل عند التمرير بالماوس أو النقر */
     .tx-id-wrap {
       position: relative;
       display: inline-block;
@@ -499,7 +497,7 @@
       </div>
     </div>
 
-    <!-- واجهة الكاشير (بدون واتساب) -->
+    <!-- واجهة الكاشير -->
     <section class="panel cashier-box" id="cashierPanel" hidden>
       <div class="panel-heading">
         <h2 data-i18n="closeShiftTitle" data-emoji="🧾">تقفيل إيراد ومصاريف الشيفت</h2>
@@ -606,9 +604,9 @@
         <div id="balanceNotice" class="notice" role="status"></div>
       </section>
 
-      <!-- بطاقات ملخص الخزنة الرئيسية - الدخاخني -->
+      <!-- بطاقات ملخص الخزنة الرئيسية - الدخاخني (الداخل الإجمالي vs المصروفات vs الصافي المطابق للأعلى) -->
       <section class="summary" id="summarySection">
-        <article class="summary-card"><span class="summary-label" data-i18n="dakhIncomeLabel" data-emoji="🟢">الخزنة الرئيسية - الدخاخني (إيرادات)</span><strong class="summary-value green" id="totalIncome">0.00 ج.م</strong></article>
+        <article class="summary-card"><span class="summary-label" data-i18n="dakhIncomeLabel" data-emoji="🟢">الخزنة الرئيسية - الدخاخني</span><strong class="summary-value green" id="totalIncome">0.00 ج.م</strong></article>
         <article class="summary-card"><span class="summary-label" data-i18n="dakhExpensesLabel" data-emoji="🔴">مصروفات الخزنة الرئيسية - الدخاخني</span><strong class="summary-value red" id="totalExpenses">0.00 ج.م</strong></article>
         <article class="summary-card"><span class="summary-label" data-i18n="dakhNetLabel" data-emoji="⚖️">الصافي من الخزنة الرئيسية</span><strong class="summary-value" id="netTotal">0.00 ج.م</strong></article>
       </section>
@@ -686,7 +684,6 @@
     const banks = ["إنستا باي الأهلي", "فيزا QNB"];
     const otherSafes = ["خزنة باسم"];
     
-    // إضافة خزنة باسم في الإيرادات والمصروفات والتحويلات
     const incomeAccounts = [...mainSafes, ...otherSafes, ...banks];
     const transferAccounts = [...mainSafes, ...otherSafes, ...banks];
 
@@ -776,7 +773,7 @@
         saveOpeningBtn: "حفظ الرصيد الأول وتسميعه",
         cancelBtn: "إلغاء",
         editOpeningBtn: "تعديل الرصيد الأول",
-        dakhIncomeLabel: "الخزنة الرئيسية - الدخاخني (إيرادات)",
+        dakhIncomeLabel: "الخزنة الرئيسية - الدخاخني",
         dakhExpensesLabel: "مصروفات الخزنة الرئيسية - الدخاخني",
         dakhNetLabel: "الصافي من الخزنة الرئيسية",
         totalIncome: "إجمالي الإيرادات",
@@ -896,7 +893,7 @@
         saveOpeningBtn: "Save Opening Balances",
         cancelBtn: "Cancel",
         editOpeningBtn: "Edit Opening Balance",
-        dakhIncomeLabel: "Main Safe - Al-Dakhakhni (Income)",
+        dakhIncomeLabel: "Main Safe - Al-Dakhakhni",
         dakhExpensesLabel: "Main Safe - Al-Dakhakhni (Expenses)",
         dakhNetLabel: "Net from Main Safe",
         totalIncome: "Total Income",
@@ -1329,7 +1326,6 @@
       return String(status || "").trim().toLowerCase().startsWith("confirmed");
     }
 
-    /* ===== تجميع النسخ المتتالية لكل معاملة + حساب رصيد الخزنة قبل وبعد كل مصروف ===== */
     function getLatestEntriesMap() {
       const latestState = {};
       entries.forEach(e => {
@@ -1530,7 +1526,14 @@
       let shown = trashView ? filtered.filter(e => e.status === 'deleted') : filtered.filter(e => e.status !== 'deleted');
       
       const tbody = document.getElementById("transactions"); tbody.innerHTML = "";
-      let dakhInc = 0, dakhExp = 0;
+      
+      // بدء حساب الخزنة الرئيسية - الدخاخني من الرصيد الأول الافتتاحي ليطابق تماماً الموجود بالأعلى
+      let dakhOpening = 0;
+      balancesHistory.forEach(b => {
+        if (b.status !== 'deleted' && b.account === DAKH_SAFE) dakhOpening = Number(b.amount) || 0;
+      });
+      let dakhInflow = dakhOpening;
+      let dakhOutflow = 0;
       const confirmedForAnalytics = [];
 
       shown.forEach(item => {
@@ -1539,10 +1542,12 @@
 
         if (!trashView && !pending) {
           confirmedForAnalytics.push(item);
-          // حساب الإيرادات والمصروفات الخاصة بـ الخزنة الرئيسية - الدخاخني
-          if (item.account === DAKH_SAFE) {
-            if (item.type === "income") dakhInc += Number(item.amount);
-            if (item.type === "expense") dakhExp += Number(item.amount);
+          const amt = Number(item.amount) || 0;
+          if (item.type === "income" && item.account === DAKH_SAFE) dakhInflow += amt;
+          if (item.type === "expense" && item.account === DAKH_SAFE) dakhOutflow += amt;
+          if (item.type === "transfer") {
+            if (item.transferTo === DAKH_SAFE) dakhInflow += amt;
+            if (item.transferFrom === DAKH_SAFE) dakhOutflow += amt;
           }
         }
 
@@ -1598,7 +1603,7 @@
           dCell.innerHTML += `<br><span class="safe-impact-pill">🏦 ${item.account}: ${t("safeBeforeLabel")} <u>${money(item.safeBalanceBefore)}</u> ➔ ${t("safeAfterLabel")} <u>${money(item.safeBalanceAfter)}</u></span>`;
         }
 
-        // 6. عمود المبلغ (يعرض الرقم القديم مشطوباً فوق الرقم الجديد في حال التعديل)
+        // 6. عمود المبلغ
         const amtCell = addCell("");
         if (item.previousAmount !== undefined && item.previousAmount !== Number(item.amount)) {
           amtCell.innerHTML = `<span class="old-amount-strike">${money(item.previousAmount)}</span><strong>${money(item.amount)}</strong>`;
@@ -1642,9 +1647,9 @@
         row.appendChild(actionCell); tbody.appendChild(row);
       });
 
-      document.getElementById("totalIncome").textContent = money(dakhInc);
-      document.getElementById("totalExpenses").textContent = money(dakhExp);
-      const dakhNet = dakhInc - dakhExp;
+      document.getElementById("totalIncome").textContent = money(dakhInflow);
+      document.getElementById("totalExpenses").textContent = money(dakhOutflow);
+      const dakhNet = dakhInflow - dakhOutflow;
       const netElement = document.getElementById("netTotal");
       netElement.textContent = money(dakhNet);
       netElement.className = "summary-value " + (dakhNet >= 0 ? "green" : "red");
