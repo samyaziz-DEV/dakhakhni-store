@@ -14,37 +14,35 @@
       --green: #10855a; --red: #d63f4c; --purple: #6f52c9;
       --white: #ffffff; --soft: #f8faff; --hover: #f2f6ff;
       --input-bg: #ffffff; --input-line: #d8e0ed; --label: #3f4b61;
-      --btn-soft: #ecf0f8; --btn-soft-text: #344056; --toolbar-bg: rgba(255,255,255,0.88);
+      --btn-soft: #ecf0f8; --btn-soft-text: #344056;
       --green-soft: #e6f7f0; --red-soft: #ffecee; --purple-soft: #efeaff; --blue-soft: #e8efff;
       --ok-text: #0f6b49; --err-text: #a7313b; --warn-bg: #fff4d8; --warn-text: #a36500;
       --focus-ring: rgba(49, 88, 213, 0.16);
-      --top-gradient: linear-gradient(135deg, #101b36 0%, #1e3775 55%, #3158d5 100%);
       --shadow: 0 10px 28px rgba(16, 27, 54, 0.06), 0 2px 6px rgba(16, 27, 54, 0.04);
       --shadow-hover: 0 16px 36px rgba(16, 27, 54, 0.11);
     }
 
-    html[data-theme="ocean"] { --blue: #0e7c9b; --blue-hover: #0a6580; --page-color: #eef8fb; --sidebar-bg: #072636; --blue-soft: #e0f3f8; --top-gradient: linear-gradient(135deg, #06293a, #0b5470, #0e7c9b); }
-    html[data-theme="sunset"] { --blue: #e0592a; --blue-hover: #c2481c; --page-color: #fff6ef; --sidebar-bg: #2e1523; --blue-soft: #ffece3; --top-gradient: linear-gradient(135deg, #3b1d2e, #9b3d3d, #e0592a); }
-    html[data-theme="forest"] { --blue: #2f8f4e; --blue-hover: #247a40; --page-color: #f1f9f3; --sidebar-bg: #0e2618; --blue-soft: #e4f5e9; --top-gradient: linear-gradient(135deg, #0f2a1a, #1d5a34, #2f8f4e); }
-    html[data-theme="rose"] { --blue: #c2447a; --blue-hover: #a63665; --page-color: #fff1f6; --sidebar-bg: #300f27; --blue-soft: #ffe4ee; --top-gradient: linear-gradient(135deg, #3a1230, #8a2c5e, #c2447a); }
+    html[data-theme="ocean"] { --blue: #0e7c9b; --blue-hover: #0a6580; --page-color: #eef8fb; --sidebar-bg: #072636; --blue-soft: #e0f3f8; }
+    html[data-theme="sunset"] { --blue: #e0592a; --blue-hover: #c2481c; --page-color: #fff6ef; --sidebar-bg: #2e1523; --blue-soft: #ffece3; }
+    html[data-theme="forest"] { --blue: #2f8f4e; --blue-hover: #247a40; --page-color: #f1f9f3; --sidebar-bg: #0e2618; --blue-soft: #e4f5e9; }
+    html[data-theme="rose"] { --blue: #c2447a; --blue-hover: #a63665; --page-color: #fff1f6; --sidebar-bg: #300f27; --blue-soft: #ffe4ee; }
     html[data-theme="dark"] {
       color-scheme: dark; --blue: #5b82ff; --blue-hover: #4a6fe8; --page-color: #0d1220;
       --sidebar-bg: #080b14; --text: #e8ecf6; --muted: #94a0ba; --line: #232c45;
       --white: #161e33; --soft: #12182b; --hover: #1d2640; --input-bg: #101626; --input-line: #2a3452;
-      --label: #b4bed6; --btn-soft: #222c4a; --btn-soft-text: #d6ddf0; --toolbar-bg: rgba(22,30,51,0.9);
+      --label: #b4bed6; --btn-soft: #222c4a; --btn-soft-text: #d6ddf0;
       --green: #3ecf8e; --red: #ff6b75; --purple: #a78bfa;
       --green-soft: #12392c; --red-soft: #3c1a22; --purple-soft: #2a2350; --blue-soft: #1d2a55;
-      --warn-bg: #3d3112; --warn-text: #ffc861; --top-gradient: linear-gradient(135deg, #080c18, #141f42, #2a4bb8);
+      --warn-bg: #3d3112; --warn-text: #ffc861;
     }
     html[data-theme="vip"] {
       color-scheme: dark; --blue: #d4af37; --blue-hover: #b89428; --page-color: #071912;
       --sidebar-bg: #04100b; --text: #f5efe0; --muted: #9eb5aa; --line: #183d2e;
       --white: #0c261c; --soft: #091f16; --hover: #113326; --input-bg: #071811; --input-line: #1f4d3b;
-      --label: #d4af37; --btn-soft: #133628; --btn-soft-text: #f0dfaa; --toolbar-bg: rgba(12,38,28,0.9);
+      --label: #d4af37; --btn-soft: #133628; --btn-soft-text: #f0dfaa;
       --green: #38d996; --red: #ff6b75; --purple: #e0b84c;
       --green-soft: #0f3828; --red-soft: #3b171e; --purple-soft: #2e2612; --blue-soft: #29220e;
       --warn-bg: #36290b; --warn-text: #f5c84c;
-      --top-gradient: linear-gradient(135deg, #04120c, #0d3b29 45%, #8f6b14 85%, #d4af37);
     }
 
     * { box-sizing: border-box; }
@@ -161,8 +159,7 @@
     }
 
     .splash-bar { height: 4px; margin-top: 18px; overflow: hidden; background: rgba(255,255,255,0.18); border-radius: 4px; }
-    .splash-bar span { display: block; height: 100%; background: #7aa2ff; transform-origin: right center; animation: fillBar 3s linear both; }
-    html[dir="ltr"] .splash-bar span { transform-origin: left center; }
+    .splash-bar span { display: block; height: 100%; background: #7aa2ff; transform-origin: right center; animation: fillBar 2.5s linear both; }
     .loader { width: 42px; height: 42px; border: 4px solid rgba(255,255,255,0.2); border-top-color: #ffffff; border-radius: 50%; animation: spin 0.9s linear infinite; margin: 0 auto 16px; }
 
     .app-shell { display: none; min-height: 100vh; position: relative; z-index: 1; }
@@ -427,7 +424,7 @@
       <h2 data-i18n="splashWelcome">أهلاً بك في نظام الدخاخني ستور</h2>
       <p class="sub-glow" data-i18n="splashDesc">نظام الإدارة المالية المتكامل للفروع والخزن ومتابعة الإيرادات والمصروفات لحظياً عبر السحابة.</p>
       <p style="font-size:13px; color:#dce6ff; margin-bottom:14px;">✨ Powered by <strong>Samy Aziz</strong></p>
-      <button class="btn-login-glow" id="splashEnterBtn" type="button" data-i18n="enterSystem">🚀 دخول النظام</button>
+      <button class="btn-login-glow" id="splashEnterBtn" type="button" onclick="enterSystemNow()" data-i18n="enterSystem">🚀 دخول النظام</button>
       <div class="splash-bar"><span></span></div>
     </div>
   </div>
@@ -531,24 +528,24 @@
           <div class="side-logo"><img src="logo.png" alt="EL-DKHAKHNY"></div>
           <div>
             <h2 data-i18n="storeTitle">الدخاخني ستور</h2>
-            <small id="userSubtitle" data-i18n="dashboardSub">لوحة الإدارة المالية</small>
+            <small id="userSubtitle">لوحة الإدارة المالية</small>
           </div>
         </div>
 
-        <div class="nav-group-label" data-i18n="navMainGrp">القائمة الرئيسية</div>
+        <div class="nav-group-label">القائمة الرئيسية</div>
         <nav class="side-nav">
-          <button type="button" class="nav-btn active" data-view="viewDashboard"><span data-i18n="navDashboard">🏦 الخزن وإضافة حركة</span></button>
-          <button type="button" class="nav-btn" data-view="viewBranches"><span data-i18n="navBranches">🏬 ملخص وتقرير الفروع</span></button>
-          <button type="button" class="nav-btn" data-view="viewExpenses"><span data-i18n="navExpenses">🔴 تقرير وتصنيفات المصاريف</span></button>
-          <button type="button" class="nav-btn" data-view="viewTransactions"><span data-i18n="navTransactions">📒 سجل الحركات الشامل</span><span class="nav-badge" id="navPendingBadge" style="display:none;">0</span></button>
-          <button type="button" class="nav-btn" data-view="viewActivity"><span data-i18n="navActivity">🕵️ سجل النشاط (Activity Logs)</span></button>
+          <button type="button" class="nav-btn active" data-view="viewDashboard"><span>🏦 الخزن وإضافة حركة</span></button>
+          <button type="button" class="nav-btn" data-view="viewBranches"><span>🏬 ملخص وتقرير الفروع</span></button>
+          <button type="button" class="nav-btn" data-view="viewExpenses"><span>🔴 تقرير وتصنيفات المصاريف</span></button>
+          <button type="button" class="nav-btn" data-view="viewTransactions"><span>📒 سجل الحركات الشامل</span><span class="nav-badge" id="navPendingBadge" style="display:none;">0</span></button>
+          <button type="button" class="nav-btn" data-view="viewActivity"><span>🕵️ سجل النشاط (Activity Logs)</span></button>
         </nav>
 
-        <div class="nav-group-label" data-i18n="navAdminGrp">الإدارة والإعدادات</div>
+        <div class="nav-group-label">الإدارة والإعدادات</div>
         <nav class="side-nav">
-          <button type="button" class="nav-btn" data-view="viewUsers"><span data-i18n="navUsers">👥 المستخدمين والأدوار</span></button>
-          <button type="button" class="nav-btn" data-view="viewTrash"><span data-i18n="navTrash">🗑️ سلة المحذوفات</span><span class="nav-badge" id="navTrashBadge">0</span></button>
-          <button type="button" class="nav-btn" data-view="viewAppearance"><span data-i18n="navAppearance">🎨 الألوان والتصميم</span></button>
+          <button type="button" class="nav-btn" data-view="viewUsers"><span>👥 المستخدمين والأدوار</span></button>
+          <button type="button" class="nav-btn" data-view="viewTrash"><span>🗑️ سلة المحذوفات</span><span class="nav-badge" id="navTrashBadge">0</span></button>
+          <button type="button" class="nav-btn" data-view="viewAppearance"><span>🎨 الألوان والتصميم</span></button>
         </nav>
       </div>
 
@@ -559,6 +556,7 @@
 
     <!-- مساحة المحتوى -->
     <div class="main-area">
+      <!-- الشريط العلوي مع زر مزامنة البيانات الفوري -->
       <div class="top-header-bar">
         <div>
           <h1 id="activeSectionTitle">🏦 الخزن وإضافة حركة</h1>
@@ -657,7 +655,7 @@
                 <label id="branchField"><span data-i18n="branchCol">الفرع</span><select id="branch"></select></label>
                 <label id="shiftField"><span data-i18n="shiftNumber">رقم الشيفت</span><input id="shift" type="text" autocomplete="off" placeholder="1"></label>
                 <label id="accountField"><span id="accountLabel" data-i18n="accountCol">الحساب</span><select id="account"></select></label>
-                <label id="categoryField"><span data-i18n="catLabel">تصنيف المصروف</span><select id="category"></select></label>
+                <label id="categoryField"><span data-i18n="catLabel">تصنيف المصروف</span><select id="category"><option value="" data-i18n="chooseCat">اختر التصنيف</option><option value="إيجار">🏠 إيجار</option><option value="رواتب">👥 رواتب</option><option value="مشتريات">🛒 مشتريات</option><option value="كهرباء ومياه">💡 كهرباء ومياه</option><option value="نقل">🚚 نقل</option><option value="صيانة">🔧 صيانة</option><option value="جمعية">🤝 جمعية</option><option value="تحويل">🔁 تحويل</option><option value="أخرى">📦 أخرى</option></select></label>
                 <label id="destinationField"><span data-i18n="destLabel">الوجهة</span><input id="destination" placeholder="..."></label>
                 <label id="transferFromField"><span data-i18n="fromAccLabel">من حساب</span><select id="transferFrom"></select></label>
                 <label id="transferToField"><span data-i18n="toAccLabel">إلى حساب</span><select id="transferTo"></select></label>
@@ -675,22 +673,22 @@
         <!-- 2. تقرير الفروع المستقل -->
         <div id="viewBranches" class="view-section" hidden>
           <section class="panel no-print">
-            <div class="panel-heading"><h2 data-i18n="brFilterTitle" data-emoji="🔎">تصفية تقرير الفروع</h2></div>
+            <div class="panel-heading"><h2>🔎 تصفية تقرير الفروع</h2></div>
             <div class="filter-grid-4">
-              <label><span data-i18n="branchCol">الفرع</span><select id="brFilterBranch"></select></label>
-              <label><span data-i18n="shiftNumber">رقم الشيفت</span><input type="text" id="brFilterShift" placeholder="..."></label>
-              <label><span data-i18n="fromDateLabel">من تاريخ</span><input type="date" id="brFilterFrom"></label>
-              <label><span data-i18n="toDateLabel">إلى تاريخ</span><input type="date" id="brFilterTo"></label>
+              <label><span>الفرع</span><select id="brFilterBranch"><option value="">كل الفروع</option></select></label>
+              <label><span>رقم الشيفت</span><input type="text" id="brFilterShift" placeholder="..."></label>
+              <label><span>من تاريخ</span><input type="date" id="brFilterFrom"></label>
+              <label><span>إلى تاريخ</span><input type="date" id="brFilterTo"></label>
             </div>
             <div style="margin-top:12px;">
-              <button type="button" class="secondary" id="brClearFilter" data-i18n="clearFiltersBtn" data-emoji="🧼">مسح الفلاتر</button>
+              <button type="button" class="secondary" id="brClearFilter">🧼 مسح الفلاتر</button>
             </div>
           </section>
 
           <section class="panel">
             <div class="panel-heading">
-              <h2 data-i18n="brChartTitle" data-emoji="📊">الرسم البياني لمقارنة أداء الفروع (الإيرادات vs المصروفات)</h2>
-              <span class="hint" data-i18n="brChartLegend">🟢 إيرادات | 🔴 مصروفات</span>
+              <h2>📊 الرسم البياني لمقارنة أداء الفروع (الإيرادات vs المصروفات)</h2>
+              <span class="hint">🟢 إيرادات | 🔴 مصروفات</span>
             </div>
             <div class="chart-box">
               <div class="chart-bars-container" id="branchChartContainer"></div>
@@ -698,19 +696,11 @@
 
             <div class="analytics-grid" id="branchStatsGrid"></div>
 
-            <h3 style="margin:20px 0 12px; font-size:15px;" data-i18n="brTableTitle" data-emoji="📋">سجل حركات الفروع التفصيلي</h3>
+            <h3 style="margin:20px 0 12px; font-size:15px;">📋 سجل حركات الفروع التفصيلي</h3>
             <div class="table-wrap">
               <table>
                 <thead>
-                  <tr>
-                    <th data-i18n="idCol">رقم الحركة</th>
-                    <th data-i18n="dateCol">التاريخ</th>
-                    <th data-i18n="branchCol">الفرع</th>
-                    <th data-i18n="shiftCol">الشيفت</th>
-                    <th data-i18n="typeCol">النوع</th>
-                    <th data-i18n="detailsCol">الحساب والتفاصيل</th>
-                    <th data-i18n="amountCol">المبلغ</th>
-                  </tr>
+                  <tr><th>رقم الحركة</th><th>التاريخ</th><th>الفرع</th><th>الشيفت</th><th>النوع</th><th>الحساب والتفاصيل</th><th>المبلغ</th></tr>
                 </thead>
                 <tbody id="branchReportTableBody"></tbody>
               </table>
@@ -721,24 +711,35 @@
         <!-- 3. تقرير المصروفات المستقل -->
         <div id="viewExpenses" class="view-section" hidden>
           <section class="panel no-print">
-            <div class="panel-heading"><h2 data-i18n="expFilterTitle" data-emoji="🔎">تصفية تقرير المصروفات</h2></div>
+            <div class="panel-heading"><h2>🔎 تصفية تقرير المصروفات</h2></div>
             <div class="filter-grid-4">
               <label>
-                <span data-i18n="catLabel">تصنيف المصروف</span>
-                <select id="expFilterCat"></select>
+                <span>تصنيف المصروف</span>
+                <select id="expFilterCat">
+                  <option value="">كل التصنيفات</option>
+                  <option value="إيجار">🏠 إيجار</option>
+                  <option value="رواتب">👥 رواتب</option>
+                  <option value="مشتريات">🛒 مشتريات</option>
+                  <option value="كهرباء ومياه">💡 كهرباء ومياه</option>
+                  <option value="نقل">🚚 نقل</option>
+                  <option value="صيانة">🔧 صيانة</option>
+                  <option value="جمعية">🤝 جمعية</option>
+                  <option value="تحويل">🔁 تحويل</option>
+                  <option value="أخرى">📦 أخرى</option>
+                </select>
               </label>
-              <label><span data-i18n="accountCol">الخزنة / الحساب</span><select id="expFilterAcc"></select></label>
-              <label><span data-i18n="fromDateLabel">من تاريخ</span><input type="date" id="expFilterFrom"></label>
-              <label><span data-i18n="toDateLabel">إلى تاريخ</span><input type="date" id="expFilterTo"></label>
+              <label><span>الخزنة / الحساب</span><select id="expFilterAcc"><option value="">كل الحسابات</option></select></label>
+              <label><span>من تاريخ</span><input type="date" id="expFilterFrom"></label>
+              <label><span>إلى تاريخ</span><input type="date" id="expFilterTo"></label>
             </div>
             <div style="margin-top:12px;">
-              <button type="button" class="secondary" id="expClearFilter" data-i18n="clearFiltersBtn" data-emoji="🧼">مسح الفلاتر</button>
+              <button type="button" class="secondary" id="expClearFilter">🧼 مسح الفلاتر</button>
             </div>
           </section>
 
           <section class="panel">
             <div class="panel-heading">
-              <h2 data-i18n="expChartTitle" data-emoji="📊">الرسم البياني لتوزيع المصروفات حسب التصنيف</h2>
+              <h2>📊 الرسم البياني لتوزيع المصروفات حسب التصنيف</h2>
               <strong id="expTotalHeader" class="red">0.00 ج.م</strong>
             </div>
 
@@ -746,22 +747,14 @@
               <div class="chart-bars-container" id="expenseChartContainer"></div>
             </div>
 
-            <h3 style="margin:16px 0 12px; font-size:15px;" data-i18n="expCatsSubTitle" data-emoji="🗂️">المصروفات مقسمة حسب كل تصنيف (اضغط على أي تصنيف لعرض حركاته)</h3>
+            <h3 style="margin:16px 0 12px; font-size:15px;">🗂️ المصروفات مقسمة حسب كل تصنيف (اضغط على أي تصنيف لعرض حركاته)</h3>
             <div class="cat-cards-grid" id="expenseCategoryCards"></div>
 
-            <h3 style="margin:20px 0 12px; font-size:15px;" data-i18n="expTableSubTitle" data-emoji="📋">تفاصيل حركات المصروفات وأثرها على الخزنة</h3>
+            <h3 style="margin:20px 0 12px; font-size:15px;">📋 تفاصيل حركات المصروفات وأثرها على الخزنة</h3>
             <div class="table-wrap">
               <table>
                 <thead>
-                  <tr>
-                    <th data-i18n="idCol">رقم الحركة</th>
-                    <th data-i18n="dateCol">التاريخ</th>
-                    <th data-i18n="catLabel">التصنيف</th>
-                    <th data-i18n="detailsCol">الوجهة / التفاصيل</th>
-                    <th data-i18n="accountCol">الحساب</th>
-                    <th data-i18n="safeImpactCol">أثر الخزنة</th>
-                    <th data-i18n="amountCol">المبلغ</th>
-                  </tr>
+                  <tr><th>رقم الحركة</th><th>التاريخ</th><th>التصنيف</th><th>الوجهة / التفاصيل</th><th>الحساب</th><th>أثر الخزنة</th><th>المبلغ</th></tr>
                 </thead>
                 <tbody id="expenseReportTableBody"></tbody>
               </table>
@@ -774,7 +767,7 @@
           <section class="panel no-print">
             <div class="panel-heading"><h2 data-i18n="filterTitle" data-emoji="🔎">تصفية الحركات الشاملة</h2></div>
             <div class="filter-grid">
-              <label><span data-i18n="branchCol">الفرع</span><select id="filterBranch"></select></label>
+              <label><span data-i18n="branchCol">الفرع</span><select id="filterBranch"><option value="">الكل</option></select></label>
               <label><span data-i18n="shiftCol">الشيفت</span><input id="filterShift" type="text" placeholder="..."></label>
               <label><span data-i18n="typeCol">النوع</span><select id="filterType"><option value="" data-i18n="allOption">الكل</option><option value="income" data-i18n="typeIncome">إيراد</option><option value="expense" data-i18n="typeExpense">مصروف</option><option value="transfer" data-i18n="typeTransfer">تحويل</option></select></label>
               <label><span data-i18n="approvalFilterLabel">حالة الاستلام</span><select id="filterApproval"><option value="" data-i18n="allOption">الكل</option><option value="pending" data-i18n="pendingFilterOpt">⏳ بانتظار الاستلام فقط</option><option value="confirmed" data-i18n="confirmedFilterOpt">✅ المؤكدة فقط</option></select></label>
@@ -813,32 +806,32 @@
         <!-- 5. سجل النشاط (Activity Logs) -->
         <div id="viewActivity" class="view-section" hidden>
           <section class="panel no-print">
-            <div class="panel-heading"><h2 data-i18n="actFilterTitle" data-emoji="🔎">تصفية سجل النشاط (Activity Logs)</h2></div>
+            <div class="panel-heading"><h2>🔎 تصفية سجل النشاط (Activity Logs)</h2></div>
             <div class="filter-grid-4">
-              <label><span data-i18n="byCol">الموظف / المستخدم</span><select id="actFilterUser"></select></label>
+              <label><span>الموظف / المستخدم</span><select id="actFilterUser"><option value="">كل المستخدمين</option></select></label>
               <label>
-                <span data-i18n="actKindLabel">نوع النشاط</span>
+                <span>نوع النشاط</span>
                 <select id="actFilterKind">
-                  <option value="" data-i18n="allOption">كل الأنشطة</option>
-                  <option value="create" data-i18n="actKindCreate">➕ إضافة حركة / تقفيل شيفت</option>
-                  <option value="edit" data-i18n="actKindEdit">✏️ تعديل حركة</option>
-                  <option value="confirm" data-i18n="actKindConfirm">✅ تأكيد استلام</option>
-                  <option value="delete" data-i18n="actKindDelete">🗑️ حذف حركة</option>
-                  <option value="opening" data-i18n="actKindOpening">🏦 تعديل رصيد افتتاحي</option>
+                  <option value="">كل الأنشطة</option>
+                  <option value="create">➕ إضافة حركة / تقفيل شيفت</option>
+                  <option value="edit">✏️ تعديل حركة</option>
+                  <option value="confirm">✅ تأكيد استلام</option>
+                  <option value="delete">🗑️ حذف حركة</option>
+                  <option value="opening">🏦 تعديل رصيد افتتاحي</option>
                 </select>
               </label>
-              <label><span data-i18n="fromDateLabel">من تاريخ</span><input type="date" id="actFilterFrom"></label>
-              <label><span data-i18n="toDateLabel">إلى تاريخ</span><input type="date" id="actFilterTo"></label>
+              <label><span>من تاريخ</span><input type="date" id="actFilterFrom"></label>
+              <label><span>إلى تاريخ</span><input type="date" id="actFilterTo"></label>
             </div>
             <div style="margin-top:12px;">
-              <button type="button" class="secondary" id="actClearFilter" data-i18n="clearFiltersBtn" data-emoji="🧼">مسح الفلاتر</button>
+              <button type="button" class="secondary" id="actClearFilter">🧼 مسح الفلاتر</button>
             </div>
           </section>
 
           <section class="panel">
             <div class="panel-heading">
-              <h2 data-i18n="actLogHeader" data-emoji="🕵️">سجل الرقابة والنشاط التفصيلي (Activity Logs)</h2>
-              <span class="hint" id="activityCountLabel">0</span>
+              <h2>🕵️ سجل الرقابة والنشاط التفصيلي (Activity Logs)</h2>
+              <span class="hint" id="activityCountLabel">0 نشاط</span>
             </div>
             <div class="log-timeline" id="activityTimeline"></div>
           </section>
@@ -871,16 +864,7 @@
             <div class="table-wrap">
               <table>
                 <thead>
-                  <tr>
-                    <th data-i18n="idCol">رقم الحركة</th>
-                    <th data-i18n="dateCol">التاريخ</th>
-                    <th data-i18n="branchCol">الفرع</th>
-                    <th data-i18n="byCol">بواسطة</th>
-                    <th data-i18n="typeCol">النوع</th>
-                    <th data-i18n="detailsCol">التفاصيل</th>
-                    <th data-i18n="amountCol">المبلغ</th>
-                    <th data-i18n="actionCol">استعادة</th>
-                  </tr>
+                  <tr><th>رقم الحركة</th><th>التاريخ</th><th>الفرع</th><th>بواسطة</th><th>النوع</th><th>التفاصيل</th><th>المبلغ</th><th>استعادة</th></tr>
                 </thead>
                 <tbody id="trashTableBody"></tbody>
               </table>
@@ -894,9 +878,9 @@
             <div class="panel-heading"><h2 data-i18n="themeTitle" data-emoji="🎨">الألوان والتصميم</h2></div>
             <div class="chips" id="themeChips" style="margin-bottom:18px;"></div>
             <div style="display:flex;align-items:center;gap:12px;">
-              <label style="margin:0;" data-i18n="customBgColorLabel">لون خلفية مخصص:</label>
+              <label style="margin:0;">لون خلفية مخصص:</label>
               <input id="pageColor" type="color" value="#f3f6fc" style="width:48px;height:38px;padding:3px;">
-              <button class="secondary" id="resetColor" type="button" data-i18n="resetDefaultBtn">↩️ استعادة الافتراضي</button>
+              <button class="secondary" id="resetColor" type="button">↩️ استعادة الافتراضي</button>
             </div>
           </section>
         </div>
@@ -919,49 +903,6 @@
     const incomeAccounts = [...mainSafes, ...otherSafes, ...banks];
     const transferAccounts = [...mainSafes, ...otherSafes, ...banks];
 
-    const expenseCategoriesList = [
-      { val: "إيجار", ar: "🏠 إيجار", en: "🏠 Rent" },
-      { val: "رواتب", ar: "👥 رواتب", en: "👥 Salaries" },
-      { val: "مشتريات", ar: "🛒 مشتريات", en: "🛒 Purchases" },
-      { val: "كهرباء ومياه", ar: "💡 كهرباء ومياه", en: "💡 Utilities" },
-      { val: "نقل", ar: "🚚 نقل", en: "🚚 Transport" },
-      { val: "صيانة", ar: "🔧 صيانة", en: "🔧 Maintenance" },
-      { val: "جمعية", ar: "🤝 جمعية", en: "🤝 Association" },
-      { val: "تحويل", ar: "🔁 تحويل", en: "🔁 Transfer" },
-      { val: "أخرى", ar: "📦 أخرى", en: "📦 Other" }
-    ];
-
-    /* قاموس ترجمة الأسماء الديناميكية (الفروع، الخزن، التصنيفات) عند التحويل للإنجليزية */
-    const entityEnMap = {
-      "ڤيب ستور": "Vape Store",
-      "ڤيب ستور 2": "Vape Store 2",
-      "الدخاخني": "Al-Dakhakhni",
-      "المول": "The Mall",
-      "اسواق المدينه": "City Markets",
-      "طوخ": "Toukh",
-      "الخزنة الرئيسية - الدخاخني": "Main Safe - Al-Dakhakhni",
-      "الخزنة الرئيسية - طوخ": "Main Safe - Toukh",
-      "خزنة باسم": "Bassem Safe",
-      "إنستا باي الأهلي": "Instapay - Ahly",
-      "فيزا QNB": "QNB Visa",
-      "إيجار": "Rent",
-      "رواتب": "Salaries",
-      "مشتريات": "Purchases",
-      "كهرباء ومياه": "Utilities",
-      "نقل": "Transport",
-      "صيانة": "Maintenance",
-      "جمعية": "Association",
-      "تحويل": "Transfer",
-      "أخرى": "Other",
-      "الكل": "All"
-    };
-
-    function trEntity(val) {
-      if (!val) return "";
-      if (currentLang === "ar") return val;
-      return entityEnMap[val] || val;
-    }
-
     const themes = [
       { id: "classic", emoji: "💙", ar: "كلاسيك (الأساسي)", en: "Classic (Default)", sw: "#3158d5" },
       { id: "vip", emoji: "👑", ar: "VIP ملكي", en: "VIP Royal", sw: "linear-gradient(135deg, #0d3b29, #d4af37)" },
@@ -981,7 +922,6 @@
         syncingDesc: "يتم جلب البيانات من السحابة",
         syncDataBtn: "مزامنة البيانات",
         storeTitle: "الدخاخني ستور",
-        dashboardSub: "لوحة الإدارة المالية",
         loginSubGlow: "بوابة الإدارة المالية الذكية • سجل الدخول للمتابعة",
         username: "اسم المستخدم",
         selectUserDefault: "-- اختر اسم المستخدم --",
@@ -997,17 +937,6 @@
         editRoleModalTitle: "تعديل دور وصلاحيات المستخدم",
         saveRoleBtn: "💾 حفظ الصلاحيات",
         editRoleBtnText: "⚙️ الدور والفروع",
-        changePassBtnText: "🔑 تغيير الباسورد",
-        navMainGrp: "القائمة الرئيسية",
-        navAdminGrp: "الإدارة والإعدادات",
-        navDashboard: "🏦 الخزن وإضافة حركة",
-        navBranches: "🏬 ملخص وتقرير الفروع",
-        navExpenses: "🔴 تقرير وتصنيفات المصاريف",
-        navTransactions: "📒 سجل الحركات الشامل",
-        navActivity: "🕵️ سجل النشاط (Activity Logs)",
-        navUsers: "👥 المستخدمين والأدوار",
-        navTrash: "🗑️ سلة المحذوفات",
-        navAppearance: "🎨 الألوان والتصميم",
         logout: "تسجيل خروج",
         exportCSV: "تصدير CSV",
         printBtn: "طباعة",
@@ -1032,8 +961,6 @@
         actionCol: "إجراء",
         byCol: "بواسطة",
         themeTitle: "الألوان والتصميم",
-        customBgColorLabel: "لون خلفية مخصص:",
-        resetDefaultBtn: "↩️ استعادة الافتراضي",
         balancesTitle: "أرصدة الحسابات والخزن (المؤكدة فقط)",
         saveOpeningBtn: "حفظ الرصيد الأول وتسميعه",
         cancelBtn: "إلغاء",
@@ -1052,7 +979,6 @@
         dateCol: "التاريخ والوقت",
         branchCol: "الفرع",
         shiftCol: "الشيفت",
-        accountCol: "الحساب",
         catLabel: "تصنيف المصروف",
         chooseCat: "اختر التصنيف",
         destLabel: "الوجهة",
@@ -1062,23 +988,6 @@
         submitTxBtn: "إضافة الحركة للشيت",
         saveEditBtn: "حفظ التعديل",
         filterTitle: "تصفية الحركات الشاملة",
-        brFilterTitle: "تصفية تقرير الفروع",
-        brChartTitle: "الرسم البياني لمقارنة أداء الفروع (الإيرادات vs المصروفات)",
-        brChartLegend: "🟢 إيرادات | 🔴 مصروفات",
-        brTableTitle: "سجل حركات الفروع التفصيلي",
-        expFilterTitle: "تصفية تقرير المصروفات",
-        expChartTitle: "الرسم البياني لتوزيع المصروفات حسب التصنيف",
-        expCatsSubTitle: "المصروفات مقسمة حسب كل تصنيف (اضغط على أي تصنيف لعرض حركاته)",
-        expTableSubTitle: "تفاصيل حركات المصروفات وأثرها على الخزنة",
-        safeImpactCol: "أثر الخزنة",
-        actFilterTitle: "تصفية سجل النشاط (Activity Logs)",
-        actKindLabel: "نوع النشاط",
-        actKindCreate: "➕ إضافة حركة / تقفيل شيفت",
-        actKindEdit: "✏️ تعديل حركة",
-        actKindConfirm: "✅ تأكيد استلام",
-        actKindDelete: "🗑️ حذف حركة",
-        actKindOpening: "🏦 تعديل رصيد افتتاحي",
-        actLogHeader: "سجل الرقابة والنشاط التفصيلي (Activity Logs)",
         allOption: "الكل",
         approvalFilterLabel: "حالة الاستلام",
         pendingFilterOpt: "⏳ بانتظار الاستلام فقط",
@@ -1113,7 +1022,6 @@
         syncingDesc: "Fetching data from cloud",
         syncDataBtn: "Sync Data",
         storeTitle: "Al-Dakhakhni Store",
-        dashboardSub: "Financial Dashboard",
         loginSubGlow: "Smart Financial Portal • Sign in to continue",
         username: "Username",
         selectUserDefault: "-- Select Username --",
@@ -1129,17 +1037,6 @@
         editRoleModalTitle: "Edit User Role & Branches",
         saveRoleBtn: "💾 Save Permissions",
         editRoleBtnText: "⚙️ Role & Branches",
-        changePassBtnText: "🔑 Change Password",
-        navMainGrp: "Main Menu",
-        navAdminGrp: "Administration & Settings",
-        navDashboard: "🏦 Safes & Add Transaction",
-        navBranches: "🏬 Branches Report",
-        navExpenses: "🔴 Expenses & Categories",
-        navTransactions: "📒 All Transactions Log",
-        navActivity: "🕵️ Activity Logs",
-        navUsers: "👥 Users & Roles",
-        navTrash: "🗑️ Trash Bin",
-        navAppearance: "🎨 Themes & Appearance",
         logout: "Logout",
         exportCSV: "Export CSV",
         printBtn: "Print",
@@ -1164,8 +1061,6 @@
         actionCol: "Action",
         byCol: "By",
         themeTitle: "Colors & Themes",
-        customBgColorLabel: "Custom Background Color:",
-        resetDefaultBtn: "↩️ Reset Default",
         balancesTitle: "Accounts & Safes Balances (Confirmed Only)",
         saveOpeningBtn: "Save Opening Balances",
         cancelBtn: "Cancel",
@@ -1184,7 +1079,6 @@
         dateCol: "Date & Time",
         branchCol: "Branch",
         shiftCol: "Shift",
-        accountCol: "Account",
         catLabel: "Expense Category",
         chooseCat: "Select Category",
         destLabel: "Destination",
@@ -1194,23 +1088,6 @@
         submitTxBtn: "Submit to Sheet",
         saveEditBtn: "Save Changes",
         filterTitle: "Filter All Transactions",
-        brFilterTitle: "Filter Branches Report",
-        brChartTitle: "Branch Performance Chart (Income vs Expenses)",
-        brChartLegend: "🟢 Income | 🔴 Expenses",
-        brTableTitle: "Detailed Branch Transactions",
-        expFilterTitle: "Filter Expenses Report",
-        expChartTitle: "Expenses Distribution by Category",
-        expCatsSubTitle: "Expenses Breakdown by Category (Click any card to filter)",
-        expTableSubTitle: "Detailed Expense Transactions & Safe Impact",
-        safeImpactCol: "Safe Impact",
-        actFilterTitle: "Filter Activity Logs",
-        actKindLabel: "Activity Type",
-        actKindCreate: "➕ Add Tx / Shift Closing",
-        actKindEdit: "✏️ Edit Transaction",
-        actKindConfirm: "✅ Confirm Receipt",
-        actKindDelete: "🗑️ Delete Transaction",
-        actKindOpening: "🏦 Edit Opening Balance",
-        actLogHeader: "Detailed Audit & Activity Logs",
         allOption: "All",
         approvalFilterLabel: "Receipt Status",
         pendingFilterOpt: "⏳ Pending Receipt Only",
@@ -1243,27 +1120,54 @@
     const form = document.getElementById("transactionForm");
     const typeInput = document.getElementById("type");
     let entries = [];
-    let users = [];
+    let users = [{ username: "باسم الدخاخني المالك", pass: "123", role: "admin", branches: ["الكل"], reports: true }];
     let balancesHistory = [];
     let editingId = null;
     let editingUserIndex = null;
     let currentLang = localStorage.getItem("dakhakhni-lang") || "ar";
+    let dataLoaded = false;
 
     localStorage.removeItem("dakhakhni-currentUser");
     localStorage.removeItem("dakhakhni-session");
     let currentUser = JSON.parse(sessionStorage.getItem("dakhakhni-currentUser")) || null;
     let currentSession = JSON.parse(sessionStorage.getItem("dakhakhni-session")) || null;
 
-    const t = key => (i18nDict[currentLang] && i18nDict[currentLang][key]) || key;
+    function t(key) {
+      return (i18nDict[currentLang] && i18nDict[currentLang][key]) || key;
+    }
 
     function showSyncToast(msg) {
       const toast = document.getElementById("syncToast");
+      if (!toast) return;
       toast.textContent = msg;
       toast.style.display = "block";
-      setTimeout(() => { toast.style.display = "none"; }, 2800);
+      setTimeout(function() { toast.style.display = "none"; }, 2800);
     }
 
-    async function fetchLatestFromSheet(isManual = false) {
+    /* دالة الدخول الفوري من شاشة الترحيب */
+    function enterSystemNow() {
+      const splash = document.getElementById("splashScreen");
+      if (splash) splash.hidden = true;
+
+      if (!dataLoaded) {
+        document.getElementById("loadingScreen").hidden = false;
+        return;
+      }
+
+      document.getElementById("loadingScreen").hidden = true;
+      if (currentUser) {
+        if (currentUser.role === "admin") startAdminApp();
+        else if (currentSession && currentSession.shift && currentSession.branch) startCashierApp();
+        else openShiftScreenForUser(currentUser);
+      } else {
+        populateLoginUsersDropdown();
+        document.getElementById("loginScreen").hidden = false;
+      }
+    }
+    window.enterSystemNow = enterSystemNow;
+    setTimeout(enterSystemNow, 2500);
+
+    async function fetchLatestFromSheet(isManual) {
       const syncBtn = document.getElementById("syncDataBtn");
       if (syncBtn) syncBtn.classList.add("is-syncing");
       try {
@@ -1274,8 +1178,8 @@
         if (data.balances) balancesHistory = data.balances;
 
         populateLoginUsersDropdown();
-        if (currentUser?.role === "admin") {
-          document.getElementById("headerDateLabel").textContent = `📅 ${todayString()} | ${nowTimeString()}`;
+        if (currentUser && currentUser.role === "admin") {
+          document.getElementById("headerDateLabel").textContent = "📅 " + todayString() + " | " + nowTimeString();
           renderAll();
         }
         if (isManual) {
@@ -1286,11 +1190,17 @@
           showSyncToast(currentLang === "ar" ? "⚠️ تعذر الاتصال بالسحابة، حاول مرة أخرى" : "⚠️ Sync failed, try again");
         }
       } finally {
+        dataLoaded = true;
         if (syncBtn) syncBtn.classList.remove("is-syncing");
+        const loadingEl = document.getElementById("loadingScreen");
+        if (loadingEl && !loadingEl.hidden) {
+          loadingEl.hidden = true;
+          enterSystemNow();
+        }
       }
     }
 
-    document.getElementById("syncDataBtn").addEventListener("click", () => fetchLatestFromSheet(true));
+    document.getElementById("syncDataBtn").addEventListener("click", function() { fetchLatestFromSheet(true); });
 
     function shortTxId(fullId) {
       const s = String(fullId || "").trim();
@@ -1311,21 +1221,14 @@
       return Number(value || 0).toLocaleString(currentLang === "ar" ? "ar-EG" : "en-EG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " " + curr;
     }
 
-    function updateActiveSectionHeaderTitle() {
-      const activeBtn = document.querySelector(".nav-btn.active");
-      if (activeBtn) {
-        document.getElementById("activeSectionTitle").textContent = activeBtn.querySelector("span").textContent;
-      }
-    }
-
-    document.querySelectorAll(".nav-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".nav-btn").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        document.querySelectorAll(".nav-btn").forEach(function(b) { b.classList.remove("active"); });
         btn.classList.add("active");
-        document.querySelectorAll(".view-section").forEach(sec => sec.hidden = true);
+        document.querySelectorAll(".view-section").forEach(function(sec) { sec.hidden = true; });
         const target = document.getElementById(btn.dataset.view);
         if (target) target.hidden = false;
-        updateActiveSectionHeaderTitle();
+        document.getElementById("activeSectionTitle").textContent = btn.querySelector("span").textContent;
         renderAll();
       });
     });
@@ -1334,47 +1237,15 @@
       const select = document.getElementById("loginUsername");
       if (!select) return;
       const prev = select.value;
-      select.innerHTML = `<option value="">${t("selectUserDefault")}</option>`;
-      users.forEach(u => {
+      select.innerHTML = '<option value="">' + t("selectUserDefault") + '</option>';
+      users.forEach(function(u) {
         if (!u.username) return;
         const opt = document.createElement("option");
         opt.value = u.username;
-        opt.textContent = u.role === "admin" ? `👑 ${u.username}` : `👤 ${u.username}`;
+        opt.textContent = (u.role === "admin" ? "👑 " : "👤 ") + u.username;
         select.appendChild(opt);
       });
-      if ([...select.options].some(o => o.value === prev)) select.value = prev;
-    }
-
-    function populateCategoriesSelects() {
-      const catSel = document.getElementById("category");
-      const expCatSel = document.getElementById("expFilterCat");
-      if (catSel) {
-        const prev = catSel.value;
-        catSel.innerHTML = `<option value="">${t("chooseCat")}</option>` +
-          expenseCategoriesList.map(c => `<option value="${c.val}">${c[currentLang]}</option>`).join("");
-        catSel.value = prev;
-      }
-      if (expCatSel) {
-        const prev = expCatSel.value;
-        expCatSel.innerHTML = `<option value="">${t("allOption")}</option>` +
-          expenseCategoriesList.map(c => `<option value="${c.val}">${c[currentLang]}</option>`).join("");
-        expCatSel.value = prev;
-      }
-    }
-
-    function refreshAllDropdowns() {
-      fillSelect(document.getElementById("branch"), branches);
-      fillSelect(document.getElementById("filterBranch"), branches, true);
-      fillSelect(document.getElementById("brFilterBranch"), branches, true);
-      fillSelect(document.getElementById("expFilterAcc"), incomeAccounts, true);
-      populateCategoriesSelects();
-      updateFields();
-
-      const cbContainer = document.getElementById("branchCheckboxes");
-      if (cbContainer) {
-        const checkedVals = [...cbContainer.querySelectorAll("input:checked")].map(x => x.value);
-        cbContainer.innerHTML = branches.map(b => `<label><input type="checkbox" value="${b}" ${checkedVals.includes(b) ? "checked" : ""}> ${trEntity(b)}</label>`).join("");
-      }
+      if ([].slice.call(select.options).some(function(o) { return o.value === prev; })) select.value = prev;
     }
 
     function applyLanguage(lang) {
@@ -1384,74 +1255,40 @@
       document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
       document.getElementById("languageSelect").value = currentLang;
 
-      document.querySelectorAll("[data-i18n]").forEach(el => {
+      document.querySelectorAll("[data-i18n]").forEach(function(el) {
         const key = el.getAttribute("data-i18n");
         if (i18nDict[currentLang][key]) el.textContent = i18nDict[currentLang][key];
       });
-      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(function(el) {
         const key = el.getAttribute("data-i18n-placeholder");
         if (i18nDict[currentLang][key]) el.placeholder = i18nDict[currentLang][key];
       });
 
       populateLoginUsersDropdown();
-      refreshAllDropdowns();
       renderStyleChips();
       updateSubmitLabel();
-      updateActiveSectionHeaderTitle();
-      if (currentUser?.role === "admin") renderAll();
-      if (currentUser?.role === "cashier" && currentSession) {
-        document.getElementById("activeSectionTitle").textContent = currentLang === "ar" ? "🧾 تقفيل الشيفت" : "🧾 Shift Closing";
-        document.getElementById("cashierShiftInfo").textContent = `🏬 ${trEntity(currentSession.branch)}   |   ⏱️ #${currentSession.shift}`;
-      }
+      if (currentUser && currentUser.role === "admin") renderAll();
     }
-    document.getElementById("languageSelect").addEventListener("change", e => applyLanguage(e.target.value));
+    document.getElementById("languageSelect").addEventListener("change", function(e) { applyLanguage(e.target.value); });
 
-    const splashScreen = document.getElementById("splashScreen");
-    let dataLoaded = false;
-    function dismissSplash() {
-      if (!splashScreen || splashScreen.hidden) return;
-      splashScreen.hidden = true;
-      if (!dataLoaded) document.getElementById("loadingScreen").hidden = false;
-    }
-    document.getElementById("splashEnterBtn").addEventListener("click", dismissSplash);
-    setTimeout(dismissSplash, 3000);
-
-    window.addEventListener("DOMContentLoaded", async () => {
+    window.addEventListener("DOMContentLoaded", function() {
       applyLanguage(currentLang);
-      await fetchLatestFromSheet(false);
-      if (!users.length) {
-        users = [{ username: "باسم الدخاخني المالك", pass: "123", role: "admin", branches: ["الكل"], reports: true }];
-        populateLoginUsersDropdown();
-      }
-
-      dataLoaded = true;
-      document.getElementById("loadingScreen").hidden = true;
-
-      if (currentUser) {
-        const valid = users.find(u => u.username === currentUser.username && u.pass === currentUser.pass);
-        if (valid) {
-          currentUser = valid;
-          if (currentUser.role === "admin") startAdminApp();
-          else if (currentSession?.shift && currentSession?.branch) startCashierApp();
-          else openShiftScreenForUser(currentUser);
-        } else logout();
-      } else {
-        document.getElementById("loginScreen").hidden = false;
-      }
+      populateLoginUsersDropdown();
+      fetchLatestFromSheet(false);
     });
 
     function openShiftScreenForUser(user) {
       const allowed = (user.branches && user.branches.length && user.branches[0] !== "" && user.branches[0] !== "الكل") ? user.branches : branches;
       fillSelect(document.getElementById("shiftBranch"), allowed);
-      document.getElementById("shiftScreenUserBadge").textContent = `👤 ${user.username}`;
+      document.getElementById("shiftScreenUserBadge").textContent = "👤 " + user.username;
       document.getElementById("shiftScreen").hidden = false;
     }
 
-    document.getElementById("loginForm").addEventListener("submit", e => {
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
       e.preventDefault();
       const username = document.getElementById("loginUsername").value.trim();
       const pass = document.getElementById("loginPassword").value.trim();
-      const user = users.find(u => u.username === username && u.pass === pass);
+      const user = users.find(function(u) { return u.username === username && u.pass === pass; });
       if (user) {
         document.getElementById("loginNotice").style.display = "none";
         currentUser = user;
@@ -1467,7 +1304,7 @@
       }
     });
 
-    document.getElementById("shiftForm").addEventListener("submit", e => {
+    document.getElementById("shiftForm").addEventListener("submit", function(e) {
       e.preventDefault();
       currentSession = { branch: document.getElementById("shiftBranch").value, shift: document.getElementById("shiftNumberEntry").value.trim() };
       sessionStorage.setItem("dakhakhni-session", JSON.stringify(currentSession));
@@ -1493,31 +1330,37 @@
 
     function startCashierApp() {
       document.getElementById("appShell").classList.add("active");
-      document.querySelectorAll(".admin-only").forEach(el => el.style.display = "none");
-      document.querySelectorAll(".cashier-only").forEach(el => el.style.display = "");
+      document.querySelectorAll(".admin-only").forEach(function(el) { el.style.display = "none"; });
+      document.querySelectorAll(".cashier-only").forEach(function(el) { el.style.display = ""; });
       document.getElementById("cashierPanel").hidden = false;
-      document.getElementById("activeSectionTitle").textContent = currentLang === "ar" ? "🧾 تقفيل الشيفت" : "🧾 Shift Closing";
-      document.getElementById("headerDateLabel").textContent = `👤 ${currentUser.username}`;
-      document.getElementById("cashierShiftInfo").textContent = `🏬 ${trEntity(currentSession.branch)}   |   ⏱️ #${currentSession.shift}`;
-      document.getElementById("cashierDateLabel").textContent = `📅 ${todayString()} | ${nowTimeString()}`;
+      document.getElementById("activeSectionTitle").textContent = "🧾 تقفيل الشيفت";
+      document.getElementById("headerDateLabel").textContent = "👤 " + currentUser.username;
+      document.getElementById("cashierShiftInfo").textContent = "🏬 " + currentSession.branch + "   |   ⏱️ #" + currentSession.shift;
+      document.getElementById("cashierDateLabel").textContent = "📅 " + todayString() + " | " + nowTimeString();
     }
 
-    document.getElementById("addCashierExpenseBtn").addEventListener("click", () => {
+    document.getElementById("addCashierExpenseBtn").addEventListener("click", function() {
       const container = document.getElementById("cashierExpensesList");
       const row = document.createElement("div");
       row.className = "cashier-expense-row";
-      const opts = expenseCategoriesList.map(c => `<option value="${c.val}">${c[currentLang]}</option>`).join("");
-      row.innerHTML = `
-        <select class="exp-cat" required>${opts}</select>
-        <input type="number" class="exp-amt" min="0.01" step="0.01" placeholder="${currentLang === 'ar' ? 'المبلغ' : 'Amount'}" required>
-        <input type="text" class="exp-dest" placeholder="${currentLang === 'ar' ? 'السبب / الوجهة' : 'Reason / Details'}" required>
-        <button type="button" class="danger-soft" style="padding:8px 10px;">✖</button>
-      `;
-      row.querySelector("button").onclick = () => row.remove();
+      row.innerHTML =
+        '<select class="exp-cat" required>' +
+          '<option value="مشتريات">🛒 مشتريات</option>' +
+          '<option value="كهرباء ومياه">💡 كهرباء ومياه</option>' +
+          '<option value="نقل">🚚 نقل</option>' +
+          '<option value="صيانة">🔧 صيانة</option>' +
+          '<option value="رواتب">👥 رواتب / سلف</option>' +
+          '<option value="إيجار">🏠 إيجار</option>' +
+          '<option value="أخرى">📦 مصروفات أخرى</option>' +
+        '</select>' +
+        '<input type="number" class="exp-amt" min="0.01" step="0.01" placeholder="المبلغ" required>' +
+        '<input type="text" class="exp-dest" placeholder="السبب / الوجهة" required>' +
+        '<button type="button" class="danger-soft" style="padding:8px 10px;">✖</button>';
+      row.querySelector("button").onclick = function() { row.remove(); };
       container.appendChild(row);
     });
 
-    document.getElementById("cashierCloseForm").addEventListener("submit", async e => {
+    document.getElementById("cashierCloseForm").addEventListener("submit", async function(e) {
       e.preventDefault();
       const submitBtn = document.getElementById("cashierSubmitBtn");
       const cashAmt = Number(document.getElementById("cashierCash").value) || 0;
@@ -1526,62 +1369,69 @@
       const notes = document.getElementById("cashierNotes").value.trim();
 
       const validExpenses = [];
-      document.querySelectorAll("#cashierExpensesList .cashier-expense-row").forEach(r => {
+      document.querySelectorAll("#cashierExpensesList .cashier-expense-row").forEach(function(r) {
         const amt = Number(r.querySelector(".exp-amt").value) || 0;
-        if (amt > 0) validExpenses.push({ amt, cat: r.querySelector(".exp-cat").value, dest: r.querySelector(".exp-dest").value.trim() });
+        if (amt > 0) validExpenses.push({ amt: amt, cat: r.querySelector(".exp-cat").value, dest: r.querySelector(".exp-dest").value.trim() });
       });
 
       if (cashAmt <= 0 && instaAmt <= 0 && visaAmt <= 0 && !validExpenses.length) {
         const cn = document.getElementById("cashierNotice");
-        cn.className = "notice error"; cn.textContent = currentLang === "ar" ? "يرجى إدخال مبلغ واحد على الأقل." : "Please enter at least one amount."; return;
+        cn.className = "notice error"; cn.textContent = "يرجى إدخال مبلغ واحد على الأقل."; return;
       }
 
       submitBtn.disabled = true;
-      const todayWithTime = `${todayString()} | ${nowTimeString()}`;
-      const baseNote = notes ? `تقفيل شيفت (${notes})` : "تقفيل إيراد الشيفت";
+      const todayWithTime = todayString() + " | " + nowTimeString();
+      const baseNote = notes ? ("تقفيل شيفت (" + notes + ")") : "تقفيل إيراد الشيفت";
       const itemsToSend = [];
       const baseId = Date.now();
 
-      if (cashAmt > 0) itemsToSend.push({ id: "TR_" + baseId + "_1", type: "income", amount: cashAmt, date: todayWithTime, addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift, account: DAKH_SAFE, category: "", destination: "", transferFrom: "", transferTo: "", description: `${baseNote} - كاش`, status: "pending" });
-      if (instaAmt > 0) itemsToSend.push({ id: "TR_" + baseId + "_2", type: "income", amount: instaAmt, date: todayWithTime, addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift, account: "إنستا باي الأهلي", category: "", destination: "", transferFrom: "", transferTo: "", description: `${baseNote} - إنستا باي`, status: "pending" });
-      if (visaAmt > 0) itemsToSend.push({ id: "TR_" + baseId + "_3", type: "income", amount: visaAmt, date: todayWithTime, addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift, account: "فيزا QNB", category: "", destination: "", transferFrom: "", transferTo: "", description: `${baseNote} - فيزا QNB`, status: "pending" });
+      if (cashAmt > 0) itemsToSend.push({ id: "TR_" + baseId + "_1", type: "income", amount: cashAmt, date: todayWithTime, addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift, account: DAKH_SAFE, category: "", destination: "", transferFrom: "", transferTo: "", description: baseNote + " - كاش", status: "pending" });
+      if (instaAmt > 0) itemsToSend.push({ id: "TR_" + baseId + "_2", type: "income", amount: instaAmt, date: todayWithTime, addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift, account: "إنستا باي الأهلي", category: "", destination: "", transferFrom: "", transferTo: "", description: baseNote + " - إنستا باي", status: "pending" });
+      if (visaAmt > 0) itemsToSend.push({ id: "TR_" + baseId + "_3", type: "income", amount: visaAmt, date: todayWithTime, addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift, account: "فيزا QNB", category: "", destination: "", transferFrom: "", transferTo: "", description: baseNote + " - فيزا QNB", status: "pending" });
 
-      validExpenses.forEach((exp, idx) => {
-        const destText = exp.dest ? `${exp.dest} — ` : "";
-        itemsToSend.push({ id: "TR_" + baseId + "_EXP_" + (idx + 1), type: "expense", amount: exp.amt, date: todayWithTime, addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift, account: DAKH_SAFE, category: exp.cat, destination: exp.dest, transferFrom: "", transferTo: "", description: `${destText}مصروف شيفت (${currentSession.branch} - #${currentSession.shift})${notes ? ' - ' + notes : ''}`, status: "pending" });
+      validExpenses.forEach(function(exp, idx) {
+        const destText = exp.dest ? (exp.dest + " — ") : "";
+        itemsToSend.push({ id: "TR_" + baseId + "_EXP_" + (idx + 1), type: "expense", amount: exp.amt, date: todayWithTime, addedBy: currentUser.username, branch: currentSession.branch, shift: currentSession.shift, account: DAKH_SAFE, category: exp.cat, destination: exp.dest, transferFrom: "", transferTo: "", description: destText + "مصروف شيفت (" + currentSession.branch + " - #" + currentSession.shift + ")" + (notes ? " - " + notes : ""), status: "pending" });
       });
 
       const cn = document.getElementById("cashierNotice");
-      cn.className = "notice ok"; cn.textContent = currentLang === "ar" ? "⏳ جارٍ حفظ التقفيل وإرساله للإدارة..." : "⏳ Saving & submitting shift...";
-      for (const item of itemsToSend) {
-        entries.unshift(item);
-        await fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item }) });
+      cn.className = "notice ok"; cn.textContent = "⏳ جارٍ حفظ التقفيل وإرساله للإدارة...";
+      for (let i = 0; i < itemsToSend.length; i++) {
+        entries.unshift(itemsToSend[i]);
+        await fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: itemsToSend[i] }) });
       }
-      cn.textContent = currentLang === "ar" ? "✅ تم حفظ التقفيل وإرساله للإدارة! جارٍ تسجيل الخروج..." : "✅ Shift closing submitted! Logging out...";
-      setTimeout(() => { submitBtn.disabled = false; logout(); }, 1800);
+      cn.textContent = "✅ تم حفظ التقفيل وإرساله للإدارة! جارٍ تسجيل الخروج...";
+      setTimeout(function() { submitBtn.disabled = false; logout(); }, 1800);
     });
 
     function startAdminApp() {
       document.getElementById("appShell").classList.add("active");
       document.getElementById("cashierPanel").hidden = true;
-      document.querySelectorAll(".admin-only").forEach(el => el.style.display = "");
-      document.querySelectorAll(".cashier-only").forEach(el => el.style.display = "none");
+      document.querySelectorAll(".admin-only").forEach(function(el) { el.style.display = ""; });
+      document.querySelectorAll(".cashier-only").forEach(function(el) { el.style.display = "none"; });
       document.getElementById("userSubtitle").textContent = currentUser.username;
-      document.getElementById("headerDateLabel").textContent = `📅 ${todayString()} | ${nowTimeString()}`;
+      document.getElementById("headerDateLabel").textContent = "📅 " + todayString() + " | " + nowTimeString();
 
-      refreshAllDropdowns();
-      updateActiveSectionHeaderTitle();
+      fillSelect(document.getElementById("branch"), branches);
+      fillSelect(document.getElementById("filterBranch"), branches, true);
+      fillSelect(document.getElementById("brFilterBranch"), branches, true);
+      fillSelect(document.getElementById("expFilterAcc"), incomeAccounts, true);
+
+      const cbContainer = document.getElementById("branchCheckboxes");
+      cbContainer.innerHTML = branches.map(function(b) { return '<label><input type="checkbox" value="' + b + '"> ' + b + '</label>'; }).join("");
+
+      updateFields();
       renderAll();
     }
 
-    function fillSelect(select, values, includeEmpty = false) {
+    function fillSelect(select, values, includeEmpty) {
       if (!select) return;
       const previous = select.value;
-      select.innerHTML = includeEmpty ? `<option value="">${t("allOption")}</option>` : "";
-      values.forEach(v => { const opt = document.createElement("option"); opt.value = v; opt.textContent = trEntity(v); select.appendChild(opt); });
-      if ([...select.options].some(o => o.value === previous)) select.value = previous;
+      select.innerHTML = includeEmpty ? '<option value="">' + t("allOption") + '</option>' : "";
+      values.forEach(function(v) { const opt = document.createElement("option"); opt.value = v; opt.textContent = v; select.appendChild(opt); });
+      if ([].slice.call(select.options).some(function(o) { return o.value === previous; })) select.value = previous;
     }
-    function setSelectValue(select, value) { if (value && [...select.options].some(o => o.value === value)) select.value = value; }
+    function setSelectValue(select, value) { if (value && [].slice.call(select.options).some(function(o) { return o.value === value; })) select.value = value; }
     function updateSubmitLabel() { document.getElementById("submitBtn").textContent = t(editingId ? "saveEditBtn" : "submitTxBtn"); document.getElementById("cancelEdit").style.display = editingId ? "" : "none"; }
 
     function updateFields() {
@@ -1608,32 +1458,32 @@
       fillSelect(document.getElementById("transferTo"), transferAccounts);
     }
 
-    const isPendingStatus = s => String(s || "").trim().toLowerCase() === "pending";
-    const isConfirmedStatus = s => String(s || "").trim().toLowerCase().startsWith("confirmed");
+    function isPendingStatus(s) { return String(s || "").trim().toLowerCase() === "pending"; }
+    function isConfirmedStatus(s) { return String(s || "").trim().toLowerCase().indexOf("confirmed") === 0; }
 
     function getLatestEntriesMap() {
       const latestState = {};
-      entries.forEach(e => {
-        if (!latestState[e.id]) latestState[e.id] = { ...e, history: [e] };
+      entries.forEach(function(e) {
+        if (!latestState[e.id]) latestState[e.id] = Object.assign({}, e, { history: [e] });
         else latestState[e.id].history.push(e);
       });
 
-      Object.values(latestState).forEach(item => {
+      Object.values(latestState).forEach(function(item) {
         if (item.history.length > 1) {
           const orig = item.history[item.history.length - 1];
           item.originalAddedBy = orig.addedBy;
-          const diffAmt = item.history.slice(1).find(h => Number(h.amount) !== Number(item.amount));
+          const diffAmt = item.history.slice(1).find(function(h) { return Number(h.amount) !== Number(item.amount); });
           if (diffAmt) item.previousAmount = Number(diffAmt.amount);
-          const wasEdited = item.history.some(h => h.status === "edited") || Number(orig.amount) !== Number(item.amount) || (orig.description || "") !== (item.description || "");
+          const wasEdited = item.history.some(function(h) { return h.status === "edited"; }) || Number(orig.amount) !== Number(item.amount) || (orig.description || "") !== (item.description || "");
           if (wasEdited) { item.wasEdited = true; item.editedBy = item.addedBy; }
         }
       });
 
       const runningBalances = {};
-      transferAccounts.forEach(acc => runningBalances[acc] = 0);
-      balancesHistory.forEach(b => { if (b.status !== "deleted") runningBalances[b.account] = Number(b.amount) || 0; });
+      transferAccounts.forEach(function(acc) { runningBalances[acc] = 0; });
+      balancesHistory.forEach(function(b) { if (b.status !== "deleted") runningBalances[b.account] = Number(b.amount) || 0; });
 
-      Object.values(latestState).slice().reverse().forEach(item => {
+      Object.values(latestState).slice().reverse().forEach(function(item) {
         if (item.status === "deleted" || isPendingStatus(item.status)) return;
         const amt = Number(item.amount) || 0;
         if (item.type === "income" && (item.account in runningBalances)) runningBalances[item.account] += amt;
@@ -1651,9 +1501,9 @@
     }
 
     function computeBalances() {
-      const balances = {}; transferAccounts.forEach(acc => balances[acc] = 0);
-      balancesHistory.forEach(b => { if (b.status !== "deleted") balances[b.account] = Number(b.amount); });
-      Object.values(getLatestEntriesMap()).forEach(e => {
+      const balances = {}; transferAccounts.forEach(function(acc) { balances[acc] = 0; });
+      balancesHistory.forEach(function(b) { if (b.status !== "deleted") balances[b.account] = Number(b.amount); });
+      Object.values(getLatestEntriesMap()).forEach(function(e) {
         if (e.status === "deleted" || isPendingStatus(e.status) || (editingId && e.id === editingId)) return;
         const amt = Number(e.amount);
         if (e.type === "income" && e.account in balances) balances[e.account] += amt;
@@ -1664,11 +1514,11 @@
     }
 
     function renderAll() {
-      if (currentUser?.role !== "admin") return;
+      if (!currentUser || currentUser.role !== "admin") return;
       const allLatest = Object.values(getLatestEntriesMap());
-      const activeItems = allLatest.filter(e => e.status !== "deleted");
-      const deletedItems = allLatest.filter(e => e.status === "deleted");
-      const pendingCount = activeItems.filter(e => isPendingStatus(e.status)).length;
+      const activeItems = allLatest.filter(function(e) { return e.status !== "deleted"; });
+      const deletedItems = allLatest.filter(function(e) { return e.status === "deleted"; });
+      const pendingCount = activeItems.filter(function(e) { return isPendingStatus(e.status); }).length;
 
       const pBadge = document.getElementById("navPendingBadge");
       pBadge.style.display = pendingCount > 0 ? "" : "none";
@@ -1677,20 +1527,20 @@
 
       const balances = computeBalances();
       const latestOpenings = {};
-      balancesHistory.filter(b => b.status !== "deleted").forEach(b => latestOpenings[b.account] = b.amount);
+      balancesHistory.filter(function(b) { return b.status !== "deleted"; }).forEach(function(b) { latestOpenings[b.account] = b.amount; });
 
-      document.getElementById("balanceGrid").innerHTML = transferAccounts.map(acc => {
+      document.getElementById("balanceGrid").innerHTML = transferAccounts.map(function(acc) {
         const val = balances[acc];
-        return `<div class="bal-card">
-          <div class="bal-name"><span class="dot ${val >= 0 ? 'dot-green' : 'dot-red'}"></span> ${trEntity(acc)}</div>
-          <strong class="bal-value ${val >= 0 ? 'green' : 'red'}">${money(val)}</strong>
-          <small style="color:var(--muted);font-size:11px;">${t("openingFirst")} ${money(latestOpenings[acc] || 0)}</small>
-        </div>`;
+        return '<div class="bal-card">' +
+          '<div class="bal-name"><span class="dot ' + (val >= 0 ? 'dot-green' : 'dot-red') + '"></span> ' + acc + '</div>' +
+          '<strong class="bal-value ' + (val >= 0 ? 'green' : 'red') + '">' + money(val) + '</strong>' +
+          '<small style="color:var(--muted);font-size:11px;">' + t("openingFirst") + ' ' + money(latestOpenings[acc] || 0) + '</small>' +
+        '</div>';
       }).join("");
 
       let dakhInflow = Number(latestOpenings[DAKH_SAFE] || 0);
       let dakhOutflow = 0;
-      activeItems.filter(e => !isPendingStatus(e.status)).forEach(item => {
+      activeItems.filter(function(e) { return !isPendingStatus(e.status); }).forEach(function(item) {
         const amt = Number(item.amount) || 0;
         if (item.type === "income" && item.account === DAKH_SAFE) dakhInflow += amt;
         if (item.type === "expense" && item.account === DAKH_SAFE) dakhOutflow += amt;
@@ -1706,8 +1556,9 @@
       netEl.textContent = money(dakhNet);
       netEl.className = "summary-value " + (dakhNet >= 0 ? "green" : "red");
 
-      renderBranchesReport(activeItems.filter(e => !isPendingStatus(e.status)));
-      renderExpensesReport(activeItems.filter(e => !isPendingStatus(e.status)));
+      const confirmedOnly = activeItems.filter(function(e) { return !isPendingStatus(e.status); });
+      renderBranchesReport(confirmedOnly);
+      renderExpensesReport(confirmedOnly);
       renderMainTransactionsTable(activeItems);
       renderActivityLogs();
       renderUsers();
@@ -1720,60 +1571,59 @@
       const fFrom = document.getElementById("brFilterFrom").value;
       const fTo = document.getElementById("brFilterTo").value;
 
-      const filtered = confirmedList.filter(item => {
+      const filtered = confirmedList.filter(function(item) {
         if (!item.branch) return false;
         const d = item.date ? item.date.toString().split(" ")[0] : "";
         return (!fBr || item.branch === fBr) && (!fSh || String(item.shift).trim() === fSh) && (!fFrom || d >= fFrom) && (!fTo || d <= fTo);
       });
 
       const stats = {};
-      (fBr ? [fBr] : branches).forEach(b => stats[b] = { income: 0, expense: 0 });
-      filtered.forEach(e => {
+      (fBr ? [fBr] : branches).forEach(function(b) { stats[b] = { income: 0, expense: 0 }; });
+      filtered.forEach(function(e) {
         if (!stats[e.branch]) stats[e.branch] = { income: 0, expense: 0 };
         if (e.type === "income") stats[e.branch].income += Number(e.amount) || 0;
         if (e.type === "expense") stats[e.branch].expense += Number(e.amount) || 0;
       });
 
-      const incWord = currentLang === "ar" ? "إيراد" : "Income";
-      const expWord = currentLang === "ar" ? "مصروف" : "Expense";
-      const totIncLabel = currentLang === "ar" ? "إجمالي الإيرادات" : "Total Income";
-      const totExpLabel = currentLang === "ar" ? "إجمالي المصروفات" : "Total Expenses";
-      const netBrLabel = currentLang === "ar" ? "صافي الفرع" : "Branch Net";
+      const allVals = [1];
+      Object.values(stats).forEach(function(s) { allVals.push(s.income, s.expense); });
+      const maxVal = Math.max.apply(null, allVals);
 
-      const maxVal = Math.max(1, ...Object.values(stats).flatMap(s => [s.income, s.expense]));
-      document.getElementById("branchChartContainer").innerHTML = Object.entries(stats).map(([b, s]) => {
+      document.getElementById("branchChartContainer").innerHTML = Object.entries(stats).map(function(pair) {
+        const b = pair[0], s = pair[1];
         const incH = Math.round((s.income / maxVal) * 140);
         const expH = Math.round((s.expense / maxVal) * 140);
-        return `<div class="chart-col-group">
-          <div class="chart-pair">
-            <div class="c-bar inc" style="height:${incH}px" data-val="${incWord}: ${money(s.income)}"></div>
-            <div class="c-bar exp" style="height:${expH}px" data-val="${expWord}: ${money(s.expense)}"></div>
-          </div>
-          <div class="chart-label">${trEntity(b)}</div>
-        </div>`;
+        return '<div class="chart-col-group">' +
+          '<div class="chart-pair">' +
+            '<div class="c-bar inc" style="height:' + incH + 'px" data-val="إيراد: ' + money(s.income) + '"></div>' +
+            '<div class="c-bar exp" style="height:' + expH + 'px" data-val="مصروف: ' + money(s.expense) + '"></div>' +
+          '</div>' +
+          '<div class="chart-label">' + b + '</div>' +
+        '</div>';
       }).join("");
 
-      document.getElementById("branchStatsGrid").innerHTML = Object.entries(stats).map(([b, s]) => {
+      document.getElementById("branchStatsGrid").innerHTML = Object.entries(stats).map(function(pair) {
+        const b = pair[0], s = pair[1];
         const net = s.income - s.expense;
-        return `<div class="branch-stat-card">
-          <div class="branch-stat-title"><span>🏬 ${trEntity(b)}</span></div>
-          <div class="branch-stat-row"><span>${totIncLabel}</span><span class="green">${money(s.income)}</span></div>
-          <div class="branch-stat-row"><span>${totExpLabel}</span><span class="red">${money(s.expense)}</span></div>
-          <div class="branch-stat-net"><span>${netBrLabel}</span><span class="${net >= 0 ? 'green' : 'red'}">${money(net)}</span></div>
-        </div>`;
+        return '<div class="branch-stat-card">' +
+          '<div class="branch-stat-title"><span>🏬 ' + b + '</span></div>' +
+          '<div class="branch-stat-row"><span>إجمالي الإيرادات</span><span class="green">' + money(s.income) + '</span></div>' +
+          '<div class="branch-stat-row"><span>إجمالي المصروفات</span><span class="red">' + money(s.expense) + '</span></div>' +
+          '<div class="branch-stat-net"><span>صافي الفرع</span><span class="' + (net >= 0 ? 'green' : 'red') + '">' + money(net) + '</span></div>' +
+        '</div>';
       }).join("");
 
-      document.getElementById("branchReportTableBody").innerHTML = filtered.map(item => `
-        <tr>
-          <td><span class="tx-id-badge">${shortTxId(item.id)}</span></td>
-          <td>${item.date}</td>
-          <td><strong>${trEntity(item.branch)}</strong></td>
-          <td>${item.shift || "—"}</td>
-          <td><span class="type-tag ${item.type === 'income' ? 'tag-income' : 'tag-expense'}">${item.type === 'income' ? t('typeIncome') : t('typeExpense')}</span></td>
-          <td>${trEntity(item.account)} ${item.description ? '- ' + item.description : ''}</td>
-          <td><strong>${money(item.amount)}</strong></td>
-        </tr>
-      `).join("") || `<tr><td colspan="7" style="text-align:center;color:var(--muted);">${t("noTxMsg")}</td></tr>`;
+      document.getElementById("branchReportTableBody").innerHTML = filtered.map(function(item) {
+        return '<tr>' +
+          '<td><span class="tx-id-badge">' + shortTxId(item.id) + '</span></td>' +
+          '<td>' + item.date + '</td>' +
+          '<td><strong>' + item.branch + '</strong></td>' +
+          '<td>' + (item.shift || "—") + '</td>' +
+          '<td><span class="type-tag ' + (item.type === 'income' ? 'tag-income' : 'tag-expense') + '">' + (item.type === 'income' ? '🟢 إيراد' : '🔴 مصروف') + '</span></td>' +
+          '<td>' + item.account + (item.description ? ' - ' + item.description : '') + '</td>' +
+          '<td><strong>' + money(item.amount) + '</strong></td>' +
+        '</tr>';
+      }).join("") || '<tr><td colspan="7" style="text-align:center;color:var(--muted);">لا توجد حركات مطابقة للفلاتر</td></tr>';
     }
 
     function renderExpensesReport(confirmedList) {
@@ -1782,7 +1632,7 @@
       const fFrom = document.getElementById("expFilterFrom").value;
       const fTo = document.getElementById("expFilterTo").value;
 
-      const allExpenses = confirmedList.filter(item => {
+      const allExpenses = confirmedList.filter(function(item) {
         if (item.type !== "expense") return false;
         const d = item.date ? item.date.toString().split(" ")[0] : "";
         return (!fAcc || item.account === fAcc) && (!fFrom || d >= fFrom) && (!fTo || d <= fTo);
@@ -1790,49 +1640,51 @@
 
       const catTotals = {};
       let grandExp = 0;
-      allExpenses.forEach(e => {
+      allExpenses.forEach(function(e) {
         const c = e.category || "أخرى";
         const amt = Number(e.amount) || 0;
         catTotals[c] = (catTotals[c] || 0) + amt;
         grandExp += amt;
       });
 
-      const totExpTitle = currentLang === "ar" ? "إجمالي المصروفات" : "Total Expenses";
-      document.getElementById("expTotalHeader").textContent = `${totExpTitle}: ${money(grandExp)}`;
+      document.getElementById("expTotalHeader").textContent = "إجمالي المصروفات: " + money(grandExp);
 
-      const entriesCat = Object.entries(catTotals).sort((a, b) => b[1] - a[1]);
-      const maxCat = Math.max(1, ...entriesCat.map(x => x[1]));
+      const entriesCat = Object.entries(catTotals).sort(function(a, b) { return b[1] - a[1]; });
+      const maxCat = Math.max.apply(null, [1].concat(entriesCat.map(function(x) { return x[1]; })));
+
       document.getElementById("expenseChartContainer").innerHTML = entriesCat.length
-        ? entriesCat.map(([cat, amt]) => {
+        ? entriesCat.map(function(pair) {
+            const cat = pair[0], amt = pair[1];
             const h = Math.round((amt / maxCat) * 140);
-            return `<div class="chart-col-group">
-              <div class="chart-pair"><div class="c-bar exp" style="height:${h}px; width:28px;" data-val="${money(amt)}"></div></div>
-              <div class="chart-label">${trEntity(cat)}</div>
-            </div>`;
+            return '<div class="chart-col-group">' +
+              '<div class="chart-pair"><div class="c-bar exp" style="height:' + h + 'px; width:28px;" data-val="' + money(amt) + '"></div></div>' +
+              '<div class="chart-label">' + cat + '</div>' +
+            '</div>';
           }).join("")
-        : `<div class="hint">${t("noTxMsg")}</div>`;
+        : '<div class="hint">لا توجد مصروفات في هذه الفترة</div>';
 
-      document.getElementById("expenseCategoryCards").innerHTML = entriesCat.map(([cat, amt]) => {
+      document.getElementById("expenseCategoryCards").innerHTML = entriesCat.map(function(pair) {
+        const cat = pair[0], amt = pair[1];
         const pct = grandExp > 0 ? ((amt / grandExp) * 100).toFixed(1) : 0;
-        return `<div class="cat-card" onclick="document.getElementById('expFilterCat').value='${cat}'; renderAll();">
-          <h4><span>${trEntity(cat)}</span><span style="font-size:12px;color:var(--muted);">${pct}%</span></h4>
-          <div class="amt">${money(amt)}</div>
-          <div class="cat-progress"><span style="width:${pct}%"></span></div>
-        </div>`;
+        return '<div class="cat-card" onclick="document.getElementById(\'expFilterCat\').value=\'' + cat + '\'; renderAll();">' +
+          '<h4><span>' + cat + '</span><span style="font-size:12px;color:var(--muted);">' + pct + '%</span></h4>' +
+          '<div class="amt">' + money(amt) + '</div>' +
+          '<div class="cat-progress"><span style="width:' + pct + '%"></span></div>' +
+        '</div>';
       }).join("");
 
-      const shownExpenses = fCat ? allExpenses.filter(e => (e.category || "أخرى") === fCat) : allExpenses;
-      document.getElementById("expenseReportTableBody").innerHTML = shownExpenses.map(item => `
-        <tr>
-          <td><span class="tx-id-badge">${shortTxId(item.id)}</span></td>
-          <td>${item.date}</td>
-          <td><span class="type-tag tag-expense">${trEntity(item.category || "أخرى")}</span></td>
-          <td>${item.destination || ""} ${item.description ? '— ' + item.description : ''}</td>
-          <td>${trEntity(item.account)}</td>
-          <td>${item.safeBalanceBefore !== undefined ? `<span class="safe-impact-pill">${t("safeBeforeLabel")} ${money(item.safeBalanceBefore)} ➔ ${t("safeAfterLabel")} ${money(item.safeBalanceAfter)}</span>` : "—"}</td>
-          <td><strong class="red">${money(item.amount)}</strong></td>
-        </tr>
-      `).join("") || `<tr><td colspan="7" style="text-align:center;color:var(--muted);">${t("noTxMsg")}</td></tr>`;
+      const shownExpenses = fCat ? allExpenses.filter(function(e) { return (e.category || "أخرى") === fCat; }) : allExpenses;
+      document.getElementById("expenseReportTableBody").innerHTML = shownExpenses.map(function(item) {
+        return '<tr>' +
+          '<td><span class="tx-id-badge">' + shortTxId(item.id) + '</span></td>' +
+          '<td>' + item.date + '</td>' +
+          '<td><span class="type-tag tag-expense">' + (item.category || "أخرى") + '</span></td>' +
+          '<td>' + (item.destination || "") + (item.description ? ' — ' + item.description : '') + '</td>' +
+          '<td>' + item.account + '</td>' +
+          '<td>' + (item.safeBalanceBefore !== undefined ? '<span class="safe-impact-pill">كان ' + money(item.safeBalanceBefore) + ' ➔ أصبح ' + money(item.safeBalanceAfter) + '</span>' : "—") + '</td>' +
+          '<td><strong class="red">' + money(item.amount) + '</strong></td>' +
+        '</tr>';
+      }).join("") || '<tr><td colspan="7" style="text-align:center;color:var(--muted);">لا توجد مصروفات مطابقة</td></tr>';
     }
 
     function renderMainTransactionsTable(activeItems) {
@@ -1843,7 +1695,7 @@
       const f = document.getElementById("filterFrom").value;
       const to = document.getElementById("filterTo").value;
 
-      const shown = activeItems.filter(item => {
+      const shown = activeItems.filter(function(item) {
         const pureDate = item.date ? item.date.toString().split(" ")[0] : "";
         const isPend = isPendingStatus(item.status);
         const passApproval = !appFilter || (appFilter === "pending" && isPend) || (appFilter === "confirmed" && !isPend);
@@ -1852,7 +1704,7 @@
 
       const tbody = document.getElementById("transactions");
       tbody.innerHTML = "";
-      shown.forEach(item => {
+      shown.forEach(function(item) {
         const pending = isPendingStatus(item.status);
         const confirmed = isConfirmedStatus(item.status);
         const row = document.createElement("tr");
@@ -1863,44 +1715,43 @@
         const tagClass = item.type === "income" ? "tag-income" : item.type === "expense" ? "tag-expense" : "tag-transfer";
 
         let details = item.description || "—";
-        if (item.type === "income") details = [trEntity(item.account), item.description].filter(Boolean).join(" - ");
-        else if (item.type === "expense") details = [trEntity(item.category), item.destination, trEntity(item.account), item.description].filter(Boolean).join(" - ");
-        else if (item.type === "transfer") details = `${trEntity(item.transferFrom)} ➔ ${trEntity(item.transferTo)}`;
+        if (item.type === "income") details = [item.account, item.description].filter(Boolean).join(" - ");
+        else if (item.type === "expense") details = [item.category, item.destination, item.account, item.description].filter(Boolean).join(" - ");
+        else if (item.type === "transfer") details = item.transferFrom + " ➔ " + item.transferTo;
 
         let badgesHtml = "";
-        if (pending) badgesHtml += ` <span class="pending-tag">${t("pendingTag")}</span>`;
-        else if (confirmed) badgesHtml += ` <span class="confirmed-tag">${t("confirmedTag")}</span>`;
-        if (item.wasEdited || item.status === "edited") badgesHtml += ` <span class="edited-tag">${t("editedTag")}</span>`;
+        if (pending) badgesHtml += ' <span class="pending-tag">' + t("pendingTag") + '</span>';
+        else if (confirmed) badgesHtml += ' <span class="confirmed-tag">' + t("confirmedTag") + '</span>';
+        if (item.wasEdited || item.status === "edited") badgesHtml += ' <span class="edited-tag">' + t("editedTag") + '</span>';
         if (item.type === "expense" && !pending && item.safeBalanceBefore !== undefined) {
-          badgesHtml += `<br><span class="safe-impact-pill">🏦 ${trEntity(item.account)}: ${t("safeBeforeLabel")} <u>${money(item.safeBalanceBefore)}</u> ➔ ${t("safeAfterLabel")} <u>${money(item.safeBalanceAfter)}</u></span>`;
+          badgesHtml += '<br><span class="safe-impact-pill">🏦 ' + item.account + ': ' + t("safeBeforeLabel") + ' <u>' + money(item.safeBalanceBefore) + '</u> ➔ ' + t("safeAfterLabel") + ' <u>' + money(item.safeBalanceAfter) + '</u></span>';
         }
 
         const amtHtml = (item.previousAmount !== undefined && item.previousAmount !== Number(item.amount))
-          ? `<span class="old-amount-strike">${money(item.previousAmount)}</span><strong>${money(item.amount)}</strong>`
-          : `<strong>${money(item.amount)}</strong>`;
+          ? '<span class="old-amount-strike">' + money(item.previousAmount) + '</span><strong>' + money(item.amount) + '</strong>'
+          : '<strong>' + money(item.amount) + '</strong>';
 
-        row.innerHTML = `
-          <td><div class="tx-id-wrap" tabindex="0" onclick="this.classList.toggle('show-full')"><span class="tx-id-badge">${shortTxId(item.id)}</span><span class="tx-id-tooltip">${item.id}</span></div></td>
-          <td>${item.date}</td>
-          <td>${trEntity(item.branch) || "—"}</td>
-          <td>${item.shift || "—"}</td>
-          <td>👤 ${creator}${item.wasEdited && item.editedBy ? `<span class="editor-info-note">✏️ ${t("editedByPrefix")} ${item.editedBy}</span>` : ""}</td>
-          <td><span class="type-tag ${tagClass}">${typeLabel}</span></td>
-          <td>${details}${badgesHtml}</td>
-          <td>${amtHtml}</td>
-          <td class="act-col"></td>
-        `;
+        row.innerHTML =
+          '<td><div class="tx-id-wrap" tabindex="0" onclick="this.classList.toggle(\'show-full\')"><span class="tx-id-badge">' + shortTxId(item.id) + '</span><span class="tx-id-tooltip">' + item.id + '</span></div></td>' +
+          '<td>' + item.date + '</td>' +
+          '<td>' + (item.branch || "—") + '</td>' +
+          '<td>' + (item.shift || "—") + '</td>' +
+          '<td>👤 ' + creator + (item.wasEdited && item.editedBy ? '<span class="editor-info-note">✏️ ' + t("editedByPrefix") + ' ' + item.editedBy + '</span>' : "") + '</td>' +
+          '<td><span class="type-tag ' + tagClass + '">' + typeLabel + '</span></td>' +
+          '<td>' + details + badgesHtml + '</td>' +
+          '<td>' + amtHtml + '</td>' +
+          '<td class="act-col"></td>';
 
         const actCell = row.querySelector(".act-col");
         if (pending) {
           const cBtn = document.createElement("button");
           cBtn.type = "button"; cBtn.className = "confirm-btn"; cBtn.textContent = t("confirmBtn");
-          cBtn.onclick = () => updateTransactionStatus(item, `confirmed (${currentUser.username} - ${nowTimeString()})`);
+          cBtn.onclick = function() { updateTransactionStatus(item, "confirmed (" + currentUser.username + " - " + nowTimeString() + ")"); };
           actCell.appendChild(cBtn);
         }
         const eBtn = document.createElement("button");
         eBtn.type = "button"; eBtn.className = "edit"; eBtn.textContent = t("editBtn");
-        eBtn.onclick = () => {
+        eBtn.onclick = function() {
           editingId = item.id; typeInput.value = item.type; updateFields();
           document.getElementById("amount").value = item.amount;
           document.getElementById("date").value = item.date ? item.date.toString().split(" ")[0] : todayString();
@@ -1913,21 +1764,21 @@
         };
         const dBtn = document.createElement("button");
         dBtn.type = "button"; dBtn.className = "delete"; dBtn.textContent = t("deleteBtn");
-        dBtn.onclick = () => { if (confirm(currentLang === "ar" ? "متأكد من حذف الحركة؟" : "Delete this transaction?")) updateTransactionStatus(item, "deleted"); };
-        actCell.append(eBtn, dBtn);
+        dBtn.onclick = function() { if (confirm("متأكد من حذف الحركة؟")) updateTransactionStatus(item, "deleted"); };
+        actCell.appendChild(eBtn);
+        actCell.appendChild(dBtn);
         tbody.appendChild(row);
       });
 
-      document.getElementById("visibleCount").textContent = `${shown.length} ${t("countWord")}`;
+      document.getElementById("visibleCount").textContent = shown.length + " " + t("countWord");
       document.getElementById("emptyMessage").style.display = shown.length ? "none" : "block";
     }
 
     function renderActivityLogs() {
       const userSel = document.getElementById("actFilterUser");
-      const allUsersInLogs = [...new Set(entries.map(e => e.addedBy).filter(Boolean))];
-      const prevU = userSel.value;
-      userSel.innerHTML = `<option value="">${t("allOption")}</option>` + allUsersInLogs.map(u => `<option value="${u}">${u}</option>`).join("");
-      userSel.value = prevU;
+      const usersSet = {};
+      entries.forEach(function(e) { if (e.addedBy) usersSet[e.addedBy] = true; });
+      fillSelect(userSel, Object.keys(usersSet), true);
 
       const fUser = userSel.value;
       const fKind = document.getElementById("actFilterKind").value;
@@ -1936,101 +1787,93 @@
 
       const logs = [];
       const groupedById = {};
-      entries.slice().reverse().forEach(e => {
+      entries.slice().reverse().forEach(function(e) {
         const d = e.date ? e.date.toString().split(" ")[0] : "";
         let kind = "create";
         let cls = "";
-        let actionDesc = currentLang === "ar"
-          ? `إضافة حركة ${e.type === 'income' ? 'إيراد' : e.type === 'expense' ? 'مصروف' : 'تحويل'} بقيمة ${money(e.amount)}`
-          : `Added ${e.type} transaction of ${money(e.amount)}`;
+        let actionDesc = "إضافة حركة " + (e.type === "income" ? "إيراد" : e.type === "expense" ? "مصروف" : "تحويل") + " بقيمة " + money(e.amount);
 
         if (groupedById[e.id]) {
           const prev = groupedById[e.id];
           if (e.status === "deleted") {
             kind = "delete"; cls = "log-delete";
-            actionDesc = currentLang === "ar"
-              ? `حذف الحركة (${shortTxId(e.id)}) بقيمة ${money(e.amount)}`
-              : `Deleted transaction (${shortTxId(e.id)}) of ${money(e.amount)}`;
+            actionDesc = "حذف الحركة (" + shortTxId(e.id) + ") بقيمة " + money(e.amount);
           } else if (isConfirmedStatus(e.status) && isPendingStatus(prev.status)) {
             kind = "confirm"; cls = "log-confirm";
-            actionDesc = currentLang === "ar"
-              ? `تأكيد استلام تقفيل الشيفت (${trEntity(e.branch || e.account)}) بقيمة ${money(e.amount)}`
-              : `Confirmed shift closing (${trEntity(e.branch || e.account)}) of ${money(e.amount)}`;
+            actionDesc = "تأكيد استلام تقفيل الشيفت (" + (e.branch || e.account) + ") بقيمة " + money(e.amount);
           } else {
             kind = "edit"; cls = "log-edit";
-            actionDesc = currentLang === "ar"
-              ? `تعديل الحركة (${shortTxId(e.id)}) — المبلغ كان ${money(prev.amount)} وأصبح ${money(e.amount)}`
-              : `Edited transaction (${shortTxId(e.id)}) — Amount was ${money(prev.amount)}, now ${money(e.amount)}`;
+            actionDesc = "تعديل الحركة (" + shortTxId(e.id) + ") — المبلغ كان " + money(prev.amount) + " وأصبح " + money(e.amount);
           }
         }
         groupedById[e.id] = e;
-        logs.unshift({ user: e.addedBy, date: e.date, pureDate: d, kind, cls, desc: actionDesc, id: shortTxId(e.id) });
+        logs.unshift({ user: e.addedBy, date: e.date, pureDate: d, kind: kind, cls: cls, desc: actionDesc, id: shortTxId(e.id) });
       });
 
-      balancesHistory.forEach(b => {
+      balancesHistory.forEach(function(b) {
         const d = b.date ? b.date.toString().split(" ")[0] : "";
-        const desc = currentLang === "ar"
-          ? `تحديث الرصيد الافتتاحي لـ (${trEntity(b.account)}) إلى ${money(b.amount)}`
-          : `Updated opening balance for (${trEntity(b.account)}) to ${money(b.amount)}`;
-        logs.push({ user: b.addedBy, date: b.timestamp || b.date, pureDate: d, kind: "opening", cls: "log-edit", desc, id: "BAL" });
+        logs.push({ user: b.addedBy, date: b.timestamp || b.date, pureDate: d, kind: "opening", cls: "log-edit", desc: "تحديث الرصيد الافتتاحي لـ (" + b.account + ") إلى " + money(b.amount), id: "BAL" });
       });
 
-      const filteredLogs = logs.filter(l => (!fUser || l.user === fUser) && (!fKind || l.kind === fKind) && (!fFrom || l.pureDate >= fFrom) && (!fTo || l.pureDate <= fTo));
-      const logWord = currentLang === "ar" ? "نشاط" : "logs";
-      const refWord = currentLang === "ar" ? "رقم المرجع:" : "Ref ID:";
-      document.getElementById("activityCountLabel").textContent = `${filteredLogs.length} ${logWord}`;
-      document.getElementById("activityTimeline").innerHTML = filteredLogs.map(l => `
-        <div class="log-item ${l.cls}">
-          <div>
-            <strong>👤 ${l.user}</strong> — <span>${l.desc}</span>
-            <div class="log-meta">${refWord} ${l.id}</div>
-          </div>
-          <div class="log-meta">🕒 ${l.date}</div>
-        </div>
-      `).join("") || `<div class="hint" style="text-align:center;padding:20px;">${t("noTxMsg")}</div>`;
+      const filteredLogs = logs.filter(function(l) { return (!fUser || l.user === fUser) && (!fKind || l.kind === fKind) && (!fFrom || l.pureDate >= fFrom) && (!fTo || l.pureDate <= fTo); });
+      document.getElementById("activityCountLabel").textContent = filteredLogs.length + " نشاط";
+      document.getElementById("activityTimeline").innerHTML = filteredLogs.map(function(l) {
+        return '<div class="log-item ' + l.cls + '">' +
+          '<div><strong>👤 ' + l.user + '</strong> — <span>' + l.desc + '</span><div class="log-meta">رقم المرجع: ' + l.id + '</div></div>' +
+          '<div class="log-meta">🕒 ' + l.date + '</div>' +
+        '</div>';
+      }).join("") || '<div class="hint" style="text-align:center;padding:20px;">لا توجد أنشطة مطابقة</div>';
     }
 
     function renderTrashTable(deletedItems) {
-      document.getElementById("trashTableBody").innerHTML = deletedItems.map(item => `
-        <tr>
-          <td><span class="tx-id-badge">${shortTxId(item.id)}</span></td>
-          <td>${item.date}</td>
-          <td>${trEntity(item.branch) || "—"}</td>
-          <td>👤 ${item.addedBy}</td>
-          <td>${item.type === "income" ? t("typeIncome") : item.type === "expense" ? t("typeExpense") : t("typeTransfer")}</td>
-          <td>${item.description || trEntity(item.account) || "—"}</td>
-          <td><strong>${money(item.amount)}</strong></td>
-          <td><button class="restore" onclick="restoreDeletedItem('${item.id}')">${t("restoreBtn")}</button></td>
-        </tr>
-      `).join("") || `<tr><td colspan="8" style="text-align:center;color:var(--muted);">${t("noTxMsg")}</td></tr>`;
+      document.getElementById("trashTableBody").innerHTML = deletedItems.map(function(item) {
+        return '<tr>' +
+          '<td><span class="tx-id-badge">' + shortTxId(item.id) + '</span></td>' +
+          '<td>' + item.date + '</td>' +
+          '<td>' + (item.branch || "—") + '</td>' +
+          '<td>👤 ' + item.addedBy + '</td>' +
+          '<td>' + item.type + '</td>' +
+          '<td>' + (item.description || item.account || "—") + '</td>' +
+          '<td><strong>' + money(item.amount) + '</strong></td>' +
+          '<td><button class="restore" onclick="restoreDeletedItem(\'' + item.id + '\')">' + t("restoreBtn") + '</button></td>' +
+        '</tr>';
+      }).join("") || '<tr><td colspan="8" style="text-align:center;color:var(--muted);">سلة المحذوفات فارغة</td></tr>';
     }
 
     window.restoreDeletedItem = function(id) {
-      const item = Object.values(getLatestEntriesMap()).find(x => x.id === id);
+      const item = Object.values(getLatestEntriesMap()).find(function(x) { return x.id === id; });
       if (item) updateTransactionStatus(item, "edited");
     };
 
     function updateTransactionStatus(item, newStatus) {
-      const { history, previousAmount, wasEdited, editedBy, originalAddedBy, safeBalanceBefore, safeBalanceAfter, ...cleanItem } = item;
-      const updatedItem = { ...cleanItem, status: newStatus, addedBy: currentUser.username };
+      const cleanItem = Object.assign({}, item);
+      delete cleanItem.history;
+      delete cleanItem.previousAmount;
+      delete cleanItem.wasEdited;
+      delete cleanItem.editedBy;
+      delete cleanItem.originalAddedBy;
+      delete cleanItem.safeBalanceBefore;
+      delete cleanItem.safeBalanceAfter;
+
+      const updatedItem = Object.assign({}, cleanItem, { status: newStatus, addedBy: currentUser.username });
       entries.unshift(updatedItem);
       renderAll();
-      showNotice(currentLang === "ar" ? "✅ تم التحديث والمزامنة مع الشيت!" : "✅ Updated and synced!", "ok");
+      showNotice("✅ تم التحديث والمزامنة مع الشيت!", "ok");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: updatedItem }) });
     }
 
     function showNotice(msg, status) {
       const n = document.getElementById("notice");
       n.className = "notice " + status; n.textContent = msg;
-      setTimeout(() => n.style.display = "none", 3000);
+      setTimeout(function() { n.style.display = "none"; }, 3000);
     }
 
-    form.addEventListener("submit", e => {
+    form.addEventListener("submit", function(e) {
       e.preventDefault();
       const type = typeInput.value, amount = Number(document.getElementById("amount").value), dateValue = document.getElementById("date").value;
       const entry = {
         id: editingId || ("TR_" + Date.now()),
-        type, amount, date: `${dateValue} | ${nowTimeString()}`, addedBy: currentUser.username,
+        type: type, amount: amount, date: dateValue + " | " + nowTimeString(), addedBy: currentUser.username,
         branch: type === "income" ? document.getElementById("branch").value : "",
         shift: type === "income" ? document.getElementById("shift").value.trim() : "",
         account: type === "income" || type === "expense" ? document.getElementById("account").value : "",
@@ -2042,20 +1885,142 @@
         status: editingId ? "edited" : "active"
       };
       entries.unshift(entry); editingId = null; updateSubmitLabel(); renderAll();
-      showNotice(currentLang === "ar" ? "✅ تم الحفظ في الشيت!" : "✅ Saved to sheet!", "ok");
+      showNotice("✅ تم الحفظ في الشيت!", "ok");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: entry }) });
       form.reset(); document.getElementById("date").value = todayString(); updateFields();
     });
 
-    document.getElementById("cancelEdit").addEventListener("click", () => { editingId = null; updateSubmitLabel(); form.reset(); updateFields(); });
+    document.getElementById("cancelEdit").addEventListener("click", function() { editingId = null; updateSubmitLabel(); form.reset(); updateFields(); });
     typeInput.addEventListener("change", updateFields);
 
     ["filterBranch", "filterShift", "filterType", "filterApproval", "filterFrom", "filterTo",
      "brFilterBranch", "brFilterShift", "brFilterFrom", "brFilterTo",
      "expFilterCat", "expFilterAcc", "expFilterFrom", "expFilterTo",
-     "actFilterUser", "actFilterKind", "actFilterFrom", "actFilterTo"].forEach(id => {
-      document.getElementById(id)?.addEventListener("input", renderAll);
+     "actFilterUser", "actFilterKind", "actFilterFrom", "actFilterTo"].forEach(function(id) {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener("input", renderAll);
     });
 
-    document.getElementById("clearFilters").addEventListener("click", () => { ["filterBranch", "filterShift", "filterType", "filterApproval", "filterFrom", "filterTo"].forEach(id => document.getElementById(id).value = ""); renderAll(); });
-    document.getElementById("brClearFilter").addEventListener("click", () => { ["brFilterBranch", "brFilterShift", "brFilterFrom", "brFilterTo"].forEach(id => document.getElementById(id).value
+    document.getElementById("clearFilters").addEventListener("click", function() { ["filterBranch", "filterShift", "filterType", "filterApproval", "filterFrom", "filterTo"].forEach(function(id) { document.getElementById(id).value = ""; }); renderAll(); });
+    document.getElementById("brClearFilter").addEventListener("click", function() { ["brFilterBranch", "brFilterShift", "brFilterFrom", "brFilterTo"].forEach(function(id) { document.getElementById(id).value = ""; }); renderAll(); });
+    document.getElementById("expClearFilter").addEventListener("click", function() { ["expFilterCat", "expFilterAcc", "expFilterFrom", "expFilterTo"].forEach(function(id) { document.getElementById(id).value = ""; }); renderAll(); });
+    document.getElementById("actClearFilter").addEventListener("click", function() { ["actFilterUser", "actFilterKind", "actFilterFrom", "actFilterTo"].forEach(function(id) { document.getElementById(id).value = ""; }); renderAll(); });
+
+    document.getElementById("editOpeningBtn").addEventListener("click", function() {
+      const container = document.getElementById("openingInputs");
+      const latestOpenings = {};
+      balancesHistory.filter(function(b) { return b.status !== "deleted"; }).forEach(function(b) { latestOpenings[b.account] = b.amount; });
+      container.innerHTML = transferAccounts.map(function(acc) {
+        const v = latestOpenings[acc] !== undefined ? latestOpenings[acc] : "";
+        return '<label><span>' + acc + '</span><input type="number" step="0.01" data-account="' + acc + '" value="' + v + '"></label>';
+      }).join("") + '<label><span>' + t("dateCol") + '</span><input type="date" id="openingDateInput" value="' + todayString() + '"></label>';
+      document.getElementById("openingEditor").hidden = false;
+    });
+    document.getElementById("cancelOpening").addEventListener("click", function() { document.getElementById("openingEditor").hidden = true; });
+    document.getElementById("saveOpening").addEventListener("click", function() {
+      const dt = document.getElementById("openingDateInput").value;
+      if (!dt) return;
+      document.querySelectorAll("#openingInputs input[data-account]").forEach(function(inp) {
+        const amt = inp.value.trim() === "" ? 0 : Number(inp.value);
+        const payload = { action: "syncBalance", item: { id: "bal_" + Date.now() + "_" + Math.random(), date: dt, account: inp.dataset.account, amount: amt, addedBy: currentUser.username, status: "active" } };
+        balancesHistory.push(Object.assign({}, payload.item, { timestamp: todayString() + " " + nowTimeString() }));
+        fetch(SHEET_URL, { method: "POST", body: JSON.stringify(payload) });
+      });
+      document.getElementById("openingEditor").hidden = true; renderAll();
+    });
+
+    document.getElementById("addUserForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const username = document.getElementById("newUserEmail").value.trim(), pass = document.getElementById("newUserPass").value.trim(), role = document.getElementById("newUserRole").value;
+      const allowed = [].slice.call(document.querySelectorAll("#branchCheckboxes input:checked")).map(function(cb) { return cb.value; });
+      users.push({ username: username, pass: pass, role: role, branches: role === "admin" ? ["الكل"] : allowed, reports: role === "admin" });
+      renderAll(); populateLoginUsersDropdown(); e.target.reset();
+      fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) });
+      alert("✅ تم إضافة المستخدم!");
+    });
+
+    function renderUsers() {
+      document.getElementById("usersList").innerHTML = users.map(function(u, i) {
+        return '<tr>' +
+          '<td><strong>' + u.username + '</strong></td>' +
+          '<td>' + (u.role === "admin" ? t("roleAdmin") : t("roleCashier")) + '</td>' +
+          '<td>' + (u.role === "admin" ? t("allOption") : (u.branches || []).join("، ")) + '</td>' +
+          '<td>' +
+            (u.username !== "باسم الدخاخني المالك" ? '<button class="edit" onclick="openEditUserRole(' + i + ')">' + t("editRoleBtnText") + '</button>' : "") +
+            '<button class="edit" onclick="changeUserPass(' + i + ')">🔑 تغيير الباسورد</button>' +
+            (u.username !== "باسم الدخاخني المالك" ? '<button class="delete" onclick="deleteUser(' + i + ')">' + t("deleteBtn") + '</button>' : "") +
+          '</td>' +
+        '</tr>';
+      }).join("");
+    }
+
+    window.openEditUserRole = function(i) {
+      editingUserIndex = i;
+      const u = users[i];
+      document.getElementById("editRoleUsername").value = u.username;
+      document.getElementById("editRoleSelect").value = u.role || "cashier";
+      document.getElementById("editRoleBranchesBox").innerHTML = branches.map(function(b) {
+        const chk = (u.branches || []).indexOf(b) !== -1 ? "checked" : "";
+        return '<label><input type="checkbox" value="' + b + '" ' + chk + '> ' + b + '</label>';
+      }).join("");
+      document.getElementById("editRoleBranchesWrap").style.display = u.role === "admin" ? "none" : "";
+      document.getElementById("editUserModal").hidden = false;
+    };
+    document.getElementById("editRoleSelect").addEventListener("change", function(e) { document.getElementById("editRoleBranchesWrap").style.display = e.target.value === "admin" ? "none" : ""; });
+    document.getElementById("closeEditUserModalBtn").addEventListener("click", function() { document.getElementById("editUserModal").hidden = true; });
+    document.getElementById("editUserRoleForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const newRole = document.getElementById("editRoleSelect").value;
+      const selBranches = [].slice.call(document.querySelectorAll("#editRoleBranchesBox input:checked")).map(function(cb) { return cb.value; });
+      users[editingUserIndex].role = newRole;
+      users[editingUserIndex].branches = newRole === "admin" ? ["الكل"] : selBranches;
+      users[editingUserIndex].reports = newRole === "admin";
+      document.getElementById("editUserModal").hidden = true;
+      renderAll(); populateLoginUsersDropdown();
+      fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) });
+      alert("✅ تم حفظ الصلاحيات!");
+    });
+
+    window.changeUserPass = function(i) {
+      const np = prompt("كلمة المرور الجديدة لـ (" + users[i].username + "):", users[i].pass);
+      if (np && np.trim()) {
+        users[i].pass = np.trim(); renderAll();
+        fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) });
+      }
+    };
+    window.deleteUser = function(i) {
+      if (confirm("حذف المستخدم؟")) { users.splice(i, 1); renderAll(); populateLoginUsersDropdown(); fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users: users }) }); }
+    };
+
+    document.getElementById("printBtn").addEventListener("click", function() { window.print(); });
+    document.getElementById("exportCsvBtn").addEventListener("click", function() {
+      let csv = "data:text/csv;charset=utf-8,\uFEFFرقم الحركة,التاريخ,الفرع,الشيفت,النوع,بواسطة,المبلغ,الحساب,التصنيف,الوجهة,التفاصيل,الحالة\r\n";
+      Object.values(getLatestEntriesMap()).filter(function(e) { return e.status !== "deleted"; }).forEach(function(e) {
+        csv += '"' + e.id + '","' + e.date + '","' + e.branch + '","' + e.shift + '","' + e.type + '","' + e.addedBy + '","' + e.amount + '","' + (e.account || "") + '","' + (e.category || "") + '","' + (e.destination || "") + '","' + e.description + '","' + e.status + '"\r\n';
+      });
+      const a = document.createElement("a"); a.href = encodeURI(csv); a.download = "تقرير_الدخاخني_" + todayString() + ".csv"; a.click();
+    });
+
+    function renderStyleChips() {
+      const box = document.getElementById("themeChips");
+      box.innerHTML = themes.map(function(th) {
+        return '<button type="button" class="chip ' + (root.dataset.theme === th.id ? 'active' : '') + '" onclick="setAppTheme(\'' + th.id + '\')"><span class="swatch" style="background:' + th.sw + '"></span> ' + th.emoji + ' ' + th[currentLang] + '</button>';
+      }).join("");
+    }
+    window.setAppTheme = function(id) {
+      root.dataset.theme = id;
+      localStorage.setItem("dakhakhni-theme", id);
+      renderStyleChips();
+    };
+    document.getElementById("pageColor").addEventListener("input", function(e) { root.style.setProperty("--page-color", e.target.value); localStorage.setItem("dakhakhni-page-color", e.target.value); });
+    document.getElementById("resetColor").addEventListener("click", function() { root.style.removeProperty("--page-color"); localStorage.removeItem("dakhakhni-page-color"); });
+
+    const savedTheme = localStorage.getItem("dakhakhni-theme") || "classic";
+    root.dataset.theme = savedTheme;
+    const savedColor = localStorage.getItem("dakhakhni-page-color");
+    if (savedColor) root.style.setProperty("--page-color", savedColor);
+    document.getElementById("date").value = todayString();
+    renderStyleChips();
+  </script>
+</body>
+</html>
