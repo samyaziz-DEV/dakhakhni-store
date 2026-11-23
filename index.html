@@ -87,7 +87,6 @@
       display: none; animation: popIn 0.25s ease both;
     }
 
-    /* ===== شاشات الترحيب والتحميل والدخول المبهرة ===== */
     .overlay-screen {
       position: fixed; inset: 0; z-index: 2000;
       display: grid; place-items: center; padding: 20px;
@@ -163,9 +162,9 @@
 
     .splash-bar { height: 4px; margin-top: 18px; overflow: hidden; background: rgba(255,255,255,0.18); border-radius: 4px; }
     .splash-bar span { display: block; height: 100%; background: #7aa2ff; transform-origin: right center; animation: fillBar 3s linear both; }
+    html[dir="ltr"] .splash-bar span { transform-origin: left center; }
     .loader { width: 42px; height: 42px; border: 4px solid rgba(255,255,255,0.2); border-top-color: #ffffff; border-radius: 50%; animation: spin 0.9s linear infinite; margin: 0 auto 16px; }
 
-    /* ===== تخطيط لوحة التحكم مع الشريط الجانبي (Sidebar) ===== */
     .app-shell { display: none; min-height: 100vh; position: relative; z-index: 1; }
     .app-shell.active { display: flex; }
 
@@ -532,24 +531,24 @@
           <div class="side-logo"><img src="logo.png" alt="EL-DKHAKHNY"></div>
           <div>
             <h2 data-i18n="storeTitle">الدخاخني ستور</h2>
-            <small id="userSubtitle">لوحة الإدارة المالية</small>
+            <small id="userSubtitle" data-i18n="dashboardSub">لوحة الإدارة المالية</small>
           </div>
         </div>
 
-        <div class="nav-group-label">القائمة الرئيسية</div>
+        <div class="nav-group-label" data-i18n="navMainGrp">القائمة الرئيسية</div>
         <nav class="side-nav">
-          <button type="button" class="nav-btn active" data-view="viewDashboard"><span>🏦 الخزن وإضافة حركة</span></button>
-          <button type="button" class="nav-btn" data-view="viewBranches"><span>🏬 ملخص وتقرير الفروع</span></button>
-          <button type="button" class="nav-btn" data-view="viewExpenses"><span>🔴 تقرير وتصنيفات المصاريف</span></button>
-          <button type="button" class="nav-btn" data-view="viewTransactions"><span>📒 سجل الحركات الشامل</span><span class="nav-badge" id="navPendingBadge" style="display:none;">0</span></button>
-          <button type="button" class="nav-btn" data-view="viewActivity"><span>🕵️ سجل النشاط (Activity Logs)</span></button>
+          <button type="button" class="nav-btn active" data-view="viewDashboard"><span data-i18n="navDashboard">🏦 الخزن وإضافة حركة</span></button>
+          <button type="button" class="nav-btn" data-view="viewBranches"><span data-i18n="navBranches">🏬 ملخص وتقرير الفروع</span></button>
+          <button type="button" class="nav-btn" data-view="viewExpenses"><span data-i18n="navExpenses">🔴 تقرير وتصنيفات المصاريف</span></button>
+          <button type="button" class="nav-btn" data-view="viewTransactions"><span data-i18n="navTransactions">📒 سجل الحركات الشامل</span><span class="nav-badge" id="navPendingBadge" style="display:none;">0</span></button>
+          <button type="button" class="nav-btn" data-view="viewActivity"><span data-i18n="navActivity">🕵️ سجل النشاط (Activity Logs)</span></button>
         </nav>
 
-        <div class="nav-group-label">الإدارة والإعدادات</div>
+        <div class="nav-group-label" data-i18n="navAdminGrp">الإدارة والإعدادات</div>
         <nav class="side-nav">
-          <button type="button" class="nav-btn" data-view="viewUsers"><span>👥 المستخدمين والأدوار</span></button>
-          <button type="button" class="nav-btn" data-view="viewTrash"><span>🗑️ سلة المحذوفات</span><span class="nav-badge" id="navTrashBadge">0</span></button>
-          <button type="button" class="nav-btn" data-view="viewAppearance"><span>🎨 الألوان والتصميم</span></button>
+          <button type="button" class="nav-btn" data-view="viewUsers"><span data-i18n="navUsers">👥 المستخدمين والأدوار</span></button>
+          <button type="button" class="nav-btn" data-view="viewTrash"><span data-i18n="navTrash">🗑️ سلة المحذوفات</span><span class="nav-badge" id="navTrashBadge">0</span></button>
+          <button type="button" class="nav-btn" data-view="viewAppearance"><span data-i18n="navAppearance">🎨 الألوان والتصميم</span></button>
         </nav>
       </div>
 
@@ -560,7 +559,6 @@
 
     <!-- مساحة المحتوى -->
     <div class="main-area">
-      <!-- الشريط العلوي مع زر مزامنة البيانات الفوري -->
       <div class="top-header-bar">
         <div>
           <h1 id="activeSectionTitle">🏦 الخزن وإضافة حركة</h1>
@@ -659,7 +657,7 @@
                 <label id="branchField"><span data-i18n="branchCol">الفرع</span><select id="branch"></select></label>
                 <label id="shiftField"><span data-i18n="shiftNumber">رقم الشيفت</span><input id="shift" type="text" autocomplete="off" placeholder="1"></label>
                 <label id="accountField"><span id="accountLabel" data-i18n="accountCol">الحساب</span><select id="account"></select></label>
-                <label id="categoryField"><span data-i18n="catLabel">تصنيف المصروف</span><select id="category"><option value="" data-i18n="chooseCat">اختر التصنيف</option><option value="إيجار">🏠 إيجار</option><option value="رواتب">👥 رواتب</option><option value="مشتريات">🛒 مشتريات</option><option value="كهرباء ومياه">💡 كهرباء ومياه</option><option value="نقل">🚚 نقل</option><option value="صيانة">🔧 صيانة</option><option value="جمعية">🤝 جمعية</option><option value="تحويل">🔁 تحويل</option><option value="أخرى">📦 أخرى</option></select></label>
+                <label id="categoryField"><span data-i18n="catLabel">تصنيف المصروف</span><select id="category"></select></label>
                 <label id="destinationField"><span data-i18n="destLabel">الوجهة</span><input id="destination" placeholder="..."></label>
                 <label id="transferFromField"><span data-i18n="fromAccLabel">من حساب</span><select id="transferFrom"></select></label>
                 <label id="transferToField"><span data-i18n="toAccLabel">إلى حساب</span><select id="transferTo"></select></label>
@@ -677,22 +675,22 @@
         <!-- 2. تقرير الفروع المستقل -->
         <div id="viewBranches" class="view-section" hidden>
           <section class="panel no-print">
-            <div class="panel-heading"><h2>🔎 تصفية تقرير الفروع</h2></div>
+            <div class="panel-heading"><h2 data-i18n="brFilterTitle" data-emoji="🔎">تصفية تقرير الفروع</h2></div>
             <div class="filter-grid-4">
-              <label><span>الفرع</span><select id="brFilterBranch"><option value="">كل الفروع</option></select></label>
-              <label><span>رقم الشيفت</span><input type="text" id="brFilterShift" placeholder="..."></label>
-              <label><span>من تاريخ</span><input type="date" id="brFilterFrom"></label>
-              <label><span>إلى تاريخ</span><input type="date" id="brFilterTo"></label>
+              <label><span data-i18n="branchCol">الفرع</span><select id="brFilterBranch"></select></label>
+              <label><span data-i18n="shiftNumber">رقم الشيفت</span><input type="text" id="brFilterShift" placeholder="..."></label>
+              <label><span data-i18n="fromDateLabel">من تاريخ</span><input type="date" id="brFilterFrom"></label>
+              <label><span data-i18n="toDateLabel">إلى تاريخ</span><input type="date" id="brFilterTo"></label>
             </div>
             <div style="margin-top:12px;">
-              <button type="button" class="secondary" id="brClearFilter">🧼 مسح الفلاتر</button>
+              <button type="button" class="secondary" id="brClearFilter" data-i18n="clearFiltersBtn" data-emoji="🧼">مسح الفلاتر</button>
             </div>
           </section>
 
           <section class="panel">
             <div class="panel-heading">
-              <h2>📊 الرسم البياني لمقارنة أداء الفروع (الإيرادات vs المصروفات)</h2>
-              <span class="hint">🟢 إيرادات | 🔴 مصروفات</span>
+              <h2 data-i18n="brChartTitle" data-emoji="📊">الرسم البياني لمقارنة أداء الفروع (الإيرادات vs المصروفات)</h2>
+              <span class="hint" data-i18n="brChartLegend">🟢 إيرادات | 🔴 مصروفات</span>
             </div>
             <div class="chart-box">
               <div class="chart-bars-container" id="branchChartContainer"></div>
@@ -700,11 +698,19 @@
 
             <div class="analytics-grid" id="branchStatsGrid"></div>
 
-            <h3 style="margin:20px 0 12px; font-size:15px;">📋 سجل حركات الفروع التفصيلي</h3>
+            <h3 style="margin:20px 0 12px; font-size:15px;" data-i18n="brTableTitle" data-emoji="📋">سجل حركات الفروع التفصيلي</h3>
             <div class="table-wrap">
               <table>
                 <thead>
-                  <tr><th>رقم الحركة</th><th>التاريخ</th><th>الفرع</th><th>الشيفت</th><th>النوع</th><th>الحساب والتفاصيل</th><th>المبلغ</th></tr>
+                  <tr>
+                    <th data-i18n="idCol">رقم الحركة</th>
+                    <th data-i18n="dateCol">التاريخ</th>
+                    <th data-i18n="branchCol">الفرع</th>
+                    <th data-i18n="shiftCol">الشيفت</th>
+                    <th data-i18n="typeCol">النوع</th>
+                    <th data-i18n="detailsCol">الحساب والتفاصيل</th>
+                    <th data-i18n="amountCol">المبلغ</th>
+                  </tr>
                 </thead>
                 <tbody id="branchReportTableBody"></tbody>
               </table>
@@ -715,35 +721,24 @@
         <!-- 3. تقرير المصروفات المستقل -->
         <div id="viewExpenses" class="view-section" hidden>
           <section class="panel no-print">
-            <div class="panel-heading"><h2>🔎 تصفية تقرير المصروفات</h2></div>
+            <div class="panel-heading"><h2 data-i18n="expFilterTitle" data-emoji="🔎">تصفية تقرير المصروفات</h2></div>
             <div class="filter-grid-4">
               <label>
-                <span>تصنيف المصروف</span>
-                <select id="expFilterCat">
-                  <option value="">كل التصنيفات</option>
-                  <option value="إيجار">🏠 إيجار</option>
-                  <option value="رواتب">👥 رواتب</option>
-                  <option value="مشتريات">🛒 مشتريات</option>
-                  <option value="كهرباء ومياه">💡 كهرباء ومياه</option>
-                  <option value="نقل">🚚 نقل</option>
-                  <option value="صيانة">🔧 صيانة</option>
-                  <option value="جمعية">🤝 جمعية</option>
-                  <option value="تحويل">🔁 تحويل</option>
-                  <option value="أخرى">📦 أخرى</option>
-                </select>
+                <span data-i18n="catLabel">تصنيف المصروف</span>
+                <select id="expFilterCat"></select>
               </label>
-              <label><span>الخزنة / الحساب</span><select id="expFilterAcc"><option value="">كل الحسابات</option></select></label>
-              <label><span>من تاريخ</span><input type="date" id="expFilterFrom"></label>
-              <label><span>إلى تاريخ</span><input type="date" id="expFilterTo"></label>
+              <label><span data-i18n="accountCol">الخزنة / الحساب</span><select id="expFilterAcc"></select></label>
+              <label><span data-i18n="fromDateLabel">من تاريخ</span><input type="date" id="expFilterFrom"></label>
+              <label><span data-i18n="toDateLabel">إلى تاريخ</span><input type="date" id="expFilterTo"></label>
             </div>
             <div style="margin-top:12px;">
-              <button type="button" class="secondary" id="expClearFilter">🧼 مسح الفلاتر</button>
+              <button type="button" class="secondary" id="expClearFilter" data-i18n="clearFiltersBtn" data-emoji="🧼">مسح الفلاتر</button>
             </div>
           </section>
 
           <section class="panel">
             <div class="panel-heading">
-              <h2>📊 الرسم البياني لتوزيع المصروفات حسب التصنيف</h2>
+              <h2 data-i18n="expChartTitle" data-emoji="📊">الرسم البياني لتوزيع المصروفات حسب التصنيف</h2>
               <strong id="expTotalHeader" class="red">0.00 ج.م</strong>
             </div>
 
@@ -751,14 +746,22 @@
               <div class="chart-bars-container" id="expenseChartContainer"></div>
             </div>
 
-            <h3 style="margin:16px 0 12px; font-size:15px;">🗂️ المصروفات مقسمة حسب كل تصنيف (اضغط على أي تصنيف لعرض حركاته)</h3>
+            <h3 style="margin:16px 0 12px; font-size:15px;" data-i18n="expCatsSubTitle" data-emoji="🗂️">المصروفات مقسمة حسب كل تصنيف (اضغط على أي تصنيف لعرض حركاته)</h3>
             <div class="cat-cards-grid" id="expenseCategoryCards"></div>
 
-            <h3 style="margin:20px 0 12px; font-size:15px;">📋 تفاصيل حركات المصروفات وأثرها على الخزنة</h3>
+            <h3 style="margin:20px 0 12px; font-size:15px;" data-i18n="expTableSubTitle" data-emoji="📋">تفاصيل حركات المصروفات وأثرها على الخزنة</h3>
             <div class="table-wrap">
               <table>
                 <thead>
-                  <tr><th>رقم الحركة</th><th>التاريخ</th><th>التصنيف</th><th>الوجهة / التفاصيل</th><th>الحساب</th><th>أثر الخزنة</th><th>المبلغ</th></tr>
+                  <tr>
+                    <th data-i18n="idCol">رقم الحركة</th>
+                    <th data-i18n="dateCol">التاريخ</th>
+                    <th data-i18n="catLabel">التصنيف</th>
+                    <th data-i18n="detailsCol">الوجهة / التفاصيل</th>
+                    <th data-i18n="accountCol">الحساب</th>
+                    <th data-i18n="safeImpactCol">أثر الخزنة</th>
+                    <th data-i18n="amountCol">المبلغ</th>
+                  </tr>
                 </thead>
                 <tbody id="expenseReportTableBody"></tbody>
               </table>
@@ -771,7 +774,7 @@
           <section class="panel no-print">
             <div class="panel-heading"><h2 data-i18n="filterTitle" data-emoji="🔎">تصفية الحركات الشاملة</h2></div>
             <div class="filter-grid">
-              <label><span data-i18n="branchCol">الفرع</span><select id="filterBranch"><option value="">الكل</option></select></label>
+              <label><span data-i18n="branchCol">الفرع</span><select id="filterBranch"></select></label>
               <label><span data-i18n="shiftCol">الشيفت</span><input id="filterShift" type="text" placeholder="..."></label>
               <label><span data-i18n="typeCol">النوع</span><select id="filterType"><option value="" data-i18n="allOption">الكل</option><option value="income" data-i18n="typeIncome">إيراد</option><option value="expense" data-i18n="typeExpense">مصروف</option><option value="transfer" data-i18n="typeTransfer">تحويل</option></select></label>
               <label><span data-i18n="approvalFilterLabel">حالة الاستلام</span><select id="filterApproval"><option value="" data-i18n="allOption">الكل</option><option value="pending" data-i18n="pendingFilterOpt">⏳ بانتظار الاستلام فقط</option><option value="confirmed" data-i18n="confirmedFilterOpt">✅ المؤكدة فقط</option></select></label>
@@ -810,32 +813,32 @@
         <!-- 5. سجل النشاط (Activity Logs) -->
         <div id="viewActivity" class="view-section" hidden>
           <section class="panel no-print">
-            <div class="panel-heading"><h2>🔎 تصفية سجل النشاط (Activity Logs)</h2></div>
+            <div class="panel-heading"><h2 data-i18n="actFilterTitle" data-emoji="🔎">تصفية سجل النشاط (Activity Logs)</h2></div>
             <div class="filter-grid-4">
-              <label><span>الموظف / المستخدم</span><select id="actFilterUser"><option value="">كل المستخدمين</option></select></label>
+              <label><span data-i18n="byCol">الموظف / المستخدم</span><select id="actFilterUser"></select></label>
               <label>
-                <span>نوع النشاط</span>
+                <span data-i18n="actKindLabel">نوع النشاط</span>
                 <select id="actFilterKind">
-                  <option value="">كل الأنشطة</option>
-                  <option value="create">➕ إضافة حركة / تقفيل شيفت</option>
-                  <option value="edit">✏️ تعديل حركة</option>
-                  <option value="confirm">✅ تأكيد استلام</option>
-                  <option value="delete">🗑️ حذف حركة</option>
-                  <option value="opening">🏦 تعديل رصيد افتتاحي</option>
+                  <option value="" data-i18n="allOption">كل الأنشطة</option>
+                  <option value="create" data-i18n="actKindCreate">➕ إضافة حركة / تقفيل شيفت</option>
+                  <option value="edit" data-i18n="actKindEdit">✏️ تعديل حركة</option>
+                  <option value="confirm" data-i18n="actKindConfirm">✅ تأكيد استلام</option>
+                  <option value="delete" data-i18n="actKindDelete">🗑️ حذف حركة</option>
+                  <option value="opening" data-i18n="actKindOpening">🏦 تعديل رصيد افتتاحي</option>
                 </select>
               </label>
-              <label><span>من تاريخ</span><input type="date" id="actFilterFrom"></label>
-              <label><span>إلى تاريخ</span><input type="date" id="actFilterTo"></label>
+              <label><span data-i18n="fromDateLabel">من تاريخ</span><input type="date" id="actFilterFrom"></label>
+              <label><span data-i18n="toDateLabel">إلى تاريخ</span><input type="date" id="actFilterTo"></label>
             </div>
             <div style="margin-top:12px;">
-              <button type="button" class="secondary" id="actClearFilter">🧼 مسح الفلاتر</button>
+              <button type="button" class="secondary" id="actClearFilter" data-i18n="clearFiltersBtn" data-emoji="🧼">مسح الفلاتر</button>
             </div>
           </section>
 
           <section class="panel">
             <div class="panel-heading">
-              <h2>🕵️ سجل الرقابة والنشاط التفصيلي (Activity Logs)</h2>
-              <span class="hint" id="activityCountLabel">0 نشاط</span>
+              <h2 data-i18n="actLogHeader" data-emoji="🕵️">سجل الرقابة والنشاط التفصيلي (Activity Logs)</h2>
+              <span class="hint" id="activityCountLabel">0</span>
             </div>
             <div class="log-timeline" id="activityTimeline"></div>
           </section>
@@ -868,7 +871,16 @@
             <div class="table-wrap">
               <table>
                 <thead>
-                  <tr><th>رقم الحركة</th><th>التاريخ</th><th>الفرع</th><th>بواسطة</th><th>النوع</th><th>التفاصيل</th><th>المبلغ</th><th>استعادة</th></tr>
+                  <tr>
+                    <th data-i18n="idCol">رقم الحركة</th>
+                    <th data-i18n="dateCol">التاريخ</th>
+                    <th data-i18n="branchCol">الفرع</th>
+                    <th data-i18n="byCol">بواسطة</th>
+                    <th data-i18n="typeCol">النوع</th>
+                    <th data-i18n="detailsCol">التفاصيل</th>
+                    <th data-i18n="amountCol">المبلغ</th>
+                    <th data-i18n="actionCol">استعادة</th>
+                  </tr>
                 </thead>
                 <tbody id="trashTableBody"></tbody>
               </table>
@@ -882,9 +894,9 @@
             <div class="panel-heading"><h2 data-i18n="themeTitle" data-emoji="🎨">الألوان والتصميم</h2></div>
             <div class="chips" id="themeChips" style="margin-bottom:18px;"></div>
             <div style="display:flex;align-items:center;gap:12px;">
-              <label style="margin:0;">لون خلفية مخصص:</label>
+              <label style="margin:0;" data-i18n="customBgColorLabel">لون خلفية مخصص:</label>
               <input id="pageColor" type="color" value="#f3f6fc" style="width:48px;height:38px;padding:3px;">
-              <button class="secondary" id="resetColor" type="button">↩️ استعادة الافتراضي</button>
+              <button class="secondary" id="resetColor" type="button" data-i18n="resetDefaultBtn">↩️ استعادة الافتراضي</button>
             </div>
           </section>
         </div>
@@ -907,6 +919,49 @@
     const incomeAccounts = [...mainSafes, ...otherSafes, ...banks];
     const transferAccounts = [...mainSafes, ...otherSafes, ...banks];
 
+    const expenseCategoriesList = [
+      { val: "إيجار", ar: "🏠 إيجار", en: "🏠 Rent" },
+      { val: "رواتب", ar: "👥 رواتب", en: "👥 Salaries" },
+      { val: "مشتريات", ar: "🛒 مشتريات", en: "🛒 Purchases" },
+      { val: "كهرباء ومياه", ar: "💡 كهرباء ومياه", en: "💡 Utilities" },
+      { val: "نقل", ar: "🚚 نقل", en: "🚚 Transport" },
+      { val: "صيانة", ar: "🔧 صيانة", en: "🔧 Maintenance" },
+      { val: "جمعية", ar: "🤝 جمعية", en: "🤝 Association" },
+      { val: "تحويل", ar: "🔁 تحويل", en: "🔁 Transfer" },
+      { val: "أخرى", ar: "📦 أخرى", en: "📦 Other" }
+    ];
+
+    /* قاموس ترجمة الأسماء الديناميكية (الفروع، الخزن، التصنيفات) عند التحويل للإنجليزية */
+    const entityEnMap = {
+      "ڤيب ستور": "Vape Store",
+      "ڤيب ستور 2": "Vape Store 2",
+      "الدخاخني": "Al-Dakhakhni",
+      "المول": "The Mall",
+      "اسواق المدينه": "City Markets",
+      "طوخ": "Toukh",
+      "الخزنة الرئيسية - الدخاخني": "Main Safe - Al-Dakhakhni",
+      "الخزنة الرئيسية - طوخ": "Main Safe - Toukh",
+      "خزنة باسم": "Bassem Safe",
+      "إنستا باي الأهلي": "Instapay - Ahly",
+      "فيزا QNB": "QNB Visa",
+      "إيجار": "Rent",
+      "رواتب": "Salaries",
+      "مشتريات": "Purchases",
+      "كهرباء ومياه": "Utilities",
+      "نقل": "Transport",
+      "صيانة": "Maintenance",
+      "جمعية": "Association",
+      "تحويل": "Transfer",
+      "أخرى": "Other",
+      "الكل": "All"
+    };
+
+    function trEntity(val) {
+      if (!val) return "";
+      if (currentLang === "ar") return val;
+      return entityEnMap[val] || val;
+    }
+
     const themes = [
       { id: "classic", emoji: "💙", ar: "كلاسيك (الأساسي)", en: "Classic (Default)", sw: "#3158d5" },
       { id: "vip", emoji: "👑", ar: "VIP ملكي", en: "VIP Royal", sw: "linear-gradient(135deg, #0d3b29, #d4af37)" },
@@ -926,6 +981,7 @@
         syncingDesc: "يتم جلب البيانات من السحابة",
         syncDataBtn: "مزامنة البيانات",
         storeTitle: "الدخاخني ستور",
+        dashboardSub: "لوحة الإدارة المالية",
         loginSubGlow: "بوابة الإدارة المالية الذكية • سجل الدخول للمتابعة",
         username: "اسم المستخدم",
         selectUserDefault: "-- اختر اسم المستخدم --",
@@ -941,6 +997,17 @@
         editRoleModalTitle: "تعديل دور وصلاحيات المستخدم",
         saveRoleBtn: "💾 حفظ الصلاحيات",
         editRoleBtnText: "⚙️ الدور والفروع",
+        changePassBtnText: "🔑 تغيير الباسورد",
+        navMainGrp: "القائمة الرئيسية",
+        navAdminGrp: "الإدارة والإعدادات",
+        navDashboard: "🏦 الخزن وإضافة حركة",
+        navBranches: "🏬 ملخص وتقرير الفروع",
+        navExpenses: "🔴 تقرير وتصنيفات المصاريف",
+        navTransactions: "📒 سجل الحركات الشامل",
+        navActivity: "🕵️ سجل النشاط (Activity Logs)",
+        navUsers: "👥 المستخدمين والأدوار",
+        navTrash: "🗑️ سلة المحذوفات",
+        navAppearance: "🎨 الألوان والتصميم",
         logout: "تسجيل خروج",
         exportCSV: "تصدير CSV",
         printBtn: "طباعة",
@@ -965,6 +1032,8 @@
         actionCol: "إجراء",
         byCol: "بواسطة",
         themeTitle: "الألوان والتصميم",
+        customBgColorLabel: "لون خلفية مخصص:",
+        resetDefaultBtn: "↩️ استعادة الافتراضي",
         balancesTitle: "أرصدة الحسابات والخزن (المؤكدة فقط)",
         saveOpeningBtn: "حفظ الرصيد الأول وتسميعه",
         cancelBtn: "إلغاء",
@@ -983,6 +1052,7 @@
         dateCol: "التاريخ والوقت",
         branchCol: "الفرع",
         shiftCol: "الشيفت",
+        accountCol: "الحساب",
         catLabel: "تصنيف المصروف",
         chooseCat: "اختر التصنيف",
         destLabel: "الوجهة",
@@ -992,6 +1062,23 @@
         submitTxBtn: "إضافة الحركة للشيت",
         saveEditBtn: "حفظ التعديل",
         filterTitle: "تصفية الحركات الشاملة",
+        brFilterTitle: "تصفية تقرير الفروع",
+        brChartTitle: "الرسم البياني لمقارنة أداء الفروع (الإيرادات vs المصروفات)",
+        brChartLegend: "🟢 إيرادات | 🔴 مصروفات",
+        brTableTitle: "سجل حركات الفروع التفصيلي",
+        expFilterTitle: "تصفية تقرير المصروفات",
+        expChartTitle: "الرسم البياني لتوزيع المصروفات حسب التصنيف",
+        expCatsSubTitle: "المصروفات مقسمة حسب كل تصنيف (اضغط على أي تصنيف لعرض حركاته)",
+        expTableSubTitle: "تفاصيل حركات المصروفات وأثرها على الخزنة",
+        safeImpactCol: "أثر الخزنة",
+        actFilterTitle: "تصفية سجل النشاط (Activity Logs)",
+        actKindLabel: "نوع النشاط",
+        actKindCreate: "➕ إضافة حركة / تقفيل شيفت",
+        actKindEdit: "✏️ تعديل حركة",
+        actKindConfirm: "✅ تأكيد استلام",
+        actKindDelete: "🗑️ حذف حركة",
+        actKindOpening: "🏦 تعديل رصيد افتتاحي",
+        actLogHeader: "سجل الرقابة والنشاط التفصيلي (Activity Logs)",
         allOption: "الكل",
         approvalFilterLabel: "حالة الاستلام",
         pendingFilterOpt: "⏳ بانتظار الاستلام فقط",
@@ -1026,6 +1113,7 @@
         syncingDesc: "Fetching data from cloud",
         syncDataBtn: "Sync Data",
         storeTitle: "Al-Dakhakhni Store",
+        dashboardSub: "Financial Dashboard",
         loginSubGlow: "Smart Financial Portal • Sign in to continue",
         username: "Username",
         selectUserDefault: "-- Select Username --",
@@ -1041,6 +1129,17 @@
         editRoleModalTitle: "Edit User Role & Branches",
         saveRoleBtn: "💾 Save Permissions",
         editRoleBtnText: "⚙️ Role & Branches",
+        changePassBtnText: "🔑 Change Password",
+        navMainGrp: "Main Menu",
+        navAdminGrp: "Administration & Settings",
+        navDashboard: "🏦 Safes & Add Transaction",
+        navBranches: "🏬 Branches Report",
+        navExpenses: "🔴 Expenses & Categories",
+        navTransactions: "📒 All Transactions Log",
+        navActivity: "🕵️ Activity Logs",
+        navUsers: "👥 Users & Roles",
+        navTrash: "🗑️ Trash Bin",
+        navAppearance: "🎨 Themes & Appearance",
         logout: "Logout",
         exportCSV: "Export CSV",
         printBtn: "Print",
@@ -1065,6 +1164,8 @@
         actionCol: "Action",
         byCol: "By",
         themeTitle: "Colors & Themes",
+        customBgColorLabel: "Custom Background Color:",
+        resetDefaultBtn: "↩️ Reset Default",
         balancesTitle: "Accounts & Safes Balances (Confirmed Only)",
         saveOpeningBtn: "Save Opening Balances",
         cancelBtn: "Cancel",
@@ -1083,6 +1184,7 @@
         dateCol: "Date & Time",
         branchCol: "Branch",
         shiftCol: "Shift",
+        accountCol: "Account",
         catLabel: "Expense Category",
         chooseCat: "Select Category",
         destLabel: "Destination",
@@ -1092,6 +1194,23 @@
         submitTxBtn: "Submit to Sheet",
         saveEditBtn: "Save Changes",
         filterTitle: "Filter All Transactions",
+        brFilterTitle: "Filter Branches Report",
+        brChartTitle: "Branch Performance Chart (Income vs Expenses)",
+        brChartLegend: "🟢 Income | 🔴 Expenses",
+        brTableTitle: "Detailed Branch Transactions",
+        expFilterTitle: "Filter Expenses Report",
+        expChartTitle: "Expenses Distribution by Category",
+        expCatsSubTitle: "Expenses Breakdown by Category (Click any card to filter)",
+        expTableSubTitle: "Detailed Expense Transactions & Safe Impact",
+        safeImpactCol: "Safe Impact",
+        actFilterTitle: "Filter Activity Logs",
+        actKindLabel: "Activity Type",
+        actKindCreate: "➕ Add Tx / Shift Closing",
+        actKindEdit: "✏️ Edit Transaction",
+        actKindConfirm: "✅ Confirm Receipt",
+        actKindDelete: "🗑️ Delete Transaction",
+        actKindOpening: "🏦 Edit Opening Balance",
+        actLogHeader: "Detailed Audit & Activity Logs",
         allOption: "All",
         approvalFilterLabel: "Receipt Status",
         pendingFilterOpt: "⏳ Pending Receipt Only",
@@ -1192,6 +1311,13 @@
       return Number(value || 0).toLocaleString(currentLang === "ar" ? "ar-EG" : "en-EG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " " + curr;
     }
 
+    function updateActiveSectionHeaderTitle() {
+      const activeBtn = document.querySelector(".nav-btn.active");
+      if (activeBtn) {
+        document.getElementById("activeSectionTitle").textContent = activeBtn.querySelector("span").textContent;
+      }
+    }
+
     document.querySelectorAll(".nav-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
@@ -1199,7 +1325,7 @@
         document.querySelectorAll(".view-section").forEach(sec => sec.hidden = true);
         const target = document.getElementById(btn.dataset.view);
         if (target) target.hidden = false;
-        document.getElementById("activeSectionTitle").textContent = btn.querySelector("span").textContent;
+        updateActiveSectionHeaderTitle();
         renderAll();
       });
     });
@@ -1219,6 +1345,38 @@
       if ([...select.options].some(o => o.value === prev)) select.value = prev;
     }
 
+    function populateCategoriesSelects() {
+      const catSel = document.getElementById("category");
+      const expCatSel = document.getElementById("expFilterCat");
+      if (catSel) {
+        const prev = catSel.value;
+        catSel.innerHTML = `<option value="">${t("chooseCat")}</option>` +
+          expenseCategoriesList.map(c => `<option value="${c.val}">${c[currentLang]}</option>`).join("");
+        catSel.value = prev;
+      }
+      if (expCatSel) {
+        const prev = expCatSel.value;
+        expCatSel.innerHTML = `<option value="">${t("allOption")}</option>` +
+          expenseCategoriesList.map(c => `<option value="${c.val}">${c[currentLang]}</option>`).join("");
+        expCatSel.value = prev;
+      }
+    }
+
+    function refreshAllDropdowns() {
+      fillSelect(document.getElementById("branch"), branches);
+      fillSelect(document.getElementById("filterBranch"), branches, true);
+      fillSelect(document.getElementById("brFilterBranch"), branches, true);
+      fillSelect(document.getElementById("expFilterAcc"), incomeAccounts, true);
+      populateCategoriesSelects();
+      updateFields();
+
+      const cbContainer = document.getElementById("branchCheckboxes");
+      if (cbContainer) {
+        const checkedVals = [...cbContainer.querySelectorAll("input:checked")].map(x => x.value);
+        cbContainer.innerHTML = branches.map(b => `<label><input type="checkbox" value="${b}" ${checkedVals.includes(b) ? "checked" : ""}> ${trEntity(b)}</label>`).join("");
+      }
+    }
+
     function applyLanguage(lang) {
       currentLang = lang === "en" ? "en" : "ar";
       localStorage.setItem("dakhakhni-lang", currentLang);
@@ -1236,9 +1394,15 @@
       });
 
       populateLoginUsersDropdown();
+      refreshAllDropdowns();
       renderStyleChips();
       updateSubmitLabel();
+      updateActiveSectionHeaderTitle();
       if (currentUser?.role === "admin") renderAll();
+      if (currentUser?.role === "cashier" && currentSession) {
+        document.getElementById("activeSectionTitle").textContent = currentLang === "ar" ? "🧾 تقفيل الشيفت" : "🧾 Shift Closing";
+        document.getElementById("cashierShiftInfo").textContent = `🏬 ${trEntity(currentSession.branch)}   |   ⏱️ #${currentSession.shift}`;
+      }
     }
     document.getElementById("languageSelect").addEventListener("change", e => applyLanguage(e.target.value));
 
@@ -1332,9 +1496,9 @@
       document.querySelectorAll(".admin-only").forEach(el => el.style.display = "none");
       document.querySelectorAll(".cashier-only").forEach(el => el.style.display = "");
       document.getElementById("cashierPanel").hidden = false;
-      document.getElementById("activeSectionTitle").textContent = "🧾 تقفيل الشيفت";
+      document.getElementById("activeSectionTitle").textContent = currentLang === "ar" ? "🧾 تقفيل الشيفت" : "🧾 Shift Closing";
       document.getElementById("headerDateLabel").textContent = `👤 ${currentUser.username}`;
-      document.getElementById("cashierShiftInfo").textContent = `🏬 ${currentSession.branch}   |   ⏱️ #${currentSession.shift}`;
+      document.getElementById("cashierShiftInfo").textContent = `🏬 ${trEntity(currentSession.branch)}   |   ⏱️ #${currentSession.shift}`;
       document.getElementById("cashierDateLabel").textContent = `📅 ${todayString()} | ${nowTimeString()}`;
     }
 
@@ -1342,18 +1506,11 @@
       const container = document.getElementById("cashierExpensesList");
       const row = document.createElement("div");
       row.className = "cashier-expense-row";
+      const opts = expenseCategoriesList.map(c => `<option value="${c.val}">${c[currentLang]}</option>`).join("");
       row.innerHTML = `
-        <select class="exp-cat" required>
-          <option value="مشتريات">🛒 مشتريات</option>
-          <option value="كهرباء ومياه">💡 كهرباء ومياه</option>
-          <option value="نقل">🚚 نقل</option>
-          <option value="صيانة">🔧 صيانة</option>
-          <option value="رواتب">👥 رواتب / سلف</option>
-          <option value="إيجار">🏠 إيجار</option>
-          <option value="أخرى">📦 مصروفات أخرى</option>
-        </select>
-        <input type="number" class="exp-amt" min="0.01" step="0.01" placeholder="المبلغ" required>
-        <input type="text" class="exp-dest" placeholder="السبب / الوجهة" required>
+        <select class="exp-cat" required>${opts}</select>
+        <input type="number" class="exp-amt" min="0.01" step="0.01" placeholder="${currentLang === 'ar' ? 'المبلغ' : 'Amount'}" required>
+        <input type="text" class="exp-dest" placeholder="${currentLang === 'ar' ? 'السبب / الوجهة' : 'Reason / Details'}" required>
         <button type="button" class="danger-soft" style="padding:8px 10px;">✖</button>
       `;
       row.querySelector("button").onclick = () => row.remove();
@@ -1376,7 +1533,7 @@
 
       if (cashAmt <= 0 && instaAmt <= 0 && visaAmt <= 0 && !validExpenses.length) {
         const cn = document.getElementById("cashierNotice");
-        cn.className = "notice error"; cn.textContent = "يرجى إدخال مبلغ واحد على الأقل."; return;
+        cn.className = "notice error"; cn.textContent = currentLang === "ar" ? "يرجى إدخال مبلغ واحد على الأقل." : "Please enter at least one amount."; return;
       }
 
       submitBtn.disabled = true;
@@ -1395,12 +1552,12 @@
       });
 
       const cn = document.getElementById("cashierNotice");
-      cn.className = "notice ok"; cn.textContent = "⏳ جارٍ حفظ التقفيل وإرساله للإدارة...";
+      cn.className = "notice ok"; cn.textContent = currentLang === "ar" ? "⏳ جارٍ حفظ التقفيل وإرساله للإدارة..." : "⏳ Saving & submitting shift...";
       for (const item of itemsToSend) {
         entries.unshift(item);
         await fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item }) });
       }
-      cn.textContent = "✅ تم حفظ التقفيل وإرساله للإدارة! جارٍ تسجيل الخروج...";
+      cn.textContent = currentLang === "ar" ? "✅ تم حفظ التقفيل وإرساله للإدارة! جارٍ تسجيل الخروج..." : "✅ Shift closing submitted! Logging out...";
       setTimeout(() => { submitBtn.disabled = false; logout(); }, 1800);
     });
 
@@ -1412,15 +1569,8 @@
       document.getElementById("userSubtitle").textContent = currentUser.username;
       document.getElementById("headerDateLabel").textContent = `📅 ${todayString()} | ${nowTimeString()}`;
 
-      fillSelect(document.getElementById("branch"), branches);
-      fillSelect(document.getElementById("filterBranch"), branches, true);
-      fillSelect(document.getElementById("brFilterBranch"), branches, true);
-      fillSelect(document.getElementById("expFilterAcc"), incomeAccounts, true);
-
-      const cbContainer = document.getElementById("branchCheckboxes");
-      cbContainer.innerHTML = branches.map(b => `<label><input type="checkbox" value="${b}"> ${b}</label>`).join("");
-
-      updateFields();
+      refreshAllDropdowns();
+      updateActiveSectionHeaderTitle();
       renderAll();
     }
 
@@ -1428,7 +1578,7 @@
       if (!select) return;
       const previous = select.value;
       select.innerHTML = includeEmpty ? `<option value="">${t("allOption")}</option>` : "";
-      values.forEach(v => { const opt = document.createElement("option"); opt.value = v; opt.textContent = v; select.appendChild(opt); });
+      values.forEach(v => { const opt = document.createElement("option"); opt.value = v; opt.textContent = trEntity(v); select.appendChild(opt); });
       if ([...select.options].some(o => o.value === previous)) select.value = previous;
     }
     function setSelectValue(select, value) { if (value && [...select.options].some(o => o.value === value)) select.value = value; }
@@ -1532,7 +1682,7 @@
       document.getElementById("balanceGrid").innerHTML = transferAccounts.map(acc => {
         const val = balances[acc];
         return `<div class="bal-card">
-          <div class="bal-name"><span class="dot ${val >= 0 ? 'dot-green' : 'dot-red'}"></span> ${acc}</div>
+          <div class="bal-name"><span class="dot ${val >= 0 ? 'dot-green' : 'dot-red'}"></span> ${trEntity(acc)}</div>
           <strong class="bal-value ${val >= 0 ? 'green' : 'red'}">${money(val)}</strong>
           <small style="color:var(--muted);font-size:11px;">${t("openingFirst")} ${money(latestOpenings[acc] || 0)}</small>
         </div>`;
@@ -1584,26 +1734,32 @@
         if (e.type === "expense") stats[e.branch].expense += Number(e.amount) || 0;
       });
 
+      const incWord = currentLang === "ar" ? "إيراد" : "Income";
+      const expWord = currentLang === "ar" ? "مصروف" : "Expense";
+      const totIncLabel = currentLang === "ar" ? "إجمالي الإيرادات" : "Total Income";
+      const totExpLabel = currentLang === "ar" ? "إجمالي المصروفات" : "Total Expenses";
+      const netBrLabel = currentLang === "ar" ? "صافي الفرع" : "Branch Net";
+
       const maxVal = Math.max(1, ...Object.values(stats).flatMap(s => [s.income, s.expense]));
       document.getElementById("branchChartContainer").innerHTML = Object.entries(stats).map(([b, s]) => {
         const incH = Math.round((s.income / maxVal) * 140);
         const expH = Math.round((s.expense / maxVal) * 140);
         return `<div class="chart-col-group">
           <div class="chart-pair">
-            <div class="c-bar inc" style="height:${incH}px" data-val="إيراد: ${money(s.income)}"></div>
-            <div class="c-bar exp" style="height:${expH}px" data-val="مصروف: ${money(s.expense)}"></div>
+            <div class="c-bar inc" style="height:${incH}px" data-val="${incWord}: ${money(s.income)}"></div>
+            <div class="c-bar exp" style="height:${expH}px" data-val="${expWord}: ${money(s.expense)}"></div>
           </div>
-          <div class="chart-label">${b}</div>
+          <div class="chart-label">${trEntity(b)}</div>
         </div>`;
       }).join("");
 
       document.getElementById("branchStatsGrid").innerHTML = Object.entries(stats).map(([b, s]) => {
         const net = s.income - s.expense;
         return `<div class="branch-stat-card">
-          <div class="branch-stat-title"><span>🏬 ${b}</span></div>
-          <div class="branch-stat-row"><span>إجمالي الإيرادات</span><span class="green">${money(s.income)}</span></div>
-          <div class="branch-stat-row"><span>إجمالي المصروفات</span><span class="red">${money(s.expense)}</span></div>
-          <div class="branch-stat-net"><span>صافي الفرع</span><span class="${net >= 0 ? 'green' : 'red'}">${money(net)}</span></div>
+          <div class="branch-stat-title"><span>🏬 ${trEntity(b)}</span></div>
+          <div class="branch-stat-row"><span>${totIncLabel}</span><span class="green">${money(s.income)}</span></div>
+          <div class="branch-stat-row"><span>${totExpLabel}</span><span class="red">${money(s.expense)}</span></div>
+          <div class="branch-stat-net"><span>${netBrLabel}</span><span class="${net >= 0 ? 'green' : 'red'}">${money(net)}</span></div>
         </div>`;
       }).join("");
 
@@ -1611,13 +1767,13 @@
         <tr>
           <td><span class="tx-id-badge">${shortTxId(item.id)}</span></td>
           <td>${item.date}</td>
-          <td><strong>${item.branch}</strong></td>
+          <td><strong>${trEntity(item.branch)}</strong></td>
           <td>${item.shift || "—"}</td>
-          <td><span class="type-tag ${item.type === 'income' ? 'tag-income' : 'tag-expense'}">${item.type === 'income' ? '🟢 إيراد' : '🔴 مصروف'}</span></td>
-          <td>${item.account} ${item.description ? '- ' + item.description : ''}</td>
+          <td><span class="type-tag ${item.type === 'income' ? 'tag-income' : 'tag-expense'}">${item.type === 'income' ? t('typeIncome') : t('typeExpense')}</span></td>
+          <td>${trEntity(item.account)} ${item.description ? '- ' + item.description : ''}</td>
           <td><strong>${money(item.amount)}</strong></td>
         </tr>
-      `).join("") || `<tr><td colspan="7" style="text-align:center;color:var(--muted);">لا توجد حركات مطابقة للفلاتر</td></tr>`;
+      `).join("") || `<tr><td colspan="7" style="text-align:center;color:var(--muted);">${t("noTxMsg")}</td></tr>`;
     }
 
     function renderExpensesReport(confirmedList) {
@@ -1641,7 +1797,8 @@
         grandExp += amt;
       });
 
-      document.getElementById("expTotalHeader").textContent = `إجمالي المصروفات: ${money(grandExp)}`;
+      const totExpTitle = currentLang === "ar" ? "إجمالي المصروفات" : "Total Expenses";
+      document.getElementById("expTotalHeader").textContent = `${totExpTitle}: ${money(grandExp)}`;
 
       const entriesCat = Object.entries(catTotals).sort((a, b) => b[1] - a[1]);
       const maxCat = Math.max(1, ...entriesCat.map(x => x[1]));
@@ -1650,15 +1807,15 @@
             const h = Math.round((amt / maxCat) * 140);
             return `<div class="chart-col-group">
               <div class="chart-pair"><div class="c-bar exp" style="height:${h}px; width:28px;" data-val="${money(amt)}"></div></div>
-              <div class="chart-label">${cat}</div>
+              <div class="chart-label">${trEntity(cat)}</div>
             </div>`;
           }).join("")
-        : `<div class="hint">لا توجد مصروفات في هذه الفترة</div>`;
+        : `<div class="hint">${t("noTxMsg")}</div>`;
 
       document.getElementById("expenseCategoryCards").innerHTML = entriesCat.map(([cat, amt]) => {
         const pct = grandExp > 0 ? ((amt / grandExp) * 100).toFixed(1) : 0;
         return `<div class="cat-card" onclick="document.getElementById('expFilterCat').value='${cat}'; renderAll();">
-          <h4><span>${cat}</span><span style="font-size:12px;color:var(--muted);">${pct}%</span></h4>
+          <h4><span>${trEntity(cat)}</span><span style="font-size:12px;color:var(--muted);">${pct}%</span></h4>
           <div class="amt">${money(amt)}</div>
           <div class="cat-progress"><span style="width:${pct}%"></span></div>
         </div>`;
@@ -1669,13 +1826,13 @@
         <tr>
           <td><span class="tx-id-badge">${shortTxId(item.id)}</span></td>
           <td>${item.date}</td>
-          <td><span class="type-tag tag-expense">${item.category || "أخرى"}</span></td>
+          <td><span class="type-tag tag-expense">${trEntity(item.category || "أخرى")}</span></td>
           <td>${item.destination || ""} ${item.description ? '— ' + item.description : ''}</td>
-          <td>${item.account}</td>
-          <td>${item.safeBalanceBefore !== undefined ? `<span class="safe-impact-pill">كان ${money(item.safeBalanceBefore)} ➔ أصبح ${money(item.safeBalanceAfter)}</span>` : "—"}</td>
+          <td>${trEntity(item.account)}</td>
+          <td>${item.safeBalanceBefore !== undefined ? `<span class="safe-impact-pill">${t("safeBeforeLabel")} ${money(item.safeBalanceBefore)} ➔ ${t("safeAfterLabel")} ${money(item.safeBalanceAfter)}</span>` : "—"}</td>
           <td><strong class="red">${money(item.amount)}</strong></td>
         </tr>
-      `).join("") || `<tr><td colspan="7" style="text-align:center;color:var(--muted);">لا توجد مصروفات مطابقة</td></tr>`;
+      `).join("") || `<tr><td colspan="7" style="text-align:center;color:var(--muted);">${t("noTxMsg")}</td></tr>`;
     }
 
     function renderMainTransactionsTable(activeItems) {
@@ -1706,16 +1863,16 @@
         const tagClass = item.type === "income" ? "tag-income" : item.type === "expense" ? "tag-expense" : "tag-transfer";
 
         let details = item.description || "—";
-        if (item.type === "income") details = [item.account, item.description].filter(Boolean).join(" - ");
-        else if (item.type === "expense") details = [item.category, item.destination, item.account, item.description].filter(Boolean).join(" - ");
-        else if (item.type === "transfer") details = `${item.transferFrom} ➔ ${item.transferTo}`;
+        if (item.type === "income") details = [trEntity(item.account), item.description].filter(Boolean).join(" - ");
+        else if (item.type === "expense") details = [trEntity(item.category), item.destination, trEntity(item.account), item.description].filter(Boolean).join(" - ");
+        else if (item.type === "transfer") details = `${trEntity(item.transferFrom)} ➔ ${trEntity(item.transferTo)}`;
 
         let badgesHtml = "";
         if (pending) badgesHtml += ` <span class="pending-tag">${t("pendingTag")}</span>`;
         else if (confirmed) badgesHtml += ` <span class="confirmed-tag">${t("confirmedTag")}</span>`;
         if (item.wasEdited || item.status === "edited") badgesHtml += ` <span class="edited-tag">${t("editedTag")}</span>`;
         if (item.type === "expense" && !pending && item.safeBalanceBefore !== undefined) {
-          badgesHtml += `<br><span class="safe-impact-pill">🏦 ${item.account}: ${t("safeBeforeLabel")} <u>${money(item.safeBalanceBefore)}</u> ➔ ${t("safeAfterLabel")} <u>${money(item.safeBalanceAfter)}</u></span>`;
+          badgesHtml += `<br><span class="safe-impact-pill">🏦 ${trEntity(item.account)}: ${t("safeBeforeLabel")} <u>${money(item.safeBalanceBefore)}</u> ➔ ${t("safeAfterLabel")} <u>${money(item.safeBalanceAfter)}</u></span>`;
         }
 
         const amtHtml = (item.previousAmount !== undefined && item.previousAmount !== Number(item.amount))
@@ -1725,7 +1882,7 @@
         row.innerHTML = `
           <td><div class="tx-id-wrap" tabindex="0" onclick="this.classList.toggle('show-full')"><span class="tx-id-badge">${shortTxId(item.id)}</span><span class="tx-id-tooltip">${item.id}</span></div></td>
           <td>${item.date}</td>
-          <td>${item.branch || "—"}</td>
+          <td>${trEntity(item.branch) || "—"}</td>
           <td>${item.shift || "—"}</td>
           <td>👤 ${creator}${item.wasEdited && item.editedBy ? `<span class="editor-info-note">✏️ ${t("editedByPrefix")} ${item.editedBy}</span>` : ""}</td>
           <td><span class="type-tag ${tagClass}">${typeLabel}</span></td>
@@ -1756,7 +1913,7 @@
         };
         const dBtn = document.createElement("button");
         dBtn.type = "button"; dBtn.className = "delete"; dBtn.textContent = t("deleteBtn");
-        dBtn.onclick = () => { if (confirm("متأكد من حذف الحركة؟")) updateTransactionStatus(item, "deleted"); };
+        dBtn.onclick = () => { if (confirm(currentLang === "ar" ? "متأكد من حذف الحركة؟" : "Delete this transaction?")) updateTransactionStatus(item, "deleted"); };
         actCell.append(eBtn, dBtn);
         tbody.appendChild(row);
       });
@@ -1768,7 +1925,9 @@
     function renderActivityLogs() {
       const userSel = document.getElementById("actFilterUser");
       const allUsersInLogs = [...new Set(entries.map(e => e.addedBy).filter(Boolean))];
-      fillSelect(userSel, allUsersInLogs, true);
+      const prevU = userSel.value;
+      userSel.innerHTML = `<option value="">${t("allOption")}</option>` + allUsersInLogs.map(u => `<option value="${u}">${u}</option>`).join("");
+      userSel.value = prevU;
 
       const fUser = userSel.value;
       const fKind = document.getElementById("actFilterKind").value;
@@ -1781,19 +1940,27 @@
         const d = e.date ? e.date.toString().split(" ")[0] : "";
         let kind = "create";
         let cls = "";
-        let actionDesc = `إضافة حركة ${e.type === 'income' ? 'إيراد' : e.type === 'expense' ? 'مصروف' : 'تحويل'} بقيمة ${money(e.amount)}`;
+        let actionDesc = currentLang === "ar"
+          ? `إضافة حركة ${e.type === 'income' ? 'إيراد' : e.type === 'expense' ? 'مصروف' : 'تحويل'} بقيمة ${money(e.amount)}`
+          : `Added ${e.type} transaction of ${money(e.amount)}`;
 
         if (groupedById[e.id]) {
           const prev = groupedById[e.id];
           if (e.status === "deleted") {
             kind = "delete"; cls = "log-delete";
-            actionDesc = `حذف الحركة (${shortTxId(e.id)}) بقيمة ${money(e.amount)}`;
+            actionDesc = currentLang === "ar"
+              ? `حذف الحركة (${shortTxId(e.id)}) بقيمة ${money(e.amount)}`
+              : `Deleted transaction (${shortTxId(e.id)}) of ${money(e.amount)}`;
           } else if (isConfirmedStatus(e.status) && isPendingStatus(prev.status)) {
             kind = "confirm"; cls = "log-confirm";
-            actionDesc = `تأكيد استلام تقفيل الشيفت (${e.branch || e.account}) بقيمة ${money(e.amount)}`;
+            actionDesc = currentLang === "ar"
+              ? `تأكيد استلام تقفيل الشيفت (${trEntity(e.branch || e.account)}) بقيمة ${money(e.amount)}`
+              : `Confirmed shift closing (${trEntity(e.branch || e.account)}) of ${money(e.amount)}`;
           } else {
             kind = "edit"; cls = "log-edit";
-            actionDesc = `تعديل الحركة (${shortTxId(e.id)}) — المبلغ كان ${money(prev.amount)} وأصبح ${money(e.amount)}`;
+            actionDesc = currentLang === "ar"
+              ? `تعديل الحركة (${shortTxId(e.id)}) — المبلغ كان ${money(prev.amount)} وأصبح ${money(e.amount)}`
+              : `Edited transaction (${shortTxId(e.id)}) — Amount was ${money(prev.amount)}, now ${money(e.amount)}`;
           }
         }
         groupedById[e.id] = e;
@@ -1802,20 +1969,25 @@
 
       balancesHistory.forEach(b => {
         const d = b.date ? b.date.toString().split(" ")[0] : "";
-        logs.push({ user: b.addedBy, date: b.timestamp || b.date, pureDate: d, kind: "opening", cls: "log-edit", desc: `تحديث الرصيد الافتتاحي لـ (${b.account}) إلى ${money(b.amount)}`, id: "BAL" });
+        const desc = currentLang === "ar"
+          ? `تحديث الرصيد الافتتاحي لـ (${trEntity(b.account)}) إلى ${money(b.amount)}`
+          : `Updated opening balance for (${trEntity(b.account)}) to ${money(b.amount)}`;
+        logs.push({ user: b.addedBy, date: b.timestamp || b.date, pureDate: d, kind: "opening", cls: "log-edit", desc, id: "BAL" });
       });
 
       const filteredLogs = logs.filter(l => (!fUser || l.user === fUser) && (!fKind || l.kind === fKind) && (!fFrom || l.pureDate >= fFrom) && (!fTo || l.pureDate <= fTo));
-      document.getElementById("activityCountLabel").textContent = `${filteredLogs.length} نشاط`;
+      const logWord = currentLang === "ar" ? "نشاط" : "logs";
+      const refWord = currentLang === "ar" ? "رقم المرجع:" : "Ref ID:";
+      document.getElementById("activityCountLabel").textContent = `${filteredLogs.length} ${logWord}`;
       document.getElementById("activityTimeline").innerHTML = filteredLogs.map(l => `
         <div class="log-item ${l.cls}">
           <div>
             <strong>👤 ${l.user}</strong> — <span>${l.desc}</span>
-            <div class="log-meta">رقم المرجع: ${l.id}</div>
+            <div class="log-meta">${refWord} ${l.id}</div>
           </div>
           <div class="log-meta">🕒 ${l.date}</div>
         </div>
-      `).join("") || `<div class="hint" style="text-align:center;padding:20px;">لا توجد أنشطة مطابقة</div>`;
+      `).join("") || `<div class="hint" style="text-align:center;padding:20px;">${t("noTxMsg")}</div>`;
     }
 
     function renderTrashTable(deletedItems) {
@@ -1823,14 +1995,14 @@
         <tr>
           <td><span class="tx-id-badge">${shortTxId(item.id)}</span></td>
           <td>${item.date}</td>
-          <td>${item.branch || "—"}</td>
+          <td>${trEntity(item.branch) || "—"}</td>
           <td>👤 ${item.addedBy}</td>
-          <td>${item.type}</td>
-          <td>${item.description || item.account || "—"}</td>
+          <td>${item.type === "income" ? t("typeIncome") : item.type === "expense" ? t("typeExpense") : t("typeTransfer")}</td>
+          <td>${item.description || trEntity(item.account) || "—"}</td>
           <td><strong>${money(item.amount)}</strong></td>
           <td><button class="restore" onclick="restoreDeletedItem('${item.id}')">${t("restoreBtn")}</button></td>
         </tr>
-      `).join("") || `<tr><td colspan="8" style="text-align:center;color:var(--muted);">سلة المحذوفات فارغة</td></tr>`;
+      `).join("") || `<tr><td colspan="8" style="text-align:center;color:var(--muted);">${t("noTxMsg")}</td></tr>`;
     }
 
     window.restoreDeletedItem = function(id) {
@@ -1843,7 +2015,7 @@
       const updatedItem = { ...cleanItem, status: newStatus, addedBy: currentUser.username };
       entries.unshift(updatedItem);
       renderAll();
-      showNotice("✅ تم التحديث والمزامنة مع الشيت!", "ok");
+      showNotice(currentLang === "ar" ? "✅ تم التحديث والمزامنة مع الشيت!" : "✅ Updated and synced!", "ok");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: updatedItem }) });
     }
 
@@ -1870,7 +2042,7 @@
         status: editingId ? "edited" : "active"
       };
       entries.unshift(entry); editingId = null; updateSubmitLabel(); renderAll();
-      showNotice("✅ تم الحفظ في الشيت!", "ok");
+      showNotice(currentLang === "ar" ? "✅ تم الحفظ في الشيت!" : "✅ Saved to sheet!", "ok");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: entry }) });
       form.reset(); document.getElementById("date").value = todayString(); updateFields();
     });
@@ -1886,118 +2058,4 @@
     });
 
     document.getElementById("clearFilters").addEventListener("click", () => { ["filterBranch", "filterShift", "filterType", "filterApproval", "filterFrom", "filterTo"].forEach(id => document.getElementById(id).value = ""); renderAll(); });
-    document.getElementById("brClearFilter").addEventListener("click", () => { ["brFilterBranch", "brFilterShift", "brFilterFrom", "brFilterTo"].forEach(id => document.getElementById(id).value = ""); renderAll(); });
-    document.getElementById("expClearFilter").addEventListener("click", () => { ["expFilterCat", "expFilterAcc", "expFilterFrom", "expFilterTo"].forEach(id => document.getElementById(id).value = ""); renderAll(); });
-    document.getElementById("actClearFilter").addEventListener("click", () => { ["actFilterUser", "actFilterKind", "actFilterFrom", "actFilterTo"].forEach(id => document.getElementById(id).value = ""); renderAll(); });
-
-    document.getElementById("editOpeningBtn").addEventListener("click", () => {
-      const container = document.getElementById("openingInputs");
-      const latestOpenings = {};
-      balancesHistory.filter(b => b.status !== "deleted").forEach(b => latestOpenings[b.account] = b.amount);
-      container.innerHTML = transferAccounts.map(acc => `<label><span>${acc}</span><input type="number" step="0.01" data-account="${acc}" value="${latestOpenings[acc] ?? ''}"></label>`).join("") +
-        `<label><span>${t("dateCol")}</span><input type="date" id="openingDateInput" value="${todayString()}"></label>`;
-      document.getElementById("openingEditor").hidden = false;
-    });
-    document.getElementById("cancelOpening").addEventListener("click", () => document.getElementById("openingEditor").hidden = true);
-    document.getElementById("saveOpening").addEventListener("click", () => {
-      const dt = document.getElementById("openingDateInput").value;
-      if (!dt) return;
-      document.querySelectorAll("#openingInputs input[data-account]").forEach(inp => {
-        const amt = inp.value.trim() === "" ? 0 : Number(inp.value);
-        const payload = { action: "syncBalance", item: { id: "bal_" + Date.now() + "_" + Math.random(), date: dt, account: inp.dataset.account, amount: amt, addedBy: currentUser.username, status: "active" } };
-        balancesHistory.push({ ...payload.item, timestamp: `${todayString()} ${nowTimeString()}` });
-        fetch(SHEET_URL, { method: "POST", body: JSON.stringify(payload) });
-      });
-      document.getElementById("openingEditor").hidden = true; renderAll();
-    });
-
-    document.getElementById("addUserForm").addEventListener("submit", e => {
-      e.preventDefault();
-      const username = document.getElementById("newUserEmail").value.trim(), pass = document.getElementById("newUserPass").value.trim(), role = document.getElementById("newUserRole").value;
-      const allowed = [...document.querySelectorAll("#branchCheckboxes input:checked")].map(cb => cb.value);
-      users.push({ username, pass, role, branches: role === "admin" ? ["الكل"] : allowed, reports: role === "admin" });
-      renderAll(); populateLoginUsersDropdown(); e.target.reset();
-      fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users }) });
-      alert("✅ تم إضافة المستخدم!");
-    });
-
-    function renderUsers() {
-      document.getElementById("usersList").innerHTML = users.map((u, i) => `
-        <tr>
-          <td><strong>${u.username}</strong></td>
-          <td>${u.role === "admin" ? t("roleAdmin") : t("roleCashier")}</td>
-          <td>${u.role === "admin" ? t("allOption") : (u.branches || []).join("، ")}</td>
-          <td>
-            ${u.username !== "باسم الدخاخني المالك" ? `<button class="edit" onclick="openEditUserRole(${i})">${t("editRoleBtnText")}</button>` : ""}
-            <button class="edit" onclick="changeUserPass(${i})">🔑 تغيير الباسورد</button>
-            ${u.username !== "باسم الدخاخني المالك" ? `<button class="delete" onclick="deleteUser(${i})">${t("deleteBtn")}</button>` : ""}
-          </td>
-        </tr>
-      `).join("");
-    }
-
-    window.openEditUserRole = function(i) {
-      editingUserIndex = i;
-      const u = users[i];
-      document.getElementById("editRoleUsername").value = u.username;
-      document.getElementById("editRoleSelect").value = u.role || "cashier";
-      document.getElementById("editRoleBranchesBox").innerHTML = branches.map(b => `<label><input type="checkbox" value="${b}" ${(u.branches || []).includes(b) ? "checked" : ""}> ${b}</label>`).join("");
-      document.getElementById("editRoleBranchesWrap").style.display = u.role === "admin" ? "none" : "";
-      document.getElementById("editUserModal").hidden = false;
-    };
-    document.getElementById("editRoleSelect").addEventListener("change", e => { document.getElementById("editRoleBranchesWrap").style.display = e.target.value === "admin" ? "none" : ""; });
-    document.getElementById("closeEditUserModalBtn").addEventListener("click", () => { document.getElementById("editUserModal").hidden = true; });
-    document.getElementById("editUserRoleForm").addEventListener("submit", e => {
-      e.preventDefault();
-      const newRole = document.getElementById("editRoleSelect").value;
-      const selBranches = [...document.querySelectorAll("#editRoleBranchesBox input:checked")].map(cb => cb.value);
-      users[editingUserIndex].role = newRole;
-      users[editingUserIndex].branches = newRole === "admin" ? ["الكل"] : selBranches;
-      users[editingUserIndex].reports = newRole === "admin";
-      document.getElementById("editUserModal").hidden = true;
-      renderAll(); populateLoginUsersDropdown();
-      fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users }) });
-      alert("✅ تم حفظ الصلاحيات!");
-    });
-
-    window.changeUserPass = function(i) {
-      const np = prompt(`كلمة المرور الجديدة لـ (${users[i].username}):`, users[i].pass);
-      if (np && np.trim()) {
-        users[i].pass = np.trim(); renderAll();
-        fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users }) });
-      }
-    };
-    window.deleteUser = function(i) {
-      if (confirm("حذف المستخدم؟")) { users.splice(i, 1); renderAll(); populateLoginUsersDropdown(); fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users }) }); }
-    };
-
-    document.getElementById("printBtn").addEventListener("click", () => window.print());
-    document.getElementById("exportCsvBtn").addEventListener("click", () => {
-      let csv = "data:text/csv;charset=utf-8,\uFEFFرقم الحركة,التاريخ,الفرع,الشيفت,النوع,بواسطة,المبلغ,الحساب,التصنيف,الوجهة,التفاصيل,الحالة\r\n";
-      Object.values(getLatestEntriesMap()).filter(e => e.status !== "deleted").forEach(e => {
-        csv += `"${e.id}","${e.date}","${e.branch}","${e.shift}","${e.type}","${e.addedBy}","${e.amount}","${e.account||''}","${e.category||''}","${e.destination||''}","${e.description}","${e.status}"\r\n`;
-      });
-      const a = document.createElement("a"); a.href = encodeURI(csv); a.download = `تقرير_الدخاخني_${todayString()}.csv`; a.click();
-    });
-
-    function renderStyleChips() {
-      const box = document.getElementById("themeChips");
-      box.innerHTML = themes.map(th => `<button type="button" class="chip ${root.dataset.theme === th.id ? 'active' : ''}" onclick="setAppTheme('${th.id}')"><span class="swatch" style="background:${th.sw}"></span> ${th.emoji} ${th[currentLang]}</button>`).join("");
-    }
-    window.setAppTheme = function(id) {
-      root.dataset.theme = id;
-      localStorage.setItem("dakhakhni-theme", id);
-      renderStyleChips();
-    };
-    document.getElementById("pageColor").addEventListener("input", e => { root.style.setProperty("--page-color", e.target.value); localStorage.setItem("dakhakhni-page-color", e.target.value); });
-    document.getElementById("resetColor").addEventListener("click", () => { root.style.removeProperty("--page-color"); localStorage.removeItem("dakhakhni-page-color"); });
-
-    const savedTheme = localStorage.getItem("dakhakhni-theme") || "classic";
-    root.dataset.theme = savedTheme;
-    const savedColor = localStorage.getItem("dakhakhni-page-color");
-    if (savedColor) root.style.setProperty("--page-color", savedColor);
-    document.getElementById("date").value = todayString();
-    renderStyleChips();
-  </script>
-</body>
-</html>
+    document.getElementById("brClearFilter").addEventListener("click", () => { ["brFilterBranch", "brFilterShift", "brFilterFrom", "brFilterTo"].forEach(id => document.getElementById(id).value
