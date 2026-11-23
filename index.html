@@ -72,6 +72,21 @@
     }
     @keyframes fillBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
+    .sync-btn {
+      background: var(--blue-soft); color: var(--blue); border: 1px solid color-mix(in srgb, var(--blue) 30%, transparent);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .sync-btn.is-syncing .sync-icon {
+      display: inline-block; animation: spin 0.8s linear infinite;
+    }
+    .sync-toast {
+      position: fixed; bottom: 22px; left: 22px; z-index: 4000;
+      background: var(--sidebar-bg); color: #ffffff; padding: 12px 18px;
+      border-radius: 12px; font-size: 13px; font-weight: 700;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3); border: 1px solid var(--blue);
+      display: none; animation: popIn 0.25s ease both;
+    }
+
     /* ===== شاشات الترحيب والتحميل والدخول المبهرة ===== */
     .overlay-screen {
       position: fixed; inset: 0; z-index: 2000;
@@ -81,7 +96,6 @@
     }
     .overlay-screen[hidden] { display: none !important; }
 
-    /* كرات إضاءة متحركة في خلفية الدخول */
     .orb {
       position: absolute; border-radius: 50%; filter: blur(65px); opacity: 0.45; pointer-events: none;
       animation: floatOrb 8s ease-in-out infinite;
@@ -122,9 +136,7 @@
     .glass-field label {
       display: block; font-size: 12px; font-weight: 700; color: #dce6ff; margin-bottom: 6px;
     }
-    .glass-input-wrap {
-      position: relative; display: flex; align-items: center;
-    }
+    .glass-input-wrap { position: relative; display: flex; align-items: center; }
     .glass-input-wrap select, .glass-input-wrap input {
       width: 100%; padding: 13px 14px; border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.25);
@@ -214,7 +226,6 @@
     .top-header-bar h1 { margin: 0; font-size: 19px; color: var(--text); }
     .top-tools { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
-    /* البطاقات واللوحات */
     .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 20px; }
     .summary-card, .panel {
       background: var(--white); border: 1px solid var(--line);
@@ -258,7 +269,6 @@
     th { color: var(--muted); font-weight: 700; background: var(--soft); }
     tbody tr:hover { background: var(--hover); }
 
-    /* رقم الحركة والتعديلات وأثر الخزنة */
     .tx-id-wrap { position: relative; display: inline-block; }
     .tx-id-badge {
       display: inline-block; font-family: monospace; font-size: 11px; font-weight: 700;
@@ -297,7 +307,6 @@
     .delete { padding: 6px 10px; background: var(--red-soft); color: var(--red); }
     .restore { padding: 6px 10px; background: var(--green-soft); color: var(--green); }
 
-    /* بطاقات الأرصدة والفروع وتصنيفات المصروفات */
     .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
     .bal-card { display: flex; flex-direction: column; gap: 7px; padding: 15px; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; }
     .bal-name { display: flex; align-items: center; gap: 7px; color: var(--label); font-size: 12px; font-weight: 700; }
@@ -311,7 +320,6 @@
     .branch-stat-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
     .branch-stat-net { border-top: 1px dashed var(--line); padding-top: 8px; display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; }
 
-    /* الرسومات البيانية التفاعلية */
     .chart-box {
       background: var(--soft); border: 1px solid var(--line); border-radius: 16px;
       padding: 18px; margin-bottom: 18px;
@@ -324,9 +332,7 @@
     .chart-col-group {
       display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 85px; flex: 1;
     }
-    .chart-pair {
-      display: flex; align-items: flex-end; gap: 5px; height: 150px;
-    }
+    .chart-pair { display: flex; align-items: flex-end; gap: 5px; height: 150px; }
     .c-bar {
       width: 20px; border-radius: 6px 6px 0 0; transition: height 0.5s ease; position: relative; min-height: 4px;
     }
@@ -349,7 +355,6 @@
     .cat-progress { height: 7px; background: var(--btn-soft); border-radius: 6px; overflow: hidden; margin-top: 8px; }
     .cat-progress span { display: block; height: 100%; background: var(--red); border-radius: 6px; }
 
-    /* سجل النشاط (Activity Logs) */
     .log-timeline { display: flex; flex-direction: column; gap: 10px; }
     .log-item {
       display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 10px;
@@ -361,7 +366,6 @@
     .log-item.log-delete { border-inline-start-color: var(--red); }
     .log-meta { font-size: 11px; color: var(--muted); }
 
-    /* نافذة تعديل أدوار المستخدمين */
     .modal-overlay {
       position: fixed; inset: 0; z-index: 3000; background: rgba(10, 18, 40, 0.72);
       backdrop-filter: blur(6px); display: grid; place-items: center; padding: 20px;
@@ -382,7 +386,6 @@
     .notice.ok { display: block; color: var(--ok-text); background: var(--green-soft); }
     .notice.error { display: block; color: var(--err-text); background: var(--red-soft); }
 
-    /* واجهة الكاشير */
     .cashier-box { max-width: 620px; margin: 20px auto; }
     .cashier-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 20px; background: var(--blue-soft); color: var(--blue); font-size: 13px; font-weight: 700; margin-bottom: 18px; }
     .cashier-fields { display: flex; flex-direction: column; gap: 15px; }
@@ -413,6 +416,8 @@
 
 <body>
 
+  <div class="sync-toast" id="syncToast"></div>
+
   <!-- 1. شاشة الترحيب -->
   <div class="overlay-screen" id="splashScreen">
     <div class="orb orb-1"></div>
@@ -437,7 +442,7 @@
     </div>
   </div>
 
-  <!-- 3. شاشة تسجيل الدخول المبهرة -->
+  <!-- 3. شاشة تسجيل الدخول -->
   <div class="overlay-screen" id="loginScreen" hidden>
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
@@ -531,7 +536,7 @@
           </div>
         </div>
 
-        <div class="nav-group-label" data-i18n="navMainGrp">القائمة الرئيسية</div>
+        <div class="nav-group-label">القائمة الرئيسية</div>
         <nav class="side-nav">
           <button type="button" class="nav-btn active" data-view="viewDashboard"><span>🏦 الخزن وإضافة حركة</span></button>
           <button type="button" class="nav-btn" data-view="viewBranches"><span>🏬 ملخص وتقرير الفروع</span></button>
@@ -540,7 +545,7 @@
           <button type="button" class="nav-btn" data-view="viewActivity"><span>🕵️ سجل النشاط (Activity Logs)</span></button>
         </nav>
 
-        <div class="nav-group-label" data-i18n="navAdminGrp">الإدارة والإعدادات</div>
+        <div class="nav-group-label">الإدارة والإعدادات</div>
         <nav class="side-nav">
           <button type="button" class="nav-btn" data-view="viewUsers"><span>👥 المستخدمين والأدوار</span></button>
           <button type="button" class="nav-btn" data-view="viewTrash"><span>🗑️ سلة المحذوفات</span><span class="nav-badge" id="navTrashBadge">0</span></button>
@@ -555,13 +560,17 @@
 
     <!-- مساحة المحتوى -->
     <div class="main-area">
-      <!-- الشريط العلوي -->
+      <!-- الشريط العلوي مع زر مزامنة البيانات الفوري -->
       <div class="top-header-bar">
         <div>
           <h1 id="activeSectionTitle">🏦 الخزن وإضافة حركة</h1>
           <span class="hint" id="headerDateLabel"></span>
         </div>
         <div class="top-tools">
+          <button type="button" class="sync-btn" id="syncDataBtn">
+            <span class="sync-icon">🔄</span>
+            <span data-i18n="syncDataBtn">مزامنة البيانات</span>
+          </button>
           <button type="button" class="secondary admin-only" id="exportCsvBtn" data-i18n="exportCSV" data-emoji="📥">تصدير CSV</button>
           <button type="button" class="secondary admin-only" id="printBtn" data-i18n="printBtn" data-emoji="🖨️">طباعة</button>
           <button type="button" class="danger-soft cashier-only" id="cashierTopLogoutBtn" style="display:none;" data-i18n="logout" data-emoji="🚪">تسجيل خروج</button>
@@ -615,7 +624,7 @@
       <!-- أقسام الأدمن -->
       <div id="adminWorkspace" class="admin-only">
 
-        <!-- 1. لوحة التحكم الرئيسية (الخزن + ملخص الخزنة الرئيسية + إضافة حركة) -->
+        <!-- 1. لوحة التحكم الرئيسية -->
         <div id="viewDashboard" class="view-section">
           <section class="panel">
             <div class="panel-heading">
@@ -665,7 +674,7 @@
           </section>
         </div>
 
-        <!-- 2. تقرير الفروع المستقل (يظهر فقط عند الضغط عليه من القائمة الجانبية) -->
+        <!-- 2. تقرير الفروع المستقل -->
         <div id="viewBranches" class="view-section" hidden>
           <section class="panel no-print">
             <div class="panel-heading"><h2>🔎 تصفية تقرير الفروع</h2></div>
@@ -703,7 +712,7 @@
           </section>
         </div>
 
-        <!-- 3. تقرير المصروفات المستقل (مقسم حسب كل تصنيف + رسم بياني + فلاتر) -->
+        <!-- 3. تقرير المصروفات المستقل -->
         <div id="viewExpenses" class="view-section" hidden>
           <section class="panel no-print">
             <div class="panel-heading"><h2>🔎 تصفية تقرير المصروفات</h2></div>
@@ -915,6 +924,7 @@
         enterSystem: "🚀 دخول النظام",
         syncingTitle: "جارِ مزامنة النظام...",
         syncingDesc: "يتم جلب البيانات من السحابة",
+        syncDataBtn: "مزامنة البيانات",
         storeTitle: "الدخاخني ستور",
         loginSubGlow: "بوابة الإدارة المالية الذكية • سجل الدخول للمتابعة",
         username: "اسم المستخدم",
@@ -1014,6 +1024,7 @@
         enterSystem: "🚀 Enter System",
         syncingTitle: "Syncing System...",
         syncingDesc: "Fetching data from cloud",
+        syncDataBtn: "Sync Data",
         storeTitle: "Al-Dakhakhni Store",
         loginSubGlow: "Smart Financial Portal • Sign in to continue",
         username: "Username",
@@ -1126,6 +1137,42 @@
 
     const t = key => (i18nDict[currentLang] && i18nDict[currentLang][key]) || key;
 
+    function showSyncToast(msg) {
+      const toast = document.getElementById("syncToast");
+      toast.textContent = msg;
+      toast.style.display = "block";
+      setTimeout(() => { toast.style.display = "none"; }, 2800);
+    }
+
+    async function fetchLatestFromSheet(isManual = false) {
+      const syncBtn = document.getElementById("syncDataBtn");
+      if (syncBtn) syncBtn.classList.add("is-syncing");
+      try {
+        const res = await fetch(SHEET_URL + "?t=" + Date.now());
+        const data = await res.json();
+        if (data.users && data.users.length) users = data.users;
+        if (data.transactions) entries = data.transactions.slice().reverse();
+        if (data.balances) balancesHistory = data.balances;
+
+        populateLoginUsersDropdown();
+        if (currentUser?.role === "admin") {
+          document.getElementById("headerDateLabel").textContent = `📅 ${todayString()} | ${nowTimeString()}`;
+          renderAll();
+        }
+        if (isManual) {
+          showSyncToast(currentLang === "ar" ? "✅ تم سحب أحدث البيانات من الشيت بنجاح!" : "✅ Data synced from Google Sheet!");
+        }
+      } catch (err) {
+        if (isManual) {
+          showSyncToast(currentLang === "ar" ? "⚠️ تعذر الاتصال بالسحابة، حاول مرة أخرى" : "⚠️ Sync failed, try again");
+        }
+      } finally {
+        if (syncBtn) syncBtn.classList.remove("is-syncing");
+      }
+    }
+
+    document.getElementById("syncDataBtn").addEventListener("click", () => fetchLatestFromSheet(true));
+
     function shortTxId(fullId) {
       const s = String(fullId || "").trim();
       if (!s) return "—";
@@ -1145,7 +1192,6 @@
       return Number(value || 0).toLocaleString(currentLang === "ar" ? "ar-EG" : "en-EG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " " + curr;
     }
 
-    /* ===== التنقل بين الأقسام من الشريط الجانبي ===== */
     document.querySelectorAll(".nav-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
@@ -1208,14 +1254,8 @@
 
     window.addEventListener("DOMContentLoaded", async () => {
       applyLanguage(currentLang);
-      try {
-        const res = await fetch(SHEET_URL);
-        const data = await res.json();
-        users = (data.users && data.users.length) ? data.users : [{ username: "باسم الدخاخني المالك", pass: "123", role: "admin", branches: ["الكل"], reports: true }];
-        populateLoginUsersDropdown();
-        if (data.transactions) entries = data.transactions.reverse();
-        if (data.balances) balancesHistory = data.balances;
-      } catch (e) {
+      await fetchLatestFromSheet(false);
+      if (!users.length) {
         users = [{ username: "باسم الدخاخني المالك", pass: "123", role: "admin", branches: ["الكل"], reports: true }];
         populateLoginUsersDropdown();
       }
@@ -1287,7 +1327,6 @@
     document.getElementById("shiftLogoutBtn").addEventListener("click", logout);
     document.getElementById("cashierTopLogoutBtn").addEventListener("click", logout);
 
-    /* ===== واجهة الكاشير ===== */
     function startCashierApp() {
       document.getElementById("appShell").classList.add("active");
       document.querySelectorAll(".admin-only").forEach(el => el.style.display = "none");
@@ -1365,7 +1404,6 @@
       setTimeout(() => { submitBtn.disabled = false; logout(); }, 1800);
     });
 
-    /* ===== واجهة الأدمن ===== */
     function startAdminApp() {
       document.getElementById("appShell").classList.add("active");
       document.getElementById("cashierPanel").hidden = true;
@@ -1482,13 +1520,11 @@
       const deletedItems = allLatest.filter(e => e.status === "deleted");
       const pendingCount = activeItems.filter(e => isPendingStatus(e.status)).length;
 
-      // تحديث شارات القائمة الجانبية
       const pBadge = document.getElementById("navPendingBadge");
       pBadge.style.display = pendingCount > 0 ? "" : "none";
       pBadge.textContent = pendingCount;
       document.getElementById("navTrashBadge").textContent = deletedItems.length;
 
-      // 1. أرصدة الخزن + ملخص الخزنة الرئيسية - الدخاخني
       const balances = computeBalances();
       const latestOpenings = {};
       balancesHistory.filter(b => b.status !== "deleted").forEach(b => latestOpenings[b.account] = b.amount);
@@ -1520,24 +1556,14 @@
       netEl.textContent = money(dakhNet);
       netEl.className = "summary-value " + (dakhNet >= 0 ? "green" : "red");
 
-      // 2. تقرير الفروع المستقل + الرسم البياني
       renderBranchesReport(activeItems.filter(e => !isPendingStatus(e.status)));
-
-      // 3. تقرير المصروفات المقسم بالتصنيف + الرسم البياني
       renderExpensesReport(activeItems.filter(e => !isPendingStatus(e.status)));
-
-      // 4. سجل الحركات الشامل
       renderMainTransactionsTable(activeItems);
-
-      // 5. سجل النشاط (Activity Logs)
       renderActivityLogs();
-
-      // 6. المستخدمين وسلة المحذوفات
       renderUsers();
       renderTrashTable(deletedItems);
     }
 
-    /* ===== تقرير الفروع + الرسم البياني ===== */
     function renderBranchesReport(confirmedList) {
       const fBr = document.getElementById("brFilterBranch").value;
       const fSh = document.getElementById("brFilterShift").value.trim();
@@ -1558,7 +1584,6 @@
         if (e.type === "expense") stats[e.branch].expense += Number(e.amount) || 0;
       });
 
-      // رسم بياني
       const maxVal = Math.max(1, ...Object.values(stats).flatMap(s => [s.income, s.expense]));
       document.getElementById("branchChartContainer").innerHTML = Object.entries(stats).map(([b, s]) => {
         const incH = Math.round((s.income / maxVal) * 140);
@@ -1572,7 +1597,6 @@
         </div>`;
       }).join("");
 
-      // بطاقات الفروع
       document.getElementById("branchStatsGrid").innerHTML = Object.entries(stats).map(([b, s]) => {
         const net = s.income - s.expense;
         return `<div class="branch-stat-card">
@@ -1583,7 +1607,6 @@
         </div>`;
       }).join("");
 
-      // جدول الفروع
       document.getElementById("branchReportTableBody").innerHTML = filtered.map(item => `
         <tr>
           <td><span class="tx-id-badge">${shortTxId(item.id)}</span></td>
@@ -1597,7 +1620,6 @@
       `).join("") || `<tr><td colspan="7" style="text-align:center;color:var(--muted);">لا توجد حركات مطابقة للفلاتر</td></tr>`;
     }
 
-    /* ===== تقرير المصروفات المقسم حسب التصنيف + الرسم البياني ===== */
     function renderExpensesReport(confirmedList) {
       const fCat = document.getElementById("expFilterCat").value;
       const fAcc = document.getElementById("expFilterAcc").value;
@@ -1621,7 +1643,6 @@
 
       document.getElementById("expTotalHeader").textContent = `إجمالي المصروفات: ${money(grandExp)}`;
 
-      // رسم بياني للتصنيفات
       const entriesCat = Object.entries(catTotals).sort((a, b) => b[1] - a[1]);
       const maxCat = Math.max(1, ...entriesCat.map(x => x[1]));
       document.getElementById("expenseChartContainer").innerHTML = entriesCat.length
@@ -1634,7 +1655,6 @@
           }).join("")
         : `<div class="hint">لا توجد مصروفات في هذه الفترة</div>`;
 
-      // بطاقات التصنيفات (الضغط على أي بطاقة يفلتر الجدول تحتها)
       document.getElementById("expenseCategoryCards").innerHTML = entriesCat.map(([cat, amt]) => {
         const pct = grandExp > 0 ? ((amt / grandExp) * 100).toFixed(1) : 0;
         return `<div class="cat-card" onclick="document.getElementById('expFilterCat').value='${cat}'; renderAll();">
@@ -1658,7 +1678,6 @@
       `).join("") || `<tr><td colspan="7" style="text-align:center;color:var(--muted);">لا توجد مصروفات مطابقة</td></tr>`;
     }
 
-    /* ===== سجل الحركات الشامل ===== */
     function renderMainTransactionsTable(activeItems) {
       const b = document.getElementById("filterBranch").value;
       const s = document.getElementById("filterShift").value.trim();
@@ -1746,7 +1765,6 @@
       document.getElementById("emptyMessage").style.display = shown.length ? "none" : "block";
     }
 
-    /* ===== سجل النشاط (Activity Logs) ===== */
     function renderActivityLogs() {
       const userSel = document.getElementById("actFilterUser");
       const allUsersInLogs = [...new Set(entries.map(e => e.addedBy).filter(Boolean))];
@@ -1758,7 +1776,6 @@
       const fTo = document.getElementById("actFilterTo").value;
 
       const logs = [];
-      // تجميع سجل زمني من كل النسخ المحفوظة في الشيت
       const groupedById = {};
       entries.slice().reverse().forEach(e => {
         const d = e.date ? e.date.toString().split(" ")[0] : "";
@@ -1802,7 +1819,7 @@
     }
 
     function renderTrashTable(deletedItems) {
-      document.getElementById("trashTableBody").innerHTML = deletedItems.map((item, i) => `
+      document.getElementById("trashTableBody").innerHTML = deletedItems.map(item => `
         <tr>
           <td><span class="tx-id-badge">${shortTxId(item.id)}</span></td>
           <td>${item.date}</td>
@@ -1861,7 +1878,6 @@
     document.getElementById("cancelEdit").addEventListener("click", () => { editingId = null; updateSubmitLabel(); form.reset(); updateFields(); });
     typeInput.addEventListener("change", updateFields);
 
-    // مستمعات الفلاتر لكل تقرير
     ["filterBranch", "filterShift", "filterType", "filterApproval", "filterFrom", "filterTo",
      "brFilterBranch", "brFilterShift", "brFilterFrom", "brFilterTo",
      "expFilterCat", "expFilterAcc", "expFilterFrom", "expFilterTo",
@@ -1874,7 +1890,6 @@
     document.getElementById("expClearFilter").addEventListener("click", () => { ["expFilterCat", "expFilterAcc", "expFilterFrom", "expFilterTo"].forEach(id => document.getElementById(id).value = ""); renderAll(); });
     document.getElementById("actClearFilter").addEventListener("click", () => { ["actFilterUser", "actFilterKind", "actFilterFrom", "actFilterTo"].forEach(id => document.getElementById(id).value = ""); renderAll(); });
 
-    // الرصيد الأول الافتتاحي
     document.getElementById("editOpeningBtn").addEventListener("click", () => {
       const container = document.getElementById("openingInputs");
       const latestOpenings = {};
@@ -1896,7 +1911,6 @@
       document.getElementById("openingEditor").hidden = true; renderAll();
     });
 
-    // المستخدمين والأدوار
     document.getElementById("addUserForm").addEventListener("submit", e => {
       e.preventDefault();
       const username = document.getElementById("newUserEmail").value.trim(), pass = document.getElementById("newUserPass").value.trim(), role = document.getElementById("newUserRole").value;
@@ -1957,7 +1971,6 @@
       if (confirm("حذف المستخدم؟")) { users.splice(i, 1); renderAll(); populateLoginUsersDropdown(); fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncUsers", users }) }); }
     };
 
-    // الطباعة والتصدير والثيم الأساسي "classic"
     document.getElementById("printBtn").addEventListener("click", () => window.print());
     document.getElementById("exportCsvBtn").addEventListener("click", () => {
       let csv = "data:text/csv;charset=utf-8,\uFEFFرقم الحركة,التاريخ,الفرع,الشيفت,النوع,بواسطة,المبلغ,الحساب,التصنيف,الوجهة,التفاصيل,الحالة\r\n";
@@ -1979,7 +1992,6 @@
     document.getElementById("pageColor").addEventListener("input", e => { root.style.setProperty("--page-color", e.target.value); localStorage.setItem("dakhakhni-page-color", e.target.value); });
     document.getElementById("resetColor").addEventListener("click", () => { root.style.removeProperty("--page-color"); localStorage.removeItem("dakhakhni-page-color"); });
 
-    // ضبط الثيم الافتراضي الأساسي ليكون "classic"
     const savedTheme = localStorage.getItem("dakhakhni-theme") || "classic";
     root.dataset.theme = savedTheme;
     const savedColor = localStorage.getItem("dakhakhni-page-color");
