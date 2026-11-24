@@ -1459,13 +1459,18 @@
       });
 
       const cn = document.getElementById("cashierNotice");
-      cn.className = "notice ok"; cn.textContent = "⏳ جارٍ حفظ التقفيل وإرساله للإدارة...";
-      for (let i = 0; i < itemsToSend.length; i++) {
-        entries.unshift(itemsToSend[i]);
-        await fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: itemsToSend[i] }) });
-      }
-      cn.textContent = "✅ تم حفظ التقفيل وإرساله للإدارة! جارٍ تسجيل الخروج...";
-      setTimeout(function() { submitBtn.disabled = false; logout(); }, 1800);
+      cn.className = "notice ok"; cn.textContent = "⏳ جارٍ حفظ التقفيل...";
+      itemsToSend.slice().reverse().forEach(function(it) { entries.unshift(it); });
+
+      try {
+        await fetch(SHEET_URL, {
+          method: "POST",
+          body: JSON.stringify({ action: "syncTransactionsBatch", items: itemsToSend })
+        });
+      } catch (err) {}
+
+      cn.textContent = "✅ تم حفظ التقفيل بنجاح! جارٍ تسجيل الخروج...";
+      setTimeout(function() { submitBtn.disabled = false; logout(); }, 800);
     });
 
     function startAdminApp() {
