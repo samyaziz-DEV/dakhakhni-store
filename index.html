@@ -282,7 +282,6 @@
     .secondary { background: var(--btn-soft); color: var(--btn-soft-text); }
     .danger-soft { background: var(--red-soft); color: var(--red); }
 
-    /* جداول موحدة وألوان واضحة لجميع الحالات */
     .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--line); }
     table { width: 100%; min-width: 820px; border-collapse: collapse; }
     th, td { padding: 12px 11px; text-align: start; border-bottom: 1px solid var(--line); font-size: 12px; }
@@ -333,6 +332,7 @@
     .edit { padding: 6px 10px; background: var(--blue-soft); color: var(--blue); margin-inline-end: 5px; }
     .delete { padding: 6px 10px; background: var(--red-soft); color: var(--red); }
     .restore { padding: 6px 10px; background: var(--green-soft); color: var(--green); }
+
     .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
     .bal-card { display: flex; flex-direction: column; gap: 7px; padding: 15px; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; }
     .bal-name { display: flex; align-items: center; gap: 7px; color: var(--label); font-size: 12px; font-weight: 700; }
@@ -346,22 +346,11 @@
     .branch-stat-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
     .branch-stat-net { border-top: 1px dashed var(--line); padding-top: 8px; display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; }
 
-    .chart-box {
-      background: var(--soft); border: 1px solid var(--line); border-radius: 16px;
-      padding: 18px; margin-bottom: 18px;
-    }
-    .chart-bars-container {
-      display: flex; align-items: flex-end; justify-content: space-around; gap: 14px;
-      height: 210px; padding: 20px 10px 8px; border-bottom: 2px solid var(--line);
-      overflow-x: auto;
-    }
-    .chart-col-group {
-      display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 85px; flex: 1;
-    }
+    .chart-box { background: var(--soft); border: 1px solid var(--line); border-radius: 16px; padding: 18px; margin-bottom: 18px; }
+    .chart-bars-container { display: flex; align-items: flex-end; justify-content: space-around; gap: 14px; height: 210px; padding: 20px 10px 8px; border-bottom: 2px solid var(--line); overflow-x: auto; }
+    .chart-col-group { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 85px; flex: 1; }
     .chart-pair { display: flex; align-items: flex-end; gap: 5px; height: 150px; }
-    .c-bar {
-      width: 20px; border-radius: 6px 6px 0 0; transition: height 0.5s ease; position: relative; min-height: 4px;
-    }
+    .c-bar { width: 20px; border-radius: 6px 6px 0 0; transition: height 0.5s ease; position: relative; min-height: 4px; }
     .c-bar.inc { background: linear-gradient(180deg, #16a34a, #10855a); }
     .c-bar.exp { background: linear-gradient(180deg, #f43f5e, #d63f4c); }
     .c-bar:hover::after {
@@ -371,10 +360,7 @@
     .chart-label { font-size: 11px; font-weight: 700; color: var(--text); text-align: center; }
 
     .cat-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 18px; }
-    .cat-card {
-      padding: 15px; background: var(--soft); border: 1px solid var(--line); border-radius: 14px;
-      border-inline-start: 4px solid var(--red); cursor: pointer; transition: 0.2s;
-    }
+    .cat-card { padding: 15px; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; border-inline-start: 4px solid var(--red); cursor: pointer; transition: 0.2s; }
     .cat-card:hover { transform: translateY(-2px); border-color: var(--blue); }
     .cat-card h4 { margin: 0 0 6px; font-size: 14px; display: flex; justify-content: space-between; }
     .cat-card .amt { font-size: 18px; font-weight: 700; color: var(--red); }
@@ -382,20 +368,13 @@
     .cat-progress span { display: block; height: 100%; background: var(--red); border-radius: 6px; }
 
     .log-timeline { display: flex; flex-direction: column; gap: 10px; }
-    .log-item {
-      display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 10px;
-      padding: 13px 16px; background: var(--soft); border: 1px solid var(--line);
-      border-radius: 12px; border-inline-start: 4px solid var(--blue);
-    }
+    .log-item { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 13px 16px; background: var(--soft); border: 1px solid var(--line); border-radius: 12px; border-inline-start: 4px solid var(--blue); }
     .log-item.log-edit { border-inline-start-color: #d97706; }
     .log-item.log-confirm { border-inline-start-color: var(--green); }
     .log-item.log-delete { border-inline-start-color: var(--red); }
     .log-meta { font-size: 11px; color: var(--muted); }
 
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 3000; background: rgba(10, 18, 40, 0.72);
-      backdrop-filter: blur(6px); display: grid; place-items: center; padding: 20px;
-    }
+    .modal-overlay { position: fixed; inset: 0; z-index: 3000; background: rgba(10, 18, 40, 0.72); backdrop-filter: blur(6px); display: grid; place-items: center; padding: 20px; }
     .modal-overlay[hidden] { display: none; }
     .modal-card { width: min(460px, 100%); background: var(--white); border: 1px solid var(--line); border-radius: 20px; padding: 26px; box-shadow: 0 25px 60px rgba(0,0,0,0.45); }
 
@@ -439,7 +418,6 @@
     }
   </style>
 </head>
-
 <body>
 
   <!-- إشعار التحديثات الثابت على جنب الشاشة -->
@@ -592,6 +570,7 @@
         <button type="button" class="danger-soft" id="logoutBtn" style="width:100%;" data-i18n="logout" data-emoji="🚪">تسجيل خروج</button>
       </div>
     </aside>
+
     <!-- مساحة المحتوى -->
     <div class="main-area">
       <!-- الشريط العلوي مع زر مزامنة البيانات الفوري -->
@@ -935,7 +914,7 @@
     // 📢 إعدادات إشعار التنبيهات والتحديثات (عدّل الرسالة هنا في أي وقت)
     // =========================================================================
     const SYSTEM_UPDATE = {
-      active: false, // اجعلها true لإظهار الإشعار، أو false لإخفائه تماماً
+      active: true, // اجعلها true لإظهار الإشعار، أو false لإخفائه تماماً
       version: "v1.1", // غيّر الرقم ده (مثلاً v1.2) كل مرة تكتب رسالة جديدة عشان تظهر للناس تاني
       title: "⚠️ تنبيه هام من الإدارة",
       message: "يوجد تعديل وصيانة في النظام خلال اليوم، ولتجنب أي مشاكل يرجى عدم الاعتماد على البرنامج بشكل كلي لحين الانتهاء."
@@ -1200,6 +1179,19 @@
       return (i18nDict[currentLang] && i18nDict[currentLang][key]) || key;
     }
 
+    function parseCleanAmount(val) {
+      if (typeof val === "number") return isNaN(val) ? 0 : val;
+      const cleaned = String(val || "0")
+        .replace(/[,،\sج\.مEGP]/g, "")
+        .replace(/[٠-٩]/g, function(d) { return "٠١٢٣٤٥٦٧٨٩".indexOf(d); });
+      const num = parseFloat(cleaned);
+      return isNaN(num) ? 0 : num;
+    }
+
+    function cleanAccountName(name) {
+      return String(name || "").trim().replace(/\s+/g, " ");
+    }
+
     function showSyncToast(msg) {
       const toast = document.getElementById("syncToast");
       if (!toast) return;
@@ -1281,7 +1273,7 @@
     }
     function money(value) {
       const curr = currentLang === "ar" ? "ج.م" : "EGP";
-      return Number(value || 0).toLocaleString(currentLang === "ar" ? "ar-EG" : "en-EG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " " + curr;
+      return parseCleanAmount(value).toLocaleString(currentLang === "ar" ? "ar-EG" : "en-EG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " " + curr;
     }
 
     document.querySelectorAll(".nav-btn").forEach(function(btn) {
@@ -1427,14 +1419,14 @@
     document.getElementById("cashierCloseForm").addEventListener("submit", async function(e) {
       e.preventDefault();
       const submitBtn = document.getElementById("cashierSubmitBtn");
-      const cashAmt = Number(document.getElementById("cashierCash").value) || 0;
-      const instaAmt = Number(document.getElementById("cashierInstapay").value) || 0;
-      const visaAmt = Number(document.getElementById("cashierVisa").value) || 0;
+      const cashAmt = parseCleanAmount(document.getElementById("cashierCash").value);
+      const instaAmt = parseCleanAmount(document.getElementById("cashierInstapay").value);
+      const visaAmt = parseCleanAmount(document.getElementById("cashierVisa").value);
       const notes = document.getElementById("cashierNotes").value.trim();
 
       const validExpenses = [];
       document.querySelectorAll("#cashierExpensesList .cashier-expense-row").forEach(function(r) {
-        const amt = Number(r.querySelector(".exp-amt").value) || 0;
+        const amt = parseCleanAmount(r.querySelector(".exp-amt").value);
         if (amt > 0) validExpenses.push({ amt: amt, cat: r.querySelector(".exp-cat").value, dest: r.querySelector(".exp-dest").value.trim() });
       });
 
@@ -1459,7 +1451,7 @@
       });
 
       const cn = document.getElementById("cashierNotice");
-      cn.className = "notice ok"; cn.textContent = "⏳ جارٍ حفظ التقفيل...";
+      cn.className = "notice ok"; cn.textContent = "⏳ جارٍ حفظ التقفيل وإرساله للإدارة...";
       itemsToSend.slice().reverse().forEach(function(it) { entries.unshift(it); });
 
       try {
@@ -1530,6 +1522,20 @@
     function isPendingStatus(s) { return String(s || "").trim().toLowerCase() === "pending"; }
     function isConfirmedStatus(s) { return String(s || "").trim().toLowerCase().indexOf("confirmed") === 0; }
 
+    function getLatestOpeningBalancesMap() {
+      const latestOpenings = {};
+      transferAccounts.forEach(function(acc) { latestOpenings[acc] = 0; });
+
+      balancesHistory.forEach(function(b) {
+        if (String(b.status || "").trim().toLowerCase() === "deleted") return;
+        const acc = cleanAccountName(b.account);
+        if (acc in latestOpenings) {
+          latestOpenings[acc] = parseCleanAmount(b.amount);
+        }
+      });
+      return latestOpenings;
+    }
+
     function getLatestEntriesMap() {
       const latestState = {};
       entries.forEach(function(e) {
@@ -1541,28 +1547,30 @@
         if (item.history.length > 1) {
           const orig = item.history[item.history.length - 1];
           item.originalAddedBy = orig.addedBy;
-          const diffAmt = item.history.slice(1).find(function(h) { return Number(h.amount) !== Number(item.amount); });
-          if (diffAmt) item.previousAmount = Number(diffAmt.amount);
-          const wasEdited = item.history.some(function(h) { return h.status === "edited"; }) || Number(orig.amount) !== Number(item.amount) || (orig.description || "") !== (item.description || "");
+          const diffAmt = item.history.slice(1).find(function(h) { return parseCleanAmount(h.amount) !== parseCleanAmount(item.amount); });
+          if (diffAmt) item.previousAmount = parseCleanAmount(diffAmt.amount);
+          const wasEdited = item.history.some(function(h) { return h.status === "edited"; }) || parseCleanAmount(orig.amount) !== parseCleanAmount(item.amount) || (orig.description || "") !== (item.description || "");
           if (wasEdited) { item.wasEdited = true; item.editedBy = item.addedBy; }
         }
       });
 
-      const runningBalances = {};
-      transferAccounts.forEach(function(acc) { runningBalances[acc] = 0; });
-      balancesHistory.forEach(function(b) { if (b.status !== "deleted") runningBalances[b.account] = Number(b.amount) || 0; });
+      const runningBalances = getLatestOpeningBalancesMap();
 
       Object.values(latestState).slice().reverse().forEach(function(item) {
         if (item.status === "deleted" || isPendingStatus(item.status)) return;
-        const amt = Number(item.amount) || 0;
-        if (item.type === "income" && (item.account in runningBalances)) runningBalances[item.account] += amt;
-        else if (item.type === "expense" && (item.account in runningBalances)) {
-          item.safeBalanceBefore = runningBalances[item.account];
-          runningBalances[item.account] -= amt;
-          item.safeBalanceAfter = runningBalances[item.account];
+        const amt = parseCleanAmount(item.amount);
+        const acc = cleanAccountName(item.account);
+        const tFrom = cleanAccountName(item.transferFrom);
+        const tTo = cleanAccountName(item.transferTo);
+
+        if (item.type === "income" && (acc in runningBalances)) runningBalances[acc] += amt;
+        else if (item.type === "expense" && (acc in runningBalances)) {
+          item.safeBalanceBefore = runningBalances[acc];
+          runningBalances[acc] -= amt;
+          item.safeBalanceAfter = runningBalances[acc];
         } else if (item.type === "transfer") {
-          if (item.transferFrom in runningBalances) runningBalances[item.transferFrom] -= amt;
-          if (item.transferTo in runningBalances) runningBalances[item.transferTo] += amt;
+          if (tFrom in runningBalances) runningBalances[tFrom] -= amt;
+          if (tTo in runningBalances) runningBalances[tTo] += amt;
         }
       });
 
@@ -1570,14 +1578,20 @@
     }
 
     function computeBalances() {
-      const balances = {}; transferAccounts.forEach(function(acc) { balances[acc] = 0; });
-      balancesHistory.forEach(function(b) { if (b.status !== "deleted") balances[b.account] = Number(b.amount); });
+      const balances = getLatestOpeningBalancesMap();
       Object.values(getLatestEntriesMap()).forEach(function(e) {
         if (e.status === "deleted" || isPendingStatus(e.status) || (editingId && e.id === editingId)) return;
-        const amt = Number(e.amount);
-        if (e.type === "income" && e.account in balances) balances[e.account] += amt;
-        else if (e.type === "expense" && e.account in balances) balances[e.account] -= amt;
-        else if (e.type === "transfer") { if (e.transferFrom in balances) balances[e.transferFrom] -= amt; if (e.transferTo in balances) balances[e.transferTo] += amt; }
+        const amt = parseCleanAmount(e.amount);
+        const acc = cleanAccountName(e.account);
+        const tFrom = cleanAccountName(e.transferFrom);
+        const tTo = cleanAccountName(e.transferTo);
+
+        if (e.type === "income" && acc in balances) balances[acc] += amt;
+        else if (e.type === "expense" && acc in balances) balances[acc] -= amt;
+        else if (e.type === "transfer") {
+          if (tFrom in balances) balances[tFrom] -= amt;
+          if (tTo in balances) balances[tTo] += amt;
+        }
       });
       return balances;
     }
@@ -1595,8 +1609,7 @@
       document.getElementById("navTrashBadge").textContent = deletedItems.length;
 
       const balances = computeBalances();
-      const latestOpenings = {};
-      balancesHistory.filter(function(b) { return b.status !== "deleted"; }).forEach(function(b) { latestOpenings[b.account] = b.amount; });
+      const latestOpenings = getLatestOpeningBalancesMap();
 
       document.getElementById("balanceGrid").innerHTML = transferAccounts.map(function(acc) {
         const val = balances[acc];
@@ -1607,15 +1620,19 @@
         '</div>';
       }).join("");
 
-      let dakhInflow = Number(latestOpenings[DAKH_SAFE] || 0);
+      let dakhInflow = parseCleanAmount(latestOpenings[DAKH_SAFE]);
       let dakhOutflow = 0;
       activeItems.filter(function(e) { return !isPendingStatus(e.status); }).forEach(function(item) {
-        const amt = Number(item.amount) || 0;
-        if (item.type === "income" && item.account === DAKH_SAFE) dakhInflow += amt;
-        if (item.type === "expense" && item.account === DAKH_SAFE) dakhOutflow += amt;
+        const amt = parseCleanAmount(item.amount);
+        const acc = cleanAccountName(item.account);
+        const tTo = cleanAccountName(item.transferTo);
+        const tFrom = cleanAccountName(item.transferFrom);
+
+        if (item.type === "income" && acc === DAKH_SAFE) dakhInflow += amt;
+        if (item.type === "expense" && acc === DAKH_SAFE) dakhOutflow += amt;
         if (item.type === "transfer") {
-          if (item.transferTo === DAKH_SAFE) dakhInflow += amt;
-          if (item.transferFrom === DAKH_SAFE) dakhOutflow += amt;
+          if (tTo === DAKH_SAFE) dakhInflow += amt;
+          if (tFrom === DAKH_SAFE) dakhOutflow += amt;
         }
       });
       document.getElementById("totalIncome").textContent = money(dakhInflow);
@@ -1650,8 +1667,8 @@
       (fBr ? [fBr] : branches).forEach(function(b) { stats[b] = { income: 0, expense: 0 }; });
       filtered.forEach(function(e) {
         if (!stats[e.branch]) stats[e.branch] = { income: 0, expense: 0 };
-        if (e.type === "income") stats[e.branch].income += Number(e.amount) || 0;
-        if (e.type === "expense") stats[e.branch].expense += Number(e.amount) || 0;
+        if (e.type === "income") stats[e.branch].income += parseCleanAmount(e.amount);
+        if (e.type === "expense") stats[e.branch].expense += parseCleanAmount(e.amount);
       });
 
       const allVals = [1];
@@ -1704,14 +1721,14 @@
       const allExpenses = confirmedList.filter(function(item) {
         if (item.type !== "expense") return false;
         const d = item.date ? item.date.toString().split(" ")[0] : "";
-        return (!fAcc || item.account === fAcc) && (!fFrom || d >= fFrom) && (!fTo || d <= fTo);
+        return (!fAcc || cleanAccountName(item.account) === fAcc) && (!fFrom || d >= fFrom) && (!fTo || d <= fTo);
       });
 
       const catTotals = {};
       let grandExp = 0;
       allExpenses.forEach(function(e) {
         const c = e.category || "أخرى";
-        const amt = Number(e.amount) || 0;
+        const amt = parseCleanAmount(e.amount);
         catTotals[c] = (catTotals[c] || 0) + amt;
         grandExp += amt;
       });
@@ -1799,7 +1816,7 @@
           badgesHtml += '<br><span class="safe-impact-pill">🏦 ' + item.account + ': ' + t("safeBeforeLabel") + ' <u>' + money(item.safeBalanceBefore) + '</u> ➔ ' + t("safeAfterLabel") + ' <u>' + money(item.safeBalanceAfter) + '</u></span>';
         }
 
-        const amtHtml = (item.previousAmount !== undefined && item.previousAmount !== Number(item.amount))
+        const amtHtml = (item.previousAmount !== undefined && item.previousAmount !== parseCleanAmount(item.amount))
           ? '<span class="old-amount-strike">' + money(item.previousAmount) + '</span><strong>' + money(item.amount) + '</strong>'
           : '<strong>' + money(item.amount) + '</strong>';
 
@@ -1825,11 +1842,11 @@
         eBtn.type = "button"; eBtn.className = "edit"; eBtn.textContent = t("editBtn");
         eBtn.onclick = function() {
           editingId = item.id; typeInput.value = item.type; updateFields();
-          document.getElementById("amount").value = item.amount;
+          document.getElementById("amount").value = parseCleanAmount(item.amount);
           document.getElementById("date").value = item.date ? item.date.toString().split(" ")[0] : todayString();
-          if (item.type === "income") { setSelectValue(document.getElementById("branch"), item.branch); document.getElementById("shift").value = item.shift; setSelectValue(document.getElementById("account"), item.account); document.getElementById("description").value = item.description; }
-          else if (item.type === "expense") { setSelectValue(document.getElementById("account"), item.account); setSelectValue(document.getElementById("category"), item.category); document.getElementById("destination").value = item.destination || ""; document.getElementById("description").value = item.description; }
-          else if (item.type === "transfer") { setSelectValue(document.getElementById("transferFrom"), item.transferFrom); setSelectValue(document.getElementById("transferTo"), item.transferTo); }
+          if (item.type === "income") { setSelectValue(document.getElementById("branch"), item.branch); document.getElementById("shift").value = item.shift; setSelectValue(document.getElementById("account"), cleanAccountName(item.account)); document.getElementById("description").value = item.description; }
+          else if (item.type === "expense") { setSelectValue(document.getElementById("account"), cleanAccountName(item.account)); setSelectValue(document.getElementById("category"), item.category); document.getElementById("destination").value = item.destination || ""; document.getElementById("description").value = item.description; }
+          else if (item.type === "transfer") { setSelectValue(document.getElementById("transferFrom"), cleanAccountName(item.transferFrom)); setSelectValue(document.getElementById("transferTo"), cleanAccountName(item.transferTo)); }
           updateSubmitLabel();
           document.querySelector('[data-view="viewDashboard"]').click();
           form.scrollIntoView({ behavior: "smooth" });
@@ -1884,7 +1901,7 @@
 
       balancesHistory.forEach(function(b) {
         const d = b.date ? b.date.toString().split(" ")[0] : "";
-        logs.push({ user: b.addedBy, date: b.timestamp || b.date, pureDate: d, kind: "opening", cls: "log-edit", desc: "تحديث الرصيد الافتتاحي لـ (" + b.account + ") إلى " + money(b.amount), id: "BAL" });
+        logs.push({ user: b.addedBy, date: b.timestamp || b.date, pureDate: d, kind: "opening", cls: "log-edit", desc: "تحديث الرصيد الافتتاحي لـ (" + cleanAccountName(b.account) + ") إلى " + money(b.amount), id: "BAL" });
       });
 
       const filteredLogs = logs.filter(function(l) { return (!fUser || l.user === fUser) && (!fKind || l.kind === fKind) && (!fFrom || l.pureDate >= fFrom) && (!fTo || l.pureDate <= fTo); });
@@ -1942,7 +1959,7 @@
 
     form.addEventListener("submit", function(e) {
       e.preventDefault();
-      const type = typeInput.value, amount = Number(document.getElementById("amount").value), dateValue = document.getElementById("date").value;
+      const type = typeInput.value, amount = parseCleanAmount(document.getElementById("amount").value), dateValue = document.getElementById("date").value;
       const entry = {
         id: editingId || ("TR_" + Date.now()),
         type: type, amount: amount, date: dateValue + " | " + nowTimeString(), addedBy: currentUser.username,
@@ -1978,11 +1995,9 @@
     document.getElementById("expClearFilter").addEventListener("click", function() { ["expFilterCat", "expFilterAcc", "expFilterFrom", "expFilterTo"].forEach(function(id) { document.getElementById(id).value = ""; }); renderAll(); });
     document.getElementById("actClearFilter").addEventListener("click", function() { ["actFilterUser", "actFilterKind", "actFilterFrom", "actFilterTo"].forEach(function(id) { document.getElementById(id).value = ""; }); renderAll(); });
 
-    /* ===== حفظ جميع الخزن دفعة واحدة (syncBalancesBatch) لضمان تسميعها 100% ===== */
     document.getElementById("editOpeningBtn").addEventListener("click", function() {
       const container = document.getElementById("openingInputs");
-      const latestOpenings = {};
-      balancesHistory.filter(function(b) { return b.status !== "deleted"; }).forEach(function(b) { latestOpenings[b.account] = b.amount; });
+      const latestOpenings = getLatestOpeningBalancesMap();
       container.innerHTML = transferAccounts.map(function(acc) {
         const v = latestOpenings[acc] !== undefined ? latestOpenings[acc] : "";
         return '<label><span>' + acc + '</span><input type="number" step="0.01" data-account="' + acc + '" value="' + v + '"></label>';
@@ -2000,11 +2015,11 @@
       const ts = todayString() + " " + nowTimeString();
 
       document.querySelectorAll("#openingInputs input[data-account]").forEach(function(inp, idx) {
-        const amt = inp.value.trim() === "" ? 0 : Number(inp.value);
+        const amt = inp.value.trim() === "" ? 0 : parseCleanAmount(inp.value);
         const item = {
           id: "bal_" + Date.now() + "_" + (idx + 1),
           date: dt,
-          account: inp.dataset.account,
+          account: cleanAccountName(inp.dataset.account),
           amount: amt,
           addedBy: currentUser.username,
           status: "active"
