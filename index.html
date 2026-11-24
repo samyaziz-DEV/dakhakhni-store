@@ -77,8 +77,31 @@
     .sync-btn.is-syncing .sync-icon {
       display: inline-block; animation: spin 0.8s linear infinite;
     }
+
+    .update-banner {
+      position: fixed; bottom: 24px; left: 24px;
+      width: min(370px, calc(100vw - 32px));
+      background: linear-gradient(145deg, #101b36, #1d3268);
+      color: #ffffff; border: 1px solid rgba(251, 191, 36, 0.55);
+      border-right: 5px solid #f59e0b; border-radius: 16px;
+      padding: 16px 18px; box-shadow: 0 18px 40px rgba(8, 15, 35, 0.5);
+      z-index: 4500; animation: popIn 0.35s ease both;
+      font-size: 13px; line-height: 1.7;
+    }
+    .update-banner[hidden] { display: none !important; }
+    .update-banner-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 8px; font-weight: 700; font-size: 14px; color: #fcd34d;
+    }
+    .update-close-btn {
+      background: rgba(255, 255, 255, 0.16); color: #ffffff;
+      border: 0; border-radius: 8px; padding: 5px 11px;
+      font-size: 12px; cursor: pointer; font-weight: 700;
+    }
+    .update-close-btn:hover { background: #d63f4c; }
+
     .sync-toast {
-      position: fixed; bottom: 22px; left: 22px; z-index: 4000;
+      position: fixed; bottom: 22px; right: 22px; z-index: 4000;
       background: var(--sidebar-bg); color: #ffffff; padding: 12px 18px;
       border-radius: 12px; font-size: 13px; font-weight: 700;
       box-shadow: 0 12px 30px rgba(0,0,0,0.3); border: 1px solid var(--blue);
@@ -102,8 +125,7 @@
     .orb-3 { width: 200px; height: 200px; background: #7c3aed; top: 45%; left: 55%; animation-delay: 4s; }
 
     .glass-login-box {
-      position: relative; z-index: 2;
-      width: min(420px, 100%);
+      position: relative; z-index: 2; width: min(420px, 100%);
       background: rgba(255, 255, 255, 0.11);
       backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
       border: 1px solid rgba(255, 255, 255, 0.24);
@@ -255,15 +277,22 @@
       cursor: pointer; transition: 0.18s ease; font-weight: 700;
     }
     button:hover { opacity: 0.92; transform: translateY(-1px); }
+    button:disabled { opacity: 0.55; cursor: not-allowed; }
     .primary { background: var(--blue); color: #ffffff; }
     .secondary { background: var(--btn-soft); color: var(--btn-soft-text); }
     .danger-soft { background: var(--red-soft); color: var(--red); }
 
-    .table-wrap { overflow-x: auto; }
+    /* جداول موحدة وألوان واضحة لجميع الحالات */
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--line); }
     table { width: 100%; min-width: 820px; border-collapse: collapse; }
-    th, td { padding: 12px 10px; text-align: start; border-bottom: 1px solid var(--line); font-size: 12px; }
+    th, td { padding: 12px 11px; text-align: start; border-bottom: 1px solid var(--line); font-size: 12px; }
     th { color: var(--muted); font-weight: 700; background: var(--soft); }
     tbody tr:hover { background: var(--hover); }
+
+    tr.row-pending { background: color-mix(in srgb, var(--warn-bg) 45%, transparent); }
+    tr.row-confirmed { background: color-mix(in srgb, var(--green-soft) 28%, transparent); }
+    tr.row-edited { background: color-mix(in srgb, var(--blue-soft) 30%, transparent); }
+    tr.row-deleted { background: color-mix(in srgb, var(--red-soft) 40%, transparent); }
 
     .tx-id-wrap { position: relative; display: inline-block; }
     .tx-id-badge {
@@ -293,16 +322,17 @@
     .tag-income { color: var(--green); background: var(--green-soft); }
     .tag-expense { color: var(--red); background: var(--red-soft); }
     .tag-transfer { color: var(--purple); background: var(--purple-soft); }
-    .pending-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; color: var(--warn-text); background: var(--warn-bg); font-size: 10px; font-weight: 700; }
-    .confirmed-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; color: var(--green); background: var(--green-soft); font-size: 10px; font-weight: 700; }
-    .edited-tag { display: inline-block; margin-inline-start: 6px; padding: 3px 8px; border-radius: 20px; color: var(--warn-text); background: var(--warn-bg); font-size: 10px; font-weight: 700; }
-    tr.row-pending { background: color-mix(in srgb, var(--warn-bg) 35%, transparent); }
+    
+    .status-badge { display: inline-block; margin-inline-start: 6px; padding: 3px 9px; border-radius: 20px; font-size: 10px; font-weight: 700; }
+    .badge-pending { color: var(--warn-text); background: var(--warn-bg); border: 1px solid color-mix(in srgb, var(--warn-text) 35%, transparent); }
+    .badge-confirmed { color: var(--green); background: var(--green-soft); border: 1px solid color-mix(in srgb, var(--green) 35%, transparent); }
+    .badge-edited { color: var(--blue); background: var(--blue-soft); border: 1px solid color-mix(in srgb, var(--blue) 35%, transparent); }
+    .badge-deleted { color: var(--red); background: var(--red-soft); border: 1px solid color-mix(in srgb, var(--red) 35%, transparent); }
 
     .confirm-btn { padding: 6px 10px; background: var(--green); color: #fff; margin-inline-end: 5px; }
     .edit { padding: 6px 10px; background: var(--blue-soft); color: var(--blue); margin-inline-end: 5px; }
     .delete { padding: 6px 10px; background: var(--red-soft); color: var(--red); }
     .restore { padding: 6px 10px; background: var(--green-soft); color: var(--green); }
-
     .balance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
     .bal-card { display: flex; flex-direction: column; gap: 7px; padding: 15px; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; }
     .bal-name { display: flex; align-items: center; gap: 7px; color: var(--label); font-size: 12px; font-weight: 700; }
@@ -392,7 +422,7 @@
     footer { padding: 20px; text-align: center; color: var(--muted); font-size: 12px; }
 
     @media print {
-      aside.sidebar, .top-header-bar button, .top-header-bar select, .no-print, footer { display: none !important; }
+      aside.sidebar, .top-header-bar button, .top-header-bar select, .no-print, footer, .update-banner { display: none !important; }
       .main-area { padding: 0 !important; }
       .panel { box-shadow: none !important; border: 1px solid #ccc !important; }
     }
@@ -411,6 +441,15 @@
 </head>
 
 <body>
+
+  <!-- إشعار التحديثات الثابت على جنب الشاشة -->
+  <div class="update-banner" id="updateBanner" hidden>
+    <div class="update-banner-head">
+      <span id="updateBannerTitle">⚠️ تنبيه هام من الإدارة</span>
+      <button type="button" class="update-close-btn" onclick="closeUpdateBanner()">إغلاق ✖</button>
+    </div>
+    <div id="updateBannerBody"></div>
+  </div>
 
   <div class="sync-toast" id="syncToast"></div>
 
@@ -553,7 +592,6 @@
         <button type="button" class="danger-soft" id="logoutBtn" style="width:100%;" data-i18n="logout" data-emoji="🚪">تسجيل خروج</button>
       </div>
     </aside>
-
     <!-- مساحة المحتوى -->
     <div class="main-area">
       <!-- الشريط العلوي مع زر مزامنة البيانات الفوري -->
@@ -890,10 +928,36 @@
       <footer><span>✨ Powered by <strong>Samy Aziz</strong></span></footer>
     </div>
   </div>
-
   <script>
     const SHEET_URL = "https://script.google.com/macros/s/AKfycbyLc9cVrC5M-bk9Ickn5sC22G4T5o1sZPcfCdqPf8-6eeJ1UyrqatUwYusBO_vao4YRQw/exec";
-    
+
+    // =========================================================================
+    // 📢 إعدادات إشعار التنبيهات والتحديثات (عدّل الرسالة هنا في أي وقت)
+    // =========================================================================
+    const SYSTEM_UPDATE = {
+      active: true, // اجعلها true لإظهار الإشعار، أو false لإخفائه تماماً
+      version: "v1.1", // غيّر الرقم ده (مثلاً v1.2) كل مرة تكتب رسالة جديدة عشان تظهر للناس تاني
+      title: "⚠️ تنبيه هام من الإدارة",
+      message: "يوجد تعديل وصيانة في النظام خلال اليوم، ولتجنب أي مشاكل يرجى عدم الاعتماد على البرنامج بشكل كلي لحين الانتهاء."
+    };
+
+    function initUpdateBanner() {
+      if (!SYSTEM_UPDATE.active) return;
+      const dismissedVer = localStorage.getItem("dakhakhni-dismissed-update");
+      if (dismissedVer === SYSTEM_UPDATE.version) return;
+
+      document.getElementById("updateBannerTitle").textContent = SYSTEM_UPDATE.title;
+      document.getElementById("updateBannerBody").textContent = SYSTEM_UPDATE.message;
+      document.getElementById("updateBanner").hidden = false;
+    }
+
+    function closeUpdateBanner() {
+      document.getElementById("updateBanner").hidden = true;
+      localStorage.setItem("dakhakhni-dismissed-update", SYSTEM_UPDATE.version);
+    }
+    window.closeUpdateBanner = closeUpdateBanner;
+    // =========================================================================
+
     const branches = ["ڤيب ستور", "ڤيب ستور 2", "الدخاخني", "المول", "اسواق المدينه", "طوخ"];
     const mainSafes = ["الخزنة الرئيسية - الدخاخني", "الخزنة الرئيسية - طوخ"];
     const DAKH_SAFE = mainSafes[0];
@@ -1141,10 +1205,9 @@
       if (!toast) return;
       toast.textContent = msg;
       toast.style.display = "block";
-      setTimeout(function() { toast.style.display = "none"; }, 2800);
+      setTimeout(function() { toast.style.display = "none"; }, 3000);
     }
 
-    /* دالة الدخول الفوري من شاشة الترحيب */
     function enterSystemNow() {
       const splash = document.getElementById("splashScreen");
       if (splash) splash.hidden = true;
@@ -1272,6 +1335,7 @@
     document.getElementById("languageSelect").addEventListener("change", function(e) { applyLanguage(e.target.value); });
 
     window.addEventListener("DOMContentLoaded", function() {
+      initUpdateBanner();
       applyLanguage(currentLang);
       populateLoginUsersDropdown();
       fetchLatestFromSheet(false);
@@ -1614,7 +1678,7 @@
       }).join("");
 
       document.getElementById("branchReportTableBody").innerHTML = filtered.map(function(item) {
-        return '<tr>' +
+        return '<tr class="row-confirmed">' +
           '<td><span class="tx-id-badge">' + shortTxId(item.id) + '</span></td>' +
           '<td>' + item.date + '</td>' +
           '<td><strong>' + item.branch + '</strong></td>' +
@@ -1707,8 +1771,11 @@
       shown.forEach(function(item) {
         const pending = isPendingStatus(item.status);
         const confirmed = isConfirmedStatus(item.status);
+        const edited = item.wasEdited || item.status === "edited";
         const row = document.createElement("tr");
         if (pending) row.className = "row-pending";
+        else if (edited) row.className = "row-edited";
+        else row.className = "row-confirmed";
 
         const creator = item.originalAddedBy || item.addedBy;
         const typeLabel = item.type === "income" ? t("typeIncome") : item.type === "expense" ? t("typeExpense") : t("typeTransfer");
@@ -1720,9 +1787,9 @@
         else if (item.type === "transfer") details = item.transferFrom + " ➔ " + item.transferTo;
 
         let badgesHtml = "";
-        if (pending) badgesHtml += ' <span class="pending-tag">' + t("pendingTag") + '</span>';
-        else if (confirmed) badgesHtml += ' <span class="confirmed-tag">' + t("confirmedTag") + '</span>';
-        if (item.wasEdited || item.status === "edited") badgesHtml += ' <span class="edited-tag">' + t("editedTag") + '</span>';
+        if (pending) badgesHtml += ' <span class="status-badge badge-pending">' + t("pendingTag") + '</span>';
+        else if (confirmed) badgesHtml += ' <span class="status-badge badge-confirmed">' + t("confirmedTag") + '</span>';
+        if (edited) badgesHtml += ' <span class="status-badge badge-edited">' + t("editedTag") + '</span>';
         if (item.type === "expense" && !pending && item.safeBalanceBefore !== undefined) {
           badgesHtml += '<br><span class="safe-impact-pill">🏦 ' + item.account + ': ' + t("safeBeforeLabel") + ' <u>' + money(item.safeBalanceBefore) + '</u> ➔ ' + t("safeAfterLabel") + ' <u>' + money(item.safeBalanceAfter) + '</u></span>';
         }
@@ -1827,12 +1894,12 @@
 
     function renderTrashTable(deletedItems) {
       document.getElementById("trashTableBody").innerHTML = deletedItems.map(function(item) {
-        return '<tr>' +
+        return '<tr class="row-deleted">' +
           '<td><span class="tx-id-badge">' + shortTxId(item.id) + '</span></td>' +
           '<td>' + item.date + '</td>' +
           '<td>' + (item.branch || "—") + '</td>' +
           '<td>👤 ' + item.addedBy + '</td>' +
-          '<td>' + item.type + '</td>' +
+          '<td>' + item.type + ' <span class="status-badge badge-deleted">محذوف</span></td>' +
           '<td>' + (item.description || item.account || "—") + '</td>' +
           '<td><strong>' + money(item.amount) + '</strong></td>' +
           '<td><button class="restore" onclick="restoreDeletedItem(\'' + item.id + '\')">' + t("restoreBtn") + '</button></td>' +
@@ -1858,7 +1925,7 @@
       const updatedItem = Object.assign({}, cleanItem, { status: newStatus, addedBy: currentUser.username });
       entries.unshift(updatedItem);
       renderAll();
-      showNotice("✅ تم التحديث والمزامنة مع الشيت!", "ok");
+      showSyncToast("✅ تم التحديث والمزامنة مع الشيت!");
       fetch(SHEET_URL, { method: "POST", body: JSON.stringify({ action: "syncTransaction", item: updatedItem }) });
     }
 
@@ -1906,6 +1973,7 @@
     document.getElementById("expClearFilter").addEventListener("click", function() { ["expFilterCat", "expFilterAcc", "expFilterFrom", "expFilterTo"].forEach(function(id) { document.getElementById(id).value = ""; }); renderAll(); });
     document.getElementById("actClearFilter").addEventListener("click", function() { ["actFilterUser", "actFilterKind", "actFilterFrom", "actFilterTo"].forEach(function(id) { document.getElementById(id).value = ""; }); renderAll(); });
 
+    /* ===== حفظ جميع الخزن دفعة واحدة (syncBalancesBatch) لضمان تسميعها 100% ===== */
     document.getElementById("editOpeningBtn").addEventListener("click", function() {
       const container = document.getElementById("openingInputs");
       const latestOpenings = {};
@@ -1917,16 +1985,44 @@
       document.getElementById("openingEditor").hidden = false;
     });
     document.getElementById("cancelOpening").addEventListener("click", function() { document.getElementById("openingEditor").hidden = true; });
-    document.getElementById("saveOpening").addEventListener("click", function() {
+    document.getElementById("saveOpening").addEventListener("click", async function() {
+      const saveBtn = document.getElementById("saveOpening");
       const dt = document.getElementById("openingDateInput").value;
       if (!dt) return;
-      document.querySelectorAll("#openingInputs input[data-account]").forEach(function(inp) {
+
+      saveBtn.disabled = true;
+      const batchItems = [];
+      const ts = todayString() + " " + nowTimeString();
+
+      document.querySelectorAll("#openingInputs input[data-account]").forEach(function(inp, idx) {
         const amt = inp.value.trim() === "" ? 0 : Number(inp.value);
-        const payload = { action: "syncBalance", item: { id: "bal_" + Date.now() + "_" + Math.random(), date: dt, account: inp.dataset.account, amount: amt, addedBy: currentUser.username, status: "active" } };
-        balancesHistory.push(Object.assign({}, payload.item, { timestamp: todayString() + " " + nowTimeString() }));
-        fetch(SHEET_URL, { method: "POST", body: JSON.stringify(payload) });
+        const item = {
+          id: "bal_" + Date.now() + "_" + (idx + 1),
+          date: dt,
+          account: inp.dataset.account,
+          amount: amt,
+          addedBy: currentUser.username,
+          status: "active"
+        };
+        batchItems.push(item);
+        balancesHistory.push(Object.assign({}, item, { timestamp: ts }));
       });
-      document.getElementById("openingEditor").hidden = true; renderAll();
+
+      document.getElementById("openingEditor").hidden = true;
+      renderAll();
+      showSyncToast("⏳ جارٍ حفظ كل الخزن في الشيت...");
+
+      try {
+        await fetch(SHEET_URL, {
+          method: "POST",
+          body: JSON.stringify({ action: "syncBalancesBatch", items: batchItems })
+        });
+        showSyncToast("✅ تم تسميع كل الخزن في الشيت بنجاح!");
+      } catch (err) {
+        showSyncToast("⚠️ حدث خطأ أثناء الحفظ، جرب المزامنة");
+      } finally {
+        saveBtn.disabled = false;
+      }
     });
 
     document.getElementById("addUserForm").addEventListener("submit", function(e) {
